@@ -1,10 +1,11 @@
-"""Registry of all topics, in the order of Note_GAL26.pdf."""
+"""Registry of all topics, in the order of Note_GAL26.pdf (conics = extra, at the end)."""
 from __future__ import annotations
 
 from .base import Gen, Topic
-from . import ch0, ch1, ch2, ch3, ch4
+from . import ch0, ch1, ch2, ch3, ch4, ch5, conics
 
-TOPICS: list[Topic] = [*ch0.TOPICS, *ch1.TOPICS, *ch2.TOPICS, *ch3.TOPICS, *ch4.TOPICS]
+TOPICS: list[Topic] = [*ch0.TOPICS, *ch1.TOPICS, *ch2.TOPICS, *ch3.TOPICS, *ch4.TOPICS,
+                       *ch5.TOPICS, *conics.TOPICS]
 BY_ID: dict[str, Topic] = {t.id: t for t in TOPICS}
 
 

@@ -121,6 +121,16 @@ def cross(v, w) -> list[Fraction]:
     return [v[1] * w[2] - v[2] * w[1], -(v[0] * w[2] - v[2] * w[0]), v[0] * w[1] - v[1] * w[0]]
 
 
+def ratio(a, b) -> str:
+    """'a/b' with parentheses where needed: 3/4, -6/(12/5), 12/(3√3)."""
+    sa, sb = (x.pretty() if isinstance(x, Surd) else fs(x) for x in (a, b))
+    if "/" in sb or "√" in sb or sb.startswith("-"):
+        sb = f"({sb})"
+    if "/" in sa and not sa.startswith("("):
+        sa = f"({sa})"
+    return f"{sa}/{sb}"
+
+
 def gram_schmidt(basis: Sequence[Sequence], S: Matrix | None = None):
     """Orthogonal basis c_1..c_p (Teorema 5.20) and the steps."""
     ip = gram_inner(S)
@@ -129,13 +139,15 @@ def gram_schmidt(basis: Sequence[Sequence], S: Matrix | None = None):
     for j, b in enumerate(basis):
         b = vec(b)
         c = b
-        parts = []
+        sym, num = [], []
         for k, ck in enumerate(cs):
             coef = ip(b, ck) / ip(ck, ck)
-            parts.append(f"(<b{j + 1},c{k + 1}>/||c{k + 1}||²)·c{k + 1} = ({fs(ip(b, ck))}/{fs(ip(ck, ck))})·{fv(ck)}")
+            sym.append(f"(⟨b{j + 1},c{k + 1}⟩/||c{k + 1}||²)c{k + 1}")
+            num.append(f"({ratio(ip(b, ck), ip(ck, ck))})·{fv(ck)}")
             c = vsub(c, vscale(coef, ck))
-        if parts:
-            steps.append(f"c{j + 1} = b{j + 1} - " + " - ".join(parts) + f" = {fv(c)}")
+        if sym:
+            steps.append(f"c{j + 1} = b{j + 1} - " + " - ".join(sym))
+            steps.append(f"   = {fv(b)} - " + " - ".join(num) + f" = {fv(c)}")
         else:
             steps.append(f"c1 = b1 = {fv(c)}")
         cs.append(c)

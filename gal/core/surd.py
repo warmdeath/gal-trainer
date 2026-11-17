@@ -126,7 +126,9 @@ class Surd:
         return s + (f"/{den}" if den != 1 else "")
 
     def pretty(self) -> str:
-        return str(self).replace("*sqrt(", "√(").replace("sqrt(", "√(")
+        """Display form: 4√3/3, -√2/2, √(10)/3 is written √10/3."""
+        import re
+        return re.sub(r"\*?sqrt\((\d+)\)", r"√\1", str(self))
 
     def __repr__(self):
         return f"Surd({self})"
