@@ -162,3 +162,61 @@ def test_F08_E7_E8_geometry():
     for eqs in ([x - y + z - 2, x + z], [x + 2 * y - z - 2, x - z]):
         sub = [e.subs({x: L[0], y: L[1], z: L[2]}) for e in eqs]
         assert sp.solve(sub, t), eqs
+
+
+def _key(iid):
+    a = ans(iid)[0]
+    return sorted(getattr(a, "correct", [])) if isinstance(getattr(a, "correct", None), list) else a.correct
+
+
+def test_Q01_determinant_quiz():
+    A = sp.Matrix([[2, 1, 0, 1], [0, 1, 3, 0], [1, 0, 1, 2], [0, 2, 0, 1]])
+    A = A * sp.diag(sp.Rational(3) / A.det(), 1, 1, 1)
+    c = [A[:, i] for i in range(4)]
+    opts12 = [-3, 0, 3, 8, 18]
+    d12 = sp.Matrix.hstack(c[0] + c[1], 2 * c[1], 3 * c[2], c[3]).det()
+    assert _key("Q01-D12") == opts12.index(d12)
+    B = A * sp.diag(sp.Rational(1, 3), 1, 1, 1)
+    assert B.det() == 1
+    c = [B[:, i] for i in range(4)]
+    d13 = sp.Matrix.hstack(c[1], c[2], 2 * c[0] + 3 * c[3], c[3]).det()
+    assert _key("Q01-D13") == [2, -2, 6, 0, 1].index(d13)
+    M = sp.Matrix([[1, 2, 0], [0, 1, 4], [3, 0, 1]])
+    M = M * sp.diag(sp.Rational(3) / M.det(), 1, 1)
+    assert _key("Q01-D10") == [3, 6, 9, 18, 24].index((2 * M).det())
+    assert sp.Matrix([[1, 2, 0], [0, 1, sp.pi], [0, 0, 1]]).rank() != sp.Matrix([[1, 2, sp.pi], [0, 0, 1], [0, 0, 0]]).rank()
+    assert _key("Q01-D2") == 1
+
+
+def _plane_ok(coef, rhs, point, dirs):
+    n = sp.Matrix(coef)
+    return n.dot(sp.Matrix(point)) == rhs and all(n.dot(sp.Matrix(d)) == 0 for d in dirs)
+
+
+def test_Q02_geometry_keys():
+    # D15: r meets l at (1,1,1); option e) plane contains both, option c) does not
+    assert _key("Q02-D15") == 4
+    assert _plane_ok([1, -1, 2], 2, [0, 2, 2], [[1, -1, -1], [1, 1, 0]])
+    assert not _plane_ok([1, -1, 2], 2, [0, 2, 3], [])
+    t, s = sp.symbols("t s")
+    assert sp.solve(list(sp.Matrix([4, 3, 2]) + t * sp.Matrix([1, -1, -2]) - sp.Matrix([1, 2, 1]) - s * sp.Matrix([3, 1, 1])), [t, s])
+    assert _key("Q02-D16") == 1
+    opts17 = [(2, 3, -3), (1, -1, 1), (2, 2, 2), (0, 1, -2), (1, -1, -1)]
+    good = [i for i, n in enumerate(opts17) if sp.Matrix(n).dot(sp.Matrix([0, 1, -1])) == 0 and sp.Matrix(n).dot(sp.Matrix([1, -1, 0])) == 0]
+    assert good == [_key("Q02-D17")]
+    opts18 = [((-6, 3, 2), 6), ((1, 1, 0), 1), ((2, -1, 2), 6), ((4, -2, 1), 3), ((-2, 1, 2), 6)]
+    good = [i for i, (n, d) in enumerate(opts18) if _plane_ok(n, d, [1, 2, 3], [[1, 0, 1]]) and _plane_ok(n, d, [0, 0, 3], [])]
+    assert good == [_key("Q02-D18")]
+    opts19 = {0: ((1, 1, 1), 9), 2: ((2, 2, 0), 10), 3: ((1, 3, -2), 3), 4: ((1, -2, 2), 4)}
+    good = [i for i, (n, d) in opts19.items()
+            if sp.Matrix([[2, 2, 0, 2], [1, 2, -1, 2], list(n) + [d]]).rank() == 2 and sp.Matrix(n).dot(sp.Matrix([2, 3, 4])) == d]
+    assert good == [_key("Q02-D19")]
+
+
+def test_Q02_D2_dimension():
+    a, b, c = sp.symbols("a b c")
+    v = sp.Matrix([a + b + c + 1, b + c, a - b - c + 1, 0])
+    J = v.jacobian([a, b, c])
+    const = v.subs({a: 0, b: 0, c: 0})
+    assert J.rank() == 2 and J.rank() == J.row_join(const).rank()  # affine part lies in the span ⇒ subspace
+    assert _key("Q02-D2") == 1
