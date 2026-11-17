@@ -34,10 +34,13 @@ def val(iid, label):
 
 
 def signature(A):
-    ev = A.eigenvals()
-    pos = sum(m for e, m in ev.items() if e > 0)
-    neg = sum(m for e, m in ev.items() if e < 0)
-    return pos, neg, A.shape[0] - pos - neg
+    """(n+, n−, n0) of a real symmetric matrix: n0 exactly from the rank, the signs from the
+    (real) roots of the characteristic polynomial computed numerically."""
+    n0 = A.shape[0] - A.rank()
+    t = sp.symbols("t")
+    roots = [complex(r).real for r in sp.Poly(A.charpoly(t).as_expr(), t).nroots(n=30)]
+    nz = sorted(roots, key=abs)[n0:]
+    return sum(1 for r in nz if r > 0), sum(1 for r in nz if r < 0), n0
 
 
 def proj_matrix(cols):
@@ -100,3 +103,26 @@ def test_p2509a():
     conic = sp.expand(2 * ((x - F[0])**2 + (y - F[1])**2) - line**2)
     assert conic == x**2 + y**2 - 2*x*y - 2*x - 2*y + 4
     assert conic.subs({x: 1, y: 1}) == 0
+
+
+# ------------------------------------------------------------------ 01/2025 itinere 2
+def test_p2501i2():
+    k = sp.symbols("k")
+    A = sp.Matrix([[1, k, 0], [k, 0, 0], [1, 0, -1], [0, 1, 0]])
+    b = sp.Matrix([1, -1, 0, 2 * k])
+    assert A.subs(k, 1).rank() == A.subs(k, 1).row_join(b.subs(k, 1)).rank() == 3
+    assert all(A.subs(k, v).row_join(b.subs(k, v)).rank() == 4 for v in (-1, 0, 2, 3))
+    assert mcq_key("P2501I2-D1") == "a"
+    assert signature(M([[2, 0, 1], [0, 4, -1], [1, -1, 1]])) == (3, 0, 0) and mcq_key("P2501I2-D8") == "c"
+    assert M([[1, 2, 1], [2, 2, 0], [1, 0, -1]]).det() == 0 and mcq_key("P2501I2-D10") == "a"
+    t = sp.symbols("t")
+    Lp = lambda p: sp.expand((t + 1) * sp.diff(p, t) + (t**2 + 1) * sp.diff(p, t, 2))
+    cols = [sp.Poly(Lp(m), t).all_coeffs()[::-1] for m in (1, t, t**2)]
+    A = sp.Matrix([[c[i] if i < len(c) else 0 for c in cols] for i in range(3)])
+    assert sym(key("P2501I2-E2a")["A"].M) == A
+    assert sym(key("P2501I2-E2d")["coordinates of L¹⁰(3 + 3t + 3t²)"].M) == A**10 * sp.Matrix([3, 3, 3])
+    x, y, z, X, Y, Z = sp.symbols("x y z X Y Z")
+    s3 = sp.sqrt(3)
+    q = 3*x**2 + 2*y**2 + z**2 + 2*s3*x*z - 2*x + 2*s3*z + 2
+    sub = {x: (s3*X + Z)/2 + sp.Rational(1, 4), y: Y, z: (X - s3*Z)/2 - s3/4}
+    assert sp.simplify(sp.expand(q.subs(sub)) - (4*X**2 + 2*Y**2 - 4*Z)) == 0
