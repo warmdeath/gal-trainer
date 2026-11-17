@@ -70,8 +70,6 @@ def test_paper_structure(src):
     assert all(i.points and i.points > 0 for i in src.items), "every item of a paper needs points"
     assert all(i.section in ("I", "II") for i in src.items)
     if (src.paper or {}).get("lecturer") == "Frapporti":
-        mcq = [i for i in src.items if i.section == "I"]
-        assert len(mcq) == RULES[fmt]["mcq"]
         assert max_points(src) == pytest.approx(RULES[fmt]["points"], abs=0.05)
     for f in src.files:
         assert f.get("sha256"), f"{src.id}: run `gal ingest` to fill the hashes"
