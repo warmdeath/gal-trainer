@@ -1135,10 +1135,12 @@ def t_proj(d, text):
         W = kernel_basis(M_(d["A"]))
     v = V_(d["v"])
     n = len(v)
-    ob = _orth(W)
+    S = M_(d["S"]) if "S" in d else None          # Gram matrix of a non-standard scalar product
+    ip = (lambda a, b: dot(a, S.apply(b))) if S is not None else dot
+    ob = _orth(W, S)
     pw = [Fraction(0)] * n
     for c in ob:
-        k = dot(v, c) / dot(c, c)
+        k = ip(v, c) / ip(c, c)
         pw = [a + k * b for a, b in zip(pw, c)]
     pp = vsub(v, pw)
     nm = d.get("name", "W")
@@ -1153,5 +1155,6 @@ def t_proj(d, text):
         elif a == "perp":
             parts.append((f"π_{nm}⊥(v)", VectorAns(pp)))
         elif a == "dist":
-            parts.append((f"d(v, {nm}) = ‖π_{nm}⊥(v)‖", RealAns(norm(pp))))
+            from ..core.surd import Surd
+            parts.append((f"d(v, {nm}) = ‖π_{nm}⊥(v)‖", RealAns(Surd.sqrt(ip(pp, pp)) if S is not None else norm(pp))))
     return "", parts, steps

@@ -295,7 +295,8 @@ def v_proj(d, a):
         sp.Matrix.hstack(*SM(d["A"]).nullspace())
     v = SV(d["v"])
     Wb = sp.Matrix.hstack(*W.columnspace())
-    P = Wb * (Wb.T * Wb).inv() * Wb.T
+    S = SM(d["S"]) if "S" in d else sp.eye(len(v))
+    P = Wb * (Wb.T * S * Wb).inv() * Wb.T * S
     pw, pp = P * v, v - P * v
     for lbl, ans in zip(d.get("ask", ["W", "perp"]), a):
         if lbl == "W":
@@ -303,7 +304,7 @@ def v_proj(d, a):
         elif lbl == "perp":
             assert SV([str(c) for c in ans.v]) == pp
         else:
-            assert sp.simplify(surd_to_sympy(ans.value) - sp.sqrt(pp.dot(pp))) == 0
+            assert sp.simplify(surd_to_sympy(ans.value) - sp.sqrt((pp.T * S * pp)[0])) == 0
 
 
 def v_perp(d, a):
