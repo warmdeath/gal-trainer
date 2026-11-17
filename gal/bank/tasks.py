@@ -173,7 +173,7 @@ def t_inverse(d, text):
 
 
 # --- matrix expressions: A + C, A*B, B*(A+C), (E*A)*B, A*E + D^T, E^T*D, A^2026, 2*A - B
-_TOK = re.compile(r"\s*(?:(\d+)|([A-Za-z][0-9]?)|(\^T|\^\d+|[-+*()]))")
+_TOK = re.compile(r"\s*(?:(\d+)|([A-Za-z][0-9]?)|(\^T|\^-1|\^\d+|[-+*()]))")
 
 
 class _Undefined(Exception):
@@ -242,6 +242,13 @@ def eval_matrix_expr(expr: str, mats: dict[str, Matrix]):
             p = take()
             if p == "^T":
                 v = v.T
+            elif p == "^-1":
+                if not v.is_square:
+                    raise _Undefined("only square matrices can be inverted")
+                inv = inverse(v)
+                if inv is None:
+                    raise _Undefined("the matrix is singular (det = 0): no inverse")
+                v = inv
             else:
                 k = int(p[1:])
                 if not v.is_square:
@@ -269,13 +276,14 @@ def _fast_pow(A: Matrix, k: int) -> Matrix:
 def t_matexpr(d, text):
     mats = {k: M_(v) for k, v in d["matrices"].items()}
     parts, steps = [], []
-    for expr in d["exprs"]:
+    labels = d.get("labels") or d["exprs"]     # labels: hide the formula (e.g. 'X' for M^-1*N)
+    for expr, lbl in zip(d["exprs"], labels):
         try:
             R = eval_matrix_expr(expr, mats)
-            parts.append((expr, MaybeMatrixAns(R)))
-            steps.append(hcat(f"{expr} = ", fm(R)))
+            parts.append((lbl, MaybeMatrixAns(R)))
+            steps.append(hcat(f"{lbl} = {expr} = " if lbl != expr else f"{expr} = ", fm(R)))
         except _Undefined as e:
-            parts.append((expr, MaybeMatrixAns(None, why_undefined=f"Not defined: {e}.")))
+            parts.append((lbl, MaybeMatrixAns(None, why_undefined=f"Not defined: {e}.")))
             steps.append(f"{expr}: not defined ({e}).")
     shown = named_many(*[(k, v) for k, v in mats.items()]) if d.get("show", True) else ""
     return shown, parts, steps

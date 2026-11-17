@@ -145,6 +145,11 @@ def load_bank(path: Path | None = None) -> Bank:
 def build(item: Item, with_setup: bool = True) -> Exercise:
     """with_setup=False leaves out the shared statement (paper mode prints it once)."""
     extra, parts, steps = build_parts(item.task, item.data, item.text)
+    keep = item.data.get("keep")
+    if keep:   # ask only the parts whose label starts with one of these prefixes
+        parts = [(l, a) for l, a in parts if any(l.startswith(k) for k in keep)]
+        if not parts:
+            raise TaskError(f"{item.id}: 'keep' {keep} matches no part")
     from ..core.fmt import reflow
     head = reflow(item.setup) + "\n\n" if item.setup and with_setup else ""
     prompt = f"[{item.title()}]\n{head}{reflow(item.text)}"

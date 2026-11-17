@@ -70,7 +70,9 @@ def test_mcq_counts_match_statement():
 
 # ------------------------------------------------------------------ sympy verifiers
 def answers(item):
-    return [p.answer for p in build(item).parts]
+    """All the answers of the task (before the item's `keep` filter), in the builder's order."""
+    from gal.bank.tasks import build_parts
+    return [a for _, a in build_parts(item.task, item.data, item.text)[1]]
 
 
 def v_solve(d, a):
@@ -139,7 +141,8 @@ def v_inverse(d, a):
 def v_matexpr(d, a):
     mats = {k: SM(v) for k, v in d["matrices"].items()}
     for expr, ans in zip(d["exprs"], a):
-        py = re.sub(r"\^T", ".T", expr)
+        py = re.sub(r"\^-1", ".inv()", expr)
+        py = re.sub(r"\^T", ".T", py)
         py = re.sub(r"\^(\d+)", r"**\1", py)
         py = re.sub(r"\)\s*\(", ")*(", py)
         try:
