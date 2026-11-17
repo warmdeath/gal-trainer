@@ -130,7 +130,11 @@ class IntAns(ScalarAns):
         x = parse_int(text)
         if x == self.value:
             return Check.right()
-        return Check.wrong(self._known(x) or "")
+        why = self._known(x)
+        if not why:
+            why = "Too small: " if x < self.value else "Too large: "
+            why += "redo the count following the steps below."
+        return Check.wrong(why)
 
 
 class YesNoAns(Answer):

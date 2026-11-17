@@ -159,7 +159,9 @@ and describe all of them."""),
 • Echelon form (forma a scala): every non-zero row starts with more zeros than the previous
   one, and zero rows are at the bottom. The first non-zero entry of each row is a pivot.
 • Elementary row operations (operazioni elementari sulle righe) — they do not change Sol:
-    1. Ri ↔ Rj    2. Ri → kRi (k ≠ 0)    3. Ri → Ri + kRj."""),
+    1. Ri ↔ Rj    2. Ri → kRi (k ≠ 0)    3. Ri → Ri + kRj.
+  Shortcut used in the solutions to avoid fractions: Ri → aRi + kRj (a ≠ 0) = move 2 then move 3.
+  (It multiplies det by a — irrelevant for solving systems and computing ranks.)"""),
     ("Gaussian elimination (MEG — metodo di eliminazione di Gauss)", """\
 Clean the columns one at a time, left to right:
   Step 2: take the first non-zero column j, swap a row with a_{i,j} ≠ 0 to the top (pivot p1);
@@ -323,9 +325,11 @@ def ex_rank(rng, data=None):
     r = red.rank
     prompt = named("A", A) + "\n\nCompute rg(A)."
     sol = ["Gaussian elimination:"] + red.steps + [f"{r} pivot(s) ⇒ rg(A) = {r}."]
-    return mk("rank", "rank", prompt,
-              IntAns(r, mistakes=[(A.m, "That's the number of rows; dependent rows vanish in the echelon form.")]),
-              sol, A=A)
+    mistakes = [(r - 1, "One pivot too few: a row became zero by an arithmetic slip? A row vanishes only if it is a "
+                         "combination of the others."),
+                (r + 1, "One pivot too many: one of your rows should have become zero (it is a combination of the others)."),
+                (A.m, "That's the number of rows; dependent rows vanish in the echelon form.")]
+    return mk("rank", "rank", prompt, IntAns(r, mistakes=[m for m in mistakes if m[0] != r]), sol, A=A)
 
 
 def ex_rouche_b(rng, data=None):

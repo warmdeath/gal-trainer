@@ -44,12 +44,22 @@ class Reduction:
         return len(self.pivots)
 
 
+def _op_combo(i, a, k, j):
+    """Ri → a·Ri + k·Rj (a ≠ 0): move 2 followed by move 3, avoids fractions."""
+    sign = "-" if k < 0 else "+"
+    kk = abs(k)
+    return f"R{i + 1} → {fs(a)}R{i + 1} {sign} {'' if kk == 1 else fs(kk)}R{j + 1}"
+
+
 def row_reduce(M: Matrix, *, jordan: bool = False, ncols: int | None = None,
-               aug: int | None = None) -> Reduction:
+               aug: int | None = None, integer: bool = True) -> Reduction:
     """MEG on M. Pivots are searched only in the first `ncols` columns.
 
     jordan=True continues to the reduced echelon form (forma a scala ridotta).
     `aug` is only used to draw the bar of a complete matrix (A|b) in the steps.
+    integer=True avoids fractions in the forward phase when the entries are integers,
+    using Rl → p·Rl - b·Rr (allowed: it is Rl → pRl followed by Rl → Rl - bRr). This
+    changes det by the factor p, so det() calls it with integer=False.
     """
     A = M.tolist()
     m, n = M.m, M.n
@@ -88,8 +98,19 @@ def row_reduce(M: Matrix, *, jordan: bool = False, ncols: int | None = None,
         for i in range(r + 1, m):
             if A[i][j] != 0:
                 k = -A[i][j] / piv
-                A[i] = [a + k * b for a, b in zip(A[i], A[r])]
-                ops.append(_op_add(i, k, r))
+                all_int = all(x.denominator == 1 for x in A[i] + A[r])
+                if integer and all_int and k.denominator != 1:
+                    from math import gcd
+                    g = gcd(int(piv), int(A[i][j]))
+                    a, c = Fraction(int(piv) // g), Fraction(-int(A[i][j]) // g)
+                    if a < 0:
+                        a, c = -a, -c
+                    A[i] = [a * x + c * y for x, y in zip(A[i], A[r])]
+                    scale *= a
+                    ops.append(_op_combo(i, a, c, r))
+                else:
+                    A[i] = [a + k * b for a, b in zip(A[i], A[r])]
+                    ops.append(_op_add(i, k, r))
         snap(ops)
         pivots.append((r, j))
         r += 1
@@ -124,7 +145,7 @@ def det(M: Matrix) -> Fraction:
     """Determinant via MEG: (-1)^swaps · product of the pivots."""
     if not M.is_square:
         raise ValueError("det needs a square matrix")
-    red = row_reduce(M)
+    red = row_reduce(M, integer=False)
     if red.rank < M.n:
         return Fraction(0)
     d = Fraction(-1 if red.swaps % 2 else 1)

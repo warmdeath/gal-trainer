@@ -699,6 +699,31 @@ def ex_plane_plane(rng, data=None):
     return mk("affine", "plane_plane", prompt, ans, steps, n1=n1, d1=d1, n2=n2, d2=d2)
 
 
+def ex_pencil(rng, data=None):
+    """Plane through the line l = {eq1, eq2} and a point P ∉ l (fascio di piani, Def. 2.32)."""
+    while True:
+        Q, v = ivec(rng, 3, -2, 2, nonzero=False), ivec(rng, 3, -2, 2)
+        eqs, _ = cartesian_from_param(Q, [v], XYZ)
+        P = ivec(rng, 3, -3, 3, nonzero=False)
+        if span_rank([v, vsub(P, Q)]) == 2:
+            break
+    (a1, d1), (a2, d2) = eqs
+    lam = sum(x * y for x, y in zip(a2, P)) - d2
+    mu = -(sum(x * y for x, y in zip(a1, P)) - d1)
+    coef = [lam * x + mu * y for x, y in zip(a1, a2)]
+    rhs = lam * d1 + mu * d2
+    from ..core.matrix import clear_denominators
+    full = clear_denominators(coef + [rhs])
+    prompt = (f"l: {flin(a1, XYZ)} = {fs(d1)},  {flin(a2, XYZ)} = {fs(d2)}.\n"
+              f"Find the plane containing l and the point P = {fv(P)}.")
+    steps = ["Every plane through l is λ(eq1) + μ(eq2) = 0 (fascio di piani, Def. 2.32):",
+             f"   λ({flin(a1, XYZ)} - ({fs(d1)})) + μ({flin(a2, XYZ)} - ({fs(d2)})) = 0",
+             f"Impose P: λ·({fs(sum(x * y for x, y in zip(a1, P)) - d1)}) + μ·({fs(-mu)}) = 0  ⇒ e.g. λ = {fs(lam)}, μ = {fs(mu)}",
+             f"π: {flin(full[:-1], XYZ)} = {fs(full[-1])}"]
+    return mk("affine", "pencil", prompt,
+              EquationsAns(P, [v, vsub(P, Q)], XYZ, [(full[:-1], full[-1])]), steps, a1=a1, d1=d1, a2=a2, d2=d2, P=P)
+
+
 AFFINE = Topic(
     "affine", "§2.7", "Affine subspaces and their relative positions in R³",
     "Sottospazi affini e posizioni reciproche", "2 Spazi vettoriali",
@@ -706,7 +731,8 @@ AFFINE = Topic(
     [lambda: ex_line_line(None, ([0, 1, 2], [1, 1, 1], [0, -1, -2], [1, 2, 3]))],
     [Gen("line_line", "line–line", ex_line_line, exam=True, weight=2),
      Gen("line_plane", "line–plane", ex_line_plane, exam=True),
-     Gen("plane_plane", "plane–plane", ex_plane_plane)],
+     Gen("plane_plane", "plane–plane", ex_plane_plane),
+     Gen("pencil", "plane through a line and a point (fascio)", ex_pencil, exam=True)],
 )
 
 TOPICS = [VECTOR_SPACES, SPAN_INDEP, BASES, CART_PARAM, SUM_INTERSECTION, AFFINE]

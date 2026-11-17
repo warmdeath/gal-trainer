@@ -192,3 +192,16 @@ def test_affine_positions():
         else:
             assert txt.startswith("parallel")
     run("affine", "plane_plane", pp)
+
+
+def test_pencil():
+    def pen(ex):
+        d = ex.data
+        (coef, rhs), = ans(ex).shown
+        n = smv(coef)
+        assert any(coef)
+        assert (n.T * smv(d["P"]))[0] == sq(rhs)
+        # the plane contains l: its equation is a combination of the two equations of l
+        M = sp.Matrix([list(d["a1"]) + [d["d1"]], list(d["a2"]) + [d["d2"]], list(coef) + [rhs]])
+        assert M.rank() == 2
+    run("affine", "pencil", pen)
