@@ -120,3 +120,45 @@ def test_F07_E7_similarity():
     vals_D = [v for v in range(-4, 5) if similar(A, sp.Matrix([[2, 0, 1], [0, v, 0], [0, 0, 2]]))]
     a = ans("F07-E7bc")
     assert a[0].values == vals_C and a[1].values == vals_D
+
+
+def _dirs(item_id):
+    return [sp.Matrix([sp.Rational(str(x)) for x in d]) for d in BANK.items[item_id].data["dirs"]]
+
+
+def _par(u, v):
+    return sp.Matrix.hstack(u, v).rank() == 1
+
+
+def test_F08_E1_matrix_of_f():
+    a, b, c = sp.symbols("a b c")
+    M = sp.Matrix([[0, 1], [-1, 0]])
+    Y = M.T * sp.Matrix([[a, b], [b, c]]) * M
+    img = sp.Matrix([Y[0, 0], Y[0, 1], Y[1, 1]])
+    F = img.jacobian([a, b, c])
+    assert F == sp.Matrix(BANK.items["F08-E1a"].data["A"])
+
+
+def test_F08_E7_E8_geometry():
+    x, y, z = sp.symbols("x y z")
+    # E7 l = {x + y − z = 1, 2x − y = 2}: direction = cross of normals
+    dl = sp.Matrix([1, 1, -1]).cross(sp.Matrix([2, -1, 0]))
+    assert _par(_dirs("F08-E7ai")[0], dl)
+    for iid, normal in [("F08-E7aii", dl), ("F08-E7bii", sp.Matrix([1, 2, 3])),
+                        ("F08-E8a", sp.Matrix([1, 2, 3])), ("F08-E8b", sp.Matrix([0, 1, 1]).cross(sp.Matrix([2, -1, 1])))]:
+        ds = _dirs(iid)
+        assert len(ds) == 2 and all(d.dot(normal) == 0 for d in ds) and sp.Matrix.hstack(*ds).rank() == 2, iid
+    assert _par(_dirs("F08-E7bi")[0], sp.Matrix([1, 2, 3]))
+    assert _par(_dirs("F08-E8c")[0], sp.Matrix([1, 1, -1]))
+    d1 = sp.Matrix([1, 1, 1]).cross(sp.Matrix([1, 1, 0]))
+    d = _dirs("F08-E8d")[0]
+    assert d.dot(d1) == 0 and d.dot(sp.Matrix([1, -1, -1])) == 0 and d != sp.zeros(3, 1)
+    d = _dirs("F08-E8e")[0]
+    assert d.dot(sp.Matrix([1, -1, -2])) == 0 and d.dot(sp.Matrix([3, 1, 1])) == 0
+    # E8 f: the line through P meets both lines
+    P = sp.Matrix([1, 0, 0])
+    t = sp.Symbol("t")
+    L = P + t * _dirs("F08-E8f")[0]
+    for eqs in ([x - y + z - 2, x + z], [x + 2 * y - z - 2, x - z]):
+        sub = [e.subs({x: L[0], y: L[1], z: L[2]}) for e in eqs]
+        assert sp.solve(sub, t), eqs

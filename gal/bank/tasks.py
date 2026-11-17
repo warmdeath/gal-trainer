@@ -799,6 +799,40 @@ def t_gram(d, text):
         [fm(G)] + sq + [("positive definite and symmetric ⇒ scalar product" if ok else "not a scalar product")]
 
 
+@task("orthobasis")
+def t_orthobasis(d, text):
+    """Orthogonal / orthonormal basis questions (standard product). Each basis vector is
+    scale · dir with scale a string like '1/sqrt(3)' (default 1) and dir rational; exact."""
+    from ..core.parse import parse_real
+    from ..exercise import RealVectorAns
+    vecs = []
+    for b in d["basis"]:
+        sc = parse_real(str(b.get("scale", "1")))
+        vecs.append((sc, V_(b["dir"])))
+    v = V_(d["v"])
+    n = len(vecs)
+    ortho = all(dot(vecs[i][1], vecs[j][1]) == 0 for i in range(n) for j in range(i + 1, n))
+    norms2 = [sc.square() * dot(dr, dr) for sc, dr in vecs]
+    normal = ortho and all(x == 1 for x in norms2)
+    show = lambda sc, dr: ("(" + ", ".join((sc * x).pretty() for x in dr) + ")")
+    steps = ["⟨b_i, b_j⟩ for i ≠ j: " + ", ".join((sc1 * sc2 * Surd(dot(d1, d2))).pretty()
+                                                  for k, (sc1, d1) in enumerate(vecs) for (sc2, d2) in vecs[k + 1:]),
+             "||b_i||² = " + ", ".join(fs(x) for x in norms2)]
+    parts = [("orthogonal?", YesNoAns(ortho)), ("orthonormal?", YesNoAns(normal))]
+    if ortho:
+        if normal:
+            coords = [sc * dot(v, dr) for sc, dr in vecs]
+            steps.append("Orthonormal: (v)_B = (⟨v,b1⟩, ..., ⟨v,bn⟩) = (" + ", ".join(c.pretty() for c in coords) + ")")
+            parts.append(("(v)_B", RealVectorAns(coords)))
+        else:
+            coords = [Surd(dot(v, dr)) / Surd.sqrt(dot(dr, dr)) for _, dr in vecs]
+            steps.append("Normalise b'_i = b_i/||b_i||; then (v)_B' = (⟨v,b'_i⟩) = (" + ", ".join(c.pretty() for c in coords) + ")")
+            parts.append(("(v)_B' (B' = normalised B)", RealVectorAns(coords)))
+    else:
+        steps.append("Some ⟨b_i, b_j⟩ ≠ 0: not orthogonal (so not orthonormal).")
+    return "B = {" + ", ".join(show(sc, dr) for sc, dr in vecs) + "},  v = " + fv(v), parts, steps
+
+
 # ------------------------------------------------------------------ parameters (al variare di λ)
 def _pm(d, key="A"):
     return PMatrix(d[key], d.get("param", "λ"))

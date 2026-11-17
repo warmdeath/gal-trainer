@@ -528,6 +528,20 @@ def v_eigen_target(d, a):
         assert len(ns) == B.cols and sp.Matrix.hstack(*ns).row_join(B).rank() == B.cols
 
 
+def v_orthobasis(d, a):
+    B = [sp.sympify(str(b.get("scale", "1"))) * SV(b["dir"]) for b in d["basis"]]
+    v = SV(d["v"])
+    n = len(B)
+    ortho = all(sp.simplify(B[i].dot(B[j])) == 0 for i in range(n) for j in range(i + 1, n))
+    normal = ortho and all(sp.simplify(b.dot(b) - 1) == 0 for b in B)
+    assert a[0].value == ortho and a[1].value == normal
+    if ortho:
+        U = B if normal else [b / sp.sqrt(b.dot(b)) for b in B]
+        exp = [sp.simplify(v.dot(u)) for u in U]
+        got = [surd_to_sympy(x) for x in a[2].v]
+        assert all(sp.simplify(g - e) == 0 for g, e in zip(got, exp))
+
+
 VERIFY = {
     "solve": v_solve, "nsol": v_nsol, "rank": v_rank, "homog": v_homog, "det": v_det,
     "inverse": v_inverse, "matexpr": v_matexpr, "indep": v_indep, "basis_span": v_basis_span,
@@ -537,7 +551,7 @@ VERIFY = {
     "charpoly": v_charpoly, "roots": v_roots, "metric": v_metric, "gram_schmidt": v_gram_schmidt,
     "gram": v_gram, "param_invertible": v_param_invertible, "param_rank": v_param_rank,
     "param_system": v_param_system, "param_indep": v_param_indep, "param_diag": v_param_diag,
-    "charpoly_target": v_charpoly_target, "eigen_target": v_eigen_target,
+    "charpoly_target": v_charpoly_target, "orthobasis": v_orthobasis, "eigen_target": v_eigen_target,
 }
 KEYED = {"yesno", "mcq", "values"}  # answer keys written by hand (checked by item-specific tests below)
 
