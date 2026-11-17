@@ -6,6 +6,7 @@ Priority:
  3. the first topic in course order that is not mastered — but if one of its prerequisites
     is shaky, go back to the weakest such prerequisite first;
  4. a due review of a mastered topic;
+ 0. a timed past paper of the study plan that is due (`plan`) comes first;
  5. everything mastered: the official sheets/quizzes not yet solved, then a timed mock exam.
 """
 from __future__ import annotations
@@ -21,10 +22,10 @@ OVERDUE_DAYS = 2
 
 @dataclass
 class Advice:
-    action: str            # "learn" | "practice" | "review" | "official" | "exam"
+    action: str            # "paper" | "learn" | "practice" | "review" | "official" | "exam"
     topic: Topic | None
     reason: str
-    source: str | None = None   # for "official": the sheet/quiz to work through
+    source: str | None = None   # "official": the sheet/quiz; "paper": the exam paper
 
 
 def _weak_prereq(t: Topic, prof: Profile, seen=None) -> Topic | None:
@@ -45,6 +46,13 @@ def _weak_prereq(t: Topic, prof: Profile, seen=None) -> Topic | None:
 
 def advise(prof: Profile, today: date | None = None, include_extra: bool = False) -> Advice:
     today = today or date.today()
+    if prof.plan:
+        from .papers import due_session
+        s = due_session(prof.plan, today)
+        if s:
+            when = "today" if s["date"] == today.isoformat() else f"since {s['date']}"
+            return Advice("paper", None, f"Your study plan has a timed past paper due {when}: {s['paper']}. "
+                                         "Full exam conditions: no notes, timer on.", source=s["paper"])
     core = [t for t in TOPICS if include_extra or not t.extra]
     due_weak = [t for t in core if prof.stats(t.id).is_due(today) and not prof.stats(t.id).mastered]
     if due_weak:

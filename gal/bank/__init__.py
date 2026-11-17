@@ -45,6 +45,9 @@ class Item:
     source: "Source"
     page: int | None = None
     exam: str = ""       # date of the past exam this exercise comes from ('' if none)
+    points: float | None = None   # exam papers: points of this item
+    section: str = ""             # exam papers: "I" (test) / "II" (exercises)
+    setup: str = ""               # shared statement of the exercise (inherited by its sub-items)
     solved_in: list[tuple["Source", list[int]]] = field(default_factory=list)  # (esercitazione, pages)
 
     @property
@@ -70,13 +73,14 @@ class Item:
 class Source:
     id: str
     title: str
-    kind: str            # sheet | quiz | esercitazione
+    kind: str            # sheet | quiz | esercitazione | exam
     files: list[dict]    # [{path, sha256, pages}]
     date: str = ""
     status: str = "transcribed"   # transcribed | skeleton
     note: str = ""
     items: list[Item] = field(default_factory=list)
     solutions: list[dict] = field(default_factory=list)  # for esercitazioni: [{item, pages}]
+    paper: dict = field(default_factory=dict)   # exam papers: format, minutes, points, lecturer, ...
 
 
 @dataclass
@@ -113,15 +117,19 @@ def load_bank(path: Path | None = None) -> Bank:
         raw = tomllib.loads(f.read_text(encoding="utf-8"))
         s = raw["source"]
         src = Source(s["id"], s["title"], s["kind"], s.get("files", []), s.get("date", ""),
-                     s.get("status", "transcribed"), s.get("note", ""))
+                     s.get("status", "transcribed"), s.get("note", ""), paper=s.get("paper", {}))
         if src.id in sources:
             raise ValueError(f"duplicate source id {src.id} in {f.name}")
+        setups: dict[str, str] = {}
         for it in raw.get("item", []):
             item = Item(it["id"], it.get("ref", ""), it.get("topic", ""), it.get("task", "open"),
                         it.get("text", "").strip(), it.get("data", {}), src, it.get("page"),
-                        str(it.get("exam", "")))
+                        str(it.get("exam", "")), it.get("points"), str(it.get("section", "")))
             if item.id in items:
                 raise ValueError(f"duplicate item id {item.id}")
+            if it.get("setup"):
+                setups[item.exercise_key] = it["setup"].strip()
+            item.setup = setups.get(item.exercise_key, "")
             items[item.id] = item
             src.items.append(item)
         src.solutions = raw.get("solution", [])
@@ -134,10 +142,12 @@ def load_bank(path: Path | None = None) -> Bank:
     return Bank(sources, items)
 
 
-def build(item: Item) -> Exercise:
+def build(item: Item, with_setup: bool = True) -> Exercise:
+    """with_setup=False leaves out the shared statement (paper mode prints it once)."""
     extra, parts, steps = build_parts(item.task, item.data, item.text)
     from ..core.fmt import reflow
-    prompt = f"[{item.title()}]\n{reflow(item.text)}"
+    head = reflow(item.setup) + "\n\n" if item.setup and with_setup else ""
+    prompt = f"[{item.title()}]\n{head}{reflow(item.text)}"
     if extra:
         prompt += "\n\n" + extra
     if not item.auto and item.solved_in:

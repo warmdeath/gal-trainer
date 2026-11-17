@@ -74,6 +74,7 @@ class Profile:
     exam_date: str = DEFAULT_EXAM_DATE
     bank: dict[str, dict] = field(default_factory=dict)   # official items: {id: {attempts, best, last}}
     past_exams: list[dict] = field(default_factory=list)  # real past papers, graded by hand
+    plan: list[dict] = field(default_factory=list)        # scheduled timed papers [{date, paper, done}]
     path: Path | None = None
 
     # ------------------------------------------------------------ persistence
@@ -95,6 +96,7 @@ class Profile:
         p.exam_date = raw.get("exam_date", DEFAULT_EXAM_DATE)
         p.bank = raw.get("bank", {})
         p.past_exams = raw.get("past_exams", [])
+        p.plan = raw.get("plan", [])
         return p
 
     def save(self) -> None:
@@ -103,7 +105,7 @@ class Profile:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         data = {"version": 1, "topics": {k: asdict(v) for k, v in self.topics.items()},
                 "exams": self.exams, "history": self.history[-500:], "exam_date": self.exam_date,
-                "bank": self.bank, "past_exams": self.past_exams}
+                "bank": self.bank, "past_exams": self.past_exams, "plan": self.plan}
         fd, tmp = tempfile.mkstemp(dir=self.path.parent, prefix=".profile", suffix=".tmp")
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=1, ensure_ascii=False)
@@ -161,7 +163,7 @@ class Profile:
 
     def add_past_exam(self, paper: str, exercises: list[dict], taken: str | None = None,
                       grader: str = "self", minutes: float | None = None, total: tuple | None = None,
-                      now: datetime | None = None) -> dict:
+                      now: datetime | None = None, **extra) -> dict:
         """A real past paper done and graded outside the trainer (by the student or another agent).
         exercises: [{"topics": [ids], "got": float, "max": float}] (may be empty if only the total
         is known: total = (got, max)). Each exercise feeds the mastery of its topics with weight
@@ -176,12 +178,16 @@ class Profile:
                "exercises": exercises, "recorded": now.isoformat(timespec="seconds")}
         if minutes is not None:
             rec["minutes_used"] = minutes
+        rec.update(extra)
         for e in exercises:
             for tid in e.get("topics", []):
                 self.record(tid, e["got"] / e["max"], "past-exam", now=now, source="past-exam",
                             weight=PAST_WEIGHT)
         self.past_exams.append(rec)
         return rec
+
+    def papers_done(self) -> set[str]:
+        return {e["paper_id"] for e in self.past_exams if e.get("paper_id")}
 
     def readiness(self, last: int = 5) -> tuple[float, int] | None:
         """Weighted mean grade /30 of the latest `last` exam results: mock exams weight 1, real

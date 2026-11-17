@@ -61,7 +61,15 @@ Official course material (Fogli, Quiz, Esercitazioni)
   grade <ids> <y|p|n>  enter grades for proofs you did on paper, e.g. grade F07-E13 F07-E14 y F05-E2 p
                        (also 0.7, 70%, 3/4; ids without a grade: shown one by one with the model answer)
 
-Real past exams (done on paper, graded by you or another agent; they weigh 2× in mastery)
+Real exam papers (temi d'esame), in exam conditions
+  papers               all transcribed past papers, format, your best score
+  paper [id]           sit a paper under the real rules: timer, /32 (appello) or /16 (itinere);
+                       without id: the one your study plan has due.  'paper P2602AV1 untimed'
+  plan                 your study plan: timed papers twice a week, every other day in the last
+                       2 weeks before the exam.  'plan rebuild' after changing the exam date
+  examinfo             the rules of the exam (Informazioni sull'esame)
+
+Real past exams done on paper outside the trainer (graded by you or another agent; weight 2×)
   past                 list the past papers you recorded + exam readiness
   past add             record one, exercise by exercise (topics + points) or just the total
   past add <label> 24/30   quick form: only the total (no topic mastery update)
@@ -146,6 +154,7 @@ class App:
             self.out(f"{days} days to your exam ({self.prof.exam_date}).  Change it with: examdate YYYY-MM-DD",
                      "dim")
         self.material_notice()
+        self.plan_notice()
         while True:
             line = self.ask("\ngal> ").strip()
             if not line:
@@ -209,7 +218,15 @@ class App:
                 self.official(t)
         elif cmd == "item":
             self.do_item_id(arg.strip())
-        elif cmd in ("past", "pastexam", "temi", "tema"):
+        elif cmd in ("papers", "temi", "esami"):
+            self.show_papers()
+        elif cmd in ("paper", "tema", "appello"):
+            self.paper_command(arg)
+        elif cmd in ("plan", "piano", "schedule"):
+            self.plan_command(arg)
+        elif cmd in ("examinfo", "regole", "rules"):
+            self.show_exam_info()
+        elif cmd in ("past", "pastexam"):
             self.past_command(arg)
         elif cmd in ("grade", "voto"):
             self.grade_items(arg)
@@ -350,6 +367,8 @@ class App:
             return
         if adv.action == "exam":
             self.exam(6, None)
+        elif adv.action == "paper":
+            self.paper_command(adv.source or "")
         elif adv.action == "official":
             self.work_source(adv.source or "")
         elif adv.action == "learn":
@@ -567,6 +586,278 @@ class App:
         """Past-exam exercises of the official sheets, as chained multi-part exercises."""
         from .bank import past_exam_exercises
         return past_exam_exercises(self._bank(), pool)
+
+    # ------------------------------------------------------------ exam papers
+    def show_exam_info(self) -> None:
+        from .papers import ORAL_NOTE, ORAL_THRESHOLD, RULES
+        body = "\n".join([
+            RULES["appello"]["label"] + ".",
+            "  Test: only the chosen answers count. Exercises: the result AND the correctness and",
+            "  clarity of the reasoning count, so justify every step (in this trainer: on paper).",
+            RULES["itinere"]["label"] + " (chapters 1-3, optional).",
+            "  At the first winter appello the written score is max(PC, 2/3 (PI + PC)).",
+            f"Prova teorica: needs ≥ {ORAL_THRESHOLD}/32 in the written exam. " + ORAL_NOTE,
+            "No books, notes or electronic devices: practise the papers the same way."])
+        self.out(Panel(Text(body), title="L'esame di GAL (A.A. 2026/27)", border_style="magenta"))
+
+    def _paper_best(self, sid: str):
+        rs = [e for e in self.prof.past_exams if e.get("paper_id") == sid]
+        return max(rs, key=lambda e: e["grade"]) if rs else None
+
+    def show_papers(self) -> None:
+        from .papers import full_points, paper_format, paper_minutes, papers
+        ps = papers(self._bank())
+        if not ps:
+            self.out("No exam papers transcribed yet.", "yellow")
+            return
+        tab = Table(title="Past exam papers (temi d'esame)")
+        for c in ("id", "paper", "format", "lecturer", "auto-checked", "your best"):
+            tab.add_column(c)
+        for src in ps:
+            b = self._paper_best(src.id)
+            auto = sum(1 for i in src.items if i.auto)
+            tab.add_row(src.id, src.title, f"{paper_format(src)} {paper_minutes(src)}'",
+                        (src.paper or {}).get("lecturer", "?"), f"{auto}/{len(src.items)}",
+                        f"{b['scaled']}/{b['scale']:g}" if b and "scaled" in b else "—")
+        self.out(tab)
+        self.out("Sit one with: paper <id>   (or just 'paper' for the one your plan has due)")
+
+    def paper_command(self, arg: str) -> None:
+        from .papers import due_session, next_session
+        words = arg.split()
+        timed = "untimed" not in [w.lower() for w in words]
+        words = [w for w in words if w.lower() != "untimed"]
+        bank = self._bank()
+        if not words:
+            today = date.today()
+            s = due_session(self.prof.plan, today) or next_session(self.prof.plan, today)
+            if not s:
+                self.out("No plan yet: type 'plan' to create one, or 'papers' and 'paper <id>'.", "yellow")
+                return
+            sid = s["paper"]
+        else:
+            sid = words[0].upper()
+        src = bank.sources.get(sid)
+        if src is None or src.kind != "exam":
+            self.out(f"No exam paper '{sid}'. Type 'papers' for the list.", "red")
+            return
+        self.run_paper(src, timed=timed)
+
+    def run_paper(self, src, timed: bool = True):
+        from .bank import TaskError, build
+        from .papers import (ItemScore, PaperResult, RULES, full_points, max_points, paper_format,
+                             paper_minutes)
+        fmt = paper_format(src)
+        minutes = paper_minutes(src)
+        note = []
+        if (src.paper or {}).get("points_estimated"):
+            note.append("Exercise points are not printed on this paper: they are split evenly.")
+        if (src.paper or {}).get("lecturer") not in (None, "Frapporti"):
+            note.append("Paper by a previous lecturer: same structure, timed with this year's rules; "
+                        f"score also shown out of {full_points(src):g}.")
+        self.out(Panel(Text(f"{src.title}\n{RULES[fmt]['label']}\n"
+                            f"This paper: {len(src.items)} questions, {max_points(src):g} points" +
+                            (f", {minutes} minutes." if timed else ", untimed.") + "\n" +
+                            "\n".join(note) + ("\n" if note else "") +
+                            "Like the real exam: no feedback until the end, no notes. Proofs and "
+                            "explanations: write them on paper, you grade them at the end against the "
+                            "model answer.\nType 'skip' to leave an answer blank, 'q' to hand in."),
+                       title="Exam paper", border_style="red"))
+        if self.ask("Press Enter to start" + (" the clock " if timed else " ")).strip().lower() in QUIT:
+            return None
+        t0 = self.clock()
+        deadline = t0 + minutes * 60
+
+        def remaining():
+            return deadline - self.clock()
+
+        def expired():
+            return timed and remaining() <= 0
+        if timed:
+            self.toolbar = lambda: f" {src.id} · time left: {_mmss(remaining())} "
+        res = PaperResult(src)
+        built = {}
+        open_items = []
+        handed_in = False
+        last_setup_key = None
+        try:
+            for it in src.items:
+                sc = ItemScore(it)
+                res.scores.append(sc)
+                if handed_in or expired():
+                    sc.note = "not reached"
+                    continue
+                try:
+                    ex = build(it, with_setup=False)
+                except TaskError as e:
+                    sc.note = f"not available: {e}"
+                    continue
+                built[it.id] = ex
+                if it.setup and it.exercise_key != last_setup_key:
+                    self.out(Panel(Text(reflow(it.setup)), title=f"{it.ref.split(' ')[0]} {it.exercise_key.split('-E')[-1]}"
+                                   if it.section == "II" else it.ref, border_style="red"))
+                last_setup_key = it.exercise_key
+                left = f" · {_mmss(remaining())} left" if timed else ""
+                self.out(Panel(Text(ex.prompt.split("\n", 1)[1] if "\n" in ex.prompt else ex.prompt),
+                               title=f"{it.ref} · {it.points:g} pt{left}", border_style="red"))
+                fr = []
+                for part in ex.parts:
+                    if getattr(part.answer, "self_assessed", False):
+                        txt = self.ask("Write it on paper; Enter when done (q = hand in): ").strip()
+                        if txt.lower() in QUIT:
+                            handed_in = True
+                        open_items.append((it, part))
+                        sc.answered = True
+                        fr.append(None)
+                        if handed_in:
+                            break
+                        continue
+                    label = (part.label + ": ") if len(ex.parts) > 1 or part.label != "Answer" else "> "
+                    while True:
+                        if expired():
+                            break
+                        txt = self.ask(label).strip()
+                        if txt.lower() in QUIT:
+                            handed_in = True
+                            break
+                        if txt.lower() in SKIP or not txt:
+                            fr.append(0.0)
+                            break
+                        if txt.lower() in HINT:
+                            self.out("Format: " + part.answer.fmt_hint, "yellow")
+                            continue
+                        try:
+                            r = part.answer.check(txt)
+                        except ParseError as err:
+                            self.out(f"I can't read that: {err}", "yellow")
+                            continue
+                        if expired():
+                            self.out("⏰ Time is up — this answer arrived too late.", "red")
+                            break
+                        sc.answered = True
+                        fr.append(1.0 if r.ok else r.score)
+                        break
+                    if handed_in or expired():
+                        break
+                sc._parts = fr
+                if expired() and not handed_in:
+                    self.out("⏰ Time is up! Pens down.", "red")
+                    handed_in = True
+        finally:
+            self.toolbar = None
+        used = round((self.clock() - t0) / 60, 1)
+        # ---- self-grading of proofs / explanations
+        if open_items:
+            self.out(Panel(Text("Now grade what you wrote, against the model answer: y = right, p = partly, "
+                                "n = wrong (or 0.7, 70%, 3/4). Be as strict as the examiner: clarity counts."),
+                           title="Self-grading", border_style="yellow"))
+        for it, part in open_items:
+            self.out(Panel(Text(f"{it.ref}: {it.text}\n\nModel answer:\n{part.answer.show()}"),
+                           title=f"{it.ref} · {it.points:g} pt", border_style="green"))
+            while True:
+                g = parse_grade(self.ask("Your grade: "))
+                if g is not None:
+                    break
+                self.out("Type y, p, n, a number between 0 and 1, a percentage or points like 3/4.", "yellow")
+            sc = next(x for x in res.scores if x.item is it)
+            sc._parts = [g if v is None else v for v in getattr(sc, "_parts", [])] or [g]
+        for sc in res.scores:
+            fr = [v for v in getattr(sc, "_parts", []) if v is not None]
+            nparts = len(built[sc.item.id].parts) if sc.item.id in built else 1
+            sc.fraction = sum(fr) / nparts if fr else 0.0
+        res.minutes_used = used
+        self._paper_report(res, timed)
+        return res
+
+    def _paper_report(self, res, timed: bool) -> None:
+        from .papers import full_points, paper_format
+        src = res.source
+        tab = Table(title=f"{src.title}: {res.points:g}/{res.max:g} points")
+        for c in ("question", "topic", "points", "notes"):
+            tab.add_column(c)
+        for sc in res.scores:
+            ex_note = sc.note or ("" if sc.answered else "blank")
+            tab.add_row(sc.item.ref, sc.item.topic, f"{sc.points:g}/{sc.item.points:g}", ex_note)
+        self.out(tab)
+        p1, m1 = res.section_points("I")
+        p2, m2 = res.section_points("II")
+        lines = []
+        if m1:
+            lines.append(f"Parte I (test): {p1:g}/{m1:g}   Parte II (esercizi): {p2:g}/{m2:g}")
+        if res.max != full_points(src):
+            lines.append(f"Scaled to the paper's full scale: {res.scaled}/{full_points(src):g}")
+        lines.append(res.verdict())
+        lines.append(f"Time used: {res.minutes_used} min" + ("" if timed else " (untimed)"))
+        self.out(Panel(Text("\n".join(lines)), title="Result", border_style="bold"))
+        exercises = [{"item": sc.item.id, "topics": [sc.item.topic] if sc.item.topic in BY_ID else [],
+                      "got": sc.points, "max": float(sc.item.points or 0)}
+                     for sc in res.scores if sc.item.points]
+        self.prof.add_past_exam(src.title, exercises, grader="trainer + self", minutes=res.minutes_used,
+                                paper_id=src.id, scaled=res.scaled, scale=full_points(src), timed=timed)
+        for sc in res.scores:
+            if sc.answered:
+                self.prof.record_item(sc.item.id, sc.fraction)
+        for s in self.prof.plan:
+            if s["paper"] == src.id and not s.get("done"):
+                s["done"] = True
+                s["result"] = f"{res.scaled}/{full_points(src):g}"
+                break
+        self.prof.save()
+
+    # ------------------------------------------------------------ study plan
+    def plan_notice(self) -> None:
+        from .papers import due_session, next_session
+        if not self.prof.plan:
+            return
+        today = date.today()
+        s = due_session(self.prof.plan, today)
+        if s:
+            self.out(Panel(Text(f"Timed paper due {'today' if s['date'] == today.isoformat() else 'since ' + s['date']}: "
+                                f"{s['paper']}. Type 'paper' to sit it (exam conditions)."),
+                           title="Study plan", border_style="red"))
+            return
+        s = next_session(self.prof.plan, today)
+        if s:
+            self.out(f"Next timed paper: {s['paper']} on {s['date']}.", "dim")
+
+    def plan_command(self, arg: str) -> None:
+        from .papers import make_plan, paper_format, paper_minutes
+        bank = self._bank()
+        try:
+            exam = date.fromisoformat(self.prof.exam_date)
+        except ValueError:
+            self.out("Set your exam date first: examdate YYYY-MM-DD", "red")
+            return
+        today = date.today()
+        if arg.strip().lower() in ("rebuild", "reset", "new") or not self.prof.plan:
+            kept = [s for s in self.prof.plan if s.get("done")]
+            done = self.prof.papers_done() | {s["paper"] for s in kept}
+            fresh = make_plan(bank, today, exam, done)
+            self.prof.plan = kept + fresh
+            self.prof.save()
+            self.out(f"Study plan: {len(fresh)} timed papers from {today.isoformat()} to the exam on {exam.isoformat()}"
+                     " (twice a week, every other day in the last 2 weeks; 60-minute itinere papers first, "
+                     "this year's lecturer's appelli as the final dress rehearsals).", "green")
+        tab = Table(title="Study plan: timed past papers")
+        for c in ("date", "day", "paper", "format", "status"):
+            tab.add_column(c)
+        for s in self.prof.plan:
+            d = date.fromisoformat(s["date"])
+            src = bank.sources.get(s["paper"])
+            fmt = f"{paper_format(src)} {paper_minutes(src)}'" if src else "?"
+            title = src.title if src else s["paper"]
+            if s.get("done"):
+                st = "✓ " + s.get("result", "done")
+            elif d < today:
+                st = "overdue"
+            elif d == today:
+                st = "TODAY"
+            else:
+                st = ""
+            tab.add_row(s["date"], d.strftime("%a"), f"{s['paper']}  {title}", fmt, st)
+        self.out(tab)
+        self.out("'paper' sits the next one. Missed a day? It stays due until you do it; "
+                 "'plan rebuild' re-spreads the remaining papers from today.")
 
     # ------------------------------------------------------------ self-graded proofs
     def _match_items(self, ref: str):

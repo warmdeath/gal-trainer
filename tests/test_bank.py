@@ -206,6 +206,8 @@ def v_cartesian(d, a):
     dirs = [SV(x) for x in d["dirs"]]
     P = SV(d.get("point", [0] * len(d["dirs"][0])))
     _eqs_define(a[0].shown, P, dirs)
+    if d.get("ask_dim"):
+        assert a[1].value == sp.Matrix.hstack(*dirs).rank()
     # the checker accepts exactly the right number of equations
     assert len(a[0].dirs) == sp.Matrix.hstack(*dirs).rank()
 
@@ -237,10 +239,34 @@ def v_grassmann(d, a):
     U, W = _sub_basis(d["U"]), _sub_basis(d["W"])
     du, dw = U.rank(), W.rank()
     ds = U.row_join(W).rank()
-    _same_span(a[0].basis, U)
-    _same_span(a[1].basis, W)
-    assert a[2].value == ds and a[3].value == du + dw - ds
-    assert a[4].value == (du + dw == ds)
+    if not d.get("only_bases"):
+        _same_span(a[0].basis, U)
+        _same_span(a[1].basis, W)
+        assert a[2].value == ds and a[3].value == du + dw - ds
+        assert a[4].value == (du + dw == ds)
+        a = a[5:]
+    if d.get("ask_bases"):
+        _same_span(a[1].basis, U.row_join(W))
+        # U ∩ W independently: x = U c = W e  ⇔  [U | -W] (c, e) = 0
+        K = U.row_join(-W).nullspace()
+        inter = [U * k[:U.shape[1], :] for k in K]
+        inter = sp.Matrix.hstack(*inter) if inter else sp.zeros(U.shape[0], 0)
+        assert len(a[0].basis) == du + dw - ds
+        if a[0].basis:
+            _same_span(a[0].basis, inter)
+
+
+def v_perp(d, a):
+    W = sp.Matrix.hstack(*[SV(x) for x in d["span"]]) if "span" in d else \
+        sp.Matrix.hstack(*SM(d["A"]).nullspace())
+    n = W.shape[0]
+    S = SM(d["S"]) if "S" in d else sp.eye(n)
+    P = (W.T * S).nullspace()
+    assert a[0].value == len(P) == n - W.rank()
+    if P:
+        _same_span(a[1].basis, sp.Matrix.hstack(*P))
+    else:
+        assert a[1].basis == []
 
 
 def _aff_sympy(obj):
@@ -546,7 +572,7 @@ VERIFY = {
     "solve": v_solve, "nsol": v_nsol, "rank": v_rank, "homog": v_homog, "det": v_det,
     "inverse": v_inverse, "matexpr": v_matexpr, "indep": v_indep, "basis_span": v_basis_span,
     "basis_eqs": v_basis_eqs, "coords": v_coords, "complete_basis": v_complete_basis, "in_span": v_in_span, "cartesian": v_cartesian,
-    "affine_forms": v_affine_forms, "grassmann": v_grassmann, "position": v_position,
+    "affine_forms": v_affine_forms, "grassmann": v_grassmann, "perp": v_perp, "position": v_position,
     "kerim": v_kerim, "repmat": v_repmat, "interp_matrix": v_interp_matrix, "change_basis": v_change_basis, "eigen": v_eigen,
     "charpoly": v_charpoly, "roots": v_roots, "metric": v_metric, "gram_schmidt": v_gram_schmidt,
     "gram": v_gram, "param_invertible": v_param_invertible, "param_rank": v_param_rank,

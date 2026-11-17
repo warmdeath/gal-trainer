@@ -100,10 +100,15 @@ def t_mcq(d, text):
     opts = d["options"]
     letters = d["correct"] if isinstance(d["correct"], list) else [d["correct"]]
     idx = [ord(c.lower()) - 97 for c in letters]
-    why = {ord(k.lower()) - 97: v for k, v in d.get("why", {}).items()}
+    raw = d.get("why", {})
+    # `why`: per-option explanations {a = "..."}, or one explanation of the whole question
+    why = {ord(k.lower()) - 97: v for k, v in raw.items()} if isinstance(raw, dict) else {}
     multi = d.get("multi", len(idx) > 1)
     ans = MultiChoiceAns(opts, idx, why) if multi else ChoiceAns(opts, idx[0], why)
     steps = [f"{chr(97 + i)}) {'TRUE ' if i in idx else 'false'} — {why[i]}" for i in sorted(why)]
+    if isinstance(raw, str) and raw:
+        steps = [f"Correct: {', '.join(chr(97 + i) + ')' for i in idx)}  {opts[idx[0]] if len(idx) == 1 else ''}".rstrip(),
+                 raw]
     return ans.render(), [("answer", ans)], steps
 
 
@@ -411,7 +416,10 @@ def t_cartesian(d, text):
     if len(basis) < len(dirs):
         steps = [f"The generators are dependent: a basis is {fvs(basis)} (dim {len(basis)})."] + steps
     shown = fparam(P, dirs) if any(P) else f"Span({', '.join(fv(x) for x in dirs)})"
-    return ("" if d.get("hide") else f"S = {shown}"), [("Cartesian equations", EquationsAns(P, basis, names, eqs))], steps
+    parts = [("Cartesian equations", EquationsAns(P, basis, names, eqs))]
+    if d.get("ask_dim"):
+        parts.append(("dim", IntAns(len(basis))))
+    return ("" if d.get("hide") else f"S = {shown}"), parts, steps
 
 
 def _affine(obj):
@@ -478,10 +486,28 @@ def t_grassmann(d, text):
              f"dim(U+W) = rank of all basis vectors together = {dsum}",
              f"Grassmann: dim(U∩W) = {len(U)} + {len(W)} - {dsum} = {dint}",
              "direct sum ⇔ U ∩ W = {0}: " + ("yes" if dint == 0 else "no")]
-    return f"U = {show(d['U'])}\nW = {show(d['W'])}", [
+    out = [
         ("a basis of U", SpanAns(U, n, "U")), ("a basis of W", SpanAns(W, n, "W")),
         ("dim(U + W)", IntAns(dsum)), ("dim(U ∩ W)", IntAns(dint)),
-        ("is the sum direct?", YesNoAns(dint == 0, steps[-1]))], steps
+        ("is the sum direct?", YesNoAns(dint == 0, steps[-1]))]
+    if d.get("ask_bases"):
+        # U ∩ W: stack Cartesian equations of both (rows orthogonal to each basis)
+        eqU = kernel_basis(Matrix(U)) if U else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
+        eqW = kernel_basis(Matrix(W)) if W else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
+        rows = eqU + eqW
+        inter = kernel_basis(Matrix(rows)) if rows else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
+        ssum = column_space_basis(Matrix.from_cols(U + W)) if U + W else []
+        steps = steps + [f"U ∩ W: solve the Cartesian equations of U and of W together → basis {fvs(inter)}",
+                         f"U + W = Span(basis of U ∪ basis of W) → basis {fvs(ssum)}"]
+        parts = [("a basis of U ∩ W ('none' if {0})", SpanAns(inter, n, "U ∩ W")),
+                 ("a basis of U + W", SpanAns(ssum, n, "U + W"))]
+        if d.get("only_bases"):
+            out = parts
+        else:
+            out = out + parts
+    if d.get("only_bases") and not d.get("ask_bases"):
+        raise TaskError("only_bases needs ask_bases")
+    return f"U = {show(d['U'])}\nW = {show(d['W'])}", out, steps
 
 
 POS_OPTS = ["coincident / one contained in the other", "parallel (no common points)",
@@ -983,3 +1009,26 @@ def build_parts(task_name: str, data: dict, text: str):
 
 
 AUTO_TASKS = sorted(t for t in TASKS if t != "open")
+
+
+@task("perp")
+def t_perp(d, text):
+    """W⊥ for the standard scalar product (or Gram matrix S): dim and a basis (parametric form).
+    W given as span = [[..]] or by Cartesian equations A = [[..]] (rows)."""
+    if "span" in d:
+        W = column_space_basis(Matrix.from_cols(VS_(d["span"])))
+        n = len(VS_(d["span"])[0])
+    else:
+        W = kernel_basis(M_(d["A"]))
+        n = len(d["A"][0])
+    S = M_(d["S"]) if "S" in d else None
+    rows = [S.apply(w) if S is not None else w for w in W]
+    perp = kernel_basis(Matrix(rows)) if rows else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
+    steps = [f"basis of W: {fvs(W)} (dim {len(W)})",
+             "v ∈ W⊥ ⇔ ⟨v, w⟩ = 0 for every basis vector w: solve the homogeneous system with rows "
+             + "; ".join(fv(r) for r in rows),
+             f"W⊥ = Span({', '.join(fv(x) for x in perp)}),  dim W⊥ = {n} - {len(W)} = {len(perp)}"]
+    nm = d.get("name", "W")
+    steps = [x.replace("W⊥", f"{nm}⊥").replace("basis of W:", f"basis of {nm}:") for x in steps]
+    parts = [(f"dim {nm}⊥", IntAns(len(perp))), (f"a basis of {nm}⊥ ('none' if {{0}})", SpanAns(perp, n, f"{nm}⊥"))]
+    return "", parts, steps
