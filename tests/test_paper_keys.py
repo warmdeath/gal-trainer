@@ -126,3 +126,12 @@ def test_p2501i2():
     q = 3*x**2 + 2*y**2 + z**2 + 2*s3*x*z - 2*x + 2*s3*z + 2
     sub = {x: (s3*X + Z)/2 + sp.Rational(1, 4), y: Y, z: (X - s3*Z)/2 - s3/4}
     assert sp.simplify(sp.expand(q.subs(sub)) - (4*X**2 + 2*Y**2 - 4*Z)) == 0
+
+
+# ------------------------------------------------------------------ 01/2024 itinere II
+def test_p2401i2():
+    assert (sp.Matrix([1, -1, -1]).cross(sp.Matrix([0, -2, -3]))) == sp.Matrix([1, 3, -2]) and mcq_key("P2401I2-D1") == "b"
+    x, y = sp.symbols("x y")
+    assert sp.factor(x**2 + 4*x*y + 4*y**2 + 2*x + 4*y) == (x + 2*y) * (x + 2*y + 2)
+    A = M([[0, 0, 0], [1, -1, 2], [0, 0, 1]])
+    assert sym(key("P2401I2-E2e")["A²⁰²⁴v"].M) == A**2024 * sp.Matrix([1, 1, 1]) == sp.Matrix([0, 0, 1])
