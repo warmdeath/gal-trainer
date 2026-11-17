@@ -125,7 +125,7 @@ def _pow(a, b):
 
 
 # --------------------------------------------------------------------------- tokenizer
-_TOKEN = re.compile(r"\s*(?:(\d+\.\d*|\.\d+|\d+)|(sqrt|√)|([A-Za-z][A-Za-z_]*\d*)|(\*\*|[-+*/^()]))")
+_TOKEN = re.compile(r"\s*(?:(\d+\.\d*|\.\d+|\d+)|(sqrt|√)|([^\W\d_][^\W\d_]*\d*)|(\*\*|[-+*/^()]))")
 
 
 def _tokenize(s: str) -> list[tuple[str, str]]:

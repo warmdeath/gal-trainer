@@ -173,6 +173,33 @@ class Poly:
         return f"Poly({self.show()})"
 
 
+def poly_divmod(a: Poly, b: Poly) -> tuple[Poly, Poly]:
+    """Euclidean division a = q·b + r with deg r < deg b."""
+    if not b.c:
+        raise ZeroDivisionError("division by the zero polynomial")
+    q = [Fraction(0)] * max(1, a.degree - b.degree + 1)
+    r = list(a.c)
+    lead = b.c[-1]
+    while len(r) >= len(b.c) and any(r):
+        k = len(r) - len(b.c)
+        f = r[-1] / lead
+        q[k] = f
+        for i, c in enumerate(b.c):
+            r[i + k] -= f * c
+        while r and r[-1] == 0:
+            r.pop()
+    return Poly(q), Poly(r)
+
+
+def poly_gcd(a: Poly, b: Poly) -> Poly:
+    """Monic gcd over Q (gcd(0, 0) = 0)."""
+    while b.c:
+        a, b = b, poly_divmod(a, b)[1]
+    if not a.c:
+        return a
+    return a / a.c[-1]
+
+
 def _gcd(a, b):
     from math import gcd
     return gcd(a, b)
@@ -204,3 +231,23 @@ def factored(p: Poly, var: str = "t") -> str:
     if rest.degree >= 1:
         out += f"({rest.show(var)})"
     return out or "1"
+
+
+def real_root_count(p: Poly) -> int:
+    """Number of DISTINCT real roots of p (Sturm's theorem, exact)."""
+    if p.degree <= 0:
+        return 0
+    seq = [p, Poly([k * p.c[k] for k in range(1, len(p.c))])]
+    while seq[-1].degree > 0:
+        r = poly_divmod(seq[-2], seq[-1])[1]
+        if not r.c:
+            break
+        seq.append(-r)
+
+    def changes(signs):
+        s = [x for x in signs if x != 0]
+        return sum(1 for a, b in zip(s, s[1:]) if a * b < 0)
+
+    at_pos = [q.c[-1] for q in seq]
+    at_neg = [q.c[-1] * (-1) ** q.degree for q in seq]
+    return changes(at_neg) - changes(at_pos)

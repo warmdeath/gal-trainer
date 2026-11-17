@@ -1,0 +1,163 @@
+"""The practice bank: the course's official material (exercise sheets, quizzes, handwritten
+esercitazioni) transcribed as data files, one TOML file per source in gal/bank/data/.
+
+Every item has a `task`; auto-checked tasks are built by gal.bank.tasks, `open` items are
+self-assessed against a model answer. New PDFs are turned into skeleton sources by
+`gal ingest` (gal/bank/ingest.py) and can then be upgraded item by item.
+"""
+from __future__ import annotations
+
+import os
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+
+if sys.version_info >= (3, 11):
+    import tomllib
+else:  # pragma: no cover
+    import tomli as tomllib
+
+from ..exercise import Exercise, Part
+from .tasks import TaskError, build_parts
+
+DATA_DIR = Path(__file__).parent / "data"
+
+
+def bank_dir() -> Path:
+    return Path(os.environ.get("GAL_BANK_DIR", DATA_DIR))
+
+
+def material_root() -> Path:
+    """Folder that contains the downloaded material folders (default: the repository root)."""
+    env = os.environ.get("GAL_MATERIAL_DIR")
+    return Path(env) if env else Path(__file__).resolve().parents[2]
+
+
+@dataclass
+class Item:
+    id: str
+    ref: str
+    topic: str
+    task: str
+    text: str
+    data: dict
+    source: "Source"
+    page: int | None = None
+    solved_in: list[tuple["Source", list[int]]] = field(default_factory=list)  # (esercitazione, pages)
+
+    @property
+    def auto(self) -> bool:
+        return self.task != "open"
+
+    def title(self) -> str:
+        return f"{self.source.title} — {self.ref}"
+
+
+@dataclass
+class Source:
+    id: str
+    title: str
+    kind: str            # sheet | quiz | esercitazione
+    files: list[dict]    # [{path, sha256, pages}]
+    date: str = ""
+    status: str = "transcribed"   # transcribed | skeleton
+    note: str = ""
+    items: list[Item] = field(default_factory=list)
+    solutions: list[dict] = field(default_factory=list)  # for esercitazioni: [{item, pages}]
+
+
+@dataclass
+class Bank:
+    sources: dict[str, Source]
+    items: dict[str, Item]
+
+    def by_topic(self, topic_id: str, auto_only: bool = False) -> list[Item]:
+        return [i for i in self.items.values() if i.topic == topic_id and (i.auto or not auto_only)]
+
+    def of_kind(self, kind: str) -> list[Item]:
+        return [i for s in self.sources.values() if s.kind == kind for i in s.items]
+
+    def resolve_source(self, ref: str) -> Source | None:
+        r = ref.strip().upper().replace(" ", "")
+        if r in self.sources:
+            return self.sources[r]
+        # 'foglio 2', 'f2', 'quiz 3', 'q3', 'es 4'
+        import re
+        m = re.match(r"^(F|FOGLIO|SHEET|Q|QUIZ|E|ES|ESERCITAZIONE)0*(\d+)$", r)
+        if m:
+            pref = {"F": "F", "FOGLIO": "F", "SHEET": "F", "Q": "Q", "QUIZ": "Q",
+                    "E": "ES", "ES": "ES", "ESERCITAZIONE": "ES"}[m.group(1)]
+            key = f"{pref}{int(m.group(2)):02d}"
+            return self.sources.get(key)
+        return None
+
+
+def load_bank(path: Path | None = None) -> Bank:
+    path = path or bank_dir()
+    sources: dict[str, Source] = {}
+    items: dict[str, Item] = {}
+    for f in sorted(path.glob("*.toml")):
+        raw = tomllib.loads(f.read_text(encoding="utf-8"))
+        s = raw["source"]
+        src = Source(s["id"], s["title"], s["kind"], s.get("files", []), s.get("date", ""),
+                     s.get("status", "transcribed"), s.get("note", ""))
+        if src.id in sources:
+            raise ValueError(f"duplicate source id {src.id} in {f.name}")
+        for it in raw.get("item", []):
+            item = Item(it["id"], it.get("ref", ""), it.get("topic", ""), it.get("task", "open"),
+                        it.get("text", "").strip(), it.get("data", {}), src, it.get("page"))
+            if item.id in items:
+                raise ValueError(f"duplicate item id {item.id}")
+            items[item.id] = item
+            src.items.append(item)
+        src.solutions = raw.get("solution", [])
+        sources[src.id] = src
+    for src in sources.values():
+        for sol in src.solutions:
+            for iid in sol["items"]:
+                if iid in items:
+                    items[iid].solved_in.append((src, sol.get("pages", [])))
+    return Bank(sources, items)
+
+
+def build(item: Item) -> Exercise:
+    extra, parts, steps = build_parts(item.task, item.data, item.text)
+    prompt = f"[{item.title()}]\n{item.text}"
+    if extra:
+        prompt += "\n\n" + extra
+    if not item.auto and item.solved_in:
+        steps = steps + [solved_in_text(item)]
+    elif item.solved_in:
+        steps = steps + ["", solved_in_text(item)]
+    ex = Exercise(item.topic, f"bank:{item.task}", prompt, [Part(lbl, a) for lbl, a in parts], steps,
+                  dict(item.data, item_id=item.id))
+    return ex
+
+
+_BANK: Bank | None = None
+
+
+def get_bank() -> Bank:
+    global _BANK
+    if _BANK is None:
+        _BANK = load_bank()
+    return _BANK
+
+
+def reload_bank() -> Bank:
+    global _BANK
+    _BANK = load_bank()
+    return _BANK
+
+
+def solved_in_text(item: Item) -> str:
+    out = []
+    for src, pages in item.solved_in:
+        path = src.files[0]["path"] if src.files else ""
+        pg = f", p. {', '.join(str(p) for p in pages)}" if pages else ""
+        out.append(f"Solved in class (handwritten): {src.title}{pg}  →  {path}")
+    return "\n".join(out)
+
+
+__all__ = ["Bank", "Item", "Source", "TaskError", "build", "get_bank", "load_bank", "reload_bank",
+           "bank_dir", "material_root"]

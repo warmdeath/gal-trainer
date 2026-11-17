@@ -193,6 +193,75 @@ class ChoiceAns(Answer):
         return chr(97 + self.correct)
 
 
+class MultiChoiceAns(Answer):
+    """Select ALL the true options (quiz style 'Selezionare le 3 affermazioni vere').
+    Accepts 'a c d', 'A,C,D', 'acd'. Partial credit: (right picks - wrong picks)/#correct."""
+
+    def __init__(self, options: Sequence[str], correct: Sequence[int], why: dict[int, str] | None = None):
+        super().__init__()
+        self.options = list(options)
+        self.correct = sorted(set(correct))
+        self.why = why or {}
+        self.fmt_hint = f"all the correct letters, e.g. 'a c' ({len(self.correct)} correct)"
+
+    def render(self) -> str:
+        return "\n".join(f"  {chr(97 + i)}) {o}" for i, o in enumerate(self.options))
+
+    def check(self, text):
+        t = text.strip().lower().replace(",", " ").replace(";", " ").replace(")", " ")
+        letters = t.split() if " " in t.strip() else list(t.strip())
+        picked = set()
+        for x in letters:
+            if len(x) != 1 or not ("a" <= x <= chr(96 + len(self.options))):
+                raise ParseError(f"use letters a–{chr(96 + len(self.options))}, e.g. 'a c'")
+            picked.add(ord(x) - 97)
+        if not picked:
+            raise ParseError("pick at least one letter")
+        good = set(self.correct)
+        if picked == good:
+            return Check.right()
+        msgs = []
+        for i in sorted(picked - good):
+            msgs.append(f"{chr(97 + i)}) is false" + (f": {self.why[i]}" if i in self.why else "."))
+        for i in sorted(good - picked):
+            msgs.append(f"{chr(97 + i)}) is true" + (f": {self.why[i]}" if i in self.why else "."))
+        score = max(0.0, (len(picked & good) - len(picked - good)) / len(good))
+        return Check.wrong(" ".join(msgs), score)
+
+    def show(self):
+        return ", ".join(f"{chr(97 + i)})" for i in self.correct)
+
+    def typed(self):
+        return " ".join(chr(97 + i) for i in self.correct)
+
+
+class OpenAns(Answer):
+    """Proofs, examples, 'dimostrare o confutare': the student writes an answer, then compares
+    with the model answer and grades themself (y = right, p = partly, n = wrong)."""
+    fmt_hint = "after reading the model answer: y (correct) / p (partly) / n (wrong)"
+    self_assessed = True
+
+    def __init__(self, model: str):
+        super().__init__()
+        self.model = model.strip()
+
+    def check(self, text):
+        w = text.strip().lower()
+        if w in ("y", "yes", "s", "si", "sì", "1", "ok"):
+            return Check.right()
+        if w in ("p", "partly", "partial", "parz", "0.5"):
+            return Check.wrong("Partly right: compare once more with the model answer.", 0.5)
+        if w in ("n", "no", "0"):
+            return Check.wrong("Study the model answer and retry later.")
+        raise ParseError("grade yourself: y / p / n")
+
+    def show(self):
+        return self.model
+
+    def typed(self):
+        return "y"
+
+
 # ------------------------------------------------------------------ vectors / matrices
 class VectorAns(Answer):
     fmt_hint = "a vector, e.g. (1, -2, 3/2)"
@@ -309,6 +378,34 @@ def diagnose_matrix(X: Matrix, M: Matrix) -> str:
         a = next(X[i, j] / M[i, j] for i in range(M.m) for j in range(M.n) if M[i, j] != 0)
         return f"Your matrix is {fs(a)} times the correct one: a scalar factor is off."
     return f"{len(diffs)} entries differ; compare with the solution."
+
+
+UNDEFINED_WORDS = {"undefined", "not defined", "non definito", "non definita", "nd", "n.d.",
+                   "impossibile", "impossible", "none", "-"}
+
+
+class MaybeMatrixAns(MatrixAns):
+    """A matrix, or 'not defined' (e.g. a product of incompatible matrices)."""
+    fmt_hint = "rows separated by ';' — or 'not defined'"
+
+    def __init__(self, M: Matrix | None, mistakes=(), why_undefined: str = ""):
+        super().__init__(M if M is not None else Matrix([[0]]), mistakes)
+        self.defined = M is not None
+        self.why_undefined = why_undefined
+
+    def check(self, text):
+        if text.strip().lower() in UNDEFINED_WORDS:
+            return Check.right() if not self.defined else Check.wrong("It IS defined: the sizes are compatible.")
+        if not self.defined:
+            parse_matrix(text)  # still reject garbage politely
+            return Check.wrong(self.why_undefined or "It is not defined (incompatible sizes).")
+        return super().check(text)
+
+    def show(self):
+        return super().show() if self.defined else "not defined"
+
+    def typed(self):
+        return super().typed() if self.defined else "not defined"
 
 
 class SpanAns(Answer):
@@ -452,12 +549,23 @@ class EquationsAns(Answer):
 class PolyAns(Answer):
     fmt_hint = "a polynomial in t, e.g. t^3 - 4t^2 + 5t - 2"
 
-    def __init__(self, p: Poly, mistakes=()):
+    def __init__(self, p: Poly, mistakes=(), var: str = "t"):
         super().__init__(mistakes)
         self.p = p
+        self.var = var
+        if var != "t":
+            self.fmt_hint = f"a polynomial in {var} (you may also write it with l, k, x or t)"
+
+    def _parse(self, text):
+        for v in (self.var, "t", "l", "k", "x", "a", "λ"):
+            try:
+                return parse_poly(text, v)
+            except ParseError:
+                continue
+        return parse_poly(text, self.var)
 
     def check(self, text):
-        q = parse_poly(text)
+        q = self._parse(text)
         if q == self.p:
             return Check.right()
         why = self._known(q)
@@ -470,10 +578,10 @@ class PolyAns(Answer):
         return Check.wrong("Not the right polynomial: check the Laplace expansion of det(tI - A).")
 
     def show(self):
-        return str(self.p)
+        return self.p.show(self.var)
 
     def typed(self):
-        return str(self.p)
+        return self.p.show(self.var)
 
 
 class ScalarSetAns(Answer):

@@ -1,0 +1,547 @@
+[source]
+id = "F03"
+title = "Foglio di esercizi 3"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_03.pdf", sha256 = "", pages = 3 }]
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F03-E1P"
+ref = "Esercizio 1 (P)"
+topic = "determinant"
+page = 1
+task = "det"
+text = "Si calcoli il determinante della matrice."
+data = { A = [[1, 2, 3], [2, 3, 4], [0, 1, -1]], name = "P" }
+
+[[item]]
+id = "F03-E1Q"
+ref = "Esercizio 1 (Q)"
+topic = "determinant"
+page = 1
+task = "param_invertible"
+text = "Si calcoli il determinante di Q e si indichi per quali λ ∈ R è invertibile."
+data = { param = "λ", A = [[1, "λ", -1], [2, 0, "λ + 1"], [1, -2, 3]], name = "Q", ask_det = true }
+
+[[item]]
+id = "F03-E1S"
+ref = "Esercizio 1 (S)"
+topic = "determinant"
+page = 1
+task = "param_invertible"
+text = "Si calcoli il determinante di S e si indichi per quali λ ∈ R è invertibile."
+data = { param = "λ", A = [[1, 2, 1, "λ"], [2, 0, 2, 2], [1, 0, 1, 3], ["λ - 1", -2, 1, 2]], name = "S", ask_det = true }
+
+[[item]]
+id = "F03-E1T"
+ref = "Esercizio 1 (T)"
+topic = "determinant"
+page = 1
+task = "param_invertible"
+text = "Si calcoli il determinante di T e si indichi per quali λ ∈ R è invertibile."
+data = { param = "λ", A = [[3, 1, 0, -2], [1, 1, 0, -2], [2, -2, "λ", 4], [3, 1, 2, 4]], name = "T", ask_det = true }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F03-E2a"
+ref = "Esercizio 2 a)"
+topic = "determinant"
+page = 1
+task = "values"
+text = "Sia A ∈ M_R(3) con det(A) = 2. Calcolare il determinante di A⁻¹, A², AᵀA, AAᵀ, 2A e 3A⁻¹."
+[item.data]
+answers = [["det(A^-1)", "1/2"], ["det(A^2)", 4], ["det(A^T A)", 4], ["det(A A^T)", 4], ["det(2A)", 16], ["det(3A^-1)", "27/2"]]
+why = "Binet: det(XY) = det X det Y; det(Aᵀ) = det A; det(A⁻¹) = 1/det A; det(λA) = λ³ det A for 3×3: det(2A) = 8·2 = 16, det(3A⁻¹) = 27·(1/2)."
+
+[[item]]
+id = "F03-E2b"
+ref = "Esercizio 2 b)"
+topic = "determinant"
+page = 1
+task = "values"
+text = """
+Sia A = (c1, c2, c3, c4) ∈ M_R(4) con det(A) = 3 (ci = colonne). Calcolare il determinante di
+B = (c1, 2c2, −3c3, 4c4),  C = (c1, c1 + c2, c1 + c2 + c3, c4),  D = (c4, c1, c2, c3),
+E = (c1 + c2, c2 + c3, c3 + c1, c1 + c2 + c3)."""
+[item.data]
+answers = [["det B", -72], ["det C", 3], ["det D", -3], ["det E", 0]]
+why = """det is multilinear and alternating in the columns (Fatto 1.26):
+B: 2·(−3)·4·3 = −72.  C: subtract columns (c1+c2 − c1 = c2, ...) without changing det → det A = 3.
+D: (c4,c1,c2,c3) → (c1,c2,c3,c4) needs 3 swaps → −3.  E: four columns all in Span(c1,c2,c3) → dependent → 0."""
+
+# ---------------------------------------------------------------- Esercizio 3 (sottospazi)
+[[item]]
+id = "F03-E3a"
+ref = "Esercizio 3 a)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(a, b) | a + b = 0} ⊆ R² è un sottospazio vettoriale?"
+data = { answer = true, why = "Homogeneous linear equation: it is Sol(A|0)." }
+
+[[item]]
+id = "F03-E3b"
+ref = "Esercizio 3 b)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(a, b) | ab = 0} ⊆ R² è un sottospazio vettoriale?"
+data = { answer = false, why = "(1,0) and (0,1) are in it, (1,1) is not: not closed under sum (it is the union of the two axes)." }
+
+[[item]]
+id = "F03-E3c"
+ref = "Esercizio 3 c)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(a, b) | ab ≥ 0} ⊆ R² è un sottospazio vettoriale?"
+data = { answer = false, why = "(1,0) + (0,−1) = (1,−1) has ab = −1 < 0: not closed under sum." }
+
+[[item]]
+id = "F03-E3d"
+ref = "Esercizio 3 d)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(a, b) | a² − b² = 0} ⊆ R² è un sottospazio vettoriale?"
+data = { answer = false, why = "It is the union of the lines a = b and a = −b: (1,1) + (1,−1) = (2,0) is not in it." }
+
+[[item]]
+id = "F03-E3e"
+ref = "Esercizio 3 e)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(a, a − b + 1, b − 1) | a, b ∈ R} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = true, why = "Put c = b − 1: the set is {(a, a − c, c)} = Span((1,1,0), (0,−1,1)). The '+1' is only an apparent obstacle: for a = 0, b = 1 we get 0." }
+
+[[item]]
+id = "F03-E3f"
+ref = "Esercizio 3 f)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(3a, a + 2b, a − b) | a, b ∈ R} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = true, why = "It is Span((3,1,1), (0,2,−1))." }
+
+[[item]]
+id = "F03-E3g"
+ref = "Esercizio 3 g)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(x, y, z, w) | x − y = 0, y + z = 0} ⊆ R⁴ è un sottospazio vettoriale?"
+data = { answer = true, why = "Solutions of a homogeneous linear system." }
+
+[[item]]
+id = "F03-E3h"
+ref = "Esercizio 3 h)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(x, y, z) | x + y + z = 2} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = false, why = "0 does not satisfy x + y + z = 2 (affine plane, not through 0)." }
+
+[[item]]
+id = "F03-E3i"
+ref = "Esercizio 3 i)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(x, y, z, w) | x ∈ Z} ⊆ R⁴ è un sottospazio vettoriale?"
+data = { answer = false, why = "(1,0,0,0) is in it but (1/2)·(1,0,0,0) is not: not closed under real scalars." }
+
+[[item]]
+id = "F03-E3j"
+ref = "Esercizio 3 j)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(x, y) | x ≥ 0} ⊆ R² è un sottospazio vettoriale?"
+data = { answer = false, why = "(1,0) is in it, (−1)·(1,0) is not." }
+
+[[item]]
+id = "F03-E3k"
+ref = "Esercizio 3 k)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(u, u², u + v) : u, v ∈ R} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = false, why = "(1,1,1) is in it (u = 1, v = 0) but 2·(1,1,1) = (2,2,2) is not (u = 2 forces second entry 4)." }
+
+[[item]]
+id = "F03-E3l"
+ref = "Esercizio 3 l)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "{(t, 2t + 1, t³ − t) : t ∈ R} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = false, why = "0 is not in it: the first entry forces t = 0, then the second is 1." }
+
+[[item]]
+id = "F03-E3m"
+ref = "Esercizio 3 m)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "R × R × {0} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = true, why = "It is the plane z = 0." }
+
+[[item]]
+id = "F03-E3n"
+ref = "Esercizio 3 n)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "R × R × {1} ⊆ R³ è un sottospazio vettoriale?"
+data = { answer = false, why = "It does not contain 0 (it is the affine plane z = 1)." }
+
+# ---------------------------------------------------------------- Esercizio 4 (polinomi)
+[[item]]
+id = "F03-E4a"
+ref = "Esercizio 4 a)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p(t) ha grado 2} è un sottospazio vettoriale di V?"
+data = { answer = false, why = "The zero polynomial does not have degree 2." }
+
+[[item]]
+id = "F03-E4b"
+ref = "Esercizio 4 b)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p(t) ha grado 2} ∪ {0} è un sottospazio vettoriale di V?"
+data = { answer = false, why = "(t² + t) + (−t²) = t has degree 1: not closed under sum." }
+
+[[item]]
+id = "F03-E4c"
+ref = "Esercizio 4 c)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p(2) = 0} è un sottospazio vettoriale di V?"
+data = { answer = true, why = "Evaluation p ↦ p(2) is linear; the set is its kernel." }
+
+[[item]]
+id = "F03-E4d"
+ref = "Esercizio 4 d)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p(−2) = 1} è un sottospazio vettoriale di V?"
+data = { answer = false, why = "The zero polynomial has p(−2) = 0 ≠ 1." }
+
+[[item]]
+id = "F03-E4e"
+ref = "Esercizio 4 e)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p(1) = p′(−3) = 0} è un sottospazio vettoriale di V?"
+data = { answer = true, why = "Two homogeneous linear conditions on the coefficients (evaluation and derivative are linear)." }
+
+[[item]]
+id = "F03-E4f"
+ref = "Esercizio 4 f)"
+topic = "vector_spaces"
+page = 1
+task = "yesno"
+text = "V = R[t]≤4. {p(t) ∈ V | p′(1) = p′(10)} è un sottospazio vettoriale di V?"
+data = { answer = true, why = "p′(1) − p′(10) = 0 is one homogeneous linear condition." }
+
+# ---------------------------------------------------------------- Esercizio 5 (matrici)
+[[item]]
+id = "F03-E5a"
+ref = "Esercizio 5 a)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): l'insieme delle matrici diagonali è un sottospazio vettoriale?"
+data = { answer = true, why = "Conditions a_ij = 0 (i ≠ j) are homogeneous linear." }
+
+[[item]]
+id = "F03-E5b"
+ref = "Esercizio 5 b)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): l'insieme delle matrici triangolari superiori è un sottospazio vettoriale?"
+data = { answer = true, why = "Conditions a_ij = 0 (i > j) are homogeneous linear." }
+
+[[item]]
+id = "F03-E5c"
+ref = "Esercizio 5 c)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): l'insieme delle matrici triangolari inferiori è un sottospazio vettoriale?"
+data = { answer = true, why = "Conditions a_ij = 0 (i < j) are homogeneous linear." }
+
+[[item]]
+id = "F03-E5d"
+ref = "Esercizio 5 d)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): l'insieme delle matrici simmetriche {A | A = Aᵀ} è un sottospazio vettoriale?"
+data = { answer = true, why = "A − Aᵀ = O is linear in A; (A+B)ᵀ = Aᵀ + Bᵀ, (λA)ᵀ = λAᵀ." }
+
+[[item]]
+id = "F03-E5e"
+ref = "Esercizio 5 e)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): l'insieme delle matrici invertibili {A | rg(A) = 4} è un sottospazio vettoriale?"
+data = { answer = false, why = "The zero matrix is not invertible (also I + (−I) = O)." }
+
+[[item]]
+id = "F03-E5f"
+ref = "Esercizio 5 f)"
+topic = "vector_spaces"
+page = 2
+task = "yesno"
+text = "In M_K(4): {A | rg(A) ≤ 1} è un sottospazio vettoriale?"
+data = { answer = false, why = "E11 and E22 have rank 1, their sum has rank 2: not closed under sum." }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F03-E6"
+ref = "Esercizio 6"
+topic = "vector_spaces"
+page = 2
+task = "open"
+text = """
+a) Data S = (0 1; 1 0) ∈ M_R(2), si dimostri che U := {A ∈ M_R(2) | SAS = A} è un sottospazio di M_R(2).
+b) Si spieghi perché W := {A ∈ M_R(2) | A² − A = O} non è un sottospazio di M_R(2)."""
+[item.data]
+solution = """
+a) S1: S·O·S = O. S2: if SAS = A and SBS = B then S(A+B)S = SAS + SBS = A + B. S3: S(λA)S = λSAS = λA.
+   (Equivalently U = ker of the linear map A ↦ SAS − A.) Explicitly SAS swaps both rows and columns,
+   so U = {(a b; b a)}: a subspace of dimension 2.
+b) I₂ ∈ W (I² − I = O) but 2I₂ ∉ W: (2I)² − 2I = 4I − 2I = 2I ≠ O. Not closed under scalars."""
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F03-E7a"
+ref = "Esercizio 7 a)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K². Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[3, 0], [1, -1], [2, 1]] }
+
+[[item]]
+id = "F03-E7b"
+ref = "Esercizio 7 b)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K². Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[3, 0], [1, -1]] }
+
+[[item]]
+id = "F03-E7c"
+ref = "Esercizio 7 c)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K³. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[3, 0, 0], [1, -1, 1], [2, 1, 2]] }
+
+[[item]]
+id = "F03-E7d"
+ref = "Esercizio 7 d)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K³. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 1, 2], [1, -1, 1]] }
+
+[[item]]
+id = "F03-E7e"
+ref = "Esercizio 7 e)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K⁴. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 0, 1, -1], [1, 1, 0, 0], [3, 1, 2, 1]] }
+
+[[item]]
+id = "F03-E7f"
+ref = "Esercizio 7 f)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K⁴. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 0, 1, -1], [1, 1, 0, 0], [3, 1, 2, 2]] }
+
+[[item]]
+id = "F03-E7g"
+ref = "Esercizio 7 g)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K[t]≤3, vettori {1, t + 1, t² + 1, t³ − 1}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 0, 0, 0], [1, 1, 0, 0], [1, 0, 1, 0], [-1, 0, 0, 1]], labels = ["1", "t + 1", "t² + 1", "t³ − 1"], coords_note = "coordinates w.r.t. {1, t, t², t³}" }
+
+[[item]]
+id = "F03-E7h"
+ref = "Esercizio 7 h)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K[t]≤3, vettori {1 + t, 1 − t, 1 − t²}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 1, 0, 0], [1, -1, 0, 0], [1, 0, -1, 0]], labels = ["1 + t", "1 − t", "1 − t²"], coords_note = "coordinates w.r.t. {1, t, t², t³}" }
+
+[[item]]
+id = "F03-E7i"
+ref = "Esercizio 7 i)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = K[t]≤3, vettori {1 + t, 1 − t, 1 − t², t² + 2t}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 1, 0, 0], [1, -1, 0, 0], [1, 0, -1, 0], [0, 2, 1, 0]], labels = ["1 + t", "1 − t", "1 − t²", "t² + 2t"], coords_note = "coordinates w.r.t. {1, t, t², t³}" }
+
+[[item]]
+id = "F03-E7j"
+ref = "Esercizio 7 j)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = M_K(2), {(1 1; 1 0), (1 1; 0 1)}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 1, 1, 0], [1, 1, 0, 1]], labels = ["(1 1; 1 0)", "(1 1; 0 1)"], coords_note = "coordinates (a11, a12, a21, a22) w.r.t. the canonical basis" }
+
+[[item]]
+id = "F03-E7k"
+ref = "Esercizio 7 k)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = M_K(2), {(0 1; 1 0), (−1 0; 0 −1), (0 0; 0 1)}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[0, 1, 1, 0], [-1, 0, 0, -1], [0, 0, 0, 1]], labels = ["(0 1; 1 0)", "(−1 0; 0 −1)", "(0 0; 0 1)"], coords_note = "coordinates (a11, a12, a21, a22)" }
+
+[[item]]
+id = "F03-E7l"
+ref = "Esercizio 7 l)"
+topic = "span_independence"
+page = 2
+task = "indep"
+text = "V = M_K(2), {(1 1; 0 0), (1 −1; 0 1), (1 0; 1 0), (1 2; 3 4)}. Sono linearmente indipendenti e/o generatori di V?"
+data = { vectors = [[1, 1, 0, 0], [1, -1, 0, 1], [1, 0, 1, 0], [1, 2, 3, 4]], labels = ["(1 1; 0 0)", "(1 −1; 0 1)", "(1 0; 1 0)", "(1 2; 3 4)"], coords_note = "coordinates (a11, a12, a21, a22)" }
+
+# ---------------------------------------------------------------- Esercizio 8
+[[item]]
+id = "F03-E8a"
+ref = "Esercizio 8 a)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = "Per quali k ∈ R i vettori sono linearmente indipendenti e/o generatori di R³?"
+data = { param = "k", vectors = [[1, "k", "k^2"], [1, "k - 1", "(k - 1)^2"], [1, "k + 1", "(k + 1)^2"]] }
+
+[[item]]
+id = "F03-E8b"
+ref = "Esercizio 8 b)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = "Per quali k ∈ R i polinomi {k + t, t + kt², t − 3k + t²} sono linearmente indipendenti e/o generatori di R[t]≤2?"
+data = { param = "k", vectors = [["k", 1, 0], [0, 1, "k"], ["-3k", 1, 1]], labels = ["k + t", "t + kt²", "t − 3k + t²"], coords_note = "coordinates w.r.t. {1, t, t²}" }
+
+[[item]]
+id = "F03-E8c"
+ref = "Esercizio 8 c)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = "Per quali k ∈ R i vettori sono linearmente indipendenti e/o generatori di R⁴?"
+data = { param = "k", vectors = [[1, 0, 1, 0], ["k", 2, "k", 2], [1, "k + 1", 1, "2k"]] }
+
+[[item]]
+id = "F03-E8d"
+ref = "Esercizio 8 d)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = "Per quali k ∈ R {(1 0; 0 1), A := (1 k; 0 1), A², A³} ⊆ M_R(2,2) sono linearmente indipendenti e/o generatori?"
+data = { param = "k", vectors = [[1, 0, 0, 1], [1, "k", 0, 1], [1, "2k", 0, 1], [1, "3k", 0, 1]], labels = ["I", "A = (1 k; 0 1)", "A² = (1 2k; 0 1)", "A³ = (1 3k; 0 1)"], coords_note = "coordinates (a11, a12, a21, a22)" }
+
+# ---------------------------------------------------------------- Esercizio 9
+[[item]]
+id = "F03-E9-1"
+ref = "Esercizio 9 (prima parte)"
+topic = "span_independence"
+page = 2
+task = "param_rank"
+text = """
+In R⁴: v1 = (3, −1, 2, 0), v2 = (−6, 2, −4, 0), v3 = (−3, k, k − 3, 0).
+a) Per quali k vale v3 ∈ W := Span(v1, v2)?   b) dim W e dim Span(v1, v2, v3) al variare di k.
+(Columns of the matrix below: v1, v2, v3. v3 ∈ W exactly when the rank drops to dim W.)"""
+data = { param = "k", A = [[3, -6, -3], [-1, 2, "k"], [2, -4, "k - 3"], [0, 0, 0]], name = "(v1|v2|v3)" }
+
+[[item]]
+id = "F03-E9-2"
+ref = "Esercizio 9 (seconda parte)"
+topic = "span_independence"
+page = 3
+task = "param_rank"
+text = """
+Ripetere con v1 = (1, 2, 1, 3), v2 = (2, 3, 2, 4), v3 = (1, 1, 3k − 2, k).
+(Columns: v1, v2, v3; dim W = 2, and v3 ∈ W exactly when the rank drops to 2.)"""
+data = { param = "k", A = [[1, 2, 1], [2, 3, 1], [1, 2, "3k - 2"], [3, 4, "k"]], name = "(v1|v2|v3)" }
+
+# ---------------------------------------------------------------- Esercizio 10
+[[item]]
+id = "F03-E10a"
+ref = "Esercizio 10 a)"
+topic = "bases"
+page = 3
+task = "coords"
+text = "V = Q². Si verifichi che B è una base e si determini (v)_B."
+data = { basis = [[1, 2], [2, 1]], v = [4, 5] }
+
+[[item]]
+id = "F03-E10b"
+ref = "Esercizio 10 b)"
+topic = "bases"
+page = 3
+task = "coords"
+text = "V = R³. Si verifichi che B è una base e si determini (v)_B."
+data = { basis = [[1, 1, 0], [1, 0, 1], [0, 1, 1]], v = [3, 4, 5] }
+
+[[item]]
+id = "F03-E10c"
+ref = "Esercizio 10 c)"
+topic = "bases"
+page = 3
+task = "coords"
+text = "V = Q[t]≤2, v = (t + 1)², B = {t² + t + 1, t² + t, t²}. Si verifichi che B è una base e si determini (v)_B."
+data = { basis = [[1, 1, 1], [0, 1, 1], [0, 0, 1]], v = [1, 2, 1], coords_note = "coordinates w.r.t. {1, t, t²}: v = 1 + 2t + t²" }
+
+[[item]]
+id = "F03-E10d"
+ref = "Esercizio 10 d)"
+topic = "bases"
+page = 3
+task = "coords"
+text = "V = M_R(2), v = (1 0; 0 1), B = {(2 0; 0 0), (0 1; 1 0), (0 1; 0 1), (0 0; 1 1)}. Si verifichi che B è una base e si determini (v)_B."
+data = { basis = [[2, 0, 0, 0], [0, 1, 1, 0], [0, 1, 0, 1], [0, 0, 1, 1]], v = [1, 0, 0, 1], coords_note = "coordinates (a11, a12, a21, a22)" }
+
+# ---------------------------------------------------------------- Esercizio 11
+[[item]]
+id = "F03-E11"
+ref = "Esercizio 11"
+topic = "rank"
+page = 3
+task = "values"
+text = """
+Si determinino tutte le coppie (a, b) ∈ R² tali che l'insieme delle soluzioni del sistema
+(1 1 a; a b 1; 1 a −1)·X = (a, 0, a)ᵀ sia un sottospazio vettoriale di R³ di dimensione 1."""
+[item.data]
+answers = [["a", 0], ["b", 1]]
+why = """A solution set is a subspace only if it contains 0, i.e. the system is homogeneous: a = 0.
+Then the matrix is (1 1 0; 0 b 1; 1 0 −1) with det = 1 − b; dim Sol = 3 − rank = 1 ⇔ rank 2 ⇔ b = 1
+(the rank is never 1 because the first two columns are independent). Only pair: (a, b) = (0, 1)."""
