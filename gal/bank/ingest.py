@@ -102,7 +102,7 @@ def extract_text(path: Path) -> tuple[str, int]:
         raise RuntimeError("no PDF text extractor: install poppler-utils (pdftotext) or `pip install pypdf`") from None
 
 
-HEADER = re.compile(r"^\s*(Esercizio|Domanda|Compito)\s+(\d+)\s*\.?", re.MULTILINE)
+HEADER = re.compile(r"(?:^|\f)[ \t]*(Esercizio|Domanda|Compito)\s+(\d+)\s*\.?", re.MULTILINE)
 
 
 _CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
@@ -122,7 +122,7 @@ def split_items(text: str) -> list[tuple[str, int, str, int]]:
     for i, m in enumerate(ms):
         end = ms[i + 1].start() if i + 1 < len(ms) else len(text)
         body = clean(text[m.end():end])
-        page = text.count("\f", 0, m.start()) + 1
+        page = text.count("\f", 0, m.start(1)) + 1
         out.append((m.group(1), int(m.group(2)), body, page))
     return out
 
