@@ -61,3 +61,22 @@ def test_p2506a():
     E1 = (A - sp.eye(3)).nullspace()
     assert sym(key("P2506A-E2b")["matrix of π_E1"].M) == proj_matrix([list(v) for v in E1])
     assert signature(A) == tuple(val("P2506A-E2d", l) for l in ("n+", "n−", "n0"))
+
+
+# ------------------------------------------------------------------ 07/2025
+def test_p2507a():
+    d1, d2 = sp.Matrix([1, -1, 0]), sp.Matrix([0, 1, 1])
+    assert abs(d1.dot(d2)) / (d1.norm() * d2.norm()) == sp.Rational(1, 2) and mcq_key("P2507A-D1") == "b"
+    C = M([[2, 0, 0, 0], [1, 1, 0, 0], [-1, 0, 1, 0], [-1, 0, 0, 1]]).T
+    B = M([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [1, 0, 0, 1]]).T
+    assert C.inv() * B == M([[sp.Rational(1, 2), -sp.Rational(1, 2), sp.Rational(1, 2), 1], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+    assert mcq_key("P2507A-D10") == "a"
+    basis = M([[1, 0, 2, 1], [0, 1, 1, 0], [3, 0, 0, -1], [0, 0, 0, 1]]).T
+    assert basis.solve(sp.Matrix([5, 1, 5, 4])) == sp.Matrix([2, 1, 1, 3]) and mcq_key("P2507A-D11") == "d"
+    Weq = sp.Matrix([[1, -1, 0, 1], [2, 0, 1, 0], [0, 1, -1, -1]])
+    assert sym(key("P2507A-E1d")["matrix of π_W⊥"].M) == proj_matrix([list(r) for r in Weq.T.columnspace()])
+    A = sym(key("P2507A-E3a")["A"].M)
+    x = sp.symbols("x1:4")
+    X = sp.Matrix(x)
+    assert sp.expand((X.T * A * X)[0] - (x[0]**2 + x[1]**2 + 4 * x[2]**2 - 2 * x[0] * x[1])) == 0
+    assert signature(A) == tuple(val("P2507A-E3b", l) for l in ("n+", "n−", "n0"))
