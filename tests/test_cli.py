@@ -104,3 +104,17 @@ def test_reset(tmp_path):
     app.prof.record("vectors", 1)
     app.command("reset")
     assert app.prof.topics == {}
+
+
+def test_reflow_keeps_formulas_and_bullets():
+    from gal.cli import reflow
+    txt = "A long\nparagraph.\n• bullet one\n  continues\n• bullet two\n   x = 1 + t   (formula)\nPlain after."
+    out = reflow(txt).split("\n")
+    assert out == ["A long paragraph.", "• bullet one continues", "• bullet two",
+                   "   x = 1 + t   (formula)", "Plain after."]
+
+
+def test_quit_at_go_prompt_does_not_start(tmp_path):
+    app, buf, _ = make_app(["quit"], tmp_path)
+    app.next()
+    assert "Intuition" not in buf.getvalue()

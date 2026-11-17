@@ -13,6 +13,11 @@ from ..topics import BY_ID
 from .nn import XOR_X, train_xor
 
 
+def reflow(text):
+    from ..cli import reflow as _r
+    return _r(text)
+
+
 def exact_xor_network():
     """The hand-made ReLU network of the lesson, evaluated EXACTLY with Matrix."""
     W1 = Matrix([[1, 1], [1, 1]])
@@ -30,7 +35,7 @@ def exact_xor_network():
 def run_chapter(app) -> None:
     t = BY_ID["ai"]
     for k, (head, body) in enumerate(t.lesson):
-        app.out(Panel(Text(body), title=f"Bonus — {head}", border_style="blue"))
+        app.out(Panel(Text(reflow(body)), title=f"Bonus — {head}", border_style="blue"))
         if k == 4:
             tab = Table(title="Exact forward pass (Fractions, this trainer's Matrix class)")
             for c in ("x", "W1x + b1", "h = ReLU(...)", "y = (1,-2)·h", "XOR"):

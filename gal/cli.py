@@ -75,6 +75,34 @@ def resolve_topic(arg: str) -> Topic | None:
     return matches[0] if len(matches) >= 1 else None
 
 
+def reflow(text: str) -> str:
+    """Undo the hard wrapping of lesson paragraphs so the terminal can wrap them itself.
+    Kept on their own line: blank lines, bullets/markers, lines indented by 3+ spaces
+    (formulas, aligned tables). Joined to the previous line: plain continuation lines and
+    bullet continuations indented by exactly 2 spaces."""
+    out: list[str] = []
+    prev_joinable = False
+    in_bullet = False
+    for line in text.split("\n"):
+        stripped = line.strip()
+        indent = len(line) - len(line.lstrip(" "))
+        marker = stripped[:1] in "•-–" or stripped[:2].rstrip(")").isdigit() and stripped[1:2] in ").:" \
+            or stripped.startswith(("Step", "Attenzione", "Check", "Output", "Input", "Passo", "Controllo"))
+        if not stripped:
+            out.append("")
+            prev_joinable = in_bullet = False
+            continue
+        # inside a bullet only 2-space continuations join; outside, plain lines join
+        cont = prev_joinable and not marker and (indent == 2 if in_bullet else indent == 0)
+        if cont:
+            out[-1] = out[-1].rstrip() + " " + stripped
+        else:
+            out.append(line)
+            in_bullet = marker and stripped[:1] in "•-–"
+        prev_joinable = indent <= 2 and not stripped.endswith(":")
+    return "\n".join(out)
+
+
 def bar(x: float, width: int = 10) -> str:
     k = round(max(0.0, min(1.0, x)) * width)
     return "█" * k + "·" * (width - k)
@@ -254,7 +282,7 @@ class App:
         if t.extra:
             self.out("(Extra topic: not in the official notes yet.)", "yellow")
         for k, (head, body) in enumerate(t.lesson):
-            self.out(Panel(Text(body), title=head, border_style="blue"))
+            self.out(Panel(Text(reflow(body)), title=head, border_style="blue"))
             if k < len(t.lesson) - 1 and self._pause():
                 return
         for k, make in enumerate(t.examples, 1):
@@ -266,7 +294,7 @@ class App:
                            title="Solution", border_style="green"))
         self.prof.mark_lesson(t.id)
         self.prof.save()
-        if self.ask("Start practising this topic? [Y/n] ").strip().lower() not in ("n", "no"):
+        if self.ask("Start practising this topic? [Y/n] ").strip().lower() not in {"n", "no"} | QUIT:
             self.practice(t)
 
     def _pause(self, label="Enter: continue, q: stop ") -> bool:
@@ -283,7 +311,7 @@ class App:
         tail = f"  ({days} days to the exam)" if days is not None and days >= 0 else ""
         self.out(Panel(Text(adv.reason + tail), title=f"Next: {adv.action}" +
                        (f" — {adv.topic.title}" if adv.topic else ""), border_style="cyan"))
-        if self.ask("Go? [Y/n] ").strip().lower() in ("n", "no"):
+        if self.ask("Go? [Y/n] ").strip().lower() in {"n", "no"} | QUIT:
             return
         if adv.action == "exam":
             self.exam(6, None)
