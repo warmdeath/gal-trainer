@@ -89,6 +89,9 @@ def t_values(d, text):
     for label, val in d["answers"]:
         if isinstance(val, list):
             parts.append((label, ScalarSetAns([num(x) for x in val])))
+        elif isinstance(val, str) and ("sqrt" in val or "√" in val):
+            from ..core.parse import parse_real
+            parts.append((label, RealAns(parse_real(val))))      # exact roots: 'sqrt(2)', '2*sqrt(3)/3'
         else:
             parts.append((label, ScalarAns(num(val))))
     why = d.get("why", "")
