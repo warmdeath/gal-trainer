@@ -208,3 +208,62 @@ def test_exam_with_past_exam_exercise_credits_items(tmp_path):
     app._exam_report(ex, 1.0)
     assert all(app.prof.item_done(i) for i in ("F06-E4a", "F06-E4c", "F06-E4d"))
     assert not app.prof.item_done("F06-E4b")
+
+
+def test_past_add_interactive(tmp_path):
+    app, buf, _ = make_app(["tema 07/02/2024", "2026-11-20", "agent", "90", "2",
+                            "systems, rank", "7/8", "eigen", "2/8"], tmp_path)
+    app.command("past add")
+    out = buf.getvalue()
+    rec = app.prof.past_exams[0]
+    assert rec["paper"] == "tema 07/02/2024" and rec["grader"] == "agent" and rec["minutes_used"] == 90
+    assert rec["grade"] == round(30 * 9 / 16, 1)
+    assert app.prof.stats("rank").attempts == 1 and app.prof.stats("eigen").mastery == 0.25
+    assert "To review first: eigen" in out
+    app.command("past")
+    assert "Exam readiness" in buf.getvalue()
+
+
+def test_past_add_quick_and_rm(tmp_path):
+    app, buf, _ = make_app([], tmp_path)
+    app.command("past add tema giugno 2025 27/33")
+    assert app.prof.past_exams[0]["paper"] == "tema giugno 2025"
+    assert app.prof.past_exams[0]["grade"] == round(30 * 27 / 33, 1)
+    app.command("stats")
+    assert "Real past exams" in buf.getvalue() and "Exam readiness" in buf.getvalue()
+    app.command("past rm 1")
+    assert app.prof.past_exams == []
+
+
+def test_past_add_rejects_bad_input_then_accepts(tmp_path):
+    app, buf, _ = make_app(["tema X", "", "", "", "1", "nosuchtopic", "rank", "9/8", "5/8"], tmp_path)
+    app.command("past add")
+    out = buf.getvalue()
+    assert "Unknown topic" in out and "got/max" in out
+    assert app.prof.past_exams[0]["exercises"][0] == {"n": 1, "topics": ["rank"], "got": 5.0, "max": 8.0}
+
+
+def test_grade_series_of_proofs(tmp_path):
+    app, buf, _ = make_app([], tmp_path)
+    app.command("grade F07-E13 F01-E2 y F05-E2a p q01-c1 3/4")
+    bank = app.prof.bank
+    assert bank["F07-E13"]["best"] == 1.0 and bank["F05-E2a"]["best"] == 0.5
+    assert any(k.startswith("F01-E2") for k in bank)
+    assert "Recorded:" in buf.getvalue()
+    app.command("grade F07-E13 maybe")
+    assert "Not understood" in buf.getvalue()
+
+
+def test_grade_without_value_shows_model_answer(tmp_path):
+    app, buf, _ = make_app(["boh", "p"], tmp_path)
+    app.command("grade F07-E13")
+    out = buf.getvalue()
+    assert "Model answer" in out and app.prof.bank["F07-E13"]["best"] == 0.5
+
+
+def test_proofs_list(tmp_path):
+    app, buf, _ = make_app([], tmp_path)
+    app.prof.record_item("F07-E13", 0.5)
+    app.command("proofs 7")
+    out = buf.getvalue()
+    assert "F07-E13" in out and "50%" in out

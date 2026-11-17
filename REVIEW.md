@@ -217,7 +217,19 @@ These are mostly theory. The definition, statement and an example are in the les
     chained into one multi-part exercise, as on the real paper. One replaces the last mock-exam
     slot with probability 1/2, and its score is credited to each official sub-item.
     Self-assessed sub-questions are left out of the exam.
-22. **Typos in the material, and how they were read** (each is stated in the item text):
+22. **Grades entered by hand.** Past papers and proofs are graded outside the trainer, by the
+    student or another agent, and entered with `past add` / `grade`.
+    - A weight w moves mastery as much as w identical results would:
+      alpha_w = 1 − (1 − alpha)^w. That is principled and needs no new state. The record
+      still counts as one attempt, so a single past paper cannot by itself make a topic
+      "mastered" (which needs 3 attempts).
+    - Past papers use w = 2, because they are the only data in the real exam format.
+    - A total-only record (no per-exercise topics) counts toward readiness but not toward
+      topic mastery: the trainer would otherwise have to guess where the points were lost.
+    - No past papers are bundled. The course page found online lists only the notes, and the
+      papers are behind the course's login. `Esami*`/`Temi*` folders are already scanned by
+      `gal ingest` for when they arrive.
+23. **Typos in the material, and how they were read** (each is stated in the item text):
     - F08-E2 prints `v = (1, −1, 1 − 1)`; it is read as (1, −1, 1, −1).
     - Q02-D15's options call the same line both *s* and *l*; they are the same line.
     - F02-E4b is inconsistent for *every* λ: the key says so, rather than "fixing" the

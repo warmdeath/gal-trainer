@@ -96,6 +96,10 @@ gal> sheets               # the official Fogli / Quiz / Esercitazioni and your p
 gal> sheet 3              # work through Foglio di esercizi 3 in order (skips what you got right)
 gal> quiz                 # 10 random quiz questions (theory drill); 'quiz 2' = Quiz 2 in order
 gal> official eigen       # the official exercises of one topic; 'item F02-E4a' = one exercise
+gal> proofs 7             # the proofs / open questions of Foglio 7, with your grades
+gal> grade F07-E13 F07-E14 y F05-E2a p   # grade proofs you did on paper (y / p / n, 0.7, 3/4)
+gal> past add             # record a real past exam you did on paper and graded
+gal> past                 # your past exams and your "exam readiness" /30
 gal> examdate 2027-01-18  # set your exam date
 gal> ai                   # bonus chapter: a tiny neural network
 ```
@@ -145,6 +149,34 @@ Your progress is saved in `~/.gal_trainer/profile.json`. Set `GAL_TRAINER_HOME` 
 `practice` also mixes in, about 3 times in 10, an official exercise of that topic you
 haven't solved yet. Mock exams sometimes include a real past-exam exercise from the sheets
 (*"Dal tema d'esame ..."*), with all its parts chained as on the real paper.
+
+### Proofs and real past exams (graded by you)
+
+Proofs can't be checked automatically, so you grade them:
+- in the moment, while working through a sheet (`y` / `p` / `n` after the model answer), or
+- afterwards, in one go. Write them on paper, then enter the grades, either one per exercise
+  or the same grade for a whole series:
+
+  ```
+  grade F07-E13 F07-E14 y F05-E2a p Q01-C1 3/4
+  ```
+
+  An id without a letter (`F01-E2`) means all its sub-items. An id without a grade
+  (`grade F07-E13`) first shows the exercise and the model answer, then asks for the grade.
+  Grades can be `y` (1), `p` (½), `n` (0), `0.7`, `70%` or points like `3/4`.
+
+**Real past exams** (*temi d'esame*) show the real exam format, so they weigh **2×** an
+ordinary result. Do the paper on paper, grade it yourself (or have another agent grade it),
+then run `past add`. It asks for:
+- the paper's label, for example `tema 07/02/2024`;
+- the date you did it, who graded it, and the minutes you used;
+- for each exercise, its topics (`systems, rank`) and your points (`5/8`).
+
+Each exercise then updates the mastery of its topics with weight 2. A weak exercise sends
+its topics back to review today, so `next` picks them up. If you only have the total, use
+`past add tema giugno 2025 27/33`: it counts in the stats but leaves topic mastery
+unchanged. `stats` and `past` show an **exam readiness** grade: the weighted mean of your
+last 5 mock and past exams, with past papers counting 2×. `past rm 3` deletes record 3.
 
 ## Official course material
 

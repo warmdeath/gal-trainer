@@ -41,7 +41,9 @@ gal/
     ingest.py      `gal ingest`: SHA-256 manifest, new/duplicate/changed PDFs, text extraction,
                    split into items, topic guess, skeleton TOML
     data/*.toml    F01..F08 sheets, Q01..Q04 quizzes, ES01..ES07 esercitazioni (links only)
-  profile.py       JSON profile: mastery, Leitner boxes, exam history, per-item bank progress
+  profile.py       JSON profile: mastery, Leitner boxes, exam history, per-item bank progress,
+                   past_exams (real papers graded by hand, weight PAST_WEIGHT=2 via
+                   record(weight=w): alpha_w = 1-(1-alpha)^w), readiness(), parse_grade
   planner.py       `next` recommendation
   exam.py          mock-exam blueprint, timer, /30 grading
   cli.py           App (all I/O via App.ask/App.out → scriptable), commands, main()

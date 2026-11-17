@@ -1,3 +1,4 @@
+import pytest
 import random
 from datetime import date, datetime, timedelta
 
@@ -88,3 +89,47 @@ def test_build_exam():
     assert len({i.exercise.topic for i in ex.items}) >= 4
     ex = build_exam(random.Random(2), None, 3, 15, topics=["systems", "rank"])
     assert {i.exercise.topic for i in ex.items} <= {"systems", "rank"}
+
+
+def test_weighted_record_moves_mastery_like_repeated_results():
+    from gal.profile import PAST_WEIGHT
+    a, b = Profile(), Profile()
+    for p in (a, b):
+        for _ in range(6):
+            p.record("rank", 1.0)
+    a.record("rank", 0.0, weight=PAST_WEIGHT)
+    b.record("rank", 0.0)
+    b.record("rank", 0.0)
+    assert abs(a.stats("rank").mastery - b.stats("rank").mastery) < 1e-3
+    assert a.stats("rank").attempts == 7
+
+
+def test_parse_grade():
+    from gal.profile import parse_grade
+    assert [parse_grade(x) for x in ("y", "p", "n", "sì", "0.7", "70%", "3/4", "0,5")] == \
+        [1.0, 0.5, 0.0, 1.0, 0.7, 0.7, 0.75, 0.5]
+    assert parse_grade("2") is None and parse_grade("abc") is None and parse_grade("1/0") is None
+
+
+def test_past_exam_record_and_readiness():
+    p = Profile()
+    rec = p.add_past_exam("tema 07/02/2024", [
+        {"topics": ["systems"], "got": 8, "max": 8},
+        {"topics": ["diagonalization", "eigen"], "got": 2, "max": 8},
+        {"topics": [], "got": 6, "max": 8}], taken="2026-11-20", grader="agent")
+    assert rec["points"] == 16 and rec["max"] == 24 and rec["grade"] == 20.0
+    assert p.stats("systems").mastery == 1.0 and p.stats("eigen").mastery == 0.25
+    assert p.stats("eigen").box == 0                       # weak topic: due again now
+    assert p.history[-1]["source"] == "past-exam" and p.history[-1]["weight"] == 2.0
+    p.add_exam({"date": "2026-11-21", "n": 6, "grade": 26.0})
+    assert p.readiness() == (round((20 * 2 + 26) / 3, 1), 2)
+    with pytest.raises(ValueError):
+        p.add_past_exam("bad", [], total=(31, 30))
+
+
+def test_past_exams_persist(tmp_path):
+    p = Profile(path=tmp_path / "p.json")
+    p.add_past_exam("tema A", [], total=(24, 30))
+    p.save()
+    q = Profile.load(tmp_path / "p.json")
+    assert q.past_exams[0]["grade"] == 24.0 and q.topics == {}

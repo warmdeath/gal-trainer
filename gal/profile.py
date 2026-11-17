@@ -16,6 +16,27 @@ MASTERED = 0.75                  # mastery needed to call a topic "mastered"
 MIN_ATTEMPTS = 3                 # ... and at least this many exercises
 PREREQ_OK = 0.6                  # mastery of a prerequisite needed to move on
 DEFAULT_EXAM_DATE = "2027-01-18"
+PAST_WEIGHT = 2.0                # a real past exam counts like 2 ordinary results (exam format)
+SELF_GRADES = {"y": 1.0, "yes": 1.0, "s": 1.0, "si": 1.0, "sì": 1.0, "p": 0.5, "partly": 0.5,
+               "n": 0.0, "no": 0.0}
+
+
+def parse_grade(txt: str) -> float | None:
+    """y / p / n, a fraction of 1 (0.7), a percentage (70%) or points (5/8) -> score in [0, 1]."""
+    t = txt.strip().lower()
+    if t in SELF_GRADES:
+        return SELF_GRADES[t]
+    try:
+        if t.endswith("%"):
+            v = float(t[:-1]) / 100
+        elif "/" in t:
+            a, b = t.split("/", 1)
+            v = float(a) / float(b)
+        else:
+            v = float(t.replace(",", "."))
+    except (ValueError, ZeroDivisionError):
+        return None
+    return v if 0.0 <= v <= 1.0 else None
 
 
 def home_dir() -> Path:
@@ -52,6 +73,7 @@ class Profile:
     history: list[dict] = field(default_factory=list)
     exam_date: str = DEFAULT_EXAM_DATE
     bank: dict[str, dict] = field(default_factory=dict)   # official items: {id: {attempts, best, last}}
+    past_exams: list[dict] = field(default_factory=list)  # real past papers, graded by hand
     path: Path | None = None
 
     # ------------------------------------------------------------ persistence
@@ -72,6 +94,7 @@ class Profile:
         p.history = raw.get("history", [])
         p.exam_date = raw.get("exam_date", DEFAULT_EXAM_DATE)
         p.bank = raw.get("bank", {})
+        p.past_exams = raw.get("past_exams", [])
         return p
 
     def save(self) -> None:
@@ -80,7 +103,7 @@ class Profile:
         self.path.parent.mkdir(parents=True, exist_ok=True)
         data = {"version": 1, "topics": {k: asdict(v) for k, v in self.topics.items()},
                 "exams": self.exams, "history": self.history[-500:], "exam_date": self.exam_date,
-                "bank": self.bank}
+                "bank": self.bank, "past_exams": self.past_exams}
         fd, tmp = tempfile.mkstemp(dir=self.path.parent, prefix=".profile", suffix=".tmp")
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=1, ensure_ascii=False)
@@ -93,8 +116,9 @@ class Profile:
         return self.topics[topic_id]
 
     def record(self, topic_id: str, score: float, kind: str = "", now: datetime | None = None,
-               source: str = "practice") -> TopicStats:
-        """Register one exercise with score in [0, 1]."""
+               source: str = "practice", weight: float = 1.0) -> TopicStats:
+        """Register one exercise with score in [0, 1]. `weight` w > 1 moves mastery as much as
+        w identical results would (alpha_w = 1 - (1 - alpha)^w), but counts as one attempt."""
         now = now or datetime.now()
         score = max(0.0, min(1.0, float(score)))
         st = self.stats(topic_id)
@@ -102,6 +126,8 @@ class Profile:
         if score >= 0.999:
             st.correct += 1
         alpha = max(0.25, 1.0 / st.attempts)  # running mean at first, then moving average
+        if weight != 1.0:
+            alpha = 1.0 - (1.0 - alpha) ** weight if alpha < 1.0 else 1.0
         st.mastery = round(st.mastery + alpha * (score - st.mastery), 4)
         if score >= 0.999:
             st.box = min(st.box + 1, len(INTERVALS) - 1)
@@ -109,8 +135,10 @@ class Profile:
             st.box = 0
         st.due = (now.date() + timedelta(days=INTERVALS[st.box])).isoformat()
         st.last = now.isoformat(timespec="seconds")
-        self.history.append({"t": st.last, "topic": topic_id, "kind": kind, "score": round(score, 3),
-                             "source": source})
+        entry = {"t": st.last, "topic": topic_id, "kind": kind, "score": round(score, 3), "source": source}
+        if weight != 1.0:
+            entry["weight"] = weight
+        self.history.append(entry)
         return st
 
     def record_item(self, item_id: str, score: float, now: datetime | None = None) -> dict:
@@ -130,6 +158,41 @@ class Profile:
 
     def add_exam(self, result: dict) -> None:
         self.exams.append(result)
+
+    def add_past_exam(self, paper: str, exercises: list[dict], taken: str | None = None,
+                      grader: str = "self", minutes: float | None = None, total: tuple | None = None,
+                      now: datetime | None = None) -> dict:
+        """A real past paper done and graded outside the trainer (by the student or another agent).
+        exercises: [{"topics": [ids], "got": float, "max": float}] (may be empty if only the total
+        is known: total = (got, max)). Each exercise feeds the mastery of its topics with weight
+        PAST_WEIGHT, because past papers show the real exam format."""
+        now = now or datetime.now()
+        got = sum(e["got"] for e in exercises) if exercises else float(total[0])
+        mx = sum(e["max"] for e in exercises) if exercises else float(total[1])
+        if mx <= 0 or not 0 <= got <= mx:
+            raise ValueError("points must satisfy 0 <= got <= max, max > 0")
+        rec = {"paper": paper, "taken": taken or now.date().isoformat(), "grader": grader,
+               "points": round(got, 2), "max": round(mx, 2), "grade": round(30 * got / mx, 1),
+               "exercises": exercises, "recorded": now.isoformat(timespec="seconds")}
+        if minutes is not None:
+            rec["minutes_used"] = minutes
+        for e in exercises:
+            for tid in e.get("topics", []):
+                self.record(tid, e["got"] / e["max"], "past-exam", now=now, source="past-exam",
+                            weight=PAST_WEIGHT)
+        self.past_exams.append(rec)
+        return rec
+
+    def readiness(self, last: int = 5) -> tuple[float, int] | None:
+        """Weighted mean grade /30 of the latest `last` exam results: mock exams weight 1, real
+        past papers PAST_WEIGHT. Returns (grade, number of results used) or None."""
+        res = [(e.get("date", ""), float(e["grade"]), 1.0) for e in self.exams if "grade" in e]
+        res += [(e.get("taken", ""), float(e["grade"]), PAST_WEIGHT) for e in self.past_exams]
+        res = sorted(res, key=lambda r: r[0])[-last:]
+        if not res:
+            return None
+        w = sum(r[2] for r in res)
+        return round(sum(r[1] * r[2] for r in res) / w, 1), len(res)
 
     def days_to_exam(self, today: date | None = None) -> int | None:
         try:

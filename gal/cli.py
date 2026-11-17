@@ -22,7 +22,7 @@ from .core.parse import ParseError
 from .exam import Exam, build_exam
 from .exercise import ChoiceAns, Exercise
 from .planner import advise
-from .profile import MASTERED, Profile, home_dir
+from .profile import PAST_WEIGHT, parse_grade, MASTERED, Profile, home_dir
 from .topics import BY_ID, TOPICS, Topic
 
 QUIT = {"q", "quit", "exit", "menu", "back", ":q"}
@@ -57,6 +57,15 @@ Official course material (Fogli, Quiz, Esercitazioni)
   official <topic>     the official exercises of one topic
   item <id>            one official exercise, e.g. item F02-E4a
   ingest [--rehash]    add newly downloaded PDFs (put the folders next to Note_GAL26.pdf)
+  proofs [sheet]       the proofs / open questions (self-graded), with your grades
+  grade <ids> <y|p|n>  enter grades for proofs you did on paper, e.g. grade F07-E13 F07-E14 y F05-E2 p
+                       (also 0.7, 70%, 3/4; ids without a grade: shown one by one with the model answer)
+
+Real past exams (done on paper, graded by you or another agent; they weigh 2× in mastery)
+  past                 list the past papers you recorded + exam readiness
+  past add             record one, exercise by exercise (topics + points) or just the total
+  past add <label> 24/30   quick form: only the total (no topic mastery update)
+  past rm <n>          delete record n (mastery already updated is kept)
 
 While answering
   ?        show the expected answer format       skip   show the solution (counts as wrong)
@@ -200,6 +209,12 @@ class App:
                 self.official(t)
         elif cmd == "item":
             self.do_item_id(arg.strip())
+        elif cmd in ("past", "pastexam", "temi", "tema"):
+            self.past_command(arg)
+        elif cmd in ("grade", "voto"):
+            self.grade_items(arg)
+        elif cmd in ("proofs", "dimostrazioni"):
+            self.show_proofs(arg)
         elif cmd == "ingest":
             self.run_ingest(rehash="--rehash" in arg)
         elif cmd == "reset":
@@ -277,6 +292,11 @@ class App:
                 if src.items and src.kind in ("sheet", "quiz"):
                     per.append(f"{src.id} {sum(1 for i in src.items if self.prof.item_done(i.id))}/{len(src.items)}")
             lines.append(f"Official exercises: {done}/{len(bank.items)} solved ({tried} attempted).  " + "  ".join(per))
+        ready = self.prof.readiness()
+        if ready:
+            g, k = ready
+            lines.append(f"Exam readiness: {g}/30 (weighted mean of your last {k} mock/past exam(s); "
+                         f"real past papers count {PAST_WEIGHT:g}×).")
         weak = sorted((t for t in started), key=lambda t: self.prof.stats(t.id).mastery)[:5]
         if weak:
             lines.append("Weakest: " + ", ".join(f"{t.id} ({self.prof.stats(t.id).mastery:.0%})" for t in weak))
@@ -288,6 +308,8 @@ class App:
             for e in self.prof.exams[-10:]:
                 tab.add_row(e.get("date", ""), str(e.get("n", "")), str(e.get("grade", "")), str(e.get("minutes_used", "")))
             self.out(tab)
+        if self.prof.past_exams:
+            self._past_table()
 
     # ------------------------------------------------------------ learning
     def learn(self, t: Topic) -> None:
@@ -545,6 +567,227 @@ class App:
         """Past-exam exercises of the official sheets, as chained multi-part exercises."""
         from .bank import past_exam_exercises
         return past_exam_exercises(self._bank(), pool)
+
+    # ------------------------------------------------------------ self-graded proofs
+    def _match_items(self, ref: str):
+        """Exact item id, or every item whose id starts with it (F07-E13 -> F07-E13a, F07-E13b)."""
+        bank = self._bank()
+        r = ref.strip().upper()
+        if r in bank.items:
+            return [bank.items[r]]
+        return [i for k, i in bank.items.items() if k.upper().startswith(r) and
+                (len(k) == len(r) or not k[len(r)].isdigit())]
+
+    def _record_grade(self, item, score: float) -> None:
+        self.prof.record(item.topic, score, f"bank:{item.task}", source="self-grade")
+        self.prof.record_item(item.id, score)
+
+    def grade_items(self, arg: str) -> None:
+        toks = arg.replace(",", " ").split()
+        if not toks:
+            self.out("Usage: grade F07-E13 F07-E14 y F05-E2 p   (grades: y / p / n, 0.7, 70%, 3/4). "
+                     "'proofs' lists the ids.", "yellow")
+            return
+        pending, done, unknown = [], [], []
+        for tok in toks:
+            items = self._match_items(tok) if "-" in tok else []
+            g = None if items else parse_grade(tok)
+            if items:
+                pending += items
+            elif g is not None and pending:
+                for it in pending:
+                    self._record_grade(it, g)
+                    done.append((it, g))
+                pending = []
+            else:
+                unknown.append(tok)
+        for it in pending:   # no grade given: show the exercise and the model answer, then ask
+            ex = None
+            try:
+                from .bank import build
+                ex = build(it)
+            except Exception:
+                pass
+            body = (ex.prompt if ex else it.text)
+            model = "\n".join(p.answer.show() for p in ex.parts) if ex else ""
+            self.out(Panel(Text(body), title=it.title(), border_style="cyan"))
+            if model:
+                self.out(Panel(Text(model), title="Model answer", border_style="green"))
+            while True:
+                txt = self.ask("Your grade (y / p / n, or 0.7, 70%, 3/4; q = stop): ").strip()
+                if txt.lower() in QUIT:
+                    pending = []
+                    break
+                g = parse_grade(txt)
+                if g is not None:
+                    self._record_grade(it, g)
+                    done.append((it, g))
+                    break
+                self.out("Type y, p, n, a number between 0 and 1, a percentage or points like 3/4.", "yellow")
+            if not pending:
+                break
+        if unknown:
+            self.out("Not understood (no such item, or a grade with no item before it): " + ", ".join(unknown), "red")
+        if done:
+            self.prof.save()
+            self.out("Recorded: " + ", ".join(f"{it.id} {g:.0%}" for it, g in done), "green")
+
+    def show_proofs(self, arg: str) -> None:
+        bank = self._bank()
+        src = bank.resolve_source(arg if not arg.strip().isdigit() else "F" + arg.strip()) if arg.strip() else None
+        if arg.strip() and src is None:
+            self.out(f"No sheet/quiz '{arg.strip()}'. Type 'sheets' for the list.", "red")
+            return
+        items = [i for i in (src.items if src else bank.items.values()) if not i.auto]
+        tab = Table(title="Proofs and open questions (self-graded)" + (f" — {src.title}" if src else ""))
+        for c in ("id", "topic", "question", "your best"):
+            tab.add_column(c)
+        for it in items:
+            st = self.prof.bank.get(it.id)
+            best = f"{st['best']:.0%}" if st else "—"
+            q = " ".join(it.text.split())
+            tab.add_row(it.id, it.topic, q[:60] + ("…" if len(q) > 60 else ""), best)
+        self.out(tab)
+        self.out("Grade the ones you did on paper with: grade <id> [<id> ...] <y|p|n>  "
+                 "(or 'grade <id>' to see the model answer first).")
+
+    # ------------------------------------------------------------ real past exams
+    def _past_table(self) -> None:
+        tab = Table(title=f"Real past exams (weight {PAST_WEIGHT:g}×)")
+        for c in ("#", "paper", "taken", "graded by", "points", "grade /30", "exercises"):
+            tab.add_column(c)
+        for k, e in enumerate(self.prof.past_exams, 1):
+            exs = "; ".join(f"{'+'.join(x.get('topics', [])) or '?'} {x['got']:g}/{x['max']:g}" for x in e["exercises"])
+            tab.add_row(str(k), e["paper"], e["taken"], e["grader"], f"{e['points']:g}/{e['max']:g}",
+                        str(e["grade"]), exs or "(total only)")
+        self.out(tab)
+
+    def past_command(self, arg: str) -> None:
+        words = arg.split()
+        sub = words[0].lower() if words else ""
+        if sub in ("", "list", "ls"):
+            if not self.prof.past_exams:
+                self.out("No past exams recorded yet. After doing a real past paper on paper and grading it, "
+                         "type 'past add'.")
+            else:
+                self._past_table()
+                ready = self.prof.readiness()
+                if ready:
+                    self.out(f"Exam readiness: {ready[0]}/30 over your last {ready[1]} mock/past exam(s).", "bold")
+        elif sub in ("add", "new"):
+            rest = words[1:]
+            if len(rest) >= 2 and self._points(rest[-1]):
+                got, mx = self._points(rest[-1])
+                self._save_past(" ".join(rest[:-1]), [], total=(got, mx))
+            else:
+                self._past_interactive(" ".join(rest))
+        elif sub in ("rm", "del", "delete") and len(words) == 2 and words[1].isdigit():
+            k = int(words[1])
+            if 1 <= k <= len(self.prof.past_exams):
+                e = self.prof.past_exams.pop(k - 1)
+                self.prof.save()
+                self.out(f"Deleted '{e['paper']}'. (Topic mastery it already updated is kept.)")
+            else:
+                self.out(f"No record {k}: type 'past' for the list.", "red")
+        else:
+            self.out("Usage: past | past add | past add <label> 24/30 | past rm <n>", "yellow")
+
+    @staticmethod
+    def _points(txt: str):
+        """'24/30' or '24' (out of 30) -> (24.0, 30.0); None if not points."""
+        t = txt.strip().replace(",", ".")
+        try:
+            if "/" in t:
+                a, b = t.split("/", 1)
+                got, mx = float(a), float(b)
+            else:
+                got, mx = float(t), 30.0
+        except ValueError:
+            return None
+        return (got, mx) if mx > 0 and 0 <= got <= mx else None
+
+    def _ask_quit(self, label: str):
+        txt = self.ask(label).strip()
+        return None if txt.lower() in QUIT else txt
+
+    def _past_interactive(self, label: str) -> None:
+        self.out(Panel(Text("Record a real past exam you did on paper (q at any prompt cancels).\n"
+                            "Per exercise you give its topics and your points: each exercise then updates "
+                            f"the mastery of its topics with weight {PAST_WEIGHT:g}×, because past papers "
+                            "show the real exam format."), title="Past exam", border_style="magenta"))
+        if not label:
+            label = self._ask_quit("Which paper? (e.g. 'tema 07/02/2024' or a source id like X01): ")
+            if not label:
+                return
+        taken = self._ask_quit(f"Date you did it [{date.today().isoformat()}]: ")
+        if taken is None:
+            return
+        if taken:
+            try:
+                date.fromisoformat(taken)
+            except ValueError:
+                self.out("Use YYYY-MM-DD; using today.", "yellow")
+                taken = ""
+        grader = self._ask_quit("Graded by [self] (self / agent / a name): ")
+        if grader is None:
+            return
+        minutes = self._ask_quit("Minutes used (Enter to skip): ")
+        if minutes is None:
+            return
+        try:
+            minutes_v = float(minutes) if minutes else None
+        except ValueError:
+            minutes_v = None
+        n = self._ask_quit("Number of exercises (Enter = only the total grade): ")
+        if n is None:
+            return
+        exercises = []
+        if n.isdigit() and int(n) > 0:
+            for k in range(1, int(n) + 1):
+                while True:
+                    tt = self._ask_quit(f"Exercise {k} — topics (e.g. systems, rank; Enter = unknown): ")
+                    if tt is None:
+                        return
+                    topics, bad = [], []
+                    for w in [w for w in tt.replace(";", ",").split(",") if w.strip()]:
+                        t = resolve_topic(w)
+                        (topics.append(t.id) if t else bad.append(w.strip()))
+                    if not bad:
+                        break
+                    self.out(f"Unknown topic(s): {', '.join(bad)}. Type 'topics' later for the ids; try again.", "yellow")
+                while True:
+                    pts = self._ask_quit(f"Exercise {k} — points (got/max, e.g. 5/8): ")
+                    if pts is None:
+                        return
+                    pm = self._points(pts) if "/" in pts else None
+                    if pm:
+                        break
+                    self.out("Write it as got/max, e.g. 5/8 or 4.5/6.", "yellow")
+                exercises.append({"n": k, "topics": topics, "got": pm[0], "max": pm[1]})
+            self._save_past(label, exercises, taken=taken or None, grader=grader or "self", minutes=minutes_v)
+        else:
+            while True:
+                tot = self._ask_quit("Total (e.g. 24/30, or 27/33): ")
+                if tot is None:
+                    return
+                pm = self._points(tot)
+                if pm:
+                    break
+                self.out("Write it as got/max, e.g. 24/30.", "yellow")
+            self._save_past(label, [], taken=taken or None, grader=grader or "self", minutes=minutes_v, total=pm)
+
+    def _save_past(self, label, exercises, taken=None, grader="self", minutes=None, total=None) -> None:
+        rec = self.prof.add_past_exam(label, exercises, taken=taken, grader=grader, minutes=minutes, total=total)
+        self.prof.save()
+        verdict = "passed (≥ 18/30)" if rec["grade"] >= 18 else "not yet passing (< 18/30)"
+        msg = f"Recorded '{rec['paper']}': {rec['points']:g}/{rec['max']:g} = {rec['grade']}/30, {verdict}."
+        if exercises:
+            weak = [e for e in exercises if e["got"] / e["max"] < 0.5 and e["topics"]]
+            if weak:
+                msg += "\nTo review first: " + ", ".join("+".join(e["topics"]) for e in weak)
+        else:
+            msg += "\n(Total only: topic mastery unchanged. Use 'past add' without the total to give per-exercise topics.)"
+        self.out(msg, "bold")
 
     # ------------------------------------------------------------ exam
     def exam(self, n: int = 6, minutes: int | None = None) -> None:
