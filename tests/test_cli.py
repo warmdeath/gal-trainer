@@ -24,7 +24,9 @@ def make_app(answers, tmp_path, seed=0):
     con = Console(file=buf, width=120, color_system=None)
     s = Script(answers)
     prof = Profile.load(tmp_path / "p.json")
-    return App(prof, console=con, ask=s, rng=random.Random(seed)), buf, s
+    app = App(prof, console=con, ask=s, rng=random.Random(seed))
+    app.official_share = 0  # keep random exercises predictable in these tests
+    return app, buf, s
 
 
 def first_exercise(topic_id, seed=0):
@@ -85,9 +87,9 @@ def test_exam_flow(tmp_path):
 def test_exam_with_correct_answers(tmp_path):
     # rebuild the same exam to know the answers: App uses its rng for build_exam
     from gal.exam import build_exam
-    probe = build_exam(random.Random(5), Profile(), 2, 30)
-    answers = [p.answer.typed() for item in probe.items for p in item.exercise.parts]
-    app, buf, _ = make_app(["exam 2 30", ""] + answers + ["1", "", "quit"], tmp_path, seed=5)
+    app, buf, script = make_app(["exam 2 30", ""], tmp_path, seed=5)
+    probe = build_exam(random.Random(5), Profile(), 2, 30, past=app._past_exam_exercises(None))
+    script.answers += [p.answer.typed() for item in probe.items for p in item.exercise.parts] + ["1", "", "quit"]
     app.run()
     assert "Mock exam result: 30.0/30" in buf.getvalue()
 
@@ -118,3 +120,91 @@ def test_quit_at_go_prompt_does_not_start(tmp_path):
     app, buf, _ = make_app(["quit"], tmp_path)
     app.next()
     assert "Intuition" not in buf.getvalue()
+
+
+# ------------------------------------------------------------------ official material
+from gal.bank import build, get_bank  # noqa: E402
+
+
+def typed_answers(item_id):
+    return [p.answer.typed() for p in build(get_bank().items[item_id]).parts]
+
+
+def test_sheets_table(tmp_path):
+    app, buf, _ = make_app([], tmp_path)
+    app.command("sheets")
+    out = buf.getvalue()
+    assert "Foglio di esercizi 2" in out and "Quiz 4" in out and "handwritten" in out
+
+
+def test_work_through_sheet_records_items(tmp_path):
+    first = get_bank().sources["F02"].items[0]
+    answers = typed_answers(first.id) + ["q"]
+    app, buf, _ = make_app(answers, tmp_path)
+    app.command("sheet 2")
+    out = buf.getvalue()
+    assert "Foglio di esercizi 2" in out and "✓ correct" in out
+    assert app.prof.item_done(first.id)
+    assert app.prof.stats(first.topic).attempts == 1
+    # next time the solved item is skipped
+    app2, buf2, s2 = make_app(["q"], tmp_path)
+    app2.prof = app.prof
+    app2.command("sheet 2")
+    assert first.ref not in buf2.getvalue().split("Exercise 1")[1][:200]
+
+
+def test_open_item_self_assessment(tmp_path):
+    app, buf, _ = make_app(["", "p"], tmp_path)
+    app.command("item Q01-C3")
+    out = buf.getvalue()
+    assert "Model answer" in out and "Lemma 1.15" in out
+    assert app.prof.bank["Q01-C3"]["best"] == 0.5
+
+
+def test_quiz_drill_and_solved_in_link(tmp_path):
+    app, buf, s = make_app(["a"] * 30, tmp_path)
+    app.command("quiz")
+    assert "Quiz drill" in buf.getvalue()
+    assert sum(v["attempts"] for v in app.prof.bank.values()) >= 1
+    app, buf, _ = make_app(["0"] * 10 + ["q"], tmp_path)
+    app.command("item F05-E5")
+    assert "Solved in class (handwritten): Esercitazione 5" in buf.getvalue()
+
+
+def test_practice_mixes_official_items(tmp_path):
+    app, buf, _ = make_app(["skip", "", "skip", "", "skip", "", "skip", "q"], tmp_path, seed=3)
+    app.official_share = 1.0
+    t = resolve_topic("systems")
+    app.practice(t)
+    assert "Foglio di esercizi" in buf.getvalue()
+
+
+def test_material_notice(tmp_path, monkeypatch):
+    import gal.bank.ingest as ing
+    monkeypatch.setattr(ing, "pending", lambda *a, **k: [tmp_path / "Foglio_esercizi_09.pdf"])
+    app, buf, _ = make_app([], tmp_path)
+    app.material_notice()
+    assert "New course material" in buf.getvalue() and "ingest" in buf.getvalue()
+
+
+def test_stats_shows_official_progress(tmp_path):
+    app, buf, _ = make_app([], tmp_path)
+    app.prof.record_item("F01-E1a", 1)
+    app.command("stats")
+    out = buf.getvalue()
+    assert "Official exercises: 1/" in out and "F01 1/" in out
+
+
+def test_exam_with_past_exam_exercise_credits_items(tmp_path):
+    from gal.bank import get_bank, past_exam_exercises
+    from gal.exam import Exam, ExamItem
+    app, buf, script = make_app([], tmp_path)
+    past = [e for e in past_exam_exercises(get_bank()) if "F06-E4a" in e.data["item_ids"]][0]
+    ex = Exam([ExamItem(past)], 30)
+    item = ex.items[0]
+    item.scores = [1.0] * len(past.parts)
+    item.answers = [p.answer.typed() for p in past.parts]
+    item.msgs = [""] * len(past.parts)
+    app._exam_report(ex, 1.0)
+    assert all(app.prof.item_done(i) for i in ("F06-E4a", "F06-E4c", "F06-E4d"))
+    assert not app.prof.item_done("F06-E4b")

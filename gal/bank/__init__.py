@@ -8,6 +8,7 @@ self-assessed against a model answer. New PDFs are turned into skeleton sources 
 from __future__ import annotations
 
 import os
+import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -43,11 +44,23 @@ class Item:
     data: dict
     source: "Source"
     page: int | None = None
+    exam: str = ""       # date of the past exam this exercise comes from ('' if none)
     solved_in: list[tuple["Source", list[int]]] = field(default_factory=list)  # (esercitazione, pages)
 
     @property
     def auto(self) -> bool:
         return self.task != "open"
+
+    @property
+    def from_exam(self) -> bool:
+        """Exercises the sheets mark as taken from a past exam ('Dal tema d'esame ...')."""
+        return bool(self.exam) or "tema d'esame" in self.text.lower()
+
+    @property
+    def exercise_key(self) -> str:
+        """'F06-E4c' -> 'F06-E4': the sub-items of one exercise share it."""
+        m = re.match(r"^(.*?-[A-Z]+\d+)", self.id)
+        return m.group(1) if m else self.id
 
     def title(self) -> str:
         return f"{self.source.title} — {self.ref}"
@@ -105,7 +118,8 @@ def load_bank(path: Path | None = None) -> Bank:
             raise ValueError(f"duplicate source id {src.id} in {f.name}")
         for it in raw.get("item", []):
             item = Item(it["id"], it.get("ref", ""), it.get("topic", ""), it.get("task", "open"),
-                        it.get("text", "").strip(), it.get("data", {}), src, it.get("page"))
+                        it.get("text", "").strip(), it.get("data", {}), src, it.get("page"),
+                        str(it.get("exam", "")))
             if item.id in items:
                 raise ValueError(f"duplicate item id {item.id}")
             items[item.id] = item
@@ -122,7 +136,8 @@ def load_bank(path: Path | None = None) -> Bank:
 
 def build(item: Item) -> Exercise:
     extra, parts, steps = build_parts(item.task, item.data, item.text)
-    prompt = f"[{item.title()}]\n{item.text}"
+    from ..core.fmt import reflow
+    prompt = f"[{item.title()}]\n{reflow(item.text)}"
     if extra:
         prompt += "\n\n" + extra
     if not item.auto and item.solved_in:
@@ -132,6 +147,43 @@ def build(item: Item) -> Exercise:
     ex = Exercise(item.topic, f"bank:{item.task}", prompt, [Part(lbl, a) for lbl, a in parts], steps,
                   dict(item.data, item_id=item.id))
     return ex
+
+
+def past_exam_exercises(bank: Bank, topics: list[str] | None = None) -> list[Exercise]:
+    """One chained multi-part Exercise per past-exam exercise of the sheets, like on the real
+    paper: the shared set-up text, then every auto-checked sub-question (labelled a), b), ...).
+    Self-assessed sub-questions (proofs) are left out: a mock exam is graded automatically."""
+    groups: dict[str, list[Item]] = {}
+    for it in bank.items.values():
+        if it.from_exam:
+            groups.setdefault(it.exercise_key, []).append(it)
+    out = []
+    for key, its in groups.items():
+        auto = [i for i in its if i.auto]
+        if not auto or (topics is not None and not any(i.topic in topics for i in auto)):
+            continue
+        first = its[0]
+        when = f" (tema d'esame del {first.exam})" if first.exam else ""
+        prompt = f"[{first.source.title} — {key.split('-')[-1].replace('E', 'Esercizio ')}{when}]"
+        parts, steps, ids, owner = [], [], [], []
+        for it in auto:
+            try:
+                ex = build(it)
+            except TaskError:
+                continue
+            body = ex.prompt.split("\n", 1)[1] if "\n" in ex.prompt else ex.prompt
+            prompt += f"\n\n— {it.ref} —\n{body}"
+            words = it.ref.split(maxsplit=2)     # 'Esercizio 1 b) c)' -> 'b) c)'
+            sub = words[2] if len(words) == 3 else it.ref or it.id
+            for p in ex.parts:
+                parts.append(Part(f"{sub} {p.label}".strip(), p.answer))
+                owner.append(it.id)
+            steps += [f"— {it.ref} —"] + list(ex.solution)
+            ids.append(it.id)
+        if parts:
+            out.append(Exercise(auto[0].topic, "bank:exam", prompt, parts, steps,
+                                {"item_ids": ids, "part_items": owner, "exam": first.exam}))
+    return out
 
 
 _BANK: Bank | None = None
@@ -159,5 +211,5 @@ def solved_in_text(item: Item) -> str:
     return "\n".join(out)
 
 
-__all__ = ["Bank", "Item", "Source", "TaskError", "build", "get_bank", "load_bank", "reload_bank",
+__all__ = ["Bank", "Item", "Source", "TaskError", "build", "get_bank", "load_bank", "past_exam_exercises", "reload_bank",
            "bank_dir", "material_root"]

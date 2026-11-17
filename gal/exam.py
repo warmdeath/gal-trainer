@@ -60,9 +60,12 @@ class Exam:
 
 
 def build_exam(rng: random.Random, prof: Profile | None = None, n: int = 6,
-               minutes: int | None = None, topics: list[str] | None = None) -> Exam:
+               minutes: int | None = None, topics: list[str] | None = None,
+               past: list[Exercise] | None = None) -> Exam:
     """One exercise per blueprint slot (cycling if n > slots). Within a slot, weaker topics
-    are more likely. `topics` restricts the pool (e.g. only chapters studied so far)."""
+    are more likely. `topics` restricts the pool (e.g. only chapters studied so far).
+    `past`: exercises from real past exams (official sheets); with probability 1/2 one of
+    them replaces the last slot."""
     slots = [list(s) for s in BLUEPRINT]
     if topics:
         slots = [[t for t in s if t in topics] for s in slots]
@@ -76,4 +79,6 @@ def build_exam(rng: random.Random, prof: Profile | None = None, n: int = 6,
         tid = rng.choices(slot, weights=weights)[0]
         ex = BY_ID[tid].random_exercise(rng, exam_only=True)
         items.append(ExamItem(ex))
+    if past and items and rng.random() < 0.5:
+        items[-1] = ExamItem(rng.choice(past))
     return Exam(items, minutes if minutes is not None else 10 * n)

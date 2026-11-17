@@ -63,6 +63,11 @@ def test_next_exam_when_all_mastered():
     for t in TOPICS:
         for _ in range(6):
             p.record(t.id, 1, now=now)
+    adv = advise(p, date(2026, 11, 17))
+    assert adv.action == "official" and adv.source == "F01"   # unsolved sheets come first
+    from gal.bank import get_bank
+    for iid in get_bank().items:
+        p.record_item(iid, 1)
     assert advise(p, date(2026, 11, 17)).action == "exam"
 
 

@@ -7,6 +7,7 @@ files = [{ path = "Esercizi-20261117/Foglio_esercizi_08.pdf", sha256 = "ea3dd963
 # ---------------------------------------------------------------- Esercizio 1 (tema d'esame)
 [[item]]
 id = "F08-E1a"
+exam = "07/02/2024"
 ref = "Esercizio 1 a)"
 topic = "rep_matrix"
 page = 1
@@ -19,6 +20,7 @@ data = { A = [[0, 0, 1], [0, -1, 0], [1, 0, 0]], hide = true, label = "M^B_B(f)"
 
 [[item]]
 id = "F08-E1bc"
+exam = "07/02/2024"
 ref = "Esercizio 1 b) c)"
 topic = "diagonalization"
 page = 1

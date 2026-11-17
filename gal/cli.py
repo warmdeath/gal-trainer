@@ -17,6 +17,7 @@ from rich.rule import Rule
 from rich.table import Table
 from rich.text import Text
 
+from .core.fmt import reflow  # noqa: F401  (re-exported for tests/chapters)
 from .core.parse import ParseError
 from .exam import Exam, build_exam
 from .exercise import ChoiceAns, Exercise
@@ -27,6 +28,7 @@ from .topics import BY_ID, TOPICS, Topic
 QUIT = {"q", "quit", "exit", "menu", "back", ":q"}
 SKIP = {"skip", "s?", "pass", "salta"}
 HINT = {"?", "hint", "help", "format"}
+OFFICIAL_SHARE = 0.3   # in 'practice', share of exercises taken from the official sheets (if unsolved ones exist)
 
 BANNER = """\
 GAL trainer — Geometria e Algebra Lineare (Politecnico di Milano)
@@ -47,6 +49,14 @@ Commands
   reset                delete your progress
   quit
 <topic> can be its number in 'topics', its id (e.g. det, rank) or a prefix of the id.
+
+Official course material (Fogli, Quiz, Esercitazioni)
+  sheets               list the official sheets/quizzes with your progress   (alias: material)
+  sheet <n>            work through Foglio di esercizi n, in order (skips what you already got right)
+  quiz [n]             theory drill: 10 random quiz questions, or Quiz n in order
+  official <topic>     the official exercises of one topic
+  item <id>            one official exercise, e.g. item F02-E4a
+  ingest [--rehash]    add newly downloaded PDFs (put the folders next to Note_GAL26.pdf)
 
 While answering
   ?        show the expected answer format       skip   show the solution (counts as wrong)
@@ -75,34 +85,6 @@ def resolve_topic(arg: str) -> Topic | None:
     return matches[0] if len(matches) >= 1 else None
 
 
-def reflow(text: str) -> str:
-    """Undo the hard wrapping of lesson paragraphs so the terminal can wrap them itself.
-    Kept on their own line: blank lines, bullets/markers, lines indented by 3+ spaces
-    (formulas, aligned tables). Joined to the previous line: plain continuation lines and
-    bullet continuations indented by exactly 2 spaces."""
-    out: list[str] = []
-    prev_joinable = False
-    in_bullet = False
-    for line in text.split("\n"):
-        stripped = line.strip()
-        indent = len(line) - len(line.lstrip(" "))
-        marker = stripped[:1] in "•-–" or stripped[:2].rstrip(")").isdigit() and stripped[1:2] in ").:" \
-            or stripped.startswith(("Step", "Attenzione", "Check", "Output", "Input", "Passo", "Controllo"))
-        if not stripped:
-            out.append("")
-            prev_joinable = in_bullet = False
-            continue
-        # inside a bullet only 2-space continuations join; outside, plain lines join
-        cont = prev_joinable and not marker and (indent == 2 if in_bullet else indent == 0)
-        if cont:
-            out[-1] = out[-1].rstrip() + " " + stripped
-        else:
-            out.append(line)
-            in_bullet = marker and stripped[:1] in "•-–"
-        prev_joinable = indent <= 2 and not stripped.endswith(":")
-    return "\n".join(out)
-
-
 def bar(x: float, width: int = 10) -> str:
     k = round(max(0.0, min(1.0, x)) * width)
     return "█" * k + "·" * (width - k)
@@ -119,6 +101,7 @@ class App:
         self.clock = clock
         self._session = None
         self.toolbar: Callable[[], str] | None = None
+        self.official_share = OFFICIAL_SHARE
 
     # ------------------------------------------------------------ I/O
     def out(self, s="", style: str | None = None) -> None:
@@ -153,6 +136,7 @@ class App:
         if days is not None and days >= 0:
             self.out(f"{days} days to your exam ({self.prof.exam_date}).  Change it with: examdate YYYY-MM-DD",
                      "dim")
+        self.material_notice()
         while True:
             line = self.ask("\ngal> ").strip()
             if not line:
@@ -201,6 +185,23 @@ class App:
         elif cmd == "ai":
             from .ai.chapter import run_chapter
             run_chapter(self)
+        elif cmd in ("sheets", "material", "bank", "fogli"):
+            self.show_sources()
+        elif cmd in ("sheet", "foglio", "source"):
+            self.work_source(arg, default_prefix="F")
+        elif cmd == "quiz":
+            if arg.strip():
+                self.work_source(arg, default_prefix="Q")
+            else:
+                self.quiz_drill()
+        elif cmd == "official":
+            t = self._topic_arg(arg)
+            if t:
+                self.official(t)
+        elif cmd == "item":
+            self.do_item_id(arg.strip())
+        elif cmd == "ingest":
+            self.run_ingest(rehash="--rehash" in arg)
         elif cmd == "reset":
             if self.ask("Delete ALL progress? type 'yes' to confirm: ").strip().lower() == "yes":
                 path = self.prof.path
@@ -264,6 +265,18 @@ class App:
         good = sum(self.prof.stats(t.id).correct for t in TOPICS)
         if total:
             lines.append(f"Exercises: {total}, fully correct: {good} ({good / total:.0%}).")
+        try:
+            bank = self._bank()
+        except Exception:
+            bank = None
+        if bank and bank.items:
+            done = sum(1 for i in bank.items if self.prof.item_done(i))
+            tried = sum(1 for i in bank.items if i in self.prof.bank)
+            per = []
+            for src in sorted(bank.sources.values(), key=lambda s: s.id):
+                if src.items and src.kind in ("sheet", "quiz"):
+                    per.append(f"{src.id} {sum(1 for i in src.items if self.prof.item_done(i.id))}/{len(src.items)}")
+            lines.append(f"Official exercises: {done}/{len(bank.items)} solved ({tried} attempted).  " + "  ".join(per))
         weak = sorted((t for t in started), key=lambda t: self.prof.stats(t.id).mastery)[:5]
         if weak:
             lines.append("Weakest: " + ", ".join(f"{t.id} ({self.prof.stats(t.id).mastery:.0%})" for t in weak))
@@ -315,6 +328,8 @@ class App:
             return
         if adv.action == "exam":
             self.exam(6, None)
+        elif adv.action == "official":
+            self.work_source(adv.source or "")
         elif adv.action == "learn":
             self.learn(adv.topic)
         else:
@@ -342,7 +357,11 @@ class App:
         self.out(Rule(f"Practice: {t.title_it} ({t.ref}) — 'q' to stop"))
         n = 0
         while True:
-            ex = t.random_exercise(self.rng)
+            ex = None
+            if self.official_share and self.rng.random() < self.official_share:
+                ex = self._official_exercise(t)
+            if ex is None:
+                ex = t.random_exercise(self.rng)
             n += 1
             res = self.solve_exercise(ex, t, number=n)
             if res is None:
@@ -359,6 +378,13 @@ class App:
         scores, wrong_msgs = [], []
         for part in ex.parts:
             label = (part.label + ": ") if len(ex.parts) > 1 or part.label != "Answer" else "> "
+            if getattr(part.answer, "self_assessed", False):
+                if self.ask("Work it out on paper (or type your answer), then press Enter to see the model answer ") \
+                        .strip().lower() in QUIT:
+                    return None
+                self.out(Panel(Text(part.answer.show() + ("\n\n" + "\n".join(ex.solution) if ex.solution else "")),
+                               title="Model answer", border_style="green"))
+                label = "Did you get it right? y = yes, p = partly, n = no: "
             while True:
                 txt = self.ask(label).strip()
                 low = txt.lower()
@@ -385,12 +411,140 @@ class App:
                     wrong_msgs.append(f"{part.label}: {res.msg}" if res.msg else part.label)
                 break
         score = sum(scores) / len(scores)
-        if score < 0.999:
+        self_assessed = all(getattr(p.answer, "self_assessed", False) for p in ex.parts)
+        if score < 0.999 and not self_assessed:
             body = "\n".join(ex.solution) + "\n\nCorrect answer:\n" + ex.answer_text()
             self.out(Panel(Text(body), title="Step-by-step solution", border_style="yellow"))
-        self.prof.record(t.id, score, ex.kind)
+        self.prof.record(t.id, score, ex.kind, source="bank" if "item_id" in ex.data else "practice")
+        if "item_id" in ex.data:
+            self.prof.record_item(ex.data["item_id"], score)
         self.prof.save()
         return score
+
+    # ------------------------------------------------------------ official material (bank)
+    def _bank(self):
+        from .bank import get_bank
+        return get_bank()
+
+    def material_notice(self) -> None:
+        """Tell the student when new PDFs have been dropped in but not ingested yet."""
+        try:
+            from .bank.ingest import pending
+            new = pending()
+        except Exception:  # never block the trainer because of the material folders
+            return
+        if new:
+            names = ", ".join(p.name for p in new[:4]) + (" ..." if len(new) > 4 else "")
+            self.out(Panel(Text(f"New course material found ({len(new)} PDF): {names}\n"
+                                "Type 'ingest' to add it to the practice bank."),
+                           title="New material", border_style="yellow"))
+
+    def run_ingest(self, rehash: bool = False) -> None:
+        from .bank import reload_bank
+        from .bank.ingest import ingest
+        try:
+            rep = ingest(rehash=rehash)
+        except Exception as e:
+            self.out(f"Ingest failed: {e}", "red")
+            return
+        self.out(Panel(Text(rep.text()), title="Ingest", border_style="cyan"))
+        reload_bank()
+
+    def show_sources(self) -> None:
+        bank = self._bank()
+        tab = Table(title="Official course material")
+        for c in ("id", "title", "items", "auto-checked", "done ✓", "status"):
+            tab.add_column(c)
+        for src in sorted(bank.sources.values(), key=lambda s: ({"sheet": 0, "quiz": 1, "esercitazione": 2}.get(s.kind, 3), s.id)):
+            if src.kind == "esercitazione":
+                linked = sum(len(s["items"]) for s in src.solutions)
+                tab.add_row(src.id, src.title, "—", "—", "—", f"handwritten, {linked} solutions linked")
+                continue
+            done = sum(1 for i in src.items if self.prof.item_done(i.id))
+            tab.add_row(src.id, src.title, str(len(src.items)), str(sum(i.auto for i in src.items)),
+                        f"{done}/{len(src.items)}", src.status)
+        self.out(tab)
+        self.out("Work through one with: sheet 2  ·  quiz 3  ·  quiz (random theory drill)  ·  official <topic>", "dim")
+
+    def _official_exercise(self, t: Topic):
+        """A not-yet-solved auto-checked official item of topic t, or None."""
+        from .bank import TaskError, build
+        items = [i for i in self._bank().by_topic(t.id, auto_only=True) if not self.prof.item_done(i.id)]
+        self.rng.shuffle(items)
+        for it in items:
+            try:
+                return build(it)
+            except TaskError:
+                continue
+        return None
+
+    def _do_items(self, items, title: str) -> None:
+        from .bank import TaskError, build
+        if not items:
+            self.out("Nothing to do here.", "yellow")
+            return
+        self.out(Rule(f"{title} — {len(items)} exercise(s), 'q' to stop"))
+        for k, it in enumerate(items, 1):
+            try:
+                ex = build(it)
+            except TaskError as e:
+                self.out(f"{it.id}: cannot be auto-checked ({e}); see the PDF.", "yellow")
+                continue
+            topic = BY_ID.get(it.topic) or TOPICS[0]
+            if self.solve_exercise(ex, topic, number=k) is None:
+                return
+            if k < len(items) and self.ask("Enter: next, q: stop ").strip().lower() in QUIT:
+                return
+        self.out("Done!", "green")
+
+    def work_source(self, arg: str, default_prefix: str = "F") -> None:
+        bank = self._bank()
+        ref = arg.strip()
+        src = bank.resolve_source(ref) or (bank.resolve_source(default_prefix + ref) if ref.isdigit() else None)
+        if src is None:
+            self.out(f"No source '{ref}'. See 'sheets'.", "red")
+            return
+        if src.kind == "esercitazione":
+            lines = [f"{src.title}: handwritten solutions — open {src.files[0]['path'] if src.files else ''}"]
+            for s in src.solutions:
+                lines.append(f"  p. {', '.join(map(str, s['pages']))}: {', '.join(s['items'])}")
+            self.out(Panel(Text("\n".join(lines)), title=src.id))
+            return
+        todo = [i for i in src.items if not self.prof.item_done(i.id)]
+        if not todo:
+            if self.ask(f"You already solved all of {src.title}. Redo everything? [y/N] ").strip().lower() not in ("y", "yes", "s", "si", "sì"):
+                return
+            todo = list(src.items)
+        self._do_items(todo, src.title)
+
+    def quiz_drill(self, n: int = 10) -> None:
+        items = [i for i in self._bank().of_kind("quiz") if i.task == "mcq"]
+        fresh = [i for i in items if not self.prof.item_done(i.id)]
+        self.rng.shuffle(fresh)
+        pick = fresh[:n]
+        if len(pick) < n:
+            rest = [i for i in items if i not in pick]
+            self.rng.shuffle(rest)
+            pick += rest[:n - len(pick)]
+        self._do_items(pick, "Quiz drill (official multiple-choice questions)")
+
+    def official(self, t: Topic) -> None:
+        items = self._bank().by_topic(t.id)
+        todo = [i for i in items if not self.prof.item_done(i.id)] or items
+        self._do_items(todo, f"Official exercises: {t.title_it}")
+
+    def do_item_id(self, iid: str) -> None:
+        bank = self._bank()
+        it = bank.items.get(iid) or bank.items.get(iid.upper())
+        if it is None:
+            self.out(f"No item '{iid}'.", "red")
+            return
+        self._do_items([it], it.title())
+
+    def _past_exam_exercises(self, pool):
+        """Past-exam exercises of the official sheets, as chained multi-part exercises."""
+        from .bank import past_exam_exercises
+        return past_exam_exercises(self._bank(), pool)
 
     # ------------------------------------------------------------ exam
     def exam(self, n: int = 6, minutes: int | None = None) -> None:
@@ -399,7 +553,7 @@ class App:
         if len(studied) >= 4 and len(studied) < len(TOPICS) - 2:
             if self.ask("Only topics you have started? [Y/n] ").strip().lower() not in ("n", "no"):
                 pool = studied
-        ex = build_exam(self.rng, self.prof, n, minutes, pool)
+        ex = build_exam(self.rng, self.prof, n, minutes, pool, past=self._past_exam_exercises(pool))
         self.out(Panel(Text(f"{n} exercises, {ex.minutes} minutes. No feedback until the end.\n"
                             "Type 'skip' to leave an answer blank, 'q' to hand in early."),
                        title="Mock exam", border_style="red"))
@@ -467,6 +621,13 @@ class App:
         self.out(f"Time used: {used} min of {ex.minutes}. Verdict: {verdict}.", "bold")
         for item in ex.items:
             self.prof.record(item.exercise.topic, item.score, item.exercise.kind, source="exam")
+            owners = item.exercise.data.get("part_items")
+            if owners:   # a past-exam exercise: credit each official sub-item it chains
+                per: dict[str, list[float]] = {}
+                for k, iid in enumerate(owners):
+                    per.setdefault(iid, []).append(item.scores[k] if k < len(item.scores) else 0.0)
+                for iid, sc in per.items():
+                    self.prof.record_item(iid, sum(sc) / len(sc))
         self.prof.add_exam({"date": date.today().isoformat(), "n": len(ex.items), "grade": ex.grade30(),
                             "minutes_used": used,
                             "topics": [i.exercise.topic for i in ex.items],

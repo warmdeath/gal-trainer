@@ -573,3 +573,18 @@ def test_esercitazione_links_resolve():
             pages = src.files[0].get("pages") if src.files else None
             if pages:
                 assert all(1 <= p <= pages for p in sol.get("pages", [])), src.id
+
+
+def test_past_exam_exercises_chain_subitems():
+    from gal.bank import past_exam_exercises
+    exs = {e.data["item_ids"][0].split("-")[0] + "-" + e.data["item_ids"][0].split("-")[1][:2]: e
+           for e in past_exam_exercises(BANK)}
+    assert set(exs) == {"F06-E4", "F08-E1"}
+    f06 = exs["F06-E4"]
+    assert "tema d'esame del 08/02/2026" in f06.prompt
+    assert f06.data["item_ids"] == ["F06-E4a", "F06-E4c", "F06-E4d"]   # 4b is a proof: left out
+    assert any(p.label.startswith("b) c)") for p in exs["F08-E1"].parts)
+    for e in exs.values():
+        assert all(p.answer.check(p.answer.typed()).ok for p in e.parts)
+    assert past_exam_exercises(BANK, ["eigen"]) == [] or all(
+        any(BANK.items[i].topic == "eigen" for i in e.data["item_ids"]) for e in past_exam_exercises(BANK, ["eigen"]))

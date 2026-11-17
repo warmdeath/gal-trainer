@@ -139,3 +139,31 @@ def fparam(point: Sequence | None, basis: Sequence[Sequence], params: str = "tsu
 def indent(text: str, n: int = 4) -> str:
     pad = " " * n
     return "\n".join(pad + line for line in text.split("\n"))
+
+
+def reflow(text: str) -> str:
+    """Undo the hard wrapping of lesson paragraphs so the terminal can wrap them itself.
+    Kept on their own line: blank lines, bullets/markers, lines indented by 3+ spaces
+    (formulas, aligned tables). Joined to the previous line: plain continuation lines and
+    bullet continuations indented by exactly 2 spaces."""
+    out: list[str] = []
+    prev_joinable = False
+    in_bullet = False
+    for line in text.split("\n"):
+        stripped = line.strip()
+        indent = len(line) - len(line.lstrip(" "))
+        marker = stripped[:1] in "•-–" or stripped[:2].rstrip(")").isdigit() and stripped[1:2] in ").:" \
+            or stripped.startswith(("Step", "Attenzione", "Check", "Output", "Input", "Passo", "Controllo"))
+        if not stripped:
+            out.append("")
+            prev_joinable = in_bullet = False
+            continue
+        # inside a bullet only 2-space continuations join; outside, plain lines join
+        cont = prev_joinable and not marker and (indent == 2 if in_bullet else indent == 0)
+        if cont:
+            out[-1] = out[-1].rstrip() + " " + stripped
+        else:
+            out.append(line)
+            in_bullet = marker and stripped[:1] in "•-–"
+        prev_joinable = indent <= 2 and not stripped.endswith(":")
+    return "\n".join(out)

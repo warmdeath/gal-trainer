@@ -6,7 +6,7 @@ Priority:
  3. the first topic in course order that is not mastered — but if one of its prerequisites
     is shaky, go back to the weakest such prerequisite first;
  4. a due review of a mastered topic;
- 5. everything mastered: a timed mock exam.
+ 5. everything mastered: the official sheets/quizzes not yet solved, then a timed mock exam.
 """
 from __future__ import annotations
 
@@ -21,9 +21,10 @@ OVERDUE_DAYS = 2
 
 @dataclass
 class Advice:
-    action: str            # "learn" | "practice" | "review" | "exam"
+    action: str            # "learn" | "practice" | "review" | "official" | "exam"
     topic: Topic | None
     reason: str
+    source: str | None = None   # for "official": the sheet/quiz to work through
 
 
 def _weak_prereq(t: Topic, prof: Profile, seen=None) -> Topic | None:
@@ -75,4 +76,25 @@ def advise(prof: Profile, today: date | None = None, include_extra: bool = False
     if due:
         t = min(due, key=lambda t: prof.stats(t.id).mastery)
         return Advice("review", t, "Everything is mastered; this one is due for a refresh.")
+    official = _unsolved_official(prof)
+    if official:
+        sid, title, n = official
+        return Advice("official", None, f"All topics are mastered: now the official material. {title} still has "
+                                        f"{n} exercise(s) you have not solved.", source=sid)
     return Advice("exam", None, "All topics mastered and nothing is due: time for a timed mock exam!")
+
+
+def _unsolved_official(prof: Profile):
+    """(source id, title, #unsolved) of the first sheet/quiz with unsolved items, or None."""
+    try:
+        from .bank import get_bank
+        bank = get_bank()
+    except Exception:
+        return None
+    for src in sorted(bank.sources.values(), key=lambda s: ({"sheet": 0, "quiz": 1}.get(s.kind, 9), s.id)):
+        if src.kind not in ("sheet", "quiz"):
+            continue
+        todo = [i for i in src.items if not prof.item_done(i.id)]
+        if todo:
+            return src.id, src.title, len(todo)
+    return None

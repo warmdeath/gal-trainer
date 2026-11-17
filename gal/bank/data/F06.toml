@@ -107,6 +107,7 @@ data = { A = [[0, -1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 3]], coords_note = "coordin
 # ---------------------------------------------------------------- Esercizio 4 (tema d'esame)
 [[item]]
 id = "F06-E4a"
+exam = "08/02/2026"
 ref = "Esercizio 4 a)"
 topic = "bases"
 page = 2
@@ -119,6 +120,7 @@ data = { basis = [[1, 1, 0], [0, 1, 1], [0, -1, 1]], v = [1, 1, 1], labels = ["B
 
 [[item]]
 id = "F06-E4b"
+exam = "08/02/2026"
 ref = "Esercizio 4 b)"
 topic = "linear_maps"
 page = 2
@@ -131,6 +133,7 @@ using distributivity of the product and linearity of the transpose ((λX + μY)�
 
 [[item]]
 id = "F06-E4c"
+exam = "08/02/2026"
 ref = "Esercizio 4 c)"
 topic = "rep_matrix"
 page = 2
@@ -142,6 +145,7 @@ data = { A = [[2, 0, 0], [2, 1, 3], [-2, 1, 3], [0, 0, 0]], B = [[1, 1, 0], [0, 
 
 [[item]]
 id = "F06-E4d"
+exam = "08/02/2026"
 ref = "Esercizio 4 d)"
 topic = "linear_maps"
 page = 2

@@ -51,6 +51,7 @@ class Profile:
     exams: list[dict] = field(default_factory=list)
     history: list[dict] = field(default_factory=list)
     exam_date: str = DEFAULT_EXAM_DATE
+    bank: dict[str, dict] = field(default_factory=dict)   # official items: {id: {attempts, best, last}}
     path: Path | None = None
 
     # ------------------------------------------------------------ persistence
@@ -70,6 +71,7 @@ class Profile:
         p.exams = raw.get("exams", [])
         p.history = raw.get("history", [])
         p.exam_date = raw.get("exam_date", DEFAULT_EXAM_DATE)
+        p.bank = raw.get("bank", {})
         return p
 
     def save(self) -> None:
@@ -77,7 +79,8 @@ class Profile:
             return
         self.path.parent.mkdir(parents=True, exist_ok=True)
         data = {"version": 1, "topics": {k: asdict(v) for k, v in self.topics.items()},
-                "exams": self.exams, "history": self.history[-500:], "exam_date": self.exam_date}
+                "exams": self.exams, "history": self.history[-500:], "exam_date": self.exam_date,
+                "bank": self.bank}
         fd, tmp = tempfile.mkstemp(dir=self.path.parent, prefix=".profile", suffix=".tmp")
         with os.fdopen(fd, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=1, ensure_ascii=False)
@@ -109,6 +112,18 @@ class Profile:
         self.history.append({"t": st.last, "topic": topic_id, "kind": kind, "score": round(score, 3),
                              "source": source})
         return st
+
+    def record_item(self, item_id: str, score: float, now: datetime | None = None) -> dict:
+        """Progress on one official exercise (also counted in the topic's mastery by the caller)."""
+        now = now or datetime.now()
+        st = self.bank.setdefault(item_id, {"attempts": 0, "best": 0.0, "last": None})
+        st["attempts"] += 1
+        st["best"] = round(max(st["best"], float(score)), 3)
+        st["last"] = now.isoformat(timespec="seconds")
+        return st
+
+    def item_done(self, item_id: str) -> bool:
+        return self.bank.get(item_id, {}).get("best", 0.0) >= 0.999
 
     def mark_lesson(self, topic_id: str) -> None:
         self.stats(topic_id).lesson_seen = True

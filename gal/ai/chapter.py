@@ -13,9 +13,7 @@ from ..topics import BY_ID
 from .nn import XOR_X, train_xor
 
 
-def reflow(text):
-    from ..cli import reflow as _r
-    return _r(text)
+from ..core.fmt import reflow
 
 
 def exact_xor_network():
