@@ -220,3 +220,39 @@ def test_Q02_D2_dimension():
     const = v.subs({a: 0, b: 0, c: 0})
     assert J.rank() == 2 and J.rank() == J.row_join(const).rank()  # affine part lies in the span ⇒ subspace
     assert _key("Q02-D2") == 1
+
+
+def test_Q03_computational_keys():
+    # D4: coordinates w.r.t. b1, b2, b3: f(b1) = b2, f(b2) = b1 + b3, f(b3) = 0
+    F = sp.Matrix([[0, 1, 0], [1, 0, 0], [0, 1, 0]])
+    img = F * sp.Matrix([-1, 1, 3])
+    opts = [(1, -1, 1), (1, 1, 1), (1, 1, 0), (0, 1, -1), (0, 0, 0)]
+    assert _key("Q03-D4") == opts.index(tuple(img))
+    # D9: solve for the matrix of f
+    X = sp.Matrix(3, 3, sp.symbols("x0:9"))
+    e = sp.eye(3)
+    eqs = list(X * e[:, 0] - e[:, 2]) + list(X * (e[:, 1] + e[:, 2]) - (e[:, 0] - e[:, 1])) + list(X * (e[:, 0] - e[:, 1]))
+    sol = sp.solve(eqs, list(X))
+    f3 = tuple(X.subs(sol) * e[:, 2])
+    opts = [(-1, 1, -1), (1, -1, -1), (0, 1, 0), (1, 0, 1), (0, 0, 0)]
+    assert _key("Q03-D9") == opts.index(f3)
+    # D10: eigenvalues 2 on u, -1 on v ⇒ coefficients (4, -1)
+    assert _key("Q03-D10") == [(2, -1), (1, 1), (4, 1), (4, -1), (1, -1)].index((2 ** 2 * 1, (-1) ** 2 * -1))
+
+
+def test_Q04_computational_keys():
+    k = sp.Symbol("k")
+    A = sp.Matrix([[2, 2], [1, 3]])
+    good = [i for i, kv in enumerate([-2, -1, 2, 1, 0])
+            if sorted(sp.Matrix([[1, 0], [kv, 2 * kv]]).eigenvals()) == sorted(A.eigenvals())]
+    assert good == [_key("Q04-D3")]
+    pairs = [([[1, 1], [1, 1]], [[2, 0], [0, 0]]), ([[1, 0], [1, 1]], [[1, 0], [0, 1]]),
+             ([[1, 1], [0, 0]], [[2, 0], [0, 0]]), ([[1, 1], [1, 1]], [[-1, -3], [1, 3]]),
+             ([[1, 2], [1, 2]], [[2, 4], [2, 4]])]
+
+    def similar(X, Y):
+        X, Y = sp.Matrix(X), sp.Matrix(Y)
+        return X.charpoly().as_expr() == Y.charpoly().as_expr() and \
+            sorted(X.jordan_form()[1].tolist()) == sorted(Y.jordan_form()[1].tolist())
+    good = [i for i, (X, Y) in enumerate(pairs) if similar(X, Y)]
+    assert good == _key("Q04-D12")

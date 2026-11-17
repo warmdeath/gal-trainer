@@ -1,0 +1,273 @@
+[source]
+id = "Q04"
+title = "Quiz 4"
+kind = "quiz"
+files = [{ path = "Quiz-20261117/QUIZ4.pdf", sha256 = "", pages = 4 }]
+
+# ================================================================ Compiti (open)
+[[item]]
+id = "Q04-C1"
+ref = "Compito 1"
+topic = "diagonalization"
+page = 1
+task = "open"
+text = """
+Dimostrare o confutare: a) A ∈ M_R(2) diagonalizzabile con det(A) > 0 ⇒ A o −A ha autovalori strettamente positivi.
+b) Stessa affermazione per A ∈ M_R(3).  c) A ∈ M_K(2) con A² diagonalizzabile ⇒ A diagonalizzabile."""
+[item.data]
+solution = """
+a) TRUE (over R): the eigenvalues are real with λ1λ2 = det A > 0, so they have the same sign; if both are negative,
+   −A has eigenvalues −λ1, −λ2 > 0.
+b) FALSE: A = diag(1, −1, −1) has det 1 > 0, but A has the eigenvalue −1 and −A the eigenvalue −1.
+c) FALSE: A = (0 1; 0 0) is not diagonalisable, but A² = O is diagonal."""
+
+[[item]]
+id = "Q04-C2"
+ref = "Compito 2"
+topic = "eigen"
+page = 1
+task = "open"
+text = """
+a) λ ∈ S(A), k ∈ N ⇒ λᵏ è autovalore di Aᵏ.  b) A invertibile ⇒ i) 0 ∉ S(A), ii) μ è autovalore di A⁻¹ ⇔ μ⁻¹ ∈ S(A).
+c) v autovettore di A con autovalore 5, B := A² − 4A + In: v è autovettore di B, con quale autovalore?
+d) Se Aˢ = O: i) A non è invertibile e S(A) = {0}; ii) A + In è invertibile."""
+[item.data]
+solution = """
+a) Av = λv ⇒ A²v = λAv = λ²v, and inductively Aᵏv = λᵏv (v ≠ 0).
+b) i) ker A = {0}, so 0 is not an eigenvalue. ii) Av = λv ⇔ v = λA⁻¹v ⇔ A⁻¹v = λ⁻¹v (λ ≠ 0 by i)).
+c) Bv = A²v − 4Av + v = (25 − 20 + 1)v = 6v: eigenvalue 6.
+d) i) det(A)ˢ = det(Aˢ) = 0 ⇒ det A = 0, so 0 ∈ S(A); if Av = λv with v ≠ 0 then 0 = Aˢv = λˢv ⇒ λ = 0. So S(A) = {0}.
+   ii) −1 ∉ S(A), so det(A + In) = det(A − (−1)In) ≠ 0. (Or: (In + A)(In − A + A² − ... ± A^{s−1}) = In ± Aˢ = In.)"""
+
+[[item]]
+id = "Q04-C3"
+ref = "Compito 3"
+topic = "diagonalization"
+page = 1
+task = "open"
+text = "Esempi di A ∈ M_R(n) in cui la somma delle molteplicità algebriche degli autovalori è a) < n; b) = n ma A non è diagonalizzabile."
+[item.data]
+solution = """
+a) A = (0 −1; 1 0): p = t² + 1 has no real roots, Σ ma = 0 < 2.
+b) A = (1 1; 0 1): p = (t − 1)², ma(1) = 2 = n, but mg(1) = 1."""
+
+[[item]]
+id = "Q04-C4"
+ref = "Compito 4"
+topic = "diagonalization"
+page = 1
+task = "open"
+text = "A ∈ M_R(4) con p_A(x) = (x − 1)⁴. a) A è diagonalizzabile ⇔ A = I4.  b) Esempio di A non diagonalizzabile con p_A = (x − 1)⁴."
+[item.data]
+solution = """
+a) The only eigenvalue is 1 with ma = 4. Diagonalisable ⇔ mg(1) = 4 ⇔ rg(A − I) = 0 ⇔ A = I4.
+b) A = I4 + E12 (the identity with an extra 1 in position (1,2)): p_A = (x − 1)⁴ (triangular), but rg(A − I) = 1, mg(1) = 3."""
+
+[[item]]
+id = "Q04-C5"
+ref = "Compito 5"
+topic = "diagonalization"
+page = 1
+task = "open"
+text = """
+Esempi di: a) A ∈ M_R(4), p_A = (x − 1)²(x + 1)², 1 regolare, −1 non regolare; b) 3×3 intera, det 0, non diagonalizzabile
+su Q ma su R; c) 3×3 intera, det 0, non diagonalizzabile su R ma su C; d) 3×3 intera, det 0, non diagonalizzabile su C."""
+[item.data]
+solution = """
+a) (1 0 0 0; 0 1 0 0; 0 0 −1 1; 0 0 0 −1): mg(1) = 2 = ma(1), mg(−1) = 1 < 2.
+b) (0 0 0; 0 0 2; 0 1 0): p = t(t² − 2), eigenvalues 0, ±√2 (not rational, distinct real).
+c) (0 0 0; 0 0 −1; 0 1 0): p = t(t² + 1), eigenvalues 0, ±i (distinct complex).
+d) (0 1 0; 0 0 0; 0 0 0): p = t³, mg(0) = 2 < 3."""
+
+[[item]]
+id = "Q04-C6"
+ref = "Compito 6"
+topic = "diagonalization"
+page = 1
+task = "open"
+text = "Esempi di: a) A ∈ M_R(2) invertibile ma non diagonalizzabile; b) A ∈ M_R(2) diagonalizzabile ma non invertibile."
+[item.data]
+solution = """
+a) (1 1; 0 1): det 1, but mg(1) = 1 < 2.
+b) (1 0; 0 0): already diagonal, det 0."""
+
+# ================================================================ Domande
+[[item]]
+id = "Q04-D1"
+ref = "Domanda 1"
+topic = "eigen"
+page = 2
+task = "mcq"
+text = "Data A ∈ M_K(n), quali delle seguenti affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["Se A è invertibile, allora è diagonalizzabile.", "A ha al massimo n autovalori distinti.", "Se A è una matrice triangolare inferiore/superiore, allora gli autovalori di A sono gli elementi sulla diagonale.", "Se A è diagonalizzabile, allora è invertibile."]
+correct = ["b", "c"]
+why = { a = "(1 1; 0 1) is invertible, not diagonalisable.", b = "They are roots of p_A, of degree n.", c = "p_A(t) = Π(t − a_ii) for triangular A.", d = "O is diagonal and not invertible." }
+
+[[item]]
+id = "Q04-D2"
+ref = "Domanda 2"
+topic = "eigen"
+page = 2
+task = "mcq"
+text = "A ∈ M_K(2), u autovettore di autovalore −2, v autovettore di autovalore 1. Allora A³(v + u) = ?"
+[item.data]
+options = ["8u − v", "−8u + v", "8u + v", "−8u − v"]
+correct = "b"
+why = { b = "A³u = (−2)³u = −8u and A³v = v." }
+
+[[item]]
+id = "Q04-D3"
+ref = "Domanda 3"
+topic = "eigen"
+page = 2
+task = "mcq"
+text = "Le matrici A = (2 2; 1 3) e B = (1 0; k 2k) hanno gli stessi autovalori per:"
+[item.data]
+options = ["k = −2", "k = −1", "k = 2", "k = 1", "k = 0"]
+correct = "c"
+why = { c = "p_A = t² − 5t + 4 = (t − 1)(t − 4); B is triangular with eigenvalues 1 and 2k: 2k = 4." }
+
+[[item]]
+id = "Q04-D4"
+ref = "Domanda 4"
+topic = "eigen"
+page = 2
+task = "mcq"
+text = "Siano v, w ∈ V autovettori dell'endomorfismo f: V → V. Quale affermazione è sicuramente vera?"
+[item.data]
+options = ["v + w è un autovettore.", "Se f(v) = 2v e f(w) = 4w, allora f(v + w) = 6(v + w).", "Se f(v) = 2v e f(w) = 4w, allora f(v + w) = 3(v + w).", "Se f(v) = 2v e f(w) = 2w, allora f(v + w) = 2(v + w).", "Se f(v) = 2v e f(w) = 2w, allora f(v + w) = 4(v + w)."]
+correct = "d"
+why = { a = "v + w may be 0, or a sum of eigenvectors of different eigenvalues (not an eigenvector).", b = "f(v + w) = 2v + 4w.", c = "f(v + w) = 2v + 4w, not a multiple of v + w.", d = "Eigenspaces are subspaces: f(v + w) = 2v + 2w.", e = "It is 2(v + w)." }
+
+[[item]]
+id = "Q04-D5"
+ref = "Domanda 5"
+topic = "eigen"
+page = 2
+task = "mcq"
+text = "Sia A ∈ M_K(n) e λ ∈ K un autovalore di A. Quali delle seguenti affermazioni sono vere? (3 risposte corrette)"
+[item.data]
+options = ["Se λ = 0, allora rg(A) < n.", "Se A è invertibile e diagonalizzabile, allora A⁻¹ è diagonalizzabile.", "Se λ = 0, allora det A ≠ 0.", "Se rg(A) < n, allora A è diagonalizzabile.", "Se det(A) = 0, allora 0 è un autovalore di A."]
+correct = ["a", "b", "e"]
+why = { a = "0 eigenvalue ⇔ ker A ≠ {0}.", b = "P⁻¹AP = D ⇒ P⁻¹A⁻¹P = D⁻¹.", c = "0 eigenvalue ⇒ det A = 0.", d = "(0 1; 0 0).", e = "det A = 0 ⇔ ker A ≠ {0}." }
+
+[[item]]
+id = "Q04-D6"
+ref = "Domanda 6"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "Sia A ∈ M_C(4). Quale delle seguenti affermazioni è vera? (1 risposta corretta)"
+[item.data]
+options = ["Se A ha 4 autovettori distinti, allora è diagonalizzabile.", "A è diagonalizzabile se e solo se ma(λ) = mg(λ) per ogni autovalore λ di A.", "Se A ha un unico autovalore, allora A è un multiplo della matrice identità I4.", "Se tutte le radici del polinomio caratteristico di A sono numeri reali, allora A è diagonalizzabile.", "Se A è diagonalizzabile, allora ha un autovalore semplice."]
+correct = "b"
+why = { a = "v, 2v, 3v, 4v are distinct eigenvectors.", b = "Over C, Σ ma = 4 always, so the 2° criterio reduces to ma = mg.", c = "I4 + E12 has the single eigenvalue 1.", d = "(1 1; 0 1) ⊕ I2.", e = "I4." }
+
+[[item]]
+id = "Q04-D7"
+ref = "Domanda 7"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "A ∈ M_R(3) con p_A(x) = x²(x + 2), allora (2 risposte corrette)"
+[item.data]
+options = ["dim ker(A − 2I3) = 1.", "dim ker(A + 2I3) ≥ 1.", "dim ker A = 1.", "rg A ≤ 2.", "rg(A + 2I3) = 1."]
+correct = ["b", "d"]
+why = { a = "2 is not an eigenvalue: the kernel is {0}.", b = "−2 is an eigenvalue (mg = 1).", c = "mg(0) can be 1 or 2.", d = "0 is an eigenvalue ⇒ rg A < 3.", e = "mg(−2) = 1 ⇒ rg(A + 2I) = 2." }
+
+[[item]]
+id = "Q04-D8"
+ref = "Domanda 8"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "A ∈ M_Q(3) con p_A(x) = (x − 1)(x² − 2), allora (2 risposte corrette)"
+[item.data]
+options = ["A ha 3 autovalori distinti.", "A è diagonalizzabile.", "dim ker(A − I3) = 1.", "dim ker(A − 2I3) = 1.", "dim ker(A + 2I3) = 0."]
+correct = ["c", "e"]
+why = { a = "Over Q the only eigenvalue is 1 (±√2 ∉ Q).", b = "Not over Q: Σ ma = 1 < 3.", c = "1 is a simple eigenvalue.", d = "2 is not a root of p_A.", e = "−2 is not a root of p_A." }
+
+[[item]]
+id = "Q04-D9"
+ref = "Domanda 9"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "A ∈ M_R(3) con p_A(x) = (x + 1)(x − 2)², allora (2 risposte corrette)"
+[item.data]
+options = ["A è diagonalizzabile.", "1 ≤ dim ker(A + 2I3) ≤ 2.", "rg(A + I3) = 2.", "1 ≤ dim ker(A − 2I3) ≤ 2.", "rg(A − I3) = 1."]
+correct = ["c", "d"]
+why = { a = "Only if mg(2) = 2.", b = "−2 is not an eigenvalue: dim = 0.", c = "−1 simple ⇒ mg = 1 ⇒ rank 2.", d = "1 ≤ mg(2) ≤ ma(2) = 2.", e = "1 is not an eigenvalue: rank 3." }
+
+[[item]]
+id = "Q04-D10"
+ref = "Domanda 10"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "A ∈ M_C(3) con p_A(x) = (x² − 1)(x + 3), allora (3 risposte corrette)"
+[item.data]
+options = ["A è diagonalizzabile.", "dim ker(A + I3) ≥ 2.", "dim ker(A − I3) ≤ 1.", "dim rg(A + 3I3) = 1.", "rg A = 3."]
+correct = ["a", "c", "e"]
+why = { a = "Three distinct eigenvalues 1, −1, −3.", b = "−1 is simple: dimension 1.", c = "1 is simple.", d = "rg(A + 3I) = 3 − 1 = 2.", e = "0 is not an eigenvalue." }
+
+[[item]]
+id = "Q04-D11"
+ref = "Domanda 11"
+topic = "diagonalization"
+page = 3
+task = "mcq"
+text = "A ∈ M_C(4) con p_A(x) = (x² + 1)(x² + 3), allora (3 risposte corrette)"
+[item.data]
+options = ["i = √−1 è un autovalore regolare di A.", "A è diagonale.", "rg A = 4.", "A è invertibile.", "√3 è un autovalore non semplice di A."]
+correct = ["a", "c", "d"]
+why = { a = "i is a simple root, hence regular.", b = "Diagonalisable, not necessarily diagonal.", c = "0 is not an eigenvalue.", d = "0 is not an eigenvalue.", e = "The roots are ±i and ±i√3; √3 is not one of them." }
+
+[[item]]
+id = "Q04-D12"
+ref = "Domanda 12"
+topic = "diagonalization"
+page = 4
+task = "mcq"
+text = "Quali delle seguenti coppie di matrici sono simili? (2 coppie corrette)"
+[item.data]
+options = ["(1 1; 1 1) e (2 0; 0 0)", "(1 0; 1 1) e (1 0; 0 1)", "(1 1; 0 0) e (2 0; 0 0)", "(1 1; 1 1) e (−1 −3; 1 3)", "(1 2; 1 2) e (2 4; 2 4)"]
+correct = ["a", "d"]
+why = { a = "(1 1; 1 1) has distinct eigenvalues 0, 2 ⇒ similar to diag(2, 0).", b = "The first is not diagonalisable, I is.", c = "Eigenvalues {0, 1} vs {0, 2}.", d = "Both have trace 2 and det 0: distinct eigenvalues 0, 2 ⇒ both similar to diag(0, 2).", e = "Eigenvalues {0, 3} vs {0, 6}." }
+
+[[item]]
+id = "Q04-D13"
+ref = "Domanda 13"
+topic = "diagonalization"
+page = 4
+task = "mcq"
+text = "T ∈ M_R(n) con spettro S(T) = {λ1, λ2, λ3} (distinti). Quale affermazione è vera? (1 risposta corretta)"
+[item.data]
+options = ["T è diagonalizzabile se e solo se n = 3.", "Se ma(λ) = mg(λ) per tutti i λ ∈ S(T), allora T è diagonalizzabile.", "Se n = 3, allora T è diagonalizzabile.", "T è diagonalizzabile se e solo se Σ ma(λi) = n."]
+correct = "c"
+why = { a = "diag(1, 2, 3, 3) has n = 4 and is diagonalisable.", b = "Over R p_T may also have non-real roots: then Σ ma < n.", c = "Three distinct real eigenvalues in dimension 3 (Cor. 4.15).", d = "One also needs ma = mg." }
+
+[[item]]
+id = "Q04-D14"
+ref = "Domanda 14"
+topic = "diagonalization"
+page = 4
+task = "mcq"
+text = "T ∈ M_C(n) con spettro S(T) = {λ1, λ2, λ3} (distinti). Quali affermazioni sono vere? (3 affermazioni corrette)"
+[item.data]
+options = ["T è diagonalizzabile se e solo se n = 3.", "Se ma(λ) = mg(λ) per tutti i λ ∈ S(T), allora T è diagonalizzabile.", "Se n = 3, allora T è diagonalizzabile.", "T è diagonalizzabile se e solo se Σ ma(λi) = n.", "T è diagonalizzabile se e solo se Σ ma(λi) = Σ mg(λi)."]
+correct = ["b", "c", "e"]
+why = { a = "diag(1, 2, 3, 3).", b = "Over C, Σ ma = n automatically.", c = "Three simple eigenvalues.", d = "Σ ma = n is always true over C.", e = "mg ≤ ma for each λ, so the sums are equal iff every ma = mg." }
+
+[[item]]
+id = "Q04-D15"
+ref = "Domanda 15"
+topic = "diagonalization"
+page = 4
+task = "mcq"
+text = "T ∈ M_R(3) e v1, v2, v3 autovettori di T. Quale affermazione è vera? (1 risposta corretta)"
+[item.data]
+options = ["T è diagonalizzabile se e solo se ha 3 autovalori distinti.", "Se dim Span(v1, v2, v3) = 3, allora T è diagonalizzabile.", "Se v1, v2, v3 sono autovettori dello stesso autovalore λ, con ma(λ) = 3, allora T è diagonalizzabile.", "Se dim Span(v1, v2, v3) < 3, allora T non è diagonalizzabile.", "Nessuna delle altre."]
+correct = "b"
+why = { a = "I3 is diagonalisable with one eigenvalue.", b = "Then {v1, v2, v3} is a basis of eigenvectors.", c = "They might be dependent (e.g. all multiples of one vector).", d = "Bad choice of eigenvectors (v1 = v2 = v3) does not prevent diagonalisability." }

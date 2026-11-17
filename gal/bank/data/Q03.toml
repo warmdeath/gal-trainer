@@ -1,0 +1,240 @@
+[source]
+id = "Q03"
+title = "Quiz 3"
+kind = "quiz"
+files = [{ path = "Quiz-20261117/QUIZ3.pdf", sha256 = "", pages = 3 }]
+
+# ================================================================ Compiti (open)
+[[item]]
+id = "Q03-C1"
+ref = "Compito 1"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = "Siano V, W spazi vettoriali su K. Si dimostri che Hom(V, W) è un sottospazio vettoriale di F(V, W)."
+[item.data]
+solution = """
+S1: the zero map v ↦ 0 is linear. S2: if f, g are linear, (f + g)(λv + μw) = f(λv + μw) + g(λv + μw)
+= λ(f + g)(v) + μ(f + g)(w). S3: (cf)(λv + μw) = c(λf(v) + μf(w)) = λ(cf)(v) + μ(cf)(w)."""
+
+[[item]]
+id = "Q03-C2"
+ref = "Compito 2"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = "f: V → W lineare. Si dimostri che: a) se U ◁ V, allora f(U) ◁ W; b) se Z ◁ W, allora f⁻¹(Z) ◁ V."
+[item.data]
+solution = """
+a) 0 = f(0) ∈ f(U); f(u1) + f(u2) = f(u1 + u2) ∈ f(U); λf(u) = f(λu) ∈ f(U).
+b) f(0) = 0 ∈ Z so 0 ∈ f⁻¹(Z); if f(v1), f(v2) ∈ Z then f(v1 + v2) = f(v1) + f(v2) ∈ Z and f(λv1) = λf(v1) ∈ Z."""
+
+[[item]]
+id = "Q03-C3"
+ref = "Compito 3"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = """
+f, g: R³ → R² lineari, B = {b1, b2, b3} base di R³. Dimostrare o confutare:
+a) Esiste x ≠ 0 tale che f(x) = g(x).
+b) Se f(b1) = g(b1), f(b2) = g(b2) e {f(b1), f(b2)} è una base di R², allora f = g.
+c) Se dim ker f = 2 = dim ker g, allora esiste x ≠ 0 con f(x) = g(x) = 0."""
+[item.data]
+solution = """
+a) TRUE: f − g: R³ → R² is linear and dim ker(f − g) ≥ 3 − 2 = 1 (nullità + rango).
+b) FALSE: f and g may differ on b3 (Teorema di interpolazione: f(b3), g(b3) can be chosen freely).
+c) TRUE: ker f and ker g are planes in R³; Grassmann: dim(ker f ∩ ker g) ≥ 2 + 2 − 3 = 1."""
+
+[[item]]
+id = "Q03-C4"
+ref = "Compito 4"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = "Dimostrare che tr: M_K(n) → K, A ↦ a11 + ... + ann è lineare e determinare dim ker(tr)."
+[item.data]
+solution = """
+tr(λA + μB) = Σ (λa_ii + μb_ii) = λ tr A + μ tr B. tr is surjective (tr(cE11) = c), so rg(tr) = 1 and
+dim ker(tr) = n² − 1 (nullità più rango)."""
+
+[[item]]
+id = "Q03-C5"
+ref = "Compito 5"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = "Sia f: M_K(3, 2) → K[t]≤3 lineare. Quali sono i possibili valori di dim ker(f)? Per ognuno fornire un esempio."
+[item.data]
+solution = """
+dim M_K(3,2) = 6, dim K[t]≤3 = 4, so rg(f) ∈ {0, ..., 4} and dim ker f = 6 − rg(f) ∈ {2, 3, 4, 5, 6}.
+Example with kernel dimension 6 − r: list the canonical basis E11, E12, E21, E22, E31, E32 and send the first r of them
+to 1, t, ..., t^(r−1) and the others to 0 (Teorema di interpolazione)."""
+
+[[item]]
+id = "Q03-C6"
+ref = "Compito 6"
+topic = "rep_matrix"
+page = 1
+task = "open"
+text = "B, C, D basi di V. Relazione tra M^B_C(id), M^C_D(id) e M^B_D(id)? E tra M^B_C(id) e M^C_B(id)?"
+[item.data]
+solution = """
+M^B_D(id) = M^C_D(id)·M^B_C(id) (Prop. 3.28: composition id ∘ id).  M^C_B(id) = M^B_C(id)⁻¹."""
+
+[[item]]
+id = "Q03-C7"
+ref = "Compito 7"
+topic = "rep_matrix"
+page = 1
+task = "open"
+text = "A, B ∈ M_K(n). Si dimostri che tr(AB) = tr(BA). Si deduca che matrici simili hanno la stessa traccia."
+[item.data]
+solution = """
+tr(AB) = Σ_i Σ_k a_ik b_ki = Σ_k Σ_i b_ki a_ik = tr(BA).
+If B = P⁻¹AP: tr(B) = tr(P⁻¹(AP)) = tr((AP)P⁻¹) = tr(A)."""
+
+# ================================================================ Domande
+[[item]]
+id = "Q03-D1"
+ref = "Domanda 1"
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "Sia f: V → W una mappa lineare. Quale delle seguenti affermazioni è vera? (1 risposta corretta)"
+[item.data]
+options = ["Se {v1, ..., vn} ⊆ V sono linearmente indipendenti, allora {f(v1), ..., f(vn)} sono linearmente indipendenti.", "Se {v1, ..., vn} è un insieme di generatori di V, allora {f(v1), ..., f(vn)} è un insieme di generatori di W.", "Se {v1, ..., vn} sono linearmente dipendenti, allora {f(v1), ..., f(vn)} sono linearmente dipendenti.", "Se {v1, ..., vn} non è un insieme di generatori di V, allora {f(v1), ..., f(vn)} non è un insieme di generatori di W."]
+correct = "c"
+why = { a = "Only for injective f (the zero map kills everything).", b = "They generate Im f, which is W only if f is surjective.", c = "Apply f to a non-trivial relation: Σλ_i f(v_i) = f(Σλ_i v_i) = 0.", d = "f: R² → R, (x, y) ↦ x: {e1} does not generate R² but f(e1) = 1 generates R." }
+
+[[item]]
+id = "Q03-D2"
+ref = "Domanda 2"
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "Siano f: V → W e g: W → U mappe lineari. Quali delle seguenti affermazioni sono vere? (5 risposte corrette)"
+[item.data]
+options = ["Se g ∘ f è iniettiva, allora f è iniettiva.", "Se g ∘ f è iniettiva, allora g è iniettiva.", "Se f e g sono iniettive, allora g ∘ f è iniettiva.", "Se f e g sono suriettive, allora g ∘ f è suriettiva.", "Se g ∘ f è suriettiva, allora f è suriettiva.", "Se g ∘ f è suriettiva, allora g è suriettiva.", "Se f e g sono invertibili, allora g ∘ f è invertibile.", "Se g ∘ f è biettiva, allora f e g sono biettive."]
+correct = ["a", "c", "d", "f", "g"]
+why = { a = "f(v) = 0 ⇒ g(f(v)) = 0 ⇒ v = 0.", b = "f: R → R², x ↦ (x, 0), g: R² → R, (x, y) ↦ x: g ∘ f = id but g is not injective.", c = "Composition of injective maps.", d = "Composition of surjective maps.", e = "Same example as b): g ∘ f = id is surjective, f is not.", f = "Im(g ∘ f) ⊆ Im g.", g = "(g ∘ f)⁻¹ = f⁻¹ ∘ g⁻¹.", h = "Same example: g ∘ f = id_R but neither f nor g is bijective." }
+
+[[item]]
+id = "Q03-D3"
+ref = "Domanda 3"
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "Siano f: V → W e g: W → U mappe lineari. Quali delle seguenti affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["Se dim V = dim U = 3 e dim W = 2, allora g ∘ f non è iniettiva.", "Se dim V = dim U = 3 e dim W = 2, allora g ∘ f non è suriettiva.", "Se dim V = dim U = 2 e dim W = 3, allora g ∘ f non è iniettiva.", "Se dim V = dim U = 2 e dim W = 3, allora g ∘ f non è suriettiva."]
+correct = ["a", "b"]
+why = { a = "f: V (dim 3) → W (dim 2) cannot be injective, so neither is g ∘ f.", b = "Im(g ∘ f) ⊆ Im g has dimension ≤ 2 < 3.", c = "g ∘ f can be an isomorphism (embed R² in R³ and project back).", d = "Same: it can be the identity." }
+
+[[item]]
+id = "Q03-D4"
+ref = "Domanda 4"
+topic = "rep_matrix"
+page = 2
+task = "mcq"
+text = "{b1, b2, b3} base di R³, f lineare con f(b1) = b2, f(b2) = b1 + b3 e b3 ∈ ker(f). Allora f(−b1 + b2 + 3b3) = ?"
+[item.data]
+options = ["b1 − b2 + b3", "b1 + b2 + b3", "b1 + b2", "b2 − b3", "0"]
+correct = "a"
+why = { a = "−f(b1) + f(b2) + 3f(b3) = −b2 + (b1 + b3) + 0 = b1 − b2 + b3." }
+
+[[item]]
+id = "Q03-D5"
+ref = "Domanda 5"
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "A ∈ M_R(m, n), L_A: Rⁿ → R^m. Quale affermazione è vera (1 risposta corretta)?"
+[item.data]
+options = ["Se L_A è suriettiva, allora rg(A) = max(m, n).", "Se L_A è iniettiva, allora rg(A) = min(m, n).", "Se m = n, allora L_A è iniettiva e suriettiva.", "Se n > m, allora L_A è suriettiva.", "Se rg(A) < m, allora L_A non è iniettiva."]
+correct = "b"
+why = { a = "Surjective ⇒ rg(A) = m, which is ≤ n.", b = "Injective ⇒ rg(A) = n, and rg(A) ≤ m, so n = min(m, n).", c = "A = O.", d = "A = O.", e = "rg(A) < m means NOT surjective; e.g. A = (1; 0) is injective with rg 1 < 2." }
+
+[[item]]
+id = "Q03-D6"
+ref = "Domanda 6"
+topic = "linear_maps"
+page = 3
+task = "mcq"
+text = "Sia f: V → V una mappa lineare non suriettiva. Quale affermazione è vera (1 risposta corretta)?"
+[item.data]
+options = ["Esiste una base B di V tale che M^B_B(f) ha determinante diverso da zero.", "Esiste v ∈ V, v ≠ 0 tale che f(v) = 0.", "Esistono v, w ∈ V linearmente indipendenti, tali che f(v) = f(w) = 0.", "Nessuna delle altre opzioni è corretta."]
+correct = "b"
+why = { a = "det ≠ 0 would mean f invertible.", b = "Same dimension: not surjective ⇔ not injective ⇔ ker f ≠ {0}.", c = "ker f may have dimension 1." }
+
+[[item]]
+id = "Q03-D7"
+ref = "Domanda 7"
+topic = "rep_matrix"
+page = 3
+task = "mcq"
+text = "B base di V (dim n), C base di W (dim m), f: V → W lineare, A = M^B_C(f). Quali affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["Se rg(A) < n, allora f non è iniettiva.", "Se f è suriettiva, allora rg(A) = min(m, n).", "f è iniettiva se e solo se rg(A) = min(m, n).", "Se V = W, allora rg(A) = n.", "Se rg(A) < n, allora f non è suriettiva."]
+correct = ["a", "b"]
+why = { a = "dim ker f = n − rg(A) > 0.", b = "Surjective ⇒ rg(A) = m ≤ n.", c = "If m < n then rg = m = min but f is not injective.", d = "f = 0.", e = "Surjectivity is rg(A) = m (which can be < n)." }
+
+[[item]]
+id = "Q03-D8"
+ref = "Domanda 8"
+topic = "rep_matrix"
+page = 3
+task = "mcq"
+text = "B = {b1, b2, b3} base di V, C = {c1, ..., c4} base di W, f: V → W e g: W → V lineari, A = M^B_C(f), B = M^C_B(g). Quali affermazioni sono vere (1 risposta corretta)?"
+[item.data]
+options = ["Se rg(AB) = 3, allora g è suriettiva.", "ker(g ∘ f) ≠ {0}.", "ker(g ∘ f) ◁ W.", "Se rg(A) = rg(B) = 2, allora rg(AB) = 4.", "Nessuna delle altre opzioni è corretta."]
+correct = "a"
+why = { a = "rg(AB) ≤ rg(B) ≤ 3, so rg(B) = 3 = dim V: g is surjective.", b = "g ∘ f: V → V (3 → 3) can be invertible.", c = "ker(g ∘ f) ⊆ V.", d = "rg(AB) ≤ min(rg A, rg B) = 2." }
+
+[[item]]
+id = "Q03-D9"
+ref = "Domanda 9"
+topic = "rep_matrix"
+page = 3
+task = "mcq"
+text = "{e1, e2, e3} base canonica di R³, f lineare con f(e1) = e3, f(e2 + e3) = e1 − e2 e f(e1 − e2) = 0. Allora f(e3) = ?"
+[item.data]
+options = ["−e1 + e2 − e3", "e1 − e2 − e3", "e2", "e1 + e3", "0"]
+correct = "b"
+why = { b = "f(e2) = f(e1) = e3 (from f(e1 − e2) = 0), so f(e3) = (e1 − e2) − f(e2) = e1 − e2 − e3." }
+
+[[item]]
+id = "Q03-D10"
+ref = "Domanda 10"
+topic = "eigen"
+page = 3
+task = "mcq"
+text = "u, v ∈ V, f: V → V lineare con f(u) = 2u, f(v) = −v. Allora f(f(u − v)) = ?"
+[item.data]
+options = ["2u − v", "u + v", "4u + v", "4u − v", "u − v"]
+correct = "d"
+why = { d = "f(u − v) = 2u + v, f(2u + v) = 4u − v." }
+
+[[item]]
+id = "Q03-D11"
+ref = "Domanda 11"
+topic = "rank"
+page = 3
+task = "mcq"
+text = "A ∈ M_R(m, p), B ∈ M_R(p, n). Quali delle seguenti affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["rg(AB) ≤ rg(B)", "rg(AB) = rg(A) + rg(B)", "rg(AB) = rg(A) · rg(B)", "rg(A) ≤ rg(AB)", "rg(AB) ≤ min(rg(A), rg(B))"]
+correct = ["a", "e"]
+why = { a = "Im(L_A ∘ L_B) = L_A(Im L_B) has dimension ≤ dim Im L_B.", b = "A = B = I_2: 2 ≠ 4.", c = "A = B = I_2: 2 ≠ 4.", d = "B = O.", e = "Also Im(AB) ⊆ Im(A)." }
+
+[[item]]
+id = "Q03-D12"
+ref = "Domanda 12"
+topic = "linear_maps"
+page = 3
+task = "mcq"
+text = "A ∈ M_R(m, n), B ∈ M_R(n, p). Quali delle seguenti affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["rg(A) + dim ker A = n", "rg(B) + dim ker B = n", "dim ker(AB) = dim ker A + dim ker B", "dim ker B ≤ dim ker(AB)", "dim ker A ≤ dim ker(AB)"]
+correct = ["a", "d"]
+why = { a = "Nullità più rango for L_A: Rⁿ → R^m.", b = "For B it is p, not n.", c = "False in general (A = B = I).", d = "Bx = 0 ⇒ ABx = 0: ker B ⊆ ker(AB).", e = "ker A ⊆ Rⁿ and ker(AB) ⊆ R^p are not comparable; e.g. A = O (2×2), B = (1 0)ᵀ: dim ker A = 2 > dim ker AB = 1." }
