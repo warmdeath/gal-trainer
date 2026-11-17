@@ -98,6 +98,22 @@ def t_values(d, text):
     return "", parts, [why] if why else []
 
 
+class _AcceptChoice(ChoiceAns):
+    def __init__(self, options, correct, why, also):
+        super().__init__(options, correct, why)
+        self.also = also
+
+    def check(self, text):
+        res = super().check(text)
+        if not res.ok:
+            for k in self.also:
+                if ChoiceAns(self.options, k).check(text).ok:
+                    from ..exercise import Check
+                    return Check.right(f"accepted — the intended answer is {chr(97 + self.correct)}), "
+                                       "but this option is also true as worded")
+        return res
+
+
 @task("mcq")
 def t_mcq(d, text):
     opts = d["options"]
@@ -108,6 +124,8 @@ def t_mcq(d, text):
     why = {ord(k.lower()) - 97: v for k, v in raw.items()} if isinstance(raw, dict) else {}
     multi = d.get("multi", len(idx) > 1)
     ans = MultiChoiceAns(opts, idx, why) if multi else ChoiceAns(opts, idx[0], why)
+    if d.get("accept") and not multi:     # equally valid alternatives (ambiguous original wording)
+        ans = _AcceptChoice(opts, idx[0], why, [ord(c.lower()) - 97 for c in d["accept"]])
     steps = [f"{chr(97 + i)}) {'TRUE ' if i in idx else 'false'} — {why[i]}" for i in sorted(why)]
     if isinstance(raw, str) and raw:
         steps = [f"Correct: {', '.join(chr(97 + i) + ')' for i in idx)}  {opts[idx[0]] if len(idx) == 1 else ''}".rstrip(),
