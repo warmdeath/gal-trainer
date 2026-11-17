@@ -6,7 +6,7 @@ title = "2023-09 Appello - Parte A"
 kind = "exam"
 status = "skeleton"
 files = [{ path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-09 Appello - Parte A.pdf", sha256 = "774e1dc77e63fecf3f7328fd43dd5a025f0d59d14ebb984bb4416c90fa6cad3f", pages = 4 }]
-paper = { format = "appello", minutes = 105, points = 32, lecturer = "?", points_estimated = true }
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "?", half = 2, points_estimated = true }
 
 [[item]]
 id = "P2309APA-D1"

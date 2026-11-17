@@ -223,10 +223,12 @@ def q(s: str) -> str:
 
 def paper_meta(path: Path) -> str:
     """TOML inline table for an exam paper skeleton (format guessed from the file name)."""
-    fmt = "itinere" if "itinere" in path.stem.lower() else "appello"
+    low = path.stem.lower()
+    fmt = "itinere" if "itinere" in low else "appello"
     minutes = 60 if fmt == "itinere" else 105
     points = 16 if fmt == "itinere" else 32
-    return (f'paper = {{ format = "{fmt}", minutes = {minutes}, points = {points}, lecturer = "?", '
+    half = 2 if fmt == "appello" or re.search(r"itinere\s*(2|ii)\b", low) else 1
+    return (f'paper = {{ format = "{fmt}", minutes = {minutes}, points = {points}, lecturer = "?", half = {half}, '
             'points_estimated = true }')
 
 

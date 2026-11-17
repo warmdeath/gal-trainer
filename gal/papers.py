@@ -122,22 +122,34 @@ def session_dates(start: date, exam: date) -> list[date]:
     return out + sorted(tail)
 
 
+def paper_half(src) -> int:
+    """1 = first half of the course (an 'itinere 1'), 2 = second half / whole course."""
+    meta = src.paper or {}
+    if "half" in meta:
+        return int(meta["half"])
+    t = (src.title + " " + src.id).lower()
+    if paper_format(src) == "itinere" and not any(k in t for k in ("itinere 2", "itinere ii", "i2")):
+        return 1
+    return 2
+
+
+def _own(src) -> bool:
+    return (src.paper or {}).get("lecturer") == "Frapporti"
+
+
 def paper_order(bank) -> tuple[list, list]:
-    """(itinere-style papers, full papers) in the order the plan uses them.
-    Itinere: this year's itinere first (a re-take shows progress), then the lecturer's
-    previous ones, then the older lecturer's, newest first. Full papers: older lecturer's
-    appelli first (newest first), then the lecturer's own appelli, the most recent last:
-    they are the closest to the real exam, so they are the final dress rehearsals."""
-    ps = papers(bank)
-    cur = lambda s: (s.paper or {}).get("lecturer") == "Frapporti"
-    first_half = lambda s: paper_format(s) == "itinere" and (s.paper or {}).get("half", 1) == 1
-    itinere = [s for s in ps if first_half(s) and cur(s)] + [s for s in ps if first_half(s) and not cur(s)]
-    rest = [s for s in ps if not first_half(s)]
-    old = [s for s in rest if not cur(s)]
-    own = sorted([s for s in rest if cur(s)], key=lambda s: (s.date, s.id))
-    own_it2 = [s for s in own if paper_format(s) == "itinere"]
-    own_app = [s for s in own if paper_format(s) != "itinere"]
-    return itinere, own_it2 + old + own_app
+    """(itinere-style papers on the first half, full papers), each in order of preference.
+    Itinere: this year's first (a re-take shows progress), then the lecturer's previous ones,
+    then the older lecturer's, newest first. Full papers: the lecturer's own, oldest to newest
+    (the most recent appello is the final dress rehearsal), preceded by the older lecturer's
+    papers, newest first."""
+    ps = papers(bank)                      # newest first
+    first = [s for s in ps if paper_half(s) == 1]
+    itinere = [s for s in first if _own(s)] + [s for s in first if not _own(s)]
+    rest = [s for s in ps if paper_half(s) != 1]
+    old = [s for s in rest if not _own(s)]
+    own = sorted([s for s in rest if _own(s)], key=lambda s: (paper_format(s) != "itinere", s.date, s.id))
+    return itinere, old + own
 
 
 def make_plan(bank, start: date, exam: date, done: set[str] = frozenset()) -> list[dict]:
@@ -147,9 +159,11 @@ def make_plan(bank, start: date, exam: date, done: set[str] = frozenset()) -> li
     full = [s for s in full if s.id not in done]
     n_it = min(len(itinere), round(len(dates) * ITINERE_SHARE))
     n_full = len(dates) - n_it
-    # the lecturer's own appelli must be in the plan: keep the LAST ones of `full`
-    chosen_full = full[-n_full:] if n_full and len(full) > n_full else full
-    chosen = itinere[:n_it] + chosen_full
+    own = [s for s in full if _own(s)]
+    old = [s for s in full if not _own(s)]
+    own = own[-n_full:] if n_full < len(own) else own          # the lecturer's latest papers always fit
+    old = old[:max(0, n_full - len(own))]                      # then the most recent older ones
+    chosen = itinere[:n_it] + list(reversed(old)) + own        # older papers chronologically, then own
     if len(chosen) < len(dates):     # not enough papers: fewer sessions, keep the latest dates
         dates = dates[len(dates) - len(chosen):]
     return [{"date": d.isoformat(), "paper": s.id, "done": False} for d, s in zip(dates, chosen)]

@@ -6,7 +6,7 @@ title = "2024-11 Itinere 1 - Parte A (versione A)"
 kind = "exam"
 status = "skeleton"
 files = [{ path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2024-11 Itinere 1 - Parte A (versione A).pdf", sha256 = "b597d2f4bf8c9913c44ad993398e999b94cf18cc4de401d28dfe21c5dedcc9e1", pages = 5 }]
-paper = { format = "itinere", minutes = 60, points = 16, lecturer = "?", points_estimated = true }
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "?", half = 1, points_estimated = true }
 
 [[item]]
 id = "P2411I1VAPA-D1"

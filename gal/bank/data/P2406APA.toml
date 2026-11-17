@@ -6,7 +6,7 @@ title = "2024-06 Appello - Parte A"
 kind = "exam"
 status = "skeleton"
 files = [{ path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-06 Appello - Parte A.pdf", sha256 = "f5c683b9795bbc742bd06f2da99f11c121141d6d52acb085add14b4c0e5d102a", pages = 4 }]
-paper = { format = "appello", minutes = 105, points = 32, lecturer = "?", points_estimated = true }
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "?", half = 2, points_estimated = true }
 
 [[item]]
 id = "P2406APA-D1"

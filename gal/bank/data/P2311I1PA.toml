@@ -6,7 +6,7 @@ title = "2023-11 Itinere 1 - Parte A"
 kind = "exam"
 status = "skeleton"
 files = [{ path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2023-11 Itinere 1 - Parte A.pdf", sha256 = "b487e58f56e62cf1b9058702e81908fcf9b745dbea98fcde0182ddce5cb62e43", pages = 4 }]
-paper = { format = "itinere", minutes = 60, points = 16, lecturer = "?", points_estimated = true }
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "?", half = 1, points_estimated = true }
 
 [[item]]
 id = "P2311I1PA-D1"
