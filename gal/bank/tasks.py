@@ -468,6 +468,18 @@ def t_affine_forms(d, text):
     return "", parts, steps
 
 
+def grassmann_keys(d) -> list[str]:
+    """Which parts a grassmann item asks, in order. Keys: U, W (bases), dim_sum, dim_int,
+    direct, int_basis, sum_basis. `parts = [...]` chooses explicitly; the older flags
+    ask_bases / only_bases are still understood."""
+    if "parts" in d:
+        return list(d["parts"])
+    if d.get("only_bases"):
+        return ["int_basis", "sum_basis"]
+    keys = ["U", "W", "dim_sum", "dim_int", "direct"]
+    return keys + (["int_basis", "sum_basis"] if d.get("ask_bases") else [])
+
+
 @task("grassmann")
 def t_grassmann(d, text):
     def basis(obj):
@@ -482,32 +494,22 @@ def t_grassmann(d, text):
     names = _names(d, n)
     show = lambda o: ("Span(" + ", ".join(fv(x) for x in VS_(o["span"])) + ")") if "span" in o else \
         "{ " + ";  ".join(f"{flin(r, names)} = 0" for r in M_(o["A"]).rows) + " }"
+    ident = [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
+    eqU = kernel_basis(Matrix(U)) if U else ident
+    eqW = kernel_basis(Matrix(W)) if W else ident
+    inter = kernel_basis(Matrix(eqU + eqW)) if eqU + eqW else ident
+    ssum = column_space_basis(Matrix.from_cols(U + W)) if U + W else []
     steps = [f"basis of U: {fvs(U)}  (dim {len(U)})", f"basis of W: {fvs(W)}  (dim {len(W)})",
-             f"dim(U+W) = rank of all basis vectors together = {dsum}",
+             f"dim(U+W) = rank of all basis vectors together = {dsum}; a basis of U + W: {fvs(ssum)}",
              f"Grassmann: dim(U∩W) = {len(U)} + {len(W)} - {dsum} = {dint}",
+             f"U ∩ W: solve the Cartesian equations of U and of W together → basis {fvs(inter)}",
              "direct sum ⇔ U ∩ W = {0}: " + ("yes" if dint == 0 else "no")]
-    out = [
-        ("a basis of U", SpanAns(U, n, "U")), ("a basis of W", SpanAns(W, n, "W")),
-        ("dim(U + W)", IntAns(dsum)), ("dim(U ∩ W)", IntAns(dint)),
-        ("is the sum direct?", YesNoAns(dint == 0, steps[-1]))]
-    if d.get("ask_bases"):
-        # U ∩ W: stack Cartesian equations of both (rows orthogonal to each basis)
-        eqU = kernel_basis(Matrix(U)) if U else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
-        eqW = kernel_basis(Matrix(W)) if W else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
-        rows = eqU + eqW
-        inter = kernel_basis(Matrix(rows)) if rows else [[Fraction(int(i == j)) for j in range(n)] for i in range(n)]
-        ssum = column_space_basis(Matrix.from_cols(U + W)) if U + W else []
-        steps = steps + [f"U ∩ W: solve the Cartesian equations of U and of W together → basis {fvs(inter)}",
-                         f"U + W = Span(basis of U ∪ basis of W) → basis {fvs(ssum)}"]
-        parts = [("a basis of U ∩ W ('none' if {0})", SpanAns(inter, n, "U ∩ W")),
-                 ("a basis of U + W", SpanAns(ssum, n, "U + W"))]
-        if d.get("only_bases"):
-            out = parts
-        else:
-            out = out + parts
-    if d.get("only_bases") and not d.get("ask_bases"):
-        raise TaskError("only_bases needs ask_bases")
-    return f"U = {show(d['U'])}\nW = {show(d['W'])}", out, steps
+    allp = {"U": ("a basis of U", SpanAns(U, n, "U")), "W": ("a basis of W", SpanAns(W, n, "W")),
+            "dim_sum": ("dim(U + W)", IntAns(dsum)), "dim_int": ("dim(U ∩ W)", IntAns(dint)),
+            "direct": ("is the sum direct?", YesNoAns(dint == 0, steps[-1])),
+            "int_basis": ("a basis of U ∩ W ('none' if {0})", SpanAns(inter, n, "U ∩ W")),
+            "sum_basis": ("a basis of U + W", SpanAns(ssum, n, "U + W"))}
+    return f"U = {show(d['U'])}\nW = {show(d['W'])}", [allp[k] for k in grassmann_keys(d)], steps
 
 
 POS_OPTS = ["coincident / one contained in the other", "parallel (no common points)",
@@ -1030,5 +1032,115 @@ def t_perp(d, text):
              f"W⊥ = Span({', '.join(fv(x) for x in perp)}),  dim W⊥ = {n} - {len(W)} = {len(perp)}"]
     nm = d.get("name", "W")
     steps = [x.replace("W⊥", f"{nm}⊥").replace("basis of W:", f"basis of {nm}:") for x in steps]
-    parts = [(f"dim {nm}⊥", IntAns(len(perp))), (f"a basis of {nm}⊥ ('none' if {{0}})", SpanAns(perp, n, f"{nm}⊥"))]
+    if d.get("orthogonal"):
+        ob = _orth(perp, S)
+        steps.append(f"Gram-Schmidt → orthogonal basis {fvs(ob)}")
+        basis_ans = OrthSpanAns(ob, n, f"{nm}⊥", S)
+        lbl = f"an ORTHOGONAL basis of {nm}⊥"
+    else:
+        basis_ans, lbl = SpanAns(perp, n, f"{nm}⊥"), f"a basis of {nm}⊥ ('none' if {{0}})"
+    parts = [(f"dim {nm}⊥", IntAns(len(perp))), (lbl, basis_ans)]
+    if d.get("only_basis"):
+        parts = parts[1:]
+    return "", parts, steps
+
+
+class OrthSpanAns(SpanAns):
+    """A basis of the subspace that must also be pairwise orthogonal (standard product or S)."""
+
+    def __init__(self, basis, n, what="W", S=None):
+        super().__init__(basis, n, what)
+        self.S = S
+
+    def check(self, text):
+        res = super().check(text)
+        if not res.ok:
+            return res
+        from ..core.parse import parse_vectors
+        xs = parse_vectors(text, self.n)
+        ip = (lambda a, b: dot(a, self.S.apply(b))) if self.S is not None else dot
+        for i in range(len(xs)):
+            for j in range(i + 1, len(xs)):
+                if ip(xs[i], xs[j]) != 0:
+                    from ..exercise import Check
+                    return Check.wrong(f"A basis of {self.what}, but not orthogonal: ⟨{fv(xs[i])}, {fv(xs[j])}⟩ ≠ 0 "
+                                       "(apply Gram-Schmidt).", 0.5)
+        return res
+
+    def show(self):
+        return fvs(self.basis) if self.basis else "none (the space is {0})"
+
+
+def _orth(vs, S=None):
+    """Gram-Schmidt without normalising, rescaled to integers."""
+    out = []
+    ip = (lambda a, b: dot(a, S.apply(b))) if S is not None else dot
+    for v in vs:
+        w = list(v)
+        for c in out:
+            k = ip(v, c) / ip(c, c)
+            w = [a - k * b for a, b in zip(w, c)]
+        out.append(clear_denominators(w))
+    return out
+
+
+@task("affine_meet")
+def t_affine_meet(d, text):
+    """Intersection of two affine subspaces S1, S2 ({point, dirs} or {A, b}): a parametric
+    description, or 'none' if they do not meet."""
+    P1, V1 = _affine(d["S1"])
+    P2, V2 = _affine(d["S2"])
+    n = len(P1)
+    # P1 + V1 a = P2 + V2 c  ⇔  [V1 | -V2] (a, c) = P2 - P1
+    cols = [list(v) for v in V1] + [[-x for x in v] for v in V2]
+    rhs = vsub(P2, P1)
+    if cols:
+        M = Matrix.from_cols(cols)
+        s = solve(M, rhs)
+    else:
+        s = None
+    names = _names(d, n)
+    n1, n2 = d.get("name1", "S"), d.get("name2", "T")
+    if s is None or s.kind == "none":
+        steps = [f"{n1} ∩ {n2}: P1 + Σ a_i v_i = P2 + Σ c_j w_j has no solution (Rouché-Capelli): "
+                 f"{n1} ∩ {n2} = ∅."]
+        return "", [(f"{n1} ∩ {n2} ('none' if empty)", AffineAns(None, [], n, f"{n1} ∩ {n2}"))], steps
+    k = len(V1)
+    pt = [P1[i] + sum(s.particular[j] * V1[j][i] for j in range(k)) for i in range(n)]
+    dirs = []
+    for b in s.basis:
+        dirs.append([sum(b[j] * V1[j][i] for j in range(k)) for i in range(n)])
+    dirs = column_space_basis(Matrix.from_cols(dirs)) if dirs and any(any(x) for x in dirs) else []
+    steps = [f"Solve P1 + Σ a_i v_i = P2 + Σ c_j w_j:  {n1} ∩ {n2} = {fparam(pt, dirs)}"]
+    return "", [(f"{n1} ∩ {n2} ('none' if empty)", AffineAns(pt, dirs, n, f"{n1} ∩ {n2}"))], steps
+
+
+@task("proj")
+def t_proj(d, text):
+    """Orthogonal projections of v on W and on W⊥ (standard product), W = span or equations A."""
+    if "span" in d:
+        W = column_space_basis(Matrix.from_cols(VS_(d["span"])))
+    else:
+        W = kernel_basis(M_(d["A"]))
+    v = V_(d["v"])
+    n = len(v)
+    ob = _orth(W)
+    pw = [Fraction(0)] * n
+    for c in ob:
+        k = dot(v, c) / dot(c, c)
+        pw = [a + k * b for a, b in zip(pw, c)]
+    pp = vsub(v, pw)
+    nm = d.get("name", "W")
+    steps = [f"orthogonal basis of {nm} (Gram-Schmidt): {fvs(ob)}",
+             f"π_{nm}(v) = Σ ⟨v, c_i⟩/⟨c_i, c_i⟩ c_i = {fv(pw)}",
+             f"π_{nm}⊥(v) = v − π_{nm}(v) = {fv(pp)}"]
+    ask = d.get("ask", ["W", "perp"])
+    parts = []
+    for a in ask:
+        if a == "W":
+            parts.append((f"π_{nm}(v)", VectorAns(pw)))
+        elif a == "perp":
+            parts.append((f"π_{nm}⊥(v)", VectorAns(pp)))
+        elif a == "dist":
+            parts.append((f"d(v, {nm}) = ‖π_{nm}⊥(v)‖", RealAns(norm(pp))))
     return "", parts, steps
