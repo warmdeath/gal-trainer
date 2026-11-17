@@ -6,7 +6,9 @@ Terminal trainer (Python, rich + prompt_toolkit) for Politecnico di Milano
 `Note_GAL26.pdf` is the source of truth: topic order, notation and Italian terminology follow it
 (M_K(m,n), rg(A), Sol(A|b), MEG, Span, ker, Im, M^B_C(f) [superscript = domain basis],
 p_A(t) = det(tI − A), ma/mg, ⟨·,·⟩, W⊥, π_W, ...). SPEC.md holds the original request,
-REVIEW.md the design decisions.
+REVIEW.md the design decisions. The course's official practice material (Fogli di esercizi,
+Quiz, handwritten Esercitazioni; PDFs in `Esercizi-*/`, `Quiz-*/`, `Esercitazioni-*/`) is
+transcribed in the practice bank `gal/bank/data/*.toml`, and new PDFs come in via `gal ingest`.
 
 **Correctness first.** Exact arithmetic everywhere (`fractions.Fraction`, `Surd` = q·√n).
 Floats only in `gal/ai/nn.py` (numerical training demo). Every generator is verified with sympy.
@@ -22,14 +24,24 @@ gal/
     surd.py        q·√n numbers (norms, distances, cosines)
     geom.py        Cartesian ⇄ parametric (rank method of §2.5), positions in R³,
                    Gram-Schmidt, projections, W⊥, cross product
-    fmt.py         text rendering of matrices/systems/vectors (also the input syntax)
+    param.py       PMatrix: matrices with one parameter (entries = Poly), det, minors,
+                   rank_profile (generic rank + rational drop values via gcd of minors;
+                   irrational drops detected with Sturm and refused)
+    fmt.py         text rendering of matrices/systems/vectors (also the input syntax), reflow
     parse.py       parser of student answers (expressions, vectors, matrices, param. sets, eqs)
   exercise.py      Answer checkers (+ likely-error diagnosis), Part, Exercise, mk()
   topics/          one module per chapter: ch0..ch5, conics (extra), ai (bonus)
     base.py        Topic (lesson, worked examples, generators) and Gen
     rand.py        "nice numbers": unimodular matrices, rank-r matrices, invertible ...
     __init__.py    TOPICS registry in course order, BY_ID, get()
-  profile.py       JSON profile: mastery, Leitner boxes, exam history
+  bank/            the official course material
+    __init__.py    Item/Source/Bank, load_bank (one TOML per source), build(item) -> Exercise,
+                   past_exam_exercises (chained 'Dal tema d'esame' exercises for mock exams)
+    tasks.py       TASKS registry: task kind -> builder(data, text) -> (extra prompt, parts, steps)
+    ingest.py      `gal ingest`: SHA-256 manifest, new/duplicate/changed PDFs, text extraction,
+                   split into items, topic guess, skeleton TOML
+    data/*.toml    F01..F08 sheets, Q01..Q04 quizzes, ES01..ES07 esercitazioni (links only)
+  profile.py       JSON profile: mastery, Leitner boxes, exam history, per-item bank progress
   planner.py       `next` recommendation
   exam.py          mock-exam blueprint, timer, /30 grading
   cli.py           App (all I/O via App.ask/App.out → scriptable), commands, main()
@@ -38,7 +50,10 @@ gal/
 tests/             helpers.py (sympy conversions), verify.py (run(topic, key, verifier)),
                    test_core / test_parse / test_generators (round trip for ALL generators) /
                    test_verify_ch01, ch2, ch34, ch5 (sympy) / test_ai / test_cli / test_diagnosis /
-                   test_profile_planner
+                   test_profile_planner /
+                   test_bank (structure, round trip, generic sympy verifier per task kind) /
+                   test_bank_keys (item-specific sympy checks of hand-keyed answers) /
+                   test_material (every PDF ingested + hashes match; ingest pipeline end to end)
 ```
 
 ### Conventions for generators
@@ -55,7 +70,57 @@ tests/             helpers.py (sympy conversions), verify.py (run(topic, key, ve
 ```bash
 pip install -e '.[dev]'
 gal                 # or: python -m gal ; single command: gal practice det
-pytest              # full suite (~1250 tests, ~25 s)
+pytest              # full suite (~1900 tests, ~25 s)
 pytest tests/test_generators.py -k determinant
+pytest tests/test_bank.py tests/test_bank_keys.py tests/test_material.py   # just the bank
+gal ingest          # after downloading new course PDFs (needs pdftotext or `pip install '.[ingest]'`)
 ```
 Profile location: `$GAL_TRAINER_HOME` (default `~/.gal_trainer/`), or `--profile path`.
+Bank / material location overrides: `$GAL_BANK_DIR`, `$GAL_MATERIAL_DIR` (default: repo root).
+
+## Adding course material
+`tests/test_material.py` fails while a PDF in the material folders is not in the bank:
+run `gal ingest`. It writes `gal/bank/data/<ID>.toml` with `status = "skeleton"` and every item
+as `task = "open"` (self-assessed, text auto-extracted, so formulas may be garbled). To
+transcribe a source properly:
+
+1. Read the PDF (pdftotext; for handwriting, render pages to PNG and look at them). Fix each
+   item's `text` (the notes' notation, Italian as in the PDF; extra instructions in English in
+   parentheses, e.g. "(Type 'not defined' ...)"). Keep `id` = `<SRC>-E<n><letter>` /
+   `-D<n>` / `-C<n>`, `ref`, `page`, and a valid `topic` id (gal/topics/__init__.py).
+2. Choose a `task` and `data` for each item. Computational items get an auto task; proofs and
+   examples stay `open` with `data.solution` = a model answer. One-line examples per kind
+   (all numbers exact: ints or "3/2" strings; a parameter is a string such as "λ" or "2k+1"):
+
+   | task | data |
+   |---|---|
+   | open | `solution = """model answer"""` |
+   | yesno / values / mcq | `answer = false, why = "..."` / `answers = [["det(A^-1)", "1/2"], ...], why` / `options = [...], correct = ["a","c"], why = {a = "..."}` (+ `multi`) |
+   | solve, nsol, homog | `A = [[..]], b = [..]` (`names`) / `Ab = [[..]]` / `A` |
+   | rank, det, inverse, kerim, charpoly, eigen | `A = [[..]], name = "P"` (`eigen`: `eigenspaces`, `ask_P`; `charpoly`: `spectrum = false`) |
+   | matexpr | `matrices = {A = [[..]], ...}, exprs = ["A*B", "B*(A+C)^T", ...]` |
+   | indep, basis_span, complete_basis, in_span | `vectors = [[..]]` (`hide`, `coords_note`, `ask_generators`); `in_span`: `+ v` |
+   | basis_eqs, coords | `A = [[..]]` (equations of the subspace) / `basis = [[..]], v = [..]` |
+   | cartesian, affine_forms, position | `point, dirs` / `points` or `point, dirs` (`check`) / `S1 = {point, dirs}, S2 = {...}` |
+   | grassmann | `U = { A = [[..]] }` or `{ span = [[..]] }`, `W = ...` |
+   | repmat, interp_matrix, change_basis | `A, B, C` or `images` (`label`, `hide`) / `basis, images, ask = ["E_E","B_B",...]` / `B, C` (`vB`, `vC`) |
+   | roots, charpoly_target, eigen_target | `p = "x^3 - 3x^2 + 4"` (`var`); `eigen_target`: `+ eigenspaces = {"2" = [[..]]}, P, J` |
+   | metric, gram, gram_schmidt, orthobasis | `v, w` (`S` = Gram matrix) / `G` / `vectors` (`S`) / `basis = [{dir = [..], scale = "1/sqrt(3)"}], v` |
+   | param_rank, param_invertible, param_indep, param_system, param_diag | `param = "λ", A = [[1, "λ"], ...]` (`ask_det`; `param_indep`: `vectors`; `param_system`: `+ b`; `param_diag`: `candidates = [..]`, the values to inspect) |
+
+   Builders live in gal/bank/tasks.py: read the one you use for every option. `build(item)`
+   must not raise; a TaskError (e.g. a parameter whose rank drops at irrational values)
+   means the item must be `open` or keyed by hand (`values`/`yesno`/`mcq`).
+3. Past-exam exercises: set `exam = "dd/mm/yyyy"` on every sub-item; they are then chained
+   into one multi-part exercise in mock exams.
+4. Handwritten solutions (esercitazioni): a source with `kind = "esercitazione"` and no items,
+   plus `[[solution]] items = ["F03-E2b", ...], pages = [2]` entries. Every exercise then shows
+   "Solved in class (handwritten): ..., p. 2 → <pdf path>".
+5. Set `status = "transcribed"`, run `pytest tests/test_bank.py tests/test_material.py`.
+   Auto tasks are recomputed with sympy by the generic verifier of their kind in
+   tests/test_bank.py (add one there for a NEW task kind, and register the builder with
+   `@task("name")`). For hand-keyed answers (yesno/mcq/values) add an item-specific sympy check
+   in tests/test_bank_keys.py whenever the answer is computable. MCQ: the number of correct
+   options must match "(N risposte)" in the text, if present.
+6. A revised PDF with the same name is reported as *changed*: diff it against the source,
+   update the items, then `gal ingest --rehash` stores the new hash.

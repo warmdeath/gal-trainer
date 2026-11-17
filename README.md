@@ -14,8 +14,13 @@ a student who missed lectures and needs to catch up before the January exam.
   det(A − tI), the notes use det(tI − A)", ...) and shows the full step-by-step solution in
   the notation of the notes.
 - **Exact arithmetic**: fractions, plus exact square roots such as `12*sqrt(11)/11`. No floats.
-- **Verified against sympy**: every generator and solver is checked in the test suite
-  (about 1250 tests).
+- **The course's official practice material, built in**: all 8 *Fogli di esercizi* and 4
+  *Quiz* (385 items, 341 auto-checked, the rest self-assessed against a model answer). The
+  handwritten *Esercitazioni* are linked page by page to the exercises they solve.
+- **Ready for new material**: drop newly downloaded PDFs next to the notes and run
+  `gal ingest`. They are recognised, split into exercises and usable right away.
+- **Verified against sympy**: every generator, solver and official answer key is checked in
+  the test suite (about 1900 tests).
 - **Progress profile**: mastery per topic, spaced repetition of weak topics, and a `next`
   command that picks what to do. Timed **mock exams** mix the topics and are graded out of 30.
 - **Bonus — why this matters for AI**: a tiny neural network built from scratch with the
@@ -86,7 +91,11 @@ gal> learn rank           # lesson + worked examples from the notes, then practi
 gal> practice det         # unlimited exercises ('q' to stop); also: p det, or just: det
 gal> review               # the topics whose spaced-repetition review is due today
 gal> exam                 # 6 exercises, 60 minutes, graded /30; 'exam 3 25' = 3 exercises, 25 min
-gal> stats                # progress, weakest topics, exam history, days to the exam
+gal> stats                # progress, weakest topics, official exercises solved, exam history
+gal> sheets               # the official Fogli / Quiz / Esercitazioni and your progress
+gal> sheet 3              # work through Foglio di esercizi 3 in order (skips what you got right)
+gal> quiz                 # 10 random quiz questions (theory drill); 'quiz 2' = Quiz 2 in order
+gal> official eigen       # the official exercises of one topic; 'item F02-E4a' = one exercise
 gal> examdate 2027-01-18  # set your exam date
 gal> ai                   # bonus chapter: a tiny neural network
 ```
@@ -130,13 +139,63 @@ Your progress is saved in `~/.gal_trainer/profile.json`. Set `GAL_TRAINER_HOME` 
   1. weak topics that are due;
   2. mastered topics whose review is overdue;
   3. the next topic of the course, after any shaky prerequisite;
-  4. a mock exam once everything is mastered.
+  4. once everything is mastered: the official sheets/quizzes you haven't solved yet,
+     then a mock exam.
+
+`practice` also mixes in, about 3 times in 10, an official exercise of that topic you
+haven't solved yet. Mock exams sometimes include a real past-exam exercise from the sheets
+(*"Dal tema d'esame ..."*), with all its parts chained as on the real paper.
+
+## Official course material
+
+The PDFs downloaded from the course website live next to `Note_GAL26.pdf`:
+
+| folder                     | what                                   | in the trainer |
+|----------------------------|----------------------------------------|----------------|
+| `Esercizi-<date>/`         | *Fogli di esercizi* 1–8                | `sheet 1` … `sheet 8` (F01–F08) |
+| `Quiz-<date>/`             | *Quiz* 1–4 (multiple choice + *compiti*) | `quiz`, `quiz 1` … (Q01–Q04) |
+| `Esercitazioni-<date>/`    | handwritten class solutions            | linked from each exercise (ES01–ES07) |
+
+Every exercise was transcribed by hand into `gal/bank/data/*.toml`. Computational ones
+(systems, ranks, bases, Grassmann, matrices of maps, eigenvalues, "al variare di λ"
+discussions, ...) are checked exactly, like the generated exercises, with the same mistake
+diagnosis. Proofs and "give an example" questions are **self-assessed**: you write your
+answer (on paper or in the terminal), the trainer shows the model answer, and you grade
+yourself `y` (right), `p` (partly) or `n`. When an exercise was solved in class, the
+solution shows where: *"Solved in class (handwritten): Esercitazione 2, p. 4 →
+Esercitazioni-20261117/2026-10-07 Esercitazione 2.pdf"*.
+
+### Adding new material (new sheets, quizzes, past exams)
+
+1. Download the folder from the course website and unzip it next to `Note_GAL26.pdf`, for
+   example `Esercizi-20261201/`. Folders named `Esercizi*`, `Esercitazioni*`, `Quiz*`,
+   `Esami*`, `Temi*` or `material/` are scanned. Re-downloading a whole folder is fine:
+   files you already have are recognised by their content (SHA-256) and ignored.
+2. Run
+
+   ```bash
+   gal ingest
+   ```
+
+   The trainer also tells you at startup when it sees PDFs it doesn't know yet.
+   For each new PDF it extracts the text, splits it at *Esercizio N* / *Domanda N* /
+   *Compito N*, guesses the topic of each item, and writes a new source file
+   `gal/bank/data/F09.toml` (sheets `F..`, quizzes `Q..`, esercitazioni `ES..`, others `X..`).
+   The new exercises are usable immediately, as self-assessed items (`sheet 9`).
+3. To make them auto-checked, give each item a `task` and its `data`: see "Adding course
+   material" in `CLAUDE.md` (or ask Claude Code to "transcribe F09"). Run `pytest`
+   afterwards: every answer is verified with sympy.
+
+Text extraction needs either `pdftotext` (Ubuntu/WSL: `sudo apt install poppler-utils`) or
+the `pypdf` package (`pip install -e '.[ingest]'`). If a PDF you had already ingested is
+replaced by a revised version with the same name, `gal ingest` reports it as *changed*:
+check the differences, then accept it with `gal ingest --rehash`.
 
 ## Development
 
 ```bash
 pip install -e '.[dev]'    # pytest + sympy
-pytest                     # ~1250 tests, about 25 s
+pytest                     # ~1900 tests, about 25 s
 ```
 
 See `CLAUDE.md` for the architecture and `REVIEW.md` for design decisions, simplifications and

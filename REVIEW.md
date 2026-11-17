@@ -7,8 +7,9 @@
 | Topics | 26: 24 that follow `Note_GAL26.pdf`, plus *conics* (extra) and the *AI* bonus chapter |
 | Exercise generators | 87, all random with nice numbers, each verified against sympy |
 | Worked examples | 37, mostly the numerical examples of the notes, recomputed by the engine |
-| Tests | ~1250 (`pytest`, ~25 s) |
-| Code | ~6.5k lines in `gal/`, ~1.4k lines in `tests/` |
+| Official material | 8 Fogli + 4 Quiz = 385 items (341 auto-checked, 44 self-assessed); 7 handwritten Esercitazioni linked to 69 items |
+| Tests | ~1900 (`pytest`, ~25 s) |
+| Code | ~8.5k lines in `gal/`, ~2.5k lines in `tests/`, ~4.4k lines of bank data |
 
 ## Architecture (summary — details in CLAUDE.md)
 
@@ -38,6 +39,15 @@
    panels, prompt_toolkit input with history and a countdown toolbar in exams).
 5. **Testability**: all I/O goes through `App.ask` / `App.out`, so tests drive the whole UI
    with scripted answers (`tests/test_cli.py`).
+6. **Practice bank (`gal/bank`)**: the official material as *data*, not code. Each source
+   (sheet, quiz, esercitazione) is one TOML file; each item names a *task kind* plus the
+   raw data (matrices, vectors, parameter expressions). `tasks.py` turns `(task, data)` into
+   the same `Part`/`Answer` objects the generators use. Official exercises get the same
+   equivalence checking, diagnosis and step-by-step solutions for free. `ingest.py` is the
+   front door for future PDFs. The analogy is a library: `ingest` is the acquisitions desk,
+   which stamps every new book with a fingerprint (SHA-256) so a second copy isn't shelved
+   twice. A skeleton TOML is the catalogue card, readable at once. Transcribing an item
+   into a task is the full cataloguing that makes it searchable (auto-checked).
 
 ## How correctness is ensured
 
@@ -169,6 +179,52 @@ These are mostly theory. The definition, statement and an example are in the les
     in places. Every numerical example reused from the notes was recomputed by the engine
     and is asserted in the tests, so a transcription error would show up as a failure.
 
+### Practice bank (official material)
+
+15. **Transcribed by hand, verified by machine.** pdftotext garbles matrices, so every
+    item was rewritten from the PDF pages. Correctness comes from the tests:
+    - every auto task is recomputed from its raw data by an independent sympy verifier per
+      task kind (`tests/test_bank.py`);
+    - every hand-keyed answer that is computable (yes/no, multiple choice, values) has an
+      item-specific sympy check (`tests/test_bank_keys.py`);
+    - MCQ keys must match the "(N risposte corrette)" count printed in the quiz.
+16. **Data, not code, for new material.** Adding a sheet means writing TOML, never Python,
+    unless a genuinely new kind of question appears. New PDFs are usable the moment they are
+    ingested (self-assessed), and become auto-checked item by item. `test_material.py` fails
+    while a PDF in the folders is unknown, so new material can't be forgotten silently.
+17. **Fingerprints over file names.** The course website zips folders with a date suffix
+    (`Esercizi-20261117`), so a re-download duplicates every file. The manifest keys on
+    SHA-256:
+    - same content means a duplicate, ignored;
+    - same name with different content means a revision, reported and accepted only with
+      `--rehash`, after a human has checked it.
+18. **"Al variare di λ" is exact.** For a matrix with a parameter, rank drops happen exactly
+    at the common roots of the r×r minors, so the trainer takes the gcd of those polynomials
+    and finds its rational roots. If the gcd also has *irrational* real roots (checked with a
+    Sturm sequence), the builder refuses the item rather than give an incomplete answer, and
+    the item must be keyed by hand. The *critical values* the student must list are the
+    values where the outcome differs from the generic one. The trainer does not ask for every
+    root of det, because a root can leave the outcome unchanged, and the sheets don't ask for
+    it either.
+19. **Self-assessment for proofs.** Proofs, counterexamples and "give an example" questions
+    have many correct answers that can't be checked mechanically. The student writes theirs,
+    sees a model answer, and grades it y/p/n. The grade feeds mastery like any other score.
+20. **Handwritten esercitazioni are linked, not parsed.** OCR of tablet handwriting is
+    unreliable, so each page was read once and mapped to the sheet items it solves. The
+    trainer points to the PDF and page. Their numerical results were cross-checked against
+    the engine, and all matched.
+21. **Past exams in mock exams.** Exercises marked "Dal tema d'esame" (F06-E4, F08-E1) are
+    chained into one multi-part exercise, as on the real paper. One replaces the last mock-exam
+    slot with probability 1/2, and its score is credited to each official sub-item.
+    Self-assessed sub-questions are left out of the exam.
+22. **Typos in the material, and how they were read** (each is stated in the item text):
+    - F08-E2 prints `v = (1, −1, 1 − 1)`; it is read as (1, −1, 1, −1).
+    - Q02-D15's options call the same line both *s* and *l*; they are the same line.
+    - F02-E4b is inconsistent for *every* λ: the key says so, rather than "fixing" the
+      exercise.
+    - F07-E13 b) is ambiguous ("Xv ∈ Span(v)" vs "v eigenvector"); the read that includes O is
+      used, as the model answer explains.
+
 ## Known limitations
 
 - No checking of intermediate steps: only final answers are graded. A wrong echelon form
@@ -177,6 +233,12 @@ These are mostly theory. The definition, statement and an example are in the les
   for that reason.
 - Generated exam exercises are shorter than real exam exercises (which chain many steps), so
   the default 10 minutes per exercise is generous; use `exam n minutes` to tighten it.
+- Official items are only as good as their transcription. A misread entry would be
+  "verified" against the wrong data. Mitigations: page numbers on every item, the PDF path
+  in the solution, and cross-checks against the handwritten esercitazioni where they exist.
+- `gal ingest` text extraction is rough (formulas garbled, headers occasionally missed). The
+  skeleton items are readable but need a human (or Claude Code) pass before auto-checking.
+- Self-assessment is only as honest as the student.
 - Terminals without good Unicode fonts may show boxes for ⎡ ⎤ ⟨ ⟩ (see the README for
   Windows).
 
@@ -193,5 +255,10 @@ These are mostly theory. The definition, statement and an example are in the les
    Sylvester, canonical forms). This would replace the extra conics topic.
 6. Exercises over C (complex eigenvalues, unitary diagonalisation) using an exact
    Gaussian-rational type.
-7. Past-exam mode: transcribe official past papers and use the same checkers.
-8. Fully Italian UI option, and an export of the mistakes log to review with a tutor.
+7. Full past papers: when the course publishes *temi d'esame* (folders `Esami*`/`Temi*` are
+   already scanned by `gal ingest`), transcribe them as sources with `exam = "date"` on every
+   item and add an `exam past <date>` command that replays a real paper under its real
+   time limit.
+8. Assisted transcription: a `gal ingest --draft` that proposes `task`/`data` for simple
+   items (systems, determinants) from the extracted text, for a human to confirm.
+9. Fully Italian UI option, and an export of the mistakes log to review with a tutor.
