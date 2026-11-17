@@ -1,0 +1,5 @@
+rich>=13
+prompt_toolkit>=3
+# tests only
+pytest>=7
+sympy>=1.12
