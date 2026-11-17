@@ -409,8 +409,11 @@ def ex_cart_to_basis(rng, data=None):
     names = var_names(A.n)
     K = kernel_basis(A)
     sol = solve(A, [0] * A.m, names)
-    prompt = ("W = {x ∈ R^" + str(A.n) + " :\n" + indent(fsys(A, [0] * A.m, names), 3) +
-              "\n}.  Find dim W and a basis of W.")
+    if A.m == 1:
+        prompt = f"W = {{x ∈ R^{A.n} : {flin(A.row(0), names)} = 0}}.  Find dim W and a basis of W."
+    else:
+        prompt = (f"W = Sol(A|0) ◁ R^{A.n}, i.e. the solutions of\n" + indent(fsys(A, [0] * A.m, names), 3) +
+                  "\nFind dim W and a basis of W.")
     steps = sol.steps + [f"dim W = n - rg(A) = {A.n} - {A.n - len(K)} = {len(K)}; basis: {fvs(K)}"]
     return mk("cart_param", "cart_to_basis", prompt,
               [("dim W", IntAns(len(K), mistakes=[(A.m, "dim W = n - rg(A), not the number of equations.")])),
@@ -462,6 +465,8 @@ def _sum_data(rng):
         A_U, us = _nice_U(rng)
         dw = rng.choice([1, 2, 2])
         ws = [ivec(rng, 4, -2, 2) for _ in range(dw)]
+        if any(sum(1 for x in w if x) < 2 for w in ws):
+            continue
         if rng.random() < 0.6:  # force a common vector
             c = us[0] if len(us) == 1 else vadd(vscale(rng.choice([1, -1]), us[0]), vscale(rng.choice([0, 1, -1]), us[1]))
             ws[0] = c

@@ -35,7 +35,9 @@ and -1 on the perpendicular direction."""),
 
 
 def _small(A: Matrix, bound: int = 7) -> bool:
-    return all(abs(x) <= bound and x.denominator == 1 for r in A.rows for x in r)
+    """Small integer entries and not diagonal (diagonal matrices make trivial exercises)."""
+    off = any(A[i, j] != 0 for i in range(A.n) for j in range(A.n) if i != j)
+    return off and all(abs(x) <= bound and x.denominator == 1 for r in A.rows for x in r)
 
 
 def lamI(lam) -> str:
@@ -273,7 +275,10 @@ def ex_find_P(rng, data=None):
     if data:
         A = data
     else:
-        A, _, _ = _diag_matrix(rng, rng.choice([2, 3, 3]), True)
+        while True:
+            A, _, vals = _diag_matrix(rng, rng.choice([2, 3, 3]), True)
+            if len(set(vals)) >= 2:
+                break
     p, roots, rest, mg = multiplicities(A)
     cols, diag = [], []
     steps = [f"p_A(t) = {factored(p)}"]

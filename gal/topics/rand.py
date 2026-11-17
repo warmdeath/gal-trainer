@@ -39,7 +39,9 @@ def unimodular(rng: random.Random, n: int, steps: int | None = None, bound: int 
         if rng.random() < 0.5 and n > 1:
             i, j = rng.sample(range(n), 2)
             M[i], M[j] = M[j], M[i]
-        if all(abs(x) <= bound for r in M for x in r):
+        off = sum(1 for i in range(n) for j in range(n) if i != j and M[i][j] != 0)
+        if all(abs(x) <= bound for r in M for x in r) and off >= n - 1 and \
+                sum(1 for r in M for x in r if x != 0) > n:
             return Matrix(M)
     return Matrix.identity(n)
 

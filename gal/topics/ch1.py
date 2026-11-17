@@ -539,7 +539,7 @@ def ex_det_rowops(rng, data=None):
             texts.append(f"R{i} → {fs(k)}R{i}")
         else:
             k = nz(rng, -3, 3)
-            texts.append(f"R{i} → R{i} {'+' if k > 0 else '-'} {fs(abs(k))}R{j}")
+            texts.append(f"R{i} → R{i} {'+' if k > 0 else '-'} {'' if abs(k) == 1 else fs(abs(k))}R{j}")
     res = factor * d
     prompt = (f"A ∈ M_R({n}) has det(A) = {fs(d)}. The matrix B is obtained from A with the row operations\n"
               f"   {',  '.join(texts)}   (in this order). Compute det(B).")
