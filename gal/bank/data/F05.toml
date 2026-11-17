@@ -1,0 +1,322 @@
+[source]
+id = "F05"
+title = "Foglio di esercizi 5"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_05.pdf", sha256 = "", pages = 2 }]
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F05-E1a"
+ref = "Esercizio 1 a)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "f: R² → R³, f(x, y) = (x + y, 2x − 3y, y) è un'applicazione lineare?"
+data = { answer = true, why = "Every component is a homogeneous linear expression: f = L_A with A = (1 1; 2 −3; 0 1)." }
+
+[[item]]
+id = "F05-E1b"
+ref = "Esercizio 1 b)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "g: R² → R³, g(x, y) = (x + y, 2x − 3y, y²) è un'applicazione lineare?"
+data = { answer = false, why = "g(2·(0,1)) has third component 4, but 2·g(0,1) has 2." }
+
+[[item]]
+id = "F05-E1c"
+ref = "Esercizio 1 c)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "h: R² → R³, h(x, y) = (x − y, x + y + 1, 0) è un'applicazione lineare?"
+data = { answer = false, why = "h(0,0) = (0,1,0) ≠ 0 (Lemma 3.3)." }
+
+[[item]]
+id = "F05-E1d"
+ref = "Esercizio 1 d)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "k: R³ → R³, k(x1, x2, x3) = (x2x3, x1x3, x1x2) è un'applicazione lineare?"
+data = { answer = false, why = "k(2·(1,1,1)) = (4,4,4) ≠ 2·k(1,1,1) = (2,2,2)." }
+
+[[item]]
+id = "F05-E1e"
+ref = "Esercizio 1 e)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "L: R[t]≤1 → R, L(p(t)) = 2p(1) + 3p(0) è un'applicazione lineare?"
+data = { answer = true, why = "Evaluations are linear and so are their linear combinations." }
+
+[[item]]
+id = "F05-E1f"
+ref = "Esercizio 1 f)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "S: R[t]≤2 → R², S(p(t)) = (p(1) − p(0), p(1) − 1) è un'applicazione lineare?"
+data = { answer = false, why = "S(0) = (0, −1) ≠ 0." }
+
+[[item]]
+id = "F05-E1g"
+ref = "Esercizio 1 g)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "α: M_K(2) → K², α(a b; c d) = (a, b) è un'applicazione lineare?"
+data = { answer = true, why = "It picks two coordinates: linear." }
+
+[[item]]
+id = "F05-E1h"
+ref = "Esercizio 1 h)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = "β: M_K(2) → K, β(a b; c d) = ad − bc è un'applicazione lineare?"
+data = { answer = false, why = "It is det: β(2A) = 4β(A) ≠ 2β(A) in general (e.g. A = I)." }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F05-E2a"
+ref = "Esercizio 2 a)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "f: R⁴ → R³, f(x, y, z, t) = (x + 2y + z − 2t, 2x + 4y + 2z + 4t, −t). Determinare dim Im f e dim ker f."
+data = { A = [[1, 2, 1, -2], [2, 4, 2, 4], [0, 0, 0, -1]] }
+
+[[item]]
+id = "F05-E2b"
+ref = "Esercizio 2 b)"
+topic = "linear_maps"
+page = 1
+task = "yesno"
+text = """
+Sia W ◁ R⁴ generato da {(−3, 1, 1, 0), (0, 1, −2, 0), (−3, −1, 5, 0)} (con f come nel punto a)).
+Si dimostri che W ⊆ ker f. Vale l'uguaglianza W = ker f?"""
+data = { answer = true, why = "Each generator satisfies the three equations of f, so W ⊆ ker f. dim ker f = 4 − rg(f) = 4 − 2 = 2 and dim W = 2 (third generator = first − 2·second): equal dimensions ⇒ W = ker f (Teorema 2.16)." }
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F05-E3a"
+ref = "Esercizio 3 a)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "f: R² → R², f(x, y) = (x + y, x − y): immagine, nucleo, dimensioni; iniettiva, suriettiva, isomorfismo?"
+data = { A = [[1, 1], [1, -1]] }
+
+[[item]]
+id = "F05-E3b"
+ref = "Esercizio 3 b)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "g: R³ → R², g(x, y, z) = (x + 2y + z, z − y): immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[1, 2, 1], [0, -1, 1]] }
+
+[[item]]
+id = "F05-E3c"
+ref = "Esercizio 3 c)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "La composizione f ∘ g: R³ → R² (f, g come in a), b)). Its matrix is the product (1 1; 1 −1)·(1 2 1; 0 −1 1)."
+data = { A = [[1, 1, 2], [1, 3, 0]] }
+
+[[item]]
+id = "F05-E3d"
+ref = "Esercizio 3 d)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "L_A: R³ → R², L_A(x) = Ax: immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[1, -1, 0], [0, 1, -1]] }
+
+[[item]]
+id = "F05-E3e"
+ref = "Esercizio 3 e)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "L_B: R² → R³, B = Aᵀ: immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[1, 0], [-1, 1], [0, -1]], name = "B" }
+
+[[item]]
+id = "F05-E3f"
+ref = "Esercizio 3 f)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "L_C: R⁴ → R⁴: immagine, nucleo, dimensioni; iniettiva, suriettiva, isomorfismo?"
+data = { A = [[3, -1, -1, 0], [1, 0, -1, 1], [-2, 1, 0, 1], [2, -1, 0, -1]], name = "C" }
+
+[[item]]
+id = "F05-E3g"
+ref = "Esercizio 3 g)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "S: R³ → R², S(x1, x2, x3) = (x1 − x2, x2 − x3): immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[1, -1, 0], [0, 1, -1]] }
+
+[[item]]
+id = "F05-E3h"
+ref = "Esercizio 3 h)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "T: R² → R⁴, T(x, y) = (x − y, 2x, x + y, −x): immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[1, -1], [2, 0], [1, 1], [-1, 0]] }
+
+[[item]]
+id = "F05-E3i"
+ref = "Esercizio 3 i)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "La composizione T ∘ S: R³ → R⁴ (matrix = T·S)."
+data = { A = [[1, -2, 1], [2, -2, 0], [1, 0, -1], [-1, 1, 0]] }
+
+[[item]]
+id = "F05-E3j"
+ref = "Esercizio 3 j)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "α: M_K(2) → K, α(a b; c d) = b − c: immagine, nucleo, dimensioni; iniettiva, suriettiva?"
+data = { A = [[0, 1, -1, 0]], coords_note = "matrix w.r.t. coordinates (a, b, c, d) of (a b; c d)" }
+
+[[item]]
+id = "F05-E3k"
+ref = "Esercizio 3 k)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "β: M_K(2) → M_K(2), β(M) = 2M − 3Mᵀ: immagine, nucleo, dimensioni; iniettiva, suriettiva, isomorfismo?"
+data = { A = [[-1, 0, 0, 0], [0, 2, -3, 0], [0, -3, 2, 0], [0, 0, 0, -1]], coords_note = "matrix w.r.t. coordinates (a, b, c, d) of (a b; c d): β(a b; c d) = (−a, 2b − 3c; 2c − 3b, −d)" }
+
+[[item]]
+id = "F05-E3l"
+ref = "Esercizio 3 l)"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "La composizione α ∘ β: M_K(2) → K."
+data = { A = [[0, 5, -5, 0]], coords_note = "coordinates (a, b, c, d): α(β(M)) = (2b − 3c) − (2c − 3b) = 5b − 5c" }
+
+[[item]]
+id = "F05-E3m"
+ref = "Esercizio 3 m)"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "L: R[t]≤2 → R[t]≤3, L(a + bt + ct²) = b + c + (2a + b − c)t + ct² + (2a + 2b)t³."
+data = { A = [[0, 1, 1], [2, 1, -1], [0, 0, 1], [2, 2, 0]], coords_note = "matrix w.r.t. the canonical bases {1, t, t²} and {1, t, t², t³}" }
+
+[[item]]
+id = "F05-E3n"
+ref = "Esercizio 3 n)"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Q: R[t]≤2 → R[t]≤2, Q(a + bt + ct²) = a + c + (2b − 3c)t − 2ct²."
+data = { A = [[1, 0, 1], [0, 2, -3], [0, 0, -2]], coords_note = "matrix w.r.t. the canonical basis {1, t, t²}" }
+
+# ---------------------------------------------------------------- Esercizio 4
+[[item]]
+id = "F05-E4"
+ref = "Esercizio 4"
+topic = "linear_maps"
+page = 2
+task = "inverse"
+text = """
+Dimostrare che L: R³ → R³, L(x, y, z) = (3x + 2y − 2z, x + y, 3x + 2y) è invertibile e determinare L⁻¹.
+(L = L_A with the matrix below; L⁻¹ = L_{A⁻¹}.)"""
+data = { A = [[3, 2, -2], [1, 1, 0], [3, 2, 0]] }
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F05-E5"
+ref = "Esercizio 5"
+topic = "linear_maps"
+page = 2
+task = "values"
+text = """
+Per a, b, c ∈ R sia A = (1 b a c; 0 a c b; −1 c b a) e L_A: R⁴ → R³. Si determinino tutti gli a, b, c tali che
+(3, −2, 1, 1)ᵀ ∈ ker(L_A) e (3, −2, 1)ᵀ ∉ Im(L_A)."""
+[item.data]
+answers = [["a", 0], ["b", 1], ["c", -1]]
+why = """(3,−2,1,1) ∈ ker ⇔ a − 2b + c = −3, −2a + b + c = 0, a + b − 2c = 3 ⇔ a = c + 1, b = c + 2 (c free).
+Then Im(L_A) ≠ R³ only if rg(A) < 3: all 3×3 minors vanish iff c = −1. For c = −1, (a,b,c) = (0,1,−1),
+rg(A) = 2 and rg(A | (3,−2,1)) = 3, so the vector is not in the image. Unique answer: (0, 1, −1)."""
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F05-E6a"
+ref = "Esercizio 6 a)"
+topic = "rep_matrix"
+page = 2
+task = "yesno"
+text = "Esiste f: R² → R² lineare con f(1,2) = (3,0), f(2,7) = (4,5), f(1,5) = (1,4)?"
+data = { answer = false, why = "(1,5) = −(1,2) + (2,7), so linearity forces f(1,5) = −(3,0) + (4,5) = (1,5) ≠ (1,4)." }
+
+[[item]]
+id = "F05-E6b"
+ref = "Esercizio 6 b)"
+topic = "rep_matrix"
+page = 2
+task = "yesno"
+text = "Esiste f: R² → R² lineare con f(1,2) = (3,0), f(2,4) = (5,0), f(0,1) = (1,1)?"
+data = { answer = false, why = "(2,4) = 2·(1,2), so f(2,4) must be (6,0) ≠ (5,0)." }
+
+[[item]]
+id = "F05-E6c"
+ref = "Esercizio 6 c)"
+topic = "rep_matrix"
+page = 2
+task = "yesno"
+text = "Esiste f: R² → R² lineare con f(1,2) = (1,0), f(2,3) = (1,3), f(3,4) = (−1,6)?"
+data = { answer = false, why = "(3,4) = −(1,2) + 2·(2,3), so f(3,4) must be −(1,0) + 2·(1,3) = (1,6) ≠ (−1,6)." }
+
+[[item]]
+id = "F05-E6d"
+ref = "Esercizio 6 d)"
+topic = "rep_matrix"
+page = 2
+task = "yesno"
+text = "Esiste f: R² → R² lineare con f(1,2) = (1,0), f(2,4) = (2,0)?"
+data = { answer = true, why = "The conditions are consistent ((2,4) = 2(1,2) and (2,0) = 2(1,0)); complete (1,2) to a basis, e.g. with (0,1), and choose f(0,1) freely (Teorema di interpolazione): infinitely many such maps." }
+
+# ---------------------------------------------------------------- Esercizi 7, 8
+[[item]]
+id = "F05-E7"
+ref = "Esercizio 7"
+topic = "linear_maps"
+page = 2
+task = "open"
+text = """
+Sia V reale con dim V = 2n e f: V → V lineare con n = dim(ker(f) + Im(f)). Dimostrare che ker(f) = Im(f).
+(Suggerimento: nullità più rango e formula di Grassmann.)"""
+[item.data]
+solution = """
+Let k = dim ker f, r = dim Im f: k + r = 2n (nullità + rango). Grassmann:
+dim(ker f ∩ Im f) = k + r − dim(ker f + Im f) = 2n − n = n.
+But ker f ∩ Im f ⊆ ker f and ⊆ Im f, so n ≤ k and n ≤ r; with k + r = 2n this forces k = r = n.
+Then ker f ∩ Im f has the same dimension n as ker f and as Im f, so ker f = ker f ∩ Im f = Im f (Teorema 2.16)."""
+
+[[item]]
+id = "F05-E8"
+ref = "Esercizio 8"
+topic = "linear_maps"
+page = 2
+task = "open"
+text = """
+a) Fornire un esempio di mappa lineare L: R⁴ → R⁴ con dim Im(L) = dim ker(L).
+b) Spiegare perché non esiste f: R³ → R³ lineare con dim Im(f) = dim ker(f)."""
+[item.data]
+solution = """
+a) L(x1, x2, x3, x4) = (x3, x4, 0, 0): ker L = Span(e1, e2), Im L = Span(e1, e2), both of dimension 2.
+b) Nullità più rango: dim ker f + dim Im f = 3. If they were equal, 2·dim ker f = 3, impossible (3 is odd)."""

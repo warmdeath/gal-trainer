@@ -168,7 +168,7 @@ def t_inverse(d, text):
 
 
 # --- matrix expressions: A + C, A*B, B*(A+C), (E*A)*B, A*E + D^T, E^T*D, A^2026, 2*A - B
-_TOK = re.compile(r"\s*(?:(\d+)|([A-Z][0-9]?)|(\^T|\^\d+|[-+*()]))")
+_TOK = re.compile(r"\s*(?:(\d+)|([A-Za-z][0-9]?)|(\^T|\^\d+|[-+*()]))")
 
 
 class _Undefined(Exception):
@@ -310,7 +310,8 @@ def t_basis_span(d, text):
     basis = column_space_basis(Matrix.from_cols(vs)) if vs else []
     red = row_reduce(Matrix.from_cols(vs))
     steps = red.steps + [f"dim = {len(basis)}; basis (pivot columns): {fvs(basis)}"]
-    return ("W = Span(" + ", ".join(labels) + ")" + (f"\n({d['coords_note']})" if d.get("coords_note") else "")), \
+    shown = "" if d.get("hide") else "W = Span(" + ", ".join(labels) + ")"
+    return (shown + (f"\n({d['coords_note']})" if d.get("coords_note") else "")).strip(), \
         [("dim W", IntAns(len(basis))), ("a basis of W (coordinates)", SpanAns(basis, n))], steps
 
 
@@ -321,19 +322,74 @@ def t_basis_eqs(d, text):
     K = kernel_basis(A)
     s = solve(A, [0] * A.m, names)
     eqs = ";  ".join(f"{flin(A.row(i), names)} = 0" for i in range(A.m))
-    return f"W = {{ {eqs} }}" + (f"\n({d['coords_note']})" if d.get("coords_note") else ""), \
+    return ("" if d.get("hide") else f"W = {{ {eqs} }}") + (f"\n({d['coords_note']})" if d.get("coords_note") else ""), \
         [("dim W", IntAns(len(K))), ("a basis of W (coordinates)", SpanAns(K, A.n))], s.steps
 
 
 @task("coords")
 def t_coords(d, text):
     B, v = VS_(d["basis"]), V_(d["v"])
+    shown = (f"B = {{{', '.join(d.get('labels') or [fv(b) for b in B])}}},  v = {d.get('vlabel') or fv(v)}" +
+             (f"\n({d['coords_note']})" if d.get("coords_note") else ""))
+    if len(B) != len(B[0]) or span_rank(B) < len(B):
+        r = span_rank(B)
+        why = f"rank of the coordinate vectors = {r} < {len(B[0])}: not a basis."
+        return shown, [("is it a basis?", YesNoAns(False, why))], [why]
     s = solve(Matrix.from_cols(B), v, [f"λ{i + 1}" for i in range(len(B))])
-    if s.kind != "unique":
-        raise TaskError("not a basis")
-    return (f"B = {{{', '.join(fv(b) for b in B)}}},  v = {fv(v)}" +
-            (f"\n({d['coords_note']})" if d.get("coords_note") else "")), \
-        [("is B a basis?", YesNoAns(True)), ("(v)_B", VectorAns(s.particular))], s.steps
+    return shown, [("is it a basis?", YesNoAns(True)), ("coordinates of v", VectorAns(s.particular))], s.steps
+
+
+class CompleteAns(Answer):
+    """Vectors that, added to the given ones, give a set generating K^n
+    (a basis when the given vectors are independent)."""
+
+    def __init__(self, given, model, n):
+        super().__init__()
+        self.given, self.model, self.n = given, model, n
+        self.need = n - span_rank(given)
+        self.fmt_hint = f"{self.need} vector(s) separated by ';'"
+
+    def check(self, text):
+        from ..core.parse import ParseError, parse_vectors
+        from ..exercise import Check
+        xs = parse_vectors(text, self.n)
+        if len(xs) != self.need:
+            raise ParseError(f"give exactly {self.need} vector(s)")
+        if span_rank(self.given + xs) == self.n:
+            return Check.right()
+        return Check.wrong("Together with the given vectors they do not span K^n: some vector you added "
+                           "is in the span of the others.")
+
+    def show(self):
+        return fvs(self.model) + "  (many other choices work)"
+
+    def typed(self):
+        return fvs(self.model)
+
+
+def complete_with_canonical(vs, n):
+    out = []
+    for i in range(n):
+        e = [Fraction(int(i == j)) for j in range(n)]
+        if span_rank(vs + out + [e]) > span_rank(vs + out):
+            out.append(e)
+    return out
+
+
+@task("complete_basis")
+def t_complete_basis(d, text):
+    vs, labels = _space_vectors(d)
+    n = len(vs[0])
+    r = span_rank(vs)
+    extra = complete_with_canonical(vs, n)
+    steps = [f"rank of the given vectors = {r}" + (" (independent)" if r == len(vs) else " (dependent!)"),
+             "Add canonical vectors e_i one at a time, keeping those that increase the rank:",
+             f"e.g. {fvs(extra)}"]
+    parts = []
+    if d.get("ask_indep", True):
+        parts.append(("are the given vectors independent?", YesNoAns(r == len(vs))))
+    parts.append((f"{n - r} vector(s) completing them to span K^{n}", CompleteAns(vs, extra, n)))
+    return "Vectors: " + ",  ".join(labels) + (f"\n({d['coords_note']})" if d.get("coords_note") else ""), parts, steps
 
 
 @task("in_span")
@@ -350,9 +406,12 @@ def t_cartesian(d, text):
     n = len(dirs[0]) if dirs else len(d["point"])
     P = V_(d.get("point", [0] * n))
     names = _names(d, n)
-    eqs, steps = cartesian_from_param(P, dirs, names)
+    basis = column_space_basis(Matrix.from_cols(dirs))
+    eqs, steps = cartesian_from_param(P, basis, names)
+    if len(basis) < len(dirs):
+        steps = [f"The generators are dependent: a basis is {fvs(basis)} (dim {len(basis)})."] + steps
     shown = fparam(P, dirs) if any(P) else f"Span({', '.join(fv(x) for x in dirs)})"
-    return f"S = {shown}", [("Cartesian equations", EquationsAns(P, dirs, names, eqs))], steps
+    return ("" if d.get("hide") else f"S = {shown}"), [("Cartesian equations", EquationsAns(P, basis, names, eqs))], steps
 
 
 def _affine(obj):
@@ -488,8 +547,32 @@ def t_repmat(d, text):
     R = Ci * A * B
     steps = [hcat("f(b_j) in reference coordinates = A·B = ", fm(A * B)),
              hcat("coordinates w.r.t. C: C^-1·(A·B) = ", fm(R))]
-    shown = named(d.get("name", "A"), A) + (f"\n({d['coords_note']})" if d.get("coords_note") else "")
-    return shown, [(d.get("label", "M^B_C(f)"), MatrixAns(R))], steps
+    shown = "" if d.get("hide") else named(d.get("name", "A"), A)
+    shown += (f"\n({d['coords_note']})" if d.get("coords_note") else "")
+    parts = [(d.get("label", "M^B_C(f)"), MatrixAns(R))]
+    for v in d.get("images", []):
+        w = Ci.apply(A.apply(V_(v)))
+        parts.append((f"(f({fv(V_(v))}))_C", VectorAns(w)))
+        steps.append(f"(f({fv(V_(v))}))_C = C^-1·A·v = {fv(w)}")
+    return shown.strip(), parts, steps
+
+
+@task("interp_matrix")
+def t_interp_matrix(d, text):
+    """f defined on a basis B = {b_j} (columns, canonical coordinates) by images w_j:
+    M^B_E = (w_1|...|w_n), M^E_E = W·B^-1, M^B_B = B^-1·W, M^E_B = B^-1·W·B^-1."""
+    B, W = Matrix.from_cols(VS_(d["basis"])), Matrix.from_cols(VS_(d["images"]))
+    Bi = inverse(B)
+    if Bi is None:
+        raise TaskError("not a basis")
+    allm = {"E_E": W * Bi, "B_E": W, "B_B": Bi * W, "E_B": Bi * W * Bi}
+    names = {"E_E": "M^E_E(f)", "B_E": "M^B_E(f)", "B_B": "M^B_B(f)", "E_B": "M^E_B(f)"}
+    parts, steps = [], [hcat("B (basis as columns) = ", fm(B), "   W (images as columns) = ", fm(W))]
+    for key in d.get("ask", ["E_E"]):
+        parts.append((names[key], MatrixAns(allm[key])))
+        steps.append(hcat(f"{names[key]} = ", fm(allm[key])))
+    steps.insert(1, "M^E_E(f)·B = W  ⇒  M^E_E(f) = W·B^-1;  M^B_E(f) = W;  M^B_B(f) = B^-1·W;  M^E_B(f) = B^-1·W·B^-1")
+    return "", parts, steps
 
 
 @task("change_basis")
@@ -521,7 +604,15 @@ def t_eigen(d, text):
     p = charpoly(A)
     roots, rest = p.rational_roots()
     if rest.degree > 0 and real_root_count(rest) > 0:
-        raise TaskError("irrational real eigenvalues")
+        # irrational real eigenvalues: still checkable when all eigenvalues are real and simple
+        from ..core.poly import poly_gcd
+        squarefree = poly_gcd(p, Poly([k * p.c[k] for k in range(1, len(p.c))])).degree == 0
+        if not (squarefree and real_root_count(p) == n):
+            raise TaskError("irrational eigenvalues with multiplicity")
+        steps = [f"p_A(t) = {p} = {factored(p)}",
+                 f"p_A has {n} distinct real roots (some irrational) ⇒ all eigenvalues simple ⇒ diagonalisable over R."]
+        return named(d.get("name", "A"), A), [("p_A(t)", PolyAns(p)),
+                                              ("diagonalisable over R?", YesNoAns(True, steps[-1]))], steps
     parts = [("p_A(t)", PolyAns(p)), ("spectrum over R", ScalarSetAns(list(roots), "S(A)"))]
     steps = [f"p_A(t) = {p} = {factored(p)}"]
     cols, ok = [], sum(roots.values()) == n
@@ -545,10 +636,111 @@ def t_charpoly(d, text):
     p = charpoly(A)
     roots, rest = p.rational_roots()
     if rest.degree > 0 and real_root_count(rest) > 0:
-        raise TaskError("irrational real eigenvalues")
+        if d.get("spectrum", True):
+            raise TaskError("irrational real eigenvalues: set spectrum = false")
+        return named(d.get("name", "A"), A), [("p_A(t)", PolyAns(p))], [
+            f"p_A(t) = {p}; its real roots are irrational: {factored(p)} — use the quadratic formula."]
     return named(d.get("name", "A"), A), [("p_A(t)", PolyAns(p)),
                                           ("spectrum over R", ScalarSetAns(list(roots), "S(A)"))], \
         [f"p_A(t) = {p} = {factored(p)}"]
+
+
+def _diag_over_R(A: Matrix) -> bool:
+    p = charpoly(A)
+    roots, rest = p.rational_roots()
+    if rest.degree > 0:
+        if real_root_count(rest) > 0:
+            raise TaskError("irrational eigenvalues at this parameter value")
+        return False
+    return all(len(kernel_basis(Matrix.identity(A.n).scale(l) - A)) == m for l, m in roots.items())
+
+
+@task("param_diag")
+def t_param_diag(d, text):
+    """Diagonalisable over R as the parameter varies. `candidates` (author-supplied) are the
+    values where the answer may change; the sympy test re-derives them independently."""
+    pm = _pm(d)
+    var = pm.var
+    cand = sorted(num(c) for c in d["candidates"])
+    g = generic_value(cand)
+    gen = _diag_over_R(pm.at(g))
+    exc = [c for c in cand if _diag_over_R(pm.at(c)) != gen]
+    steps = [f"for generic {var} the matrix is {'' if gen else 'NOT '}diagonalisable over R"]
+    for c in cand:
+        Ac = pm.at(c)
+        steps.append(f"{var} = {fs(c)}: p = {factored(charpoly(Ac))}; diagonalisable: {'yes' if _diag_over_R(Ac) else 'no'}")
+    if d.get("why"):
+        steps.insert(0, d["why"])
+    return fmt_pmatrix(pm, d.get("name", "A")), [
+        (f"diagonalisable over R for generic {var}?", YesNoAns(gen)),
+        (f"exceptional values of {var} (where the answer is the opposite; 'none' if none)", ScalarSetAns(exc))], steps
+
+
+class CharpolyMatrixAns(Answer):
+    """Any square matrix whose characteristic polynomial is p (and optionally with prescribed
+    eigenspaces V_λ = Span(...))."""
+
+    def __init__(self, p: Poly, model: Matrix, eigenspaces: dict | None = None):
+        super().__init__()
+        self.p, self.model, self.eig = p, model, eigenspaces or {}
+        self.fmt_hint = f"a {p.degree}×{p.degree} matrix, rows separated by ';'"
+
+    def check(self, text):
+        from ..core.parse import parse_matrix
+        from ..exercise import Check
+        X = parse_matrix(text, (self.p.degree, self.p.degree))
+        q = charpoly(X)
+        if q != self.p:
+            return Check.wrong(f"Your matrix has p(t) = {q}, not {self.p}.")
+        for lam, basis in self.eig.items():
+            K = kernel_basis(Matrix.identity(X.n).scale(lam) - X)
+            if not (len(K) == len(basis) and same_span(K, basis)):
+                return Check.wrong(f"Right characteristic polynomial, but V_{fs(lam)} = Span({fvs(K)}), not Span({fvs(basis)}).", 0.5)
+        return Check.right()
+
+    def show(self):
+        from ..core.fmt import fm_inline
+        return "\n" + fm(self.model) + f"\n(type: {fm_inline(self.model)}; any matrix with these properties is accepted)"
+
+    def typed(self):
+        from ..core.fmt import fm_inline
+        return fm_inline(self.model)
+
+
+def _companion(p: Poly) -> Matrix:
+    n = p.degree
+    return Matrix([[(1 if i == j + 1 else 0) if j < n - 1 else -p.c[i] for j in range(n)] for i in range(n)])
+
+
+@task("charpoly_target")
+def t_charpoly_target(d, text):
+    p = parse_poly(d["p"], d.get("var", "x"))
+    p = p / p.c[-1]
+    C = _companion(p)
+    steps = [f"p = {p.show(d.get('var', 'x'))} = {factored(p).replace('t', d.get('var', 'x'))}",
+             "One answer: the matrice compagna C(p) (§4.5), with p_{C(p)} = p:", fm(C),
+             "If p splits into rational roots, a diagonal (or triangular) matrix with those roots also works."]
+    return "", [("a matrix A with p_A = p", CharpolyMatrixAns(p, C))], steps
+
+
+@task("eigen_target")
+def t_eigen_target(d, text):
+    """A matrix with characteristic polynomial p and eigenspaces V_λ = given spans. Model:
+    P·J·P^-1 with J in Jordan form (one 2×2 block when an eigenvalue is defective)."""
+    p = parse_poly(d["p"], d.get("var", "x"))
+    eig = {num(k): VS_(v) for k, v in d["eigenspaces"].items()}
+    Pcols = [V_(c) for c in d["P"]]
+    J = M_(d["J"])
+    P = Matrix.from_cols(Pcols)
+    model = P * J * inverse(P)
+    if charpoly(model) != p:
+        raise TaskError("model matrix does not have the requested p")
+    for lam, basis in eig.items():
+        if not same_span(kernel_basis(Matrix.identity(model.n).scale(lam) - model), basis):
+            raise TaskError("model matrix has the wrong eigenspace")
+    steps = ["Choose a basis adapted to the eigenspaces and build A = P·J·P⁻¹:", hcat("P = ", fm(P), "   J = ", fm(J)),
+             hcat("A = ", fm(model))]
+    return "", [("a matrix A with these properties", CharpolyMatrixAns(p, model, eig))], steps
 
 
 @task("roots")

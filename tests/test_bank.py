@@ -171,8 +171,21 @@ def v_basis_eqs(d, a):
 
 def v_coords(d, a):
     B, v = cols(d["basis"]), SV(d["v"])
-    assert B.det() != 0
-    assert B.solve(v) == sp.Matrix([sq(x) for x in a[1].v])
+    is_basis = B.rows == B.cols and B.det() != 0
+    assert a[0].value == is_basis
+    if is_basis:
+        assert B.solve(v) == sp.Matrix([sq(x) for x in a[1].v])
+
+
+def v_complete_basis(d, a):
+    V = cols(d["vectors"])
+    k = 0
+    if d.get("ask_indep", True):
+        assert a[0].value == (V.rank() == V.cols)
+        k = 1
+    model = a[k].model
+    assert len(model) == V.rows - V.rank()
+    assert V.row_join(cols([[str(x) for x in m] for m in model]) if model else V).rank() == V.rows
 
 
 def v_in_span(d, a):
@@ -193,6 +206,8 @@ def v_cartesian(d, a):
     dirs = [SV(x) for x in d["dirs"]]
     P = SV(d.get("point", [0] * len(d["dirs"][0])))
     _eqs_define(a[0].shown, P, dirs)
+    # the checker accepts exactly the right number of equations
+    assert len(a[0].dirs) == sp.Matrix.hstack(*dirs).rank()
 
 
 def v_affine_forms(d, a):
@@ -266,6 +281,17 @@ def v_repmat(d, a):
     B = cols(d["B"]) if "B" in d else sp.eye(A.cols)
     C = cols(d["C"]) if "C" in d else sp.eye(A.rows)
     assert C * sm(a[0].M) == A * B
+    for v, ans in zip(d.get("images", []), a[1:]):
+        assert C * sp.Matrix([sq(x) for x in ans.v]) == A * SV(v)
+
+
+def v_interp_matrix(d, a):
+    B, W = cols(d["basis"]), cols(d["images"])
+    exp = {"E_E": W * B.inv(), "B_E": W, "B_B": B.inv() * W, "E_B": B.inv() * W * B.inv()}
+    for key, ans in zip(d.get("ask", ["E_E"]), a):
+        assert sm(ans.M) == exp[key]
+    # defining property: M^E_E maps b_j to w_j
+    assert (W * B.inv()) * B == W
 
 
 def v_change_basis(d, a):
@@ -290,6 +316,12 @@ def _cp(A, ans):
 def v_eigen(d, a):
     A = SM(d["A"])
     _cp(A, a[0])
+    if any(r.is_real and not r.is_rational for r in A.eigenvals()):
+        # irrational branch: only p_A and 'diagonalisable' (all real & simple)
+        ev = A.eigenvals()
+        assert all(r.is_real for r in ev) and all(m == 1 for m in ev.values())
+        assert len(a) == 2 and a[1].value is True
+        return
     real = sorted(to_frac(r) for r in A.eigenvals() if r.is_real)
     assert a[1].values == real
     k = 2
@@ -307,12 +339,17 @@ def v_eigen(d, a):
 def v_charpoly(d, a):
     A = SM(d["A"])
     _cp(A, a[0])
+    if not d.get("spectrum", True):
+        return
     assert a[1].values == sorted(to_frac(r) for r in A.eigenvals() if r.is_real)
 
 
 def v_roots(d, a):
     x = sp.Symbol(d.get("var", "x"))
-    p = sp.Poly(sp.sympify(d["p"].replace("^", "**"), locals={d.get("var", "x"): x}), x)
+    from sympy.parsing.sympy_parser import (implicit_multiplication_application, parse_expr,
+                                            standard_transformations, convert_xor)
+    tr = standard_transformations + (implicit_multiplication_application, convert_xor)
+    p = sp.Poly(parse_expr(d["p"], local_dict={x.name: x}, transformations=tr), x)
     rts = sp.roots(p)
     assert a[0].values == sorted(to_frac(r) for r in rts if r.is_rational)
     assert a[1].value == len(set(sp.real_roots(p)))
@@ -438,15 +475,69 @@ def v_param_indep(d, a):
             assert a[1].value is False
 
 
+def _diag_R(M):
+    return all(e.is_real for e in M.eigenvals()) and M.is_diagonalizable()
+
+
+def v_param_diag(d, a):
+    var = sp.Symbol(d.get("param", "k"))
+    A = _pm_sym(d["A"], var)
+    n = A.rows
+    roots = sp.roots(sp.Poly(A.charpoly(t).as_expr(), t))
+    assert sum(roots.values()) == n, "eigenvalues must be rational functions of the parameter"
+    exprs = list(roots)
+    crit = set()
+    for i in range(len(exprs)):
+        for j in range(i + 1, len(exprs)):
+            for sol in sp.solve(sp.Eq(exprs[i], exprs[j]), var):
+                if sol.is_rational:
+                    crit.add(sol)
+    for r in exprs:
+        drops, _ = _drop_set(r * sp.eye(n) - A, var)
+        crit |= {sq(x) for x in drops}
+    g = sp.Rational(1000003, 7)
+    gen = _diag_R(A.subs(var, g))
+    assert _diag_R(A.subs(var, sp.Rational(-999983, 13))) == gen
+    exc = sorted(to_frac(c) for c in crit if _diag_R(A.subs(var, c)) != gen)
+    assert a[0].value == gen
+    assert a[1].values == exc, (a[1].values, exc)
+
+
+def v_charpoly_target(d, a):
+    x = sp.Symbol(d.get("var", "x"))
+    from sympy.parsing.sympy_parser import (implicit_multiplication_application, parse_expr,
+                                            standard_transformations, convert_xor)
+    tr = standard_transformations + (implicit_multiplication_application, convert_xor)
+    p = sp.Poly(parse_expr(d["p"], local_dict={x.name: x}, transformations=tr), x)
+    p = sp.Poly(p.as_expr() / p.LC(), x)
+    model = sm(a[0].model)
+    assert sp.Poly(model.charpoly(x).as_expr(), x) == p
+
+
+def v_eigen_target(d, a):
+    x = sp.Symbol(d.get("var", "x"))
+    from sympy.parsing.sympy_parser import (implicit_multiplication_application, parse_expr,
+                                            standard_transformations, convert_xor)
+    tr = standard_transformations + (implicit_multiplication_application, convert_xor)
+    p = sp.Poly(parse_expr(d["p"], local_dict={x.name: x}, transformations=tr), x)
+    model = sm(a[0].model)
+    assert sp.Poly(model.charpoly(x).as_expr(), x) == p
+    for lam, basis in d["eigenspaces"].items():
+        ns = (S(lam) * sp.eye(model.rows) - model).nullspace()
+        B = cols(basis)
+        assert len(ns) == B.cols and sp.Matrix.hstack(*ns).row_join(B).rank() == B.cols
+
+
 VERIFY = {
     "solve": v_solve, "nsol": v_nsol, "rank": v_rank, "homog": v_homog, "det": v_det,
     "inverse": v_inverse, "matexpr": v_matexpr, "indep": v_indep, "basis_span": v_basis_span,
-    "basis_eqs": v_basis_eqs, "coords": v_coords, "in_span": v_in_span, "cartesian": v_cartesian,
+    "basis_eqs": v_basis_eqs, "coords": v_coords, "complete_basis": v_complete_basis, "in_span": v_in_span, "cartesian": v_cartesian,
     "affine_forms": v_affine_forms, "grassmann": v_grassmann, "position": v_position,
-    "kerim": v_kerim, "repmat": v_repmat, "change_basis": v_change_basis, "eigen": v_eigen,
+    "kerim": v_kerim, "repmat": v_repmat, "interp_matrix": v_interp_matrix, "change_basis": v_change_basis, "eigen": v_eigen,
     "charpoly": v_charpoly, "roots": v_roots, "metric": v_metric, "gram_schmidt": v_gram_schmidt,
     "gram": v_gram, "param_invertible": v_param_invertible, "param_rank": v_param_rank,
-    "param_system": v_param_system, "param_indep": v_param_indep,
+    "param_system": v_param_system, "param_indep": v_param_indep, "param_diag": v_param_diag,
+    "charpoly_target": v_charpoly_target, "eigen_target": v_eigen_target,
 }
 KEYED = {"yesno", "mcq", "values"}  # answer keys written by hand (checked by item-specific tests below)
 

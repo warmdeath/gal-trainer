@@ -1,0 +1,541 @@
+[source]
+id = "F07"
+title = "Foglio di esercizi 7"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_07.pdf", sha256 = "", pages = 3 }]
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F07-E1a"
+ref = "Esercizio 1 a)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p1(x) = x³ + 2x² − 3x su Q, R e C."
+data = { p = "x^3 + 2x^2 - 3x" }
+
+[[item]]
+id = "F07-E1b"
+ref = "Esercizio 1 b)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p2(x) = x³ − 2x² − x + 2 su Q, R e C."
+data = { p = "x^3 - 2x^2 - x + 2" }
+
+[[item]]
+id = "F07-E1c"
+ref = "Esercizio 1 c)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p3(x) = x⁴ − 3x³ + 3x² − 3x + 2 su Q, R e C."
+data = { p = "x^4 - 3x^3 + 3x^2 - 3x + 2" }
+
+[[item]]
+id = "F07-E1d"
+ref = "Esercizio 1 d)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p4(x) = x⁵ − x³ − 2x su Q, R e C."
+data = { p = "x^5 - x^3 - 2x" }
+
+[[item]]
+id = "F07-E1e"
+ref = "Esercizio 1 e)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p5(x) = x³ − x² − 8x + 12 su Q, R e C."
+data = { p = "x^3 - x^2 - 8x + 12" }
+
+[[item]]
+id = "F07-E1f"
+ref = "Esercizio 1 f)"
+topic = "eigen"
+page = 1
+task = "roots"
+text = "Si fattorizzi p6(x) = x³ + 3x² + 3x + 1 su Q, R e C."
+data = { p = "x^3 + 3x^2 + 3x + 1" }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F07-E2A"
+ref = "Esercizio 2 (A)"
+topic = "eigen"
+page = 1
+task = "charpoly"
+text = "Determinare il polinomio caratteristico e lo spettro della matrice."
+data = { A = [[2, 6], [0, -1]] }
+
+[[item]]
+id = "F07-E2B"
+ref = "Esercizio 2 (B)"
+topic = "eigen"
+page = 1
+task = "charpoly"
+text = "Determinare il polinomio caratteristico e lo spettro della matrice. (Spectrum: (5 ± √33)/2 — only p_B is checked.)"
+data = { A = [[1, 2], [3, 4]], name = "B", spectrum = false }
+
+[[item]]
+id = "F07-E2C"
+ref = "Esercizio 2 (C)"
+topic = "eigen"
+page = 1
+task = "charpoly"
+text = "Determinare il polinomio caratteristico e lo spettro della matrice."
+data = { A = [[2, 2, -2], [1, 1, -1], [1, 1, -1]], name = "C" }
+
+[[item]]
+id = "F07-E2D"
+ref = "Esercizio 2 (D)"
+topic = "eigen"
+page = 1
+task = "charpoly"
+text = "Determinare il polinomio caratteristico e lo spettro della matrice."
+data = { A = [[3, 2, 3], [1, 4, 3], [1, 2, 5]], name = "D" }
+
+[[item]]
+id = "F07-E2E"
+ref = "Esercizio 2 (E)"
+topic = "eigen"
+page = 1
+task = "open"
+text = "Determinare il polinomio caratteristico e lo spettro di E = (2 1 1 0; 0 −3 1 0; 0 0 −2 1; 0 0 0 −π)."
+[item.data]
+solution = """
+E is upper triangular, so tI − E is too and p_E(t) = (t − 2)(t + 3)(t + 2)(t + π).
+Spectrum S(E) = {2, −3, −2, −π} (the diagonal entries)."""
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F07-E3ai"
+ref = "Esercizio 3 a) i)"
+topic = "eigen"
+page = 1
+task = "open"
+text = "Per k ∈ R sia A_k = (1 −1; 1 k). Per quali k la matrice A_k ha autovalori (reali)?"
+[item.data]
+solution = """
+p(t) = t² − (1 + k)t + (k + 1). Real roots ⇔ discriminant ≥ 0:
+(1 + k)² − 4(k + 1) = (k + 1)(k − 3) ≥ 0 ⇔ k ≤ −1 or k ≥ 3."""
+
+[[item]]
+id = "F07-E3a"
+ref = "Esercizio 3 a) ii) iii)"
+topic = "eigen"
+page = 1
+task = "values"
+text = "A_k = (1 −1; 1 k). ii) Per quale k λ = 3 è un autovalore di A_k? iii) Per quale k v = (4, −1)ᵀ è un autovettore di A_k?"
+[item.data]
+answers = [["k such that 3 is an eigenvalue", "7/2"], ["k such that (4,−1) is an eigenvector", "21/4"]]
+why = "ii) p(3) = 9 − 3(1 + k) + k + 1 = 7 − 2k = 0 ⇔ k = 7/2.  iii) A_k v = (5, 4 − k) must be a multiple of (4, −1): μ = 5/4 and 4 − k = −5/4 ⇔ k = 21/4."
+
+[[item]]
+id = "F07-E3bi"
+ref = "Esercizio 3 b) i)"
+topic = "eigen"
+page = 1
+task = "values"
+text = "Per s ∈ R sia B_s = (s 1 0; 1 3 1; 0 1 s). Per quali s −3 è un autovalore di B_s?"
+[item.data]
+answers = [["values of s", ["-3", "-8/3"]]]
+why = "det(−3I − B_s) = (−3 − s)[(−6)(−3 − s) − 1] − (−1)(−1)(−3 − s)·... = −(s + 3)(3s + 8) = 0 ⇔ s ∈ {−3, −8/3}."
+
+[[item]]
+id = "F07-E3bii"
+ref = "Esercizio 3 b) ii)"
+topic = "eigen"
+page = 1
+task = "yesno"
+text = "B_s = (s 1 0; 1 3 1; 0 1 s). È w = (1, 0, −1)ᵀ un autovettore di B_s per ogni s ∈ R?"
+data = { answer = true, why = "B_s w = (s, 1 − 1, −s) = s·w: w is an eigenvector with eigenvalue s, for every s." }
+
+# ---------------------------------------------------------------- Esercizio 4
+[[item]]
+id = "F07-E4"
+ref = "Esercizio 4"
+topic = "eigen"
+page = 1
+task = "values"
+text = "D = diag(−1, 2, −1, 2), T ∈ M_R(4) invertibile. a) det(A) per A := TDT⁻¹ − I4.  b) Gli autovalori di A."
+[item.data]
+answers = [["det A", 4], ["eigenvalues of A", ["-2", "1"]]]
+why = "A = T(D − I)T⁻¹ is similar to D − I = diag(−2, 1, −2, 1): same det = (−2)(1)(−2)(1) = 4 and same eigenvalues {−2, 1}."
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F07-E5A"
+ref = "Esercizio 5 (A)"
+topic = "diagonalization"
+page = 1
+task = "eigen"
+text = "Polinomio caratteristico, autovalori, autospazi; è diagonalizzabile?"
+data = { A = [[2, 1, 0], [0, 1, -1], [0, 2, 4]] }
+
+[[item]]
+id = "F07-E5B"
+ref = "Esercizio 5 (B)"
+topic = "diagonalization"
+page = 1
+task = "eigen"
+text = "Polinomio caratteristico, autovalori, autospazi; è diagonalizzabile?"
+data = { A = [[-3, 1, -1], [-7, 5, -1], [-6, 6, -2]], name = "B" }
+
+[[item]]
+id = "F07-E5C"
+ref = "Esercizio 5 (C)"
+topic = "diagonalization"
+page = 1
+task = "eigen"
+text = "Polinomio caratteristico, autovalori, autospazi; è diagonalizzabile?"
+data = { A = [[1, -3, 3], [3, -5, 3], [6, -6, 4]], name = "C" }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F07-E6A1"
+ref = "Esercizio 6 (A1)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? Se lo è, fornire P con P⁻¹A1P diagonale. (Over C: same answer, the only eigenvalue is −1 with mg = 1.)"
+data = { A = [[-1, 1], [0, -1]], name = "A1" }
+
+[[item]]
+id = "F07-E6A2"
+ref = "Esercizio 6 (A2)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? (Over C it IS diagonalisable: eigenvalues ±i√5, simple.)"
+data = { A = [[1, -2], [3, -1]], name = "A2" }
+
+[[item]]
+id = "F07-E6A3"
+ref = "Esercizio 6 (A3)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? Se lo è, fornire P con P⁻¹A3P diagonale."
+data = { A = [[-3, 4], [1, 0]], name = "A3" }
+
+[[item]]
+id = "F07-E6A4"
+ref = "Esercizio 6 (A4)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? (Over C it IS diagonalisable: p = (t − 2)(t² + t + 1) has 3 distinct complex roots.)"
+data = { A = [[1, 1, 0], [0, 1, 3], [1, 0, -1]], name = "A4" }
+
+[[item]]
+id = "F07-E6A5"
+ref = "Esercizio 6 (A5)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? (Eigenvalues −2, 3 ± √2: only p and the verdict are checked.)"
+data = { A = [[1, 1, 3], [1, 2, 1], [3, 0, 1]], name = "A5" }
+
+[[item]]
+id = "F07-E6A6"
+ref = "Esercizio 6 (A6)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? Se lo è, fornire P con P⁻¹A6P diagonale."
+data = { A = [[0, 6, 0], [1, 0, 1], [1, 0, 1]], name = "A6" }
+
+[[item]]
+id = "F07-E6A7"
+ref = "Esercizio 6 (A7)"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "È diagonalizzabile su R (e/o C)? Se lo è, fornire P con P⁻¹A7P diagonale."
+data = { A = [[2, 0, 3, 0], [0, 2, 5, 7], [0, 0, -1, 0], [0, 0, 8, -1]], name = "A7" }
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F07-E7a"
+ref = "Esercizio 7 a)"
+topic = "diagonalization"
+page = 2
+task = "yesno"
+text = "A = (2 0 2; 0 2 0; 0 0 0), B = (2 1 0; 0 2 0; 0 0 1). A e B sono simili?"
+data = { answer = false, why = "Similar matrices have the same characteristic polynomial: p_A = t(t − 2)², p_B = (t − 1)(t − 2)²." }
+
+[[item]]
+id = "F07-E7bc"
+ref = "Esercizio 7 b) c)"
+topic = "diagonalization"
+page = 2
+task = "values"
+text = """
+A = (2 0 2; 0 2 0; 0 0 0), C = diag(2, t, 2), D = (2 0 1; 0 t 0; 0 0 2).
+b) Per quali t ∈ R A e C sono simili?  c) Per quali t ∈ R A e D sono simili?"""
+[item.data]
+answers = [["values of t with A ~ C", ["0"]], ["values of t with A ~ D ('none' if never)", []]]
+why = """A is diagonalisable (mg(2) = 3 − rg(A − 2I) = 2 = ma(2)), so A ~ diag(2, 2, 0).
+b) C is diagonal: C ~ A ⇔ same eigenvalues with multiplicity ⇔ t = 0.
+c) Same p forces t = 0, but then D − 2I = (0 0 1; 0 −2 0; 0 0 0) has rank 2, mg(2) = 1: D is not
+diagonalisable while A is ⇒ never similar."""
+
+# ---------------------------------------------------------------- Esercizio 8
+[[item]]
+id = "F07-E8"
+ref = "Esercizio 8"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = """
+A ∈ M_R(4) con 2 sulla diagonale e 1 altrove.
+a) Senza calcolare p_A, si mostri che 1 è autovalore con mg(1) = 3 (A − I ha tutte le righe uguali: rango 1).
+b) La somma delle colonne di A è (5, 5, 5, 5): quindi (1,1,1,1) è autovettore di autovalore 5.
+c) Si deduca p_A e se A è diagonalizzabile."""
+data = { A = [[2, 1, 1, 1], [1, 2, 1, 1], [1, 1, 2, 1], [1, 1, 1, 2]] }
+
+# ---------------------------------------------------------------- Esercizio 9
+[[item]]
+id = "F07-E9A-ker"
+ref = "Esercizio 9 (A) nucleo e immagine"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Si trovi una base del kernel e dell'immagine della matrice (tutte le entrate uguali a 1)."
+data = { A = [[1, 1, 1], [1, 1, 1], [1, 1, 1]] }
+
+[[item]]
+id = "F07-E9A-diag"
+ref = "Esercizio 9 (A) diagonalizzabilità"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "La matrice (tutte le entrate uguali a 1) è diagonalizzabile? (Rank 1 ⇒ eigenvalue 0 with mg = 2; the other eigenvalue is the trace.)"
+data = { A = [[1, 1, 1], [1, 1, 1], [1, 1, 1]] }
+
+[[item]]
+id = "F07-E9B-ker"
+ref = "Esercizio 9 (B) nucleo e immagine"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Si trovi una base del kernel e dell'immagine di B (5×5, ogni riga uguale a (1 2 3 4 5))."
+data = { A = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], name = "B" }
+
+[[item]]
+id = "F07-E9B-diag"
+ref = "Esercizio 9 (B) diagonalizzabilità"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "B (ogni riga (1 2 3 4 5)) è diagonalizzabile? (rank 1, trace 15)"
+data = { A = [[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]], name = "B", eigenspaces = false, ask_P = false }
+
+[[item]]
+id = "F07-E9C"
+ref = "Esercizio 9 (C)"
+topic = "diagonalization"
+page = 2
+task = "open"
+text = "C = (1 1 1 1; 2 2 2 2; 3 3 3 3; k k k k): base del kernel e dell'immagine; è diagonalizzabile?"
+[item.data]
+solution = """
+All rows are multiples of (1,1,1,1) and the first row is non-zero ⇒ rg(C) = 1 for every k.
+Im C = Span((1, 2, 3, k)) (the first column); ker C = {x1 + x2 + x3 + x4 = 0} = Span((1,−1,0,0), (1,0,−1,0), (1,0,0,−1)).
+Eigenvalue 0 has mg = 3. The remaining eigenvalue is tr(C) = 6 + k (since p_C = t³(t − tr C) for rank 1).
+If k ≠ −6: eigenvalues 0 (ma = mg = 3) and 6 + k (simple) ⇒ diagonalisable.
+If k = −6: p_C = t⁴ but C ≠ O, mg(0) = 3 < 4 ⇒ NOT diagonalisable."""
+
+[[item]]
+id = "F07-E9D-ker"
+ref = "Esercizio 9 (D) nucleo e immagine"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Si trovi una base del kernel e dell'immagine di D."
+data = { A = [[1, 1, 1, 1, 1], [-1, -1, -1, -1, -1], [3, 3, 3, 3, 3], [2, 2, 2, 2, 2], [2, 2, 2, 2, 2]], name = "D" }
+
+[[item]]
+id = "F07-E9D-diag"
+ref = "Esercizio 9 (D) diagonalizzabilità"
+topic = "diagonalization"
+page = 2
+task = "eigen"
+text = "D è diagonalizzabile? (rank 1, trace 1 − 1 + 3 + 2 + 2 = 7)"
+data = { A = [[1, 1, 1, 1, 1], [-1, -1, -1, -1, -1], [3, 3, 3, 3, 3], [2, 2, 2, 2, 2], [2, 2, 2, 2, 2]], name = "D", eigenspaces = false, ask_P = false }
+
+# ---------------------------------------------------------------- Esercizio 10
+[[item]]
+id = "F07-E10A"
+ref = "Esercizio 10 (A)"
+topic = "diagonalization"
+page = 3
+task = "open"
+text = "Per quali k ∈ R A = (1 k; 2 −1) è diagonalizzabile (su R, e su C)?"
+[item.data]
+solution = """
+p_A(t) = t² − (1 + 2k). Over R: if 1 + 2k > 0 two distinct real eigenvalues ±√(1 + 2k) ⇒ diagonalisable;
+if 1 + 2k < 0 no real eigenvalues ⇒ not diagonalisable over R; if k = −1/2, p = t² but A ≠ O ⇒ not diagonalisable.
+So over R: diagonalisable ⇔ k > −1/2.  Over C: diagonalisable ⇔ k ≠ −1/2 (distinct roots ±√(1 + 2k))."""
+
+[[item]]
+id = "F07-E10B"
+ref = "Esercizio 10 (B)"
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+text = "Per quali k ∈ R la matrice è diagonalizzabile? (Same answer over C: the eigenvalues 1, k, 2 are real.)"
+data = { param = "k", A = [[1, 1, 0], [0, "k", 0], [0, 0, 2]], name = "B", candidates = [1, 2] }
+
+[[item]]
+id = "F07-E10C"
+ref = "Esercizio 10 (C)"
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+text = "Per quali k ∈ R la matrice è diagonalizzabile?"
+data = { param = "k", A = [[1, "k", "k"], [0, "k + 1", 0], [0, 0, 1]], name = "C", candidates = [0] }
+
+[[item]]
+id = "F07-E10D"
+ref = "Esercizio 10 (D)"
+topic = "diagonalization"
+page = 3
+task = "open"
+text = "Per quali k ∈ R D = (k + 2  k; −k  k − 2) è diagonalizzabile (su R, e su C)?"
+[item.data]
+solution = """
+p_D(t) = t² − 2k t + (k² − 4 + k²) = t² − 2kt + 2k² − 4, discriminant/4 = k² − (2k² − 4) = 4 − k².
+|k| < 2: two distinct real eigenvalues k ± √(4 − k²) ⇒ diagonalisable over R.
+|k| > 2: complex eigenvalues ⇒ not over R (but diagonalisable over C).
+k = ±2: double eigenvalue λ = k; D − kI = (2 k; −k −2) ≠ O ⇒ mg = 1 ⇒ not diagonalisable (neither over C).
+So over R: −2 < k < 2;  over C: k ≠ ±2."""
+
+[[item]]
+id = "F07-E10E"
+ref = "Esercizio 10 (E)"
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+text = "Per quali k ∈ R la matrice è diagonalizzabile? (Eigenvalues 1, 1, 2, 2 for every k.)"
+data = { param = "k", A = [[1, 0, 0, 0], ["k - 3", "2 - k", 0, "-k"], [0, 0, 1, 0], ["2 - k", "k", 0, "k + 2"]], name = "E", candidates = [0, 1, 2, 3] }
+
+# ---------------------------------------------------------------- Esercizio 11
+[[item]]
+id = "F07-E11a"
+ref = "Esercizio 11 a)"
+topic = "diagonalization"
+page = 3
+task = "matexpr"
+text = "Scrivere v come combinazione lineare di autovettori di A e calcolare A¹⁰v. (Answer A¹⁰v as a column: a; b.)"
+[item.data]
+exprs = ["A^10*v"]
+[item.data.matrices]
+A = [[3, -1], [4, -2]]
+v = [[0], [3]]
+
+[[item]]
+id = "F07-E11b"
+ref = "Esercizio 11 b)"
+topic = "diagonalization"
+page = 3
+task = "matexpr"
+text = "Scrivere v come combinazione lineare di autovettori di A e calcolare A¹⁰v. (Answer as a column: a; b.)"
+[item.data]
+exprs = ["A^10*v"]
+[item.data.matrices]
+A = [[3, 4], [-1, -2]]
+v = [[3], [0]]
+
+[[item]]
+id = "F07-E11c"
+ref = "Esercizio 11 c)"
+topic = "diagonalization"
+page = 3
+task = "matexpr"
+text = "Scrivere v come combinazione lineare di autovettori di A e calcolare A¹⁰v. (Answer as a column: a; b; c.)"
+[item.data]
+exprs = ["A^10*v"]
+[item.data.matrices]
+A = [[0, 1, -1], [2, 1, -2], [2, -1, 0]]
+v = [[-1], [1], [1]]
+
+[[item]]
+id = "F07-E11d"
+ref = "Esercizio 11 d)"
+topic = "diagonalization"
+page = 3
+task = "matexpr"
+text = "Scrivere v come combinazione lineare di autovettori di A e calcolare A¹⁰v. (Answer as a column: a; b; c.)"
+[item.data]
+exprs = ["A^10*v"]
+[item.data.matrices]
+A = [[0, 2, -1], [1, 1, -1], [-1, -2, 0]]
+v = [[2], [1], [4]]
+
+# ---------------------------------------------------------------- Esercizio 12
+[[item]]
+id = "F07-E12a"
+ref = "Esercizio 12 a)"
+topic = "diagonalization"
+page = 3
+task = "eigen_target"
+text = "Si fornisca A ∈ M_R(3) con −1 autovalore semplice e 2 autovalore regolare con autospazio V2 = Span((1,1,0)ᵀ, (0,2,1)ᵀ)."
+data = { p = "x^3 - 3x^2 + 4", eigenspaces = { "2" = [[1, 1, 0], [0, 2, 1]] }, P = [[1, 1, 0], [0, 2, 1], [0, 0, 1]], J = [[2, 0, 0], [0, 2, 0], [0, 0, -1]] }
+
+[[item]]
+id = "F07-E12b"
+ref = "Esercizio 12 b)"
+topic = "diagonalization"
+page = 3
+task = "eigen_target"
+text = "Si fornisca A ∈ M_R(3) con p_A = x(x − 1)² e autospazi V0 = Span((−1,0,1)ᵀ), V1 = Span((1,1,0)ᵀ)."
+data = { p = "x^3 - 2x^2 + x", eigenspaces = { "0" = [[-1, 0, 1]], "1" = [[1, 1, 0]] }, P = [[-1, 0, 1], [1, 1, 0], [0, 0, 1]], J = [[0, 0, 0], [0, 1, 1], [0, 0, 1]] }
+
+# ---------------------------------------------------------------- Esercizio 13
+[[item]]
+id = "F07-E13"
+ref = "Esercizio 13"
+topic = "eigen"
+page = 3
+task = "open"
+text = """
+Dimostrare o confutare:
+a) M1 := {X ∈ M_R(2) | 0 è un autovalore di X} è un sottospazio vettoriale di M_R(2).
+b) M2 := {X ∈ M_R(2) | v = (1, 2)ᵀ è un autovettore di X} è un sottospazio vettoriale di M_R(2)."""
+[item.data]
+solution = """
+a) FALSE. 0 is an eigenvalue ⇔ det X = 0. E11 = (1 0; 0 0) and E22 = (0 0; 0 1) are in M1, but E11 + E22 = I is not.
+b) TRUE (if we read it as {X : Xv ∈ Span(v)}, which also contains O): Xv = λv and Yv = μv give (X + Y)v = (λ + μ)v
+   and (cX)v = (cλ)v. Equivalently it is the kernel of the linear map X ↦ (second coordinate of Xv) − 2·(first),
+   one linear condition, so dim M2 = 3."""
+
+# ---------------------------------------------------------------- Esercizio 14
+[[item]]
+id = "F07-E14a"
+ref = "Esercizio 14 a)"
+topic = "diagonalization"
+page = 3
+task = "charpoly_target"
+text = "Si trovi una matrice A con polinomio caratteristico p(x) = x²(x − x²) + x⁴ − 2x + 1."
+data = { p = "x^2 (x - x^2) + x^4 - 2x + 1" }
+
+[[item]]
+id = "F07-E14b"
+ref = "Esercizio 14 b)"
+topic = "diagonalization"
+page = 3
+task = "charpoly_target"
+text = "Si trovi una matrice A con polinomio caratteristico p(x) = (x² + 2x − 3)(x² − 1) − (1 + x)² − 2(x + 3) + 4 + 2x(x + 3)."
+data = { p = "(x^2 + 2x - 3)(x^2 - 1) - (1 + x)^2 - 2(x + 3) + 4 + 2x(x + 3)" }
+
+[[item]]
+id = "F07-E14c"
+ref = "Esercizio 14 c)"
+topic = "diagonalization"
+page = 3
+task = "charpoly_target"
+text = "Si trovi una matrice A con polinomio caratteristico p(x) = x³ − x² − x − 2."
+data = { p = "x^3 - x^2 - x - 2" }
