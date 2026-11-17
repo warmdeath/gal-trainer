@@ -303,11 +303,13 @@ def solve(A: Matrix, b: Sequence, names: Sequence[str] | None = None) -> Solutio
                      + ";  free variables: " + ", ".join(free) + ".")
         for (r, j) in red.pivots:
             rest = [(-R[r, f], names[f]) for f in range(n) if f not in pivot_cols and R[r, f] != 0]
-            expr = fs(R[r, n]) if R[r, n] != 0 or not rest else ""
-            for c, nm in rest:
-                a = abs(c)
-                coef = "" if a == 1 else (f"({fs(a)})" if a.denominator != 1 else fs(a))
-                expr += (" - " if c < 0 else " + " if expr else "") + coef + nm
+            from .fmt import flin
+            expr = flin([c for c, _ in rest], [nm for _, nm in rest], zero="")
+            c0 = fs(R[r, n])
+            if not expr:
+                expr = c0
+            elif R[r, n] != 0:
+                expr = c0 + (" - " + expr[1:] if expr.startswith("-") else " + " + expr)
             steps.append(f"  {names[j]} = {expr}")
         from .fmt import fparam
         steps.append("Sol(A|b) = v_P + Sol(A|0) = " + fparam(part, basis))
