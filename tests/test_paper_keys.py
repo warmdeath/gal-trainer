@@ -135,3 +135,26 @@ def test_p2401i2():
     assert sp.factor(x**2 + 4*x*y + 4*y**2 + 2*x + 4*y) == (x + 2*y) * (x + 2*y + 2)
     A = M([[0, 0, 0], [1, -1, 2], [0, 0, 1]])
     assert sym(key("P2401I2-E2e")["A²⁰²⁴v"].M) == A**2024 * sp.Matrix([1, 1, 1]) == sp.Matrix([0, 0, 1])
+
+
+# ------------------------------------------------------------------ 02/2024
+def test_p2402a():
+    k = sp.symbols("k")
+    A = sp.Matrix([[1, 1, 1], [1, 1, k + 1], [0, 1, 2 * k]])
+    b = sp.Matrix([1, k**2 - k + 1, k**2 - 2 * k])
+    assert sp.factor(A.det()) == -k and A.subs(k, 0).rank() == A.subs(k, 0).row_join(b.subs(k, 0)).rank() == 2
+    H = sp.Matrix([[1, 2, -1, -2], [3, 0, 5, 0]]).T
+    K = sp.Matrix([[-2, -1, -2, 1], [1, -1, 3, 1]]).T
+    assert H.rank() + K.rank() - H.row_join(K).rank() == 2 and mcq_key("P2402A-D4") == "c"
+    T = sym(key("P2402A-E2a")["M^B_B(T)"].M)
+    Mm = sp.Matrix([[0, 1], [-1, 0]])
+    basis = [sp.Matrix([[1, 0], [0, 0]]), sp.Matrix([[0, 1], [1, 0]]), sp.Matrix([[0, 0], [0, 1]])]
+    for j, Bj in enumerate(basis):
+        img = Mm.T * Bj * Mm
+        assert img == sum((T[i, j] * basis[i] for i in range(3)), sp.zeros(2))
+    x1, x2, x3, t = sp.symbols("x1 x2 x3 t")
+    q = 2*x1**2 - x2**2 - x3**2 - 2*x2*x3 - 4*x3 - 2
+    Aq = sp.Matrix([[2, 0, 0], [0, -1, -1], [0, -1, -1]])
+    line = sp.Matrix([0, -1 + t, -t])             # the axis: A x + b ∥ ker A along it
+    g = Aq * line + sp.Matrix([0, 0, -2])
+    assert sp.Matrix([0, 1, -1]).cross(g) == sp.zeros(3, 1)

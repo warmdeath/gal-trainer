@@ -1,0 +1,307 @@
+[source]
+id = "P2402A"
+title = "Appello 02/2024 (Parte A + B)"
+kind = "exam"
+date = "2024-02-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-02 Appello - Parte A.pdf", sha256 = "2b45e82d66bac6da0952fd82c54ceb402b15aa457667dda515c535c39bac9a68", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-02 Appello - Parte B.pdf", sha256 = "7a0e9a33be2a91d111b6d28e9cacf19b20e8c49b04c9bfe8be8d78450cc6b2d2", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2402A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Determinare i valori del parametro k ∈ R per cui il sistema { x1 + x2 + x3 = 1;  x1 + x2 + (k + 1)x3 = k² − k + 1;  x2 + 2kx3 = k² − 2k } ammette infinite soluzioni."
+[item.data]
+options = ["k = 0", "k ≠ 0", "k = 0, 1", "k ≠ 0, 1"]
+correct = "a"
+why = "det = −k: for k ≠ 0 exactly one solution. For k = 0 rg(A) = rg(A|b) = 2 < 3: infinitely many."
+
+
+[[item]]
+id = "P2402A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat_R(m, n) e b ∈ Rᵐ. Supponiamo che il sistema Ax = b ammette soluzioni."
+[item.data]
+options = ["col(A) = Rᵐ", "b ∈ ker(A)", "b ∈ col(A)", "ker(A) = {0}"]
+correct = "c"
+why = "Ax = x1A¹ + ... + xnAⁿ: Ax = b is solvable exactly when b is a combination of the columns."
+
+
+[[item]]
+id = "P2402A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti vettori appartiene a Span{(2, −1, 1, 0), (0, 1, −1, 2)}?"
+[item.data]
+options = ["(1, −1, 1, −1)", "(1, 0, 2, −1)", "(1, −1, −1, 1)", "(−1, 2, 0, 1)"]
+correct = "a"
+why = "(1, −1, 1, −1) = ½(2, −1, 1, 0) − ½(0, 1, −1, 2). The others give inconsistent systems."
+
+
+[[item]]
+id = "P2402A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Dati i sottospazi H = Span{(1, 2, −1, −2), (3, 0, 5, 0)} e K = Span{(−2, −1, −2, 1), (1, −1, 3, 1)} (the paper says ⊆ R³, but the vectors are in R⁴), determinare la dimensione di H ∩ K."
+[item.data]
+options = ["dim H ∩ K = 0", "dim H ∩ K = 1", "dim H ∩ K = 2", "dim H ∩ K = 3"]
+correct = "c"
+why = "dim H = dim K = 2 and the four vectors have rank 2: H + K = H = K, so dim(H ∩ K) = 2 + 2 − 2 = 2."
+
+
+[[item]]
+id = "P2402A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti funzioni è un'applicazione lineare?"
+[item.data]
+options = ["L: R² → R², L(x, y) = (x + y, xy)", "L: Mat(2, 2) → R², L(M) = (0, tr(M))", "L: Mat(2, 2) → R², L(M) = (det(M), tr(M))", "L: R² → R², L(x, y) = (x² + y², x² − y²)"]
+correct = "b"
+why = "The trace is linear, and so is the constant 0. xy, det and squares are not."
+
+
+[[item]]
+id = "P2402A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R³ un'applicazione lineare con nucleo ker(L) = Span((1, 1, −1)ᵀ)."
+[item.data]
+options = ["L è suriettiva", "L è iniettiva", "L((1, −1, 0)ᵀ), L((0, 0, 1)ᵀ) sono linearmente dipendenti", "L((1, 0, 0)ᵀ), L((0, −1, 1)ᵀ) sono linearmente dipendenti"]
+correct = "d"
+why = "(1, 1, −1) = (1, 0, 0) − (0, −1, 1), so L(1, 0, 0) − L(0, −1, 1) = L(1, 1, −1) = 0: dependent. Span((1, −1, 0), (0, 0, 1)) meets ker L only in 0, so C fails. dim Im = 2."
+
+
+[[item]]
+id = "P2402A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(n, n) e sia λ ∈ R un autovalore di A."
+[item.data]
+options = ["ker(A − λIn) = {0}", "λ² è un autovalore di A²", "χ_A(λ) ≠ 0", "det(A) = λⁿ"]
+correct = "b"
+why = "Av = λv ⇒ A²v = λ²v. By definition ker(A − λI) ≠ {0} and χ_A(λ) = 0."
+
+
+[[item]]
+id = "P2402A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Sia V uno spazio euclideo e H ⊆ V un sottospazio."
+[item.data]
+options = ["l'unione di una base ortonormale di H e una base ortonormale di H⊥ è una base ortonormale di V", "La proiezione ortogonale π_H: V → V è un isomorfismo", "il complemento ortogonale H⊥ soddisfa dim H = dim H⊥", "π_H(H) = H⊥"]
+correct = "a"
+why = "V = H ⊕ H⊥ and H ⊥ H⊥. π_H is not injective unless H = V; π_H(H) = H."
+
+
+[[item]]
+id = "P2402A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti applicazioni lineari L: R² → R² è un'isometria lineare?"
+[item.data]
+options = ["L(x, y) = (1/√2)(x − y, y − x)", "L(x, y) = (x, 0)", "L(x, y) = (x − y, x + y)", "L(x, y) = (−y, −x)"]
+correct = "d"
+why = "(0 −1; −1 0) has orthonormal columns. A and B are singular; C multiplies lengths by √2."
+
+
+[[item]]
+id = "P2402A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Sia V uno spazio euclideo e v, w ∈ V."
+[item.data]
+options = ["⟨2v, 5w⟩ = 10⟨v, w⟩", "⟨v + w, v + w⟩ = ⟨v, w⟩ + ⟨v, w⟩", "⟨3v, 3w⟩ = 3⟨v, w⟩", "⟨v, w⟩ = ‖v‖‖w‖"]
+correct = "a"
+why = "Bilinearity: ⟨2v, 5w⟩ = 2·5⟨v, w⟩. ⟨3v, 3w⟩ = 9⟨v, w⟩; D holds only for parallel v, w."
+
+
+[[item]]
+id = "P2402A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Una matrice simmetrica A ∈ Mat_R(4, 4) ha polinomio caratteristico χ_A(x) = (2 + x)²(3 − x)². Un autospazio di A è Span((1, 0, 1, 0)ᵀ, (1, 0, 0, 1)ᵀ). Qual è l'altro autospazio di A?"
+[item.data]
+options = ["Span((1, 0, −1, 0)ᵀ, (1, 0, 0, −1)ᵀ)", "Span((0, 1, 0, 0)ᵀ, (1, 0, −1, −1)ᵀ)", "Span((0, 1, 0, 1)ᵀ, (0, 1, 1, 0)ᵀ)", "Span((−1, 0, −1, 0)ᵀ, (−1, 0, 0, −1)ᵀ)"]
+correct = "b"
+why = "Spectral theorem: the other eigenspace is the orthogonal complement: x + z = 0, x + w = 0, spanned by (0, 1, 0, 0) and (1, 0, −1, −1)."
+
+
+[[item]]
+id = "P2402A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La forma quadratica p(x, y, z) = xy + 2xz + 3yz è"
+[item.data]
+options = ["definita positiva", "semidefinita positiva ma non definita positiva", "definita negativa", "indefinita"]
+correct = "d"
+why = "p(1, 1, 0) = 1 > 0 and p(1, −1, 0) = −1 < 0: indefinite (no squares, trace 0)."
+
+
+[[item]]
+id = "P2402A-E1a1"
+ref = "Esercizio 1 a) (isomorfismo)"
+section = "II"
+points = 1.5
+topic = "linear_maps"
+page = 2
+task = "param_invertible"
+setup = "Sia k ∈ R un parametro e L_k: R[x]_≤1 → R², L_k(p(x)) = (p(2), p(k) − p(0)). (On p = a + bx: L_k(p) = (a + 2b, kb), matrix (1 2; 0 k) w.r.t. {1, x} and the canonical basis.)"
+text = "a) Esistono valori di k ∈ R per cui L_k è un isomorfismo? (Give the values where it is NOT.)"
+data = { param = "k", A = [[1, 2], [0, "k"]], name = "M(L_k)" }
+
+
+[[item]]
+id = "P2402A-E1a2"
+ref = "Esercizio 1 a) (ker e Im)"
+section = "II"
+points = 1.5
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "a) Determinare, al variare di k, una base di Ker(L_k) e Im(L_k): for k ≠ 0 L_k is an isomorphism (ker = {0}, Im = R²); give them for k = 0. (Coordinates w.r.t. {1, x}.)"
+data = { A = [[1, 2], [0, 0]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2402A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 2
+task = "open"
+text = "b) Determinare la matrice rappresentativa di L_k rispetto alle basi B = {x + 1, x} e C = {(1, 1), (2, 1)}."
+[item.data]
+solution = """
+L_k(x + 1) = (3, k) = (2k − 3)(1, 1) + (3 − k)(2, 1); L_k(x) = (2, k) = (2k − 2)(1, 1) + (2 − k)(2, 1).
+M^B_C(L_k) = (2k − 3  2k − 2; 3 − k  2 − k)."""
+
+
+[[item]]
+id = "P2402A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 3
+task = "matexpr"
+setup = "Sia V = {A ∈ Mat_R(2, 2) : A = Aᵀ} lo spazio delle matrici simmetriche 2 × 2 e T: V → V, T(A) = MᵀAM con M = (0 1; −1 0). (T(a b; b c) = (c −b; −b a); coordinates w.r.t. B = {(1 0; 0 0), (0 1; 1 0), (0 0; 0 1)}.)"
+text = "a) Determinare la matrice rappresentativa di T rispetto alla base B di V."
+data = { matrices = { T = [[0, 0, 1], [0, -1, 0], [1, 0, 0]] }, exprs = ["T"], labels = ["M^B_B(T)"], show = false }
+
+
+[[item]]
+id = "P2402A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Dimostrare che T è diagonalizzabile."
+data = { A = [[0, 0, 1], [0, -1, 0], [1, 0, 0]], keep = ["diagonalisable"] }
+
+
+[[item]]
+id = "P2402A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "eigen"
+text = "c) Determinare le basi degli autospazi di T. (B-coordinates.)"
+data = { A = [[0, 0, 1], [0, -1, 0], [1, 0, 0]], keep = ["basis of V"] }
+
+
+[[item]]
+id = "P2402A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "cross_distances"
+page = 4
+task = "affine_forms"
+setup = "Considerare le rette R1 = (0, 0, −1) + Span((1, 0, 0)) e R2 = Span((0, 1, 1))."
+text = "a) Trovare la retta di R³ perpendicolare a entrambe le rette (and meeting both)."
+data = { point = [0, 0, -1], dirs = [[0, -1, 1]], names = ["x1", "x2", "x3"] }
+
+
+[[item]]
+id = "P2402A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Il luogo dei punti equidistanti da entrambe è la quadrica Q = {x ∈ R³ : 2x1² − x2² − x3² − 2x2x3 − 4x3 − 2 = 0} (non è richiesta la verifica). Classificare affinemente Q."
+[item.data]
+solution = """
+Quadratic part (2 0 0; 0 −1 −1; 0 −1 −1): eigenvalues 2, −2, 0 (rank 2, opposite signs); the complete 4 × 4 matrix has det 8 ≠ 0. With u = x2 + x3, v = x2 − x3: 2x1² − (u + 1)² + 2v − 1 = 0, linear in v: a hyperbolic paraboloid."""
+
+
+[[item]]
+id = "P2402A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "affine_forms"
+text = "c) Determinare l'asse di Q."
+data = { point = [0, -1, 0], dirs = [[0, 1, -1]], names = ["x1", "x2", "x3"] }
