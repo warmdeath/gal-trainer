@@ -1,0 +1,19 @@
+[source]
+id = "ES06"
+title = "Esercitazione 6 (2026-10-28, Foglio 6)"
+kind = "esercitazione"
+date = "2026-10-28"
+files = [{ path = "Esercitazioni-20261117/2026-10-28 Esercitazione 6.pdf", sha256 = "", pages = 5 }]
+note = "Handwritten worked solutions (not machine-readable): linked page by page to the sheet items they solve."
+
+[[solution]]
+items = ["F06-E2a", "F06-E2b", "F06-E2cd"]
+pages = [1, 2, 3]
+
+[[solution]]
+items = ["F06-E4a", "F06-E4b", "F06-E4c"]
+pages = [4]
+
+[[solution]]
+items = ["F06-E4d"]
+pages = [5]

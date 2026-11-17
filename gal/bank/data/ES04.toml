@@ -1,0 +1,31 @@
+[source]
+id = "ES04"
+title = "Esercitazione 4 (2026-10-16, Foglio 4)"
+kind = "esercitazione"
+date = "2026-10-16"
+files = [{ path = "Esercitazioni-20261117/2026-10-16 Esercitazione 4.pdf", sha256 = "", pages = 7 }]
+note = "Handwritten worked solutions (not machine-readable): linked page by page to the sheet items they solve."
+
+[[solution]]
+items = ["F04-E6d"]
+pages = [1, 2]
+
+[[solution]]
+items = ["F04-E7b"]
+pages = [2, 3]
+
+[[solution]]
+items = ["F04-E8a"]
+pages = [4]
+
+[[solution]]
+items = ["F04-E8b13", "F04-E8b13p"]
+pages = [4, 5, 6]
+
+[[solution]]
+items = ["F04-E10a", "F04-E10b", "F04-E10c"]
+pages = [6]
+
+[[solution]]
+items = ["F04-E9c"]
+pages = [7]

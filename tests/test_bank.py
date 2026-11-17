@@ -563,3 +563,13 @@ def test_every_auto_task_has_a_verifier():
 @pytest.mark.parametrize("item", [i for i in AUTO if i.task in VERIFY], ids=lambda i: i.id)
 def test_item_against_sympy(item):
     VERIFY[item.task](item.data, answers(item))
+
+
+def test_esercitazione_links_resolve():
+    for src in BANK.sources.values():
+        for sol in src.solutions:
+            for iid in sol["items"]:
+                assert iid in BANK.items, f"{src.id} links unknown item {iid}"
+            pages = src.files[0].get("pages") if src.files else None
+            if pages:
+                assert all(1 <= p <= pages for p in sol.get("pages", [])), src.id
