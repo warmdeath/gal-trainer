@@ -2,7 +2,7 @@
 id = "Q03"
 title = "Quiz 3"
 kind = "quiz"
-files = [{ path = "Quiz-20261117/QUIZ3.pdf", sha256 = "", pages = 3 }]
+files = [{ path = "Quiz-20261117/QUIZ3.pdf", sha256 = "f3a04ac5e90e5eb8f660135ac33b0072a8c75daff3ea177fdcc470a4bcf6946e", pages = 3 }]
 
 # ================================================================ Compiti (open)
 [[item]]

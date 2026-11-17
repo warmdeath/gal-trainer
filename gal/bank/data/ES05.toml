@@ -3,7 +3,7 @@ id = "ES05"
 title = "Esercitazione 5 (2026-10-20, Foglio 5)"
 kind = "esercitazione"
 date = "2026-10-20"
-files = [{ path = "Esercitazioni-20261117/2026-10-20 Esercitazione 5.pdf", sha256 = "", pages = 6 }]
+files = [{ path = "Esercitazioni-20261117/2026-10-20 Esercitazione 5.pdf", sha256 = "0d9d0aee558bcb3d3b5759035538faa6b4c95e01016149c306045073e13f9971", pages = 6 }]
 note = "Handwritten worked solutions (not machine-readable): linked page by page to the sheet items they solve."
 
 [[solution]]

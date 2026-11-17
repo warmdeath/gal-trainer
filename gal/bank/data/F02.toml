@@ -2,7 +2,7 @@
 id = "F02"
 title = "Foglio di esercizi 2"
 kind = "sheet"
-files = [{ path = "Esercizi-20261117/Foglio_esercizi_02.pdf", sha256 = "", pages = 3 }]
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_02.pdf", sha256 = "47cdeed5ba76ced7e3f6082e728044bb06d380b4ac1f4dfe2aa0079f099419dd", pages = 3 }]
 note = "Negli esercizi con parametro λ si discuta come cambia la risposta al variare di λ."
 
 # ---------------------------------------------------------------- Esercizio 1

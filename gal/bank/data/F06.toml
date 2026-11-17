@@ -2,7 +2,7 @@
 id = "F06"
 title = "Foglio di esercizi 6"
 kind = "sheet"
-files = [{ path = "Esercizi-20261117/Foglio_esercizi_06.pdf", sha256 = "", pages = 2 }]
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_06.pdf", sha256 = "55861177eda83a3c90f9ffa6259e568c8bc8a4c7400e8e752718f29a65cd7332", pages = 2 }]
 
 # ---------------------------------------------------------------- Esercizio 1
 [[item]]
