@@ -1,0 +1,306 @@
+[source]
+id = "P2209A"
+title = "Appello 09/2022 (Parte A + B)"
+kind = "exam"
+date = "2022-09-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-09 Appello - Parte A.pdf", sha256 = "9906b7ea02e57d2b663000f8f4554fe030129ce1faec9f1cce4aaf2ad17c0b6a", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-09 Appello - Parte B.pdf", sha256 = "e8ffdc00ce7abb6a1e0c3a79feff7cce5308d41820c6edc95e912013df1bcebb", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2209A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Dati A ∈ Mat_R(3, 4), b ∈ Mat_R(3, 1), il sistema lineare Ax = b"
+[item.data]
+options = ["Ammette al più una soluzione", "Ammette infinite soluzioni", "Non può ammettere un'unica soluzione", "Non ammette soluzioni"]
+correct = "c"
+why = "rk A ≤ 3 < 4 unknowns: if solvable, there are ∞^(4 − rk A) solutions; it may also be unsolvable. Never exactly one."
+
+
+[[item]]
+id = "P2209A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Date A, B, C ∈ Mat_R(n, n), la matrice (A + BC)ᵀ è uguale a"
+[item.data]
+options = ["Aᵀ + BᵀCᵀ", "Aᵀ + CᵀBᵀ", "BᵀCᵀ + Aᵀ", "A + CᵀBᵀ"]
+correct = "b"
+why = "(A + BC)ᵀ = Aᵀ + (BC)ᵀ = Aᵀ + CᵀBᵀ."
+
+
+[[item]]
+id = "P2209A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "L'insieme {(1, 2, 0), (1, 0, 1), (8, 6, 5)} ⊆ R³"
+[item.data]
+options = ["è un insieme di generatori per Span((1, 0, 1), (7, 4, 5))", "è un insieme di generatori per Span((1, 2, 0), (0, 0, 1))", "è un insieme di generatori per Span((1, 2, 0))", "è una base di R³"]
+correct = "a"
+why = "(8, 6, 5) = 3(1, 2, 0) + 5(1, 0, 1): the set spans the plane Span((1,2,0), (1,0,1)), which equals Span((1, 0, 1), (7, 4, 5)) since (7, 4, 5) = 2(1, 2, 0) + 5(1, 0, 1) is independent of (1, 0, 1)."
+
+
+[[item]]
+id = "P2209A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "L: R⁴ → R³ ha matrice (1 1 2 1; 6 4 10 4; 2 1 3 1) rispetto alle basi canoniche."
+[item.data]
+options = ["L è iniettiva", "L è suriettiva", "L è un isomorfismo", "L non è iniettiva e non è suriettiva"]
+correct = "d"
+why = "The rank is 2: dim Im = 2 < 3 (not surjective) and dim ker = 2 (not injective)."
+
+
+[[item]]
+id = "P2209A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R[x]_≤2 → R[x]_≤2 con L(1) = 1 + x, L(x) = 1 − x, L(x²) = 2x² + 1. Allora L(3x² + x + 2) è il polinomio"
+[item.data]
+options = ["2", "6x² − x + 4", "6x² + x + 6", "6x² + 2x + 5"]
+correct = "c"
+why = "3(2x² + 1) + (1 − x) + 2(1 + x) = 6x² + x + 6."
+
+
+[[item]]
+id = "P2209A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Per quali valori di t ∈ R la matrice (t 1; 2 t) è diagonalizzabile?"
+[item.data]
+options = ["Solo per t = 0", "Solo per t ≥ 0", "Per nessun valore di t", "Per tutti i valori di t"]
+correct = "d"
+why = "p(λ) = (λ − t)² − 2: eigenvalues t ± √2, always real and distinct."
+
+
+[[item]]
+id = "P2209A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Sia L: R⁴ → R⁴ con somma delle molteplicità geometriche 3. Se L ha un autovalore con molteplicità algebrica 2 allora"
+[item.data]
+options = ["esistono 2 autovalori distinti per L", "esistono 3 autovalori distinti per L", "esistono 4 autovalori distinti per L", "le informazioni date non sono sufficienti per stabilire il numero di autovalori distinti di L"]
+correct = "d"
+why = "Both multiplicities (2, 1, 1) with mg = (1, 1, 1) — three eigenvalues — and (2, 2) with mg = (2, 1) — two eigenvalues — give a total of 3."
+
+
+[[item]]
+id = "P2209A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "A ∈ Mat_R(3, 3) ha, per due autovalori distinti, gli autospazi V1 = Span((1, 1, 0), (1, 2, 1)) e V2 = Span((1, −1, 1))."
+[item.data]
+options = ["A è ortogonalmente diagonalizzabile", "A è diagonalizzabile ma non è ortogonalmente diagonalizzabile", "A non è diagonalizzabile e non è ortogonalmente diagonalizzabile", "Non ci sono informazioni sufficienti per stabilire se A è diagonalizzabile oppure ortogonalmente diagonalizzabile"]
+correct = "a"
+why = "dim V1 + dim V2 = 3: diagonalisable; (1, −1, 1) is orthogonal to (1, 1, 0) and (1, 2, 1), so there is an orthonormal eigenbasis."
+
+
+[[item]]
+id = "P2209A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Sia P la matrice della proiezione ortogonale su H = Span((2, 2, 1), (1, 3, 1))."
+[item.data]
+options = ["ker(P) = Span((1, −1, 0))", "ker(P) = Span((1, 1, −4))", "ker(P) = Span((3, −1, 0))", "ker(P) = Span((1, −1, 0), (3, −1, 0))"]
+correct = "b"
+why = "ker P = H⊥ = Span((2, 2, 1) × (1, 3, 1)) = Span((−1, −1, 4))."
+
+
+[[item]]
+id = "P2209A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti sistemi rappresenta una retta passante per P = (2, −2, 2) e perpendicolare alla retta {x + y = 2x + 3y + z = 0}?"
+[item.data]
+options = ["y + x = z − x = 0", "y − x + 4 = z − 2 = 0", "y + 2 = z − x = 0", "2x + y − z = x + 2y + 3z + 1 = 0"]
+correct = "b"
+why = "The given line has direction (1, 1, 0) × (2, 3, 1) = (1, −1, 1). B passes through P and has direction (1, 1, 0) ⊥ (1, −1, 1). A is parallel to it, C has direction (1, 0, 1), D misses P."
+
+
+[[item]]
+id = "P2209A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Le matrici A = (1 2; 2 3) e B = (−1 1; 1 2)"
+[item.data]
+options = ["sono simili e sono congruenti", "sono simili ma non sono congruenti", "sono congruenti ma non sono simili", "non sono simili e non sono congruenti"]
+correct = "c"
+why = "Different traces (4 vs 1): not similar. det A = −1, det B = −3 < 0: both have signature (1, 1, 0), so they are congruent (Sylvester)."
+
+
+[[item]]
+id = "P2209A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "La conica di equazione 4x² + y² − 4xy − 14x − 8y + 11 = 0"
+[item.data]
+options = ["è un'ellisse con un asse di simmetria avente direzione (1, 2)", "è un'ellisse con un asse di simmetria avente direzione (−2, 1)", "è una parabola con asse di simmetria avente direzione (−2, 1)", "è una parabola con asse di simmetria avente direzione (1, 2)"]
+correct = "d"
+why = "det(4 −2; −2 1) = 0 (parabolic type) and the 3 × 3 det is −225 ≠ 0: a parabola. Its axis is parallel to the kernel of the quadratic part, (1, 2)."
+
+
+[[item]]
+id = "P2209A-E1a"
+ref = "Esercizio 1.1"
+section = "II"
+points = 2
+topic = "cart_param"
+page = 2
+task = "cartesian"
+setup = "Si consideri U = Span((1, 1, 2, 0), (1, 1, 1, 1)) ⊆ R⁴."
+text = "1. Determinare la dimensione e le equazioni di U."
+data = { dirs = [[1, 1, 2, 0], [1, 1, 1, 1]], names = ["x", "y", "z", "w"], ask_dim = true, hide = true }
+
+
+[[item]]
+id = "P2209A-E1b"
+ref = "Esercizio 1.2"
+section = "II"
+points = 2
+topic = "orthogonality"
+page = 2
+task = "perp"
+text = "2. Determinare la dimensione e una base di U⊥."
+data = { span = [[1, 1, 2, 0], [1, 1, 1, 1]], name = "U" }
+
+
+[[item]]
+id = "P2209A-E1c"
+ref = "Esercizio 1.3"
+section = "II"
+points = 1
+topic = "span_independence"
+page = 2
+task = "values"
+text = "3. Stabilire per quali valori di t ∈ R il vettore v_t = (1, 1, t, 2t) appartiene ad U."
+data = { answers = [["t", "2/3"]], why = "v_t = a(1, 1, 2, 0) + b(1, 1, 1, 1): a + b = 1, 2a + b = t, b = 2t ⇒ a = 1 − 2t, 2 − 4t + 2t = t ⇒ t = 2/3." }
+
+
+[[item]]
+id = "P2209A-E1d"
+ref = "Esercizio 1.4"
+section = "II"
+points = 2
+topic = "projections"
+page = 2
+task = "open"
+text = "4. Determinare la proiezione ortogonale di v_t su U al variare di t ∈ R. Per quali valori di t la proiezione coincide con v_t?"
+[item.data]
+solution = """
+With the projection matrix of U: π_U(v_t) = (3t/4 + 1/2, 3t/4 + 1/2, t/4 + 1/2, 5t/4 + 1/2). It equals v_t exactly when v_t ∈ U, i.e. for t = 2/3."""
+
+
+[[item]]
+id = "P2209A-E2a"
+ref = "Esercizio 2.1"
+section = "II"
+points = 3
+topic = "diagonalization"
+page = 3
+task = "eigen"
+setup = "Sia L: R³ → R³ con matrice A = (−1 2 0; −1 2 0; −1 1 0) rispetto alla base canonica."
+text = "1. Determinare gli autovalori e gli autovettori di L e stabilire se L è diagonalizzabile."
+data = { A = [[-1, 2, 0], [-1, 2, 0], [-1, 1, 0]], ask_P = false }
+
+
+[[item]]
+id = "P2209A-E2b"
+ref = "Esercizio 2.2"
+section = "II"
+points = 2
+topic = "bases"
+page = 3
+task = "indep"
+text = "2. Siano v1 = (1, 1, 0) l'autovettore relativo a 1, v2 = (0, 0, 1) l'autovettore relativo a 0 e w = (1, 0, 0). Verificare che B = {v1, v2, w} è una base di R³."
+data = { vectors = [[1, 1, 0], [0, 0, 1], [1, 0, 0]], ask_generators = true }
+
+
+[[item]]
+id = "P2209A-E2c"
+ref = "Esercizio 2.3"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 3
+task = "repmat"
+text = "3. Scrivere la matrice rappresentativa di L rispetto a B."
+data = { A = [[-1, 2, 0], [-1, 2, 0], [-1, 1, 0]], B = [[1, 1, 0], [0, 0, 1], [1, 0, 0]], C = [[1, 1, 0], [0, 0, 1], [1, 0, 0]], label = "M^B_B(L)", hide = true }
+
+
+[[item]]
+id = "P2209A-E3a"
+ref = "Esercizio 3.1"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Sia Q ⊆ R³ la quadrica x² + y² + 2z² + 2xy − 6x − 6y − 6z + 11 = 0."
+text = "1. Classificare Q metricamente."
+[item.data]
+solution = """
+A = (1 1 0; 1 1 0; 0 0 2): eigenvalues 2 ((1, 1, 0) and (0, 0, 1)) and 0 ((1, −1, 0)). The linear part (−3, −3, −3) is orthogonal to (1, −1, 0): there is a line of centres (3, 0, 3/2) + τ(−1, 1, 0), where the constant is −5/2. Metric form 2X² + 2Y² = 5/2, i.e. X² + Y² = 5/4: a circular cylinder."""
+
+
+[[item]]
+id = "P2209A-E3b"
+ref = "Esercizio 3.2"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "affine_forms"
+text = "2. Dimostrare che Q è una quadrica di rotazione e scrivere una parametrizzazione dell'asse di rotazione (nelle coordinate originali). (The double eigenvalue 2 makes it a surface of rotation; the axis is the line of centres.)"
+data = { point = [3, 0, "3/2"], dirs = [[-1, 1, 0]] }
