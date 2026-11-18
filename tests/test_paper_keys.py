@@ -158,3 +158,18 @@ def test_p2402a():
     line = sp.Matrix([0, -1 + t, -t])             # the axis: A x + b ∥ ker A along it
     g = Aq * line + sp.Matrix([0, 0, -2])
     assert sp.Matrix([0, 1, -1]).cross(g) == sp.zeros(3, 1)
+
+
+# ------------------------------------------------------------------ 07/2024
+def test_p2407a():
+    C = M([[2, 0, 0, 0], [1, 1, 0, 0], [-1, 0, 1, 0], [-1, 0, 0, 1]]).T      # 2, t+1, t²−1, t³−1
+    B = M([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [1, 0, 0, 1]]).T        # 1, t, t², t³+1
+    half = sp.Rational(1, 2)
+    assert C.inv() * B == sp.Matrix([[half, -half, half, 1], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]])
+    assert mcq_key("P2407A-D5") == "a"
+    basis = M([[1, 0, 2, 1], [0, 1, 1, 0], [3, 0, 0, -1], [0, 0, 0, 1]]).T
+    assert basis.solve(sp.Matrix([5, 1, 5, 4])) == sp.Matrix([2, 1, 1, 3]) and mcq_key("P2407A-D10") == "d"
+    n = sp.Matrix([1, -1, 0]).cross(sp.Matrix([0, 1, 1]))
+    assert abs(sp.Matrix([0, 0, 1]).dot(n)) / n.norm() == 1 / sp.sqrt(3) and mcq_key("P2407A-D12") == "a"
+    A = M([[5, 0, 3], [0, 8, 0], [3, 0, 5]])
+    assert A.det() == 128 and A.eigenvals() == {8: 2, 2: 1}
