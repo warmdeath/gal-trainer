@@ -1,0 +1,296 @@
+[source]
+id = "P2409A"
+title = "Appello 09/2024 (Parte A + B)"
+kind = "exam"
+date = "2024-09-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-09 Appello - Parte A.pdf", sha256 = "66c97bce7bbf67a798f3cfaa2535f5e460cba3fc906e985c334c43fd99b9fa51", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-09 Appello - Parte B.pdf", sha256 = "8933121614fbcb9d6be072a34b2dcc9db7e636deccb58a9d0b9cf1416995fd9b", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2409A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat_R(n, n) e sia λ autovalore per A con relativo autospazio E_λ. Se v ∈ E_λ e AB = BA allora:"
+[item.data]
+options = ["Bv = 0", "Bv ∈ E_λ", "Bv ≠ 0", "Bv ∉ E_λ"]
+correct = "b"
+why = "A(Bv) = B(Av) = B(λv) = λ(Bv): Bv ∈ E_λ (it may be 0, which also lies in E_λ)."
+
+
+[[item]]
+id = "P2409A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Data una matrice A ∈ Mat_R(3, 3) simmetrica e con rk(A) < 3. Si può dire che il segno della forma quadratica xᵀAx"
+[item.data]
+options = ["è definita positiva", "è definita negativa", "sicuramente non è definita positiva", "nessuna delle precedenti"]
+correct = "c"
+why = "rk A < 3 ⇒ there is v ≠ 0 with Av = 0, so vᵀAv = 0: the form is not definite (neither positive nor negative)."
+
+
+[[item]]
+id = "P2409A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Sia v = (a, b, c)ᵀ ∈ R³ con ‖v‖ = 1. La matrice A = vvᵀ rappresenta la proiezione ortogonale su Span{v}. Il rango di A è:"
+[item.data]
+options = ["0", "1", "2", "3"]
+correct = "b"
+why = "Every column of vvᵀ is a multiple of v and v ≠ 0: rank 1 (its image is Span{v})."
+
+
+[[item]]
+id = "P2409A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Data una matrice A ∈ Mat_R(n, n), sappiamo che A − In è invertibile. Allora:"
+[item.data]
+options = ["la matrice A è ortogonale", "la matrice A è invertibile", "1 non è autovalore di A", "1 è autovalore di A"]
+correct = "c"
+why = "1 is an eigenvalue ⇔ det(A − I) = 0. A itself may be singular (e.g. A = O)."
+
+
+[[item]]
+id = "P2409A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat_R(3, 3) allora"
+[item.data]
+options = ["det(A − B) = det(B − A)", "det(A − B) = −det(B − A)", "det(A − B) = det(A) − det(B)", "det(A − B) = det(B) − det(A)"]
+correct = "b"
+why = "A − B = −(B − A) and det(−M) = (−1)³ det M for 3 × 3 matrices."
+
+
+[[item]]
+id = "P2409A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Si considerino i tre piani π1: ax − z + 1 = 0, π2: ay − z + 1 = 0, π3: ax + ay − 2z + 2 = 0 in R³. Allora:"
+[item.data]
+options = ["per infiniti valori di a ∈ R i tre piani si incontrano in un solo punto", "per un solo valore di a ∈ R i tre piani si intersecano lungo una retta", "per ogni valore di a ∈ R l'intersezione dei tre piani è vuota", "esiste un valore di a ∈ R per cui i piani coincidono"]
+correct = "d"
+why = "π3 = π1 + π2, so the three planes always share π1 ∩ π2. For a = 0 all three are z = 1: they coincide. For a ≠ 0 they meet in a line (never in a single point)."
+
+
+[[item]]
+id = "P2409A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Si consideri l'insieme S = {(x, y, z)ᵀ ∈ R³ | x² − y² = 1, z = 0}. Si ha che:"
+[item.data]
+options = ["S contiene una base di R³", "S contiene un insieme di generatori di R³", "S contiene una base del sottospazio {z = 0}", "S è un sottospazio vettoriale di R³"]
+correct = "c"
+why = "S lies in the plane z = 0 (so no basis or generators of R³) and contains e.g. (1, 0, 0) and (√2, 1, 0), independent: a basis of {z = 0}. 0 ∉ S."
+
+
+[[item]]
+id = "P2409A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Si consideri V = R[t]_≤2 e L: V → V, L(a0 + a1t + a2t²) = a0 + a1 + (a1 + 2a2)t + a2t². Allora:"
+[item.data]
+options = ["L è un endomorfismo diagonalizzabile", "la matrice che rappresenta L rispetto la base {1, t, t²} è ridotta a scala", "la dimensione dell'immagine di L è pari a 2", "la matrice che rappresenta L rispetto la base {1, t, t²} è simmetrica"]
+correct = "b"
+why = "M = (1 1 0; 0 1 2; 0 0 1): upper triangular with nonzero pivots, i.e. in echelon form. Only eigenvalue 1 with M ≠ I: not diagonalisable; rank 3; not symmetric."
+
+
+[[item]]
+id = "P2409A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Siano V = Mat_R(2, 2) e W = R³. Allora:"
+[item.data]
+options = ["non esistono applicazioni lineari fra V e W", "non esistono applicazioni lineari iniettive fra V e W", "non esistono funzioni fra V e W", "non esistono applicazioni lineari suriettive fra V e W"]
+correct = "b"
+why = "dim V = 4 > 3 = dim W: every linear map has dim ker ≥ 1. Surjective ones exist."
+
+
+[[item]]
+id = "P2409A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "L'insieme {(x, y) ∈ R² : x² − y² − 2x + 2y = 0} definisce"
+[item.data]
+options = ["una coppia di rette", "una circonferenza reale", "un'iperbole equilatera non degenere", "un punto immaginario"]
+correct = "a"
+why = "(x − 1)² − (y − 1)² = 0 ⇔ (x − y)(x + y − 2) = 0: two (orthogonal) lines."
+
+
+[[item]]
+id = "P2409A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia T: V → W un'applicazione lineare tra spazi di dimensione finita. Allora"
+[item.data]
+options = ["dim(ker f) < dim(V)", "dim(ker f) ≤ dim(W)", "dim(V) ≥ dim(Im f)", "dim(W) > dim(Im f)"]
+correct = "c"
+why = "Nullità + rango: dim V = dim ker + dim Im ≥ dim Im. The zero map violates A and D; B fails when dim V is large."
+
+
+[[item]]
+id = "P2409A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(n, n) una matrice diagonalizzabile. Allora"
+[item.data]
+options = ["rk(A) è il numero di autovalori distinti", "rk(A) è la somma delle molteplicità degli autovalori aventi le stesse molteplicità algebriche e geometriche", "rk(A) è la somma delle molteplicità degli autovalori non nulli", "rk(A) è la somma delle molteplicità degli autovalori positivi"]
+correct = "c"
+why = "A ~ D diagonal and rk A = rk D = number of nonzero diagonal entries = n − mg(0) = sum of the multiplicities of the nonzero eigenvalues."
+
+
+[[item]]
+id = "P2409A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+setup = "Si considerino V = {(x, y, z) ∈ R³ : x + 3y = 0} e W = {(x, y, z) ∈ R³ : 2x + y + z = 0}."
+text = "a) Determinare una base e la dimensione di V e W."
+data = { U = { A = [[1, 3, 0]] }, W = { A = [[2, 1, 1]] }, parts = ["U", "W"], uw = ["V", "W"] }
+
+
+[[item]]
+id = "P2409A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 4
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "b) Determinare una base e la dimensione di V + W e V ∩ W."
+data = { U = { A = [[1, 3, 0]] }, W = { A = [[2, 1, 1]] }, parts = ["sum_basis", "dim_sum", "int_basis", "dim_int"], uw = ["V", "W"] }
+
+
+[[item]]
+id = "P2409A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 1
+topic = "sum_intersection"
+page = 2
+task = "open"
+text = "c) Determinare a quale dei sottospazi precedenti appartiene il vettore (3, 1, −1)."
+[item.data]
+solution = """
+3 + 3·1 = 6 ≠ 0: not in V; 2·3 + 1 − 1 = 6 ≠ 0: not in W, hence not in V ∩ W. It belongs only to V + W = R³."""
+
+
+[[item]]
+id = "P2409A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 4
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+setup = "Si consideri, al variare di k ∈ R, la matrice A = (3 0 1 0; k − 1 2 1 0; 0 0 k 0; −1 2 3 1)."
+text = "a) Determinare i valori di k ∈ R per cui A è diagonalizzabile."
+data = { param = "k", A = [[3, 0, 1, 0], ["k - 1", 2, 1, 0], [0, 0, "k", 0], [-1, 2, 3, 1]], name = "A", candidates = [1, 2, 3] }
+
+
+[[item]]
+id = "P2409A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "eigen"
+text = "b) Per k = 2, trovare una base di R⁴ formata da autovettori di A."
+data = { A = [[3, 0, 1, 0], [1, 2, 1, 0], [0, 0, 2, 0], [-1, 2, 3, 1]], keep = ["basis of V"] }
+
+
+[[item]]
+id = "P2409A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "yesno"
+setup = "Data la quadrica Q = {x ∈ R³ : x1² + x3² + 2x1x3 + 2√2 x1 + 2x2 + 2√2 x3 + 4 = 0}."
+text = "a) Stabilire se la quadrica ammette centro."
+data = { answer = false, why = "Centre: Ax = −b with A = (1 0 1; 0 0 0; 1 0 1), b = (√2, 1, √2): the second equation reads 0 = −1, impossible. No centre." }
+
+
+[[item]]
+id = "P2409A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Classificare metricamente e affinemente Q."
+[item.data]
+solution = """
+Q: (x1 + x3)² + 2√2(x1 + x3) + 2x2 + 4 = 0. With u = (x1 + x3)/√2 (orthonormal change): 2u² + 4u + 2x2 + 4 = 0, i.e. 2(u + 1)² + 2(x2 + 1) = 0. Metric canonical form: U² + X = 0 (U = u + 1, X = x2 + 1): a parabolic cylinder (also affinely)."""
+
+
+[[item]]
+id = "P2409A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "conics"
+page = 4
+task = "open"
+text = "c) Classificare metricamente e affinemente la conica che si ottiene intersecando Q con il piano x3 = 0."
+[item.data]
+solution = """
+x3 = 0: x1² + 2√2 x1 + 2x2 + 4 = 0 ⇔ (x1 + √2)² + 2(x2 + 1) = 0: a parabola, metric form X² = −2Y (affinely: a parabola)."""

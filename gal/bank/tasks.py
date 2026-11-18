@@ -538,7 +538,10 @@ def t_grassmann(d, text):
             "direct": ("is the sum direct?", YesNoAns(dint == 0, steps[-1])),
             "int_basis": ("a basis of U ∩ W ('none' if {0})", SpanAns(inter, n, "U ∩ W")),
             "sum_basis": ("a basis of U + W", SpanAns(ssum, n, "U + W"))}
-    return f"U = {show(d['U'])}\nW = {show(d['W'])}", [allp[k] for k in grassmann_keys(d)], steps
+    u, w = d.get("uw", ["U", "W"])          # the paper's own names, e.g. ["V", "W"] or ["H", "K"]
+    ren = lambda txt: txt.replace("U", "\0").replace("W", w).replace("\0", u)
+    parts = [(ren(l), a) for l, a in (allp[k] for k in grassmann_keys(d))]
+    return f"{u} = {show(d['U'])}\n{w} = {show(d['W'])}", parts, [ren(x) for x in steps]
 
 
 POS_OPTS = ["coincident / one contained in the other", "parallel (no common points)",

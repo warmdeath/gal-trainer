@@ -173,3 +173,18 @@ def test_p2407a():
     assert abs(sp.Matrix([0, 0, 1]).dot(n)) / n.norm() == 1 / sp.sqrt(3) and mcq_key("P2407A-D12") == "a"
     A = M([[5, 0, 3], [0, 8, 0], [3, 0, 5]])
     assert A.det() == 128 and A.eigenvals() == {8: 2, 2: 1}
+
+
+# ------------------------------------------------------------------ 09/2024
+def test_p2409a():
+    a = sp.symbols("a")
+    p1, p2, p3 = sp.Matrix([a, 0, -1, 1]), sp.Matrix([0, a, -1, 1]), sp.Matrix([a, a, -2, 2])
+    assert p3 == p1 + p2 and mcq_key("P2409A-D6") == "d"
+    k, t = sp.symbols("k t")
+    A = sp.Matrix([[3, 0, 1, 0], [k - 1, 2, 1, 0], [0, 0, k, 0], [-1, 2, 3, 1]])
+    assert sp.factor(A.charpoly(t).as_expr()) == sp.factor((t - k) * (t - 1) * (t - 2) * (t - 3))
+    assert [v for v in (1, 2, 3) if not A.subs(k, v).is_diagonalizable()] == [1, 3]
+    x1, x2, x3, u = sp.symbols("x1 x2 x3 u")
+    s2 = sp.sqrt(2)
+    q = x1**2 + x3**2 + 2*x1*x3 + 2*s2*x1 + 2*x2 + 2*s2*x3 + 4
+    assert sp.expand(q.subs(x1, s2*u - x3) - (2*(u + 1)**2 + 2*(x2 + 1))) == 0
