@@ -1,0 +1,320 @@
+[source]
+id = "P2206A"
+title = "Appello 06/2022 (Parte A + B)"
+kind = "exam"
+date = "2022-06-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-06 Appello - Parte A.pdf", sha256 = "8d0a83c4bdaf910d11891d88250699a25f174b579a562a0041d0e57e0c3160ce", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-06 Appello - Parte B.pdf", sha256 = "ae573b95ad2a44764f760a353f736e792cb5f9dd733784cbdcef7471cab25954", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2206A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_K(n, n) e b ∈ Kⁿ, e il sistema lineare Ax = b."
+[item.data]
+options = ["Ax = b ha soluzioni se e solo se rk(A) = n", "Ax = b ha un'unica soluzione se e solo se rk(A|b) = n + 1", "L'insieme delle soluzioni di Ax = b è un sottospazio vettoriale di Kⁿ", "Se Ax = b ha soluzioni allora b ∈ col(A)"]
+correct = "d"
+why = "Ax = b ⇔ b is the combination of the columns with coefficients x. rk(A|b) ≤ n always; Sol(A|b) is a subspace only for b = 0."
+
+
+[[item]]
+id = "P2206A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(4, 4) una matrice triangolare superiore."
+[item.data]
+options = ["Le molteplicità algebrica e geometrica coincidono per ogni autovalore di A", "La somma delle molteplicità algebriche degli autovalori di A è 4", "A è invertibile", "det(A) = 0"]
+correct = "b"
+why = "The eigenvalues are the diagonal entries, all real: p_A splits and the algebraic multiplicities add up to 4. The others depend on the entries."
+
+
+[[item]]
+id = "P2206A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "Si considerino v1 = (2, −1, 0), v2 = (1, 1, −1), v3 = (0, 3, −2), v4 = (3, 0, −1) in R³."
+[item.data]
+options = ["I vettori v1, v2, v3, v4 sono ortogonali a due a due", "È possibile estrarre una base di R³ dall'insieme {v1, v2, v3, v4}", "Esiste un'unica scelta di c1, c2, c3, c4 ∈ R tale che c1v1 + c2v2 + c3v3 + c4v4 = 0", "Esiste un'applicazione lineare L: R⁴ → R³ tale che L(e1) = v1, L(e2) = v2, L(e3) = v3, L(e4) = v4"]
+correct = "d"
+why = "A linear map can send the canonical basis anywhere. v4 = v1 + v2 and v3 = 2v2 − v1: rank 2, no basis; dependence relations are not unique; v1·v2 = 1 ≠ 0."
+
+
+[[item]]
+id = "P2206A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Trovare i valori di k ∈ R per cui L_k(x, y) = (y + k + 1, (k − 1)x) è un'applicazione lineare."
+[item.data]
+options = ["k = 1", "k = −1", "k = 1, −1", "Nessun k ∈ R"]
+correct = "b"
+why = "Linear ⇔ L_k(0) = 0 ⇔ k + 1 = 0; then L(x, y) = (y, −2x) is linear."
+
+
+[[item]]
+id = "P2206A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "orthogonality"
+page = 1
+task = "mcq"
+text = "Determinare la dimensione del complemento ortogonale di H = Span((1, 1, 1), (1, 0, 1), (1, 1, 0), (0, 1, 1)) ⊆ R³"
+[item.data]
+options = ["dim H⊥ = 0", "dim H⊥ = 1", "dim H⊥ = 2", "dim H⊥ = 3"]
+correct = "a"
+why = "(1,0,1), (1,1,0), (0,1,1) are independent, so H = R³ and H⊥ = {0}."
+
+
+[[item]]
+id = "P2206A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R³ e v1, v2, v3 ≠ 0 con L(v1) = v1, L(v2) = 2v2, L(v3) = 3v3. Allora"
+[item.data]
+options = ["dim Im(L) = 2", "v1 + v2 − v3 ∈ ker(L)", "χ_L(x) = −x³ + x² + 2x + 3", "v1, v2, v3 formano una base di R³"]
+correct = "d"
+why = "Eigenvectors of distinct eigenvalues are independent: three of them in R³ form a basis. Then L is invertible (dim Im = 3) and χ_L = −(x − 1)(x − 2)(x − 3)."
+
+
+[[item]]
+id = "P2206A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(2, 2) con χ_A(x) = x² + 2x + 3."
+[item.data]
+options = ["A non è simmetrica", "ker(A) ≠ {0}", "det(A) = 2", "tr(A) = 3"]
+correct = "a"
+why = "Discriminant 4 − 12 < 0: no real eigenvalues, while real symmetric matrices always have real ones. det A = 3, tr A = −2, A is invertible."
+
+
+[[item]]
+id = "P2206A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Determinare la posizione reciproca tra r1 = (Span((0, 3, 0), (1, 0, −1)))⊥ e r2 = (2, 0, 2) + Span((1, 1, 1)) in R³"
+[item.data]
+options = ["r1 e r2 sono incidenti ma non perpendicolari", "r1 e r2 sono perpendicolari", "r1 e r2 sono parallele", "r1 e r2 sono sghembe"]
+correct = "a"
+why = "r1 = Span((1, 0, 1)) contains (2, 0, 2) ∈ r2: they meet. ⟨(1, 0, 1), (1, 1, 1)⟩ = 2 ≠ 0: not perpendicular."
+
+
+[[item]]
+id = "P2206A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Sia H ⊊ Rⁿ un sottospazio e A la matrice della proiezione ortogonale π_H rispetto alla base canonica."
+[item.data]
+options = ["−1 è un autovalore di A", "A è invertibile", "ker(A) = H", "A² = A"]
+correct = "d"
+why = "Projecting twice is projecting once. The eigenvalues are 0 and 1; ker A = H⊥ ≠ {0}."
+
+
+[[item]]
+id = "P2206A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "orthogonality"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat_R(n, n), B ∈ Mat_R(n, p) con AᵀB = 0."
+[item.data]
+options = ["row(A) ⊥ col(B)", "col(A) ⊥ row(B)", "col(A) ⊥ col(B)", "row(A) ⊥ row(B)"]
+correct = "c"
+why = "(AᵀB)_ij = ⟨i-th column of A, j-th column of B⟩."
+
+
+[[item]]
+id = "P2206A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia L: Rⁿ → Rⁿ un'isometria lineare rispetto al prodotto scalare standard."
+[item.data]
+options = ["La matrice rappresentativa di L rispetto alla base canonica è simmetrica", "L è un endomorfismo diagonalizzabile", "‖L(v) − L(w)‖ = ‖v − w‖ per ogni v, w", "v·L(w) = w·L(v) per ogni v, w"]
+correct = "c"
+why = "‖L(v) − L(w)‖ = ‖L(v − w)‖ = ‖v − w‖. A rotation by 90° in R² is neither symmetric nor diagonalisable over R."
+
+
+[[item]]
+id = "P2206A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia p: R² → R una forma quadratica con p(x, 0) = 0 per ogni x e p(0, y) ≥ 0 per ogni y."
+[item.data]
+options = ["p è definita positiva", "p è semidefinita positiva", "p è indefinita", "non è possibile determinare il segno di p dalle informazioni date"]
+correct = "d"
+why = "p = 2bxy + cy² with c ≥ 0: for b = 0 it is semidefinite, for b ≠ 0 indefinite (p(x, 1) = 2bx + c changes sign)."
+
+
+[[item]]
+id = "P2206A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 1
+topic = "rep_matrix"
+page = 2
+task = "matexpr"
+setup = "Sia L: R_≤2[x] → R_≤2[x] con L(x²) = x + x², L(x) = x² + 1, L(1) = x + x². (Coordinates w.r.t. {1, x, x²}.)"
+text = "a) Scrivere la matrice rappresentativa di L rispetto alle basi ordinate B = {x², x, 1} (dominio) e B′ = {1, x, x²} (codominio)."
+data = { matrices = { M = [[0, 1, 0], [1, 0, 1], [1, 1, 1]] }, exprs = ["M"], labels = ["M^B_B′(L)"], show = false }
+
+
+[[item]]
+id = "P2206A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "b) Determinare nucleo e immagine di L, una loro base e le rispettive dimensioni. (Coordinates w.r.t. {1, x, x²}; the matrix below has columns L(1), L(x), L(x²).)"
+data = { A = [[0, 1, 0], [1, 0, 1], [1, 1, 1]], keep = ["basis of ker", "basis of Im"], coords_note = "coordinates w.r.t. {1, x, x²}" }
+
+
+[[item]]
+id = "P2206A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 1
+topic = "vector_spaces"
+page = 2
+task = "open"
+text = "c) Verificare che U = {p(x) ∈ R_≤2[x] : p(1) = 0} è un sottospazio di R_≤2[x]."
+[item.data]
+solution = """
+U = ker of the linear map p ↦ p(1): 0 ∈ U and (αp + βq)(1) = αp(1) + βq(1) = 0 for p, q ∈ U."""
+
+
+[[item]]
+id = "P2206A-E1d"
+ref = "Esercizio 1 d)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "values"
+text = "d) Determinare le dimensioni di U e di L(U)."
+data = { answers = [["dim U", 2], ["dim L(U)", 1]], why = "U = Span(1 − x, x − x²) (one condition): dim 2. L(1 − x) = x − 1 and L(x − x²) = 1 − x: L(U) = Span(1 − x), dimension 1 (U contains ker L = Span(1 − x²))." }
+
+
+[[item]]
+id = "P2206A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "charpoly"
+setup = "Sia T: R³ → R³, T(x, y, z) = (x + y + z, y, y + 3z)."
+text = "a) Determinare gli autovalori di T."
+data = { A = [[1, 1, 1], [0, 1, 0], [0, 1, 3]], keep = ["spectrum"] }
+
+
+[[item]]
+id = "P2206A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Stabilire se T è diagonalizzabile."
+data = { A = [[1, 1, 1], [0, 1, 0], [0, 1, 3]], keep = ["diagonalisable"] }
+
+
+[[item]]
+id = "P2206A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "basis_span"
+text = "c) Determinare il sottospazio U ⊆ R³ generato dagli autovettori di T. (Eigenvectors: (1, 0, 0) for 1 and (1, 0, 2) for 3; give dim and a basis of U.)"
+data = { vectors = [[1, 0, 0], [1, 0, 2]], hide = true }
+
+
+[[item]]
+id = "P2206A-E2d"
+ref = "Esercizio 2 d)"
+section = "II"
+points = 2
+topic = "projections"
+page = 3
+task = "matexpr"
+text = "d) Determinare la matrice della proiezione (ortogonale) su U rispetto alla base canonica di R³."
+data = { matrices = { P = [[1, 0, 0], [0, 0, 0], [0, 0, 1]] }, exprs = ["P"], labels = ["matrix of π_U"], show = false }
+
+
+[[item]]
+id = "P2206A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Nello spazio R³ si consideri la quadrica Ω: x² + y² + z² − xy − xz − yz − 1 = 0."
+text = "a) Fornire la classificazione metrica della quadrica."
+[item.data]
+solution = """
+A = (1 −1/2 −1/2; −1/2 1 −1/2; −1/2 −1/2 1): eigenvalues 0 ((1, 1, 1)) and 3/2 (double). No linear terms: (3/2)(X² + Y²) = 1, i.e. X² + Y² = 2/3: a circular cylinder with axis Span((1, 1, 1))."""
+
+
+[[item]]
+id = "P2206A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "conics"
+page = 4
+task = "open"
+text = "b) Dimostrare che la conica tagliata da Ω sul piano xy ha centro di simmetria, e scriverne una forma canonica."
+[item.data]
+solution = """
+z = 0: x² − xy + y² = 1. Matrix (1 −1/2; −1/2 1), det 3/4 ≠ 0 and no linear terms: centre (0, 0). Eigenvalues 1/2 and 3/2: X²/2 + 3Y²/2 = 1, i.e. X²/2 + Y²/(2/3) = 1, a real ellipse."""
