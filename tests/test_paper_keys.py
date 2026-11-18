@@ -214,3 +214,19 @@ def test_p2306a():
     u1, u2 = sp.Matrix([-1, 0, 1]) / sp.sqrt(2), sp.Matrix([1, -2, 1]) / sp.sqrt(6)
     p = sp.Matrix([1, 0, 0]) + X * u1 + Y * u2
     assert sp.simplify(sp.expand(q.subs({x: p[0], y: p[1], z: p[2]})) - (3*X**2 - 3*Y**2 + 1)) == 0
+
+
+# ------------------------------------------------------------------ 02/2022
+def test_p2202a():
+    E = sp.Matrix([[1, 0, 1, 0], [1, 1, 0, -1]])
+    assert sym(key("P2202A-E1b")["matrix of π_U"].M) == proj_matrix([list(v) for v in E.nullspace()])
+    x1, x2, x3 = sp.symbols("x1 x2 x3")
+    X = sp.Matrix([x1, x2, x3])
+    dr = X.dot(X) - (x2 + x3)**2 / 2
+    Y = X - sp.Matrix([0, 1, 0])
+    ds = Y.dot(Y) - (x1 + x3)**2 / 2
+    assert sp.expand(2 * (dr - ds)) == sp.expand(-(x1**2 - x2**2 + 2*x1*x3 - 2*x2*x3 + 4*x2 - 2)) or \
+        sp.expand(2 * (ds - dr)) == sp.expand(-(x1**2 - x2**2 + 2*x1*x3 - 2*x2*x3 + 4*x2 - 2)) or \
+        sp.expand(2 * (dr - ds)) == sp.expand(x1**2 - x2**2 + 2*x1*x3 - 2*x2*x3 + 4*x2 - 2)
+    Q = sp.Matrix([[1, 0, 1, 0], [0, -1, -1, 2], [1, -1, 0, 0], [0, 2, 0, -2]])
+    assert Q.det() == 4

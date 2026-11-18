@@ -1,0 +1,294 @@
+[source]
+id = "P2202A"
+title = "Appello 02/2022 (Parte A + B)"
+kind = "exam"
+date = "2022-02-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-02 Appello - Parte A.pdf", sha256 = "1dbfee8a7bc69efad281b70b1fd18d105381a5db781677187fc8715b904d594b", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-02 Appello - Parte B.pdf", sha256 = "88d82f11f77f6e665ae2377003a419f6231a251ee7ad52fbc36a52a90ae89d8a", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2202A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Data la matrice A = (1 −1 3; 4 −2 6; 6 −3 9; 8 −4 12)"
+[item.data]
+options = ["dim ker(A) = 0", "dim ker(A) = 1", "dim ker(A) = 2", "dim ker(A) = 3"]
+correct = "b"
+why = "Rows 3 and 4 are multiples of row 2 = (4, −2, 6), which is not a multiple of row 1: rank 2, so dim ker = 3 − 2 = 1."
+
+
+[[item]]
+id = "P2202A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat_R(3, 2) e b ∈ R³. Se il sistema Ax = b ammette un'unica soluzione, allora"
+[item.data]
+options = ["rk(A) = rk(A|b)", "ker(A) ≠ {0}", "rk(A) = 3", "det(A) ≠ 0"]
+correct = "a"
+why = "Rouché-Capelli: solvable ⇔ rk A = rk(A|b) (= 2 = number of unknowns, so ker A = {0}). A is not square: no det, rank ≤ 2."
+
+
+[[item]]
+id = "P2202A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Sia dim V = 8 e H, K ⊆ V con dim H = 5, dim K = 4. Allora"
+[item.data]
+options = ["K ⊆ H", "dim(H ∩ K) = 1", "H + K = V", "H ∩ K ≠ {0}"]
+correct = "d"
+why = "dim(H ∩ K) = 9 − dim(H + K) ≥ 9 − 8 = 1."
+
+
+[[item]]
+id = "P2202A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti funzioni è un'applicazione lineare?"
+[item.data]
+options = ["L: R[t]_≤2 → R[t]_≤1, L(p(t)) = t + p′(t)", "L: R[t]_≤2 → R², L(p(t)) = (p(1), p(2))", "L: Mat_R(2, 2) → R, L(M) = det(M)", "L: Mat_R(2, 2) → Mat_R(2, 2), L(M) = Mᵀ + I2"]
+correct = "b"
+why = "Evaluation at 1 and 2 is linear. A and D add a constant, det is not additive."
+
+
+[[item]]
+id = "P2202A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "L'applicazione lineare associata alla matrice A = (1 2 3; 4 5 6)"
+[item.data]
+options = ["è un isomorfismo", "è iniettiva ma non suriettiva", "è suriettiva ma non iniettiva", "nessuna delle altre"]
+correct = "c"
+why = "R³ → R² with rk A = 2: onto R², kernel of dimension 1."
+
+
+[[item]]
+id = "P2202A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(3, 3) con χ_A(x) = −x(x + 1)²."
+[item.data]
+options = ["A è diagonalizzabile", "A è invertibile", "−1 è un autovalore di A con molteplicità geometrica g_−1 = 2", "det(A) = 0"]
+correct = "d"
+why = "0 is an eigenvalue, so det A = 0. mg(−1) can be 1 or 2, so A and C are not certain."
+
+
+[[item]]
+id = "P2202A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti matrici è simile a (1 −2; −1 2)?"
+[item.data]
+options = ["(2 −4; −2 4)", "(0 0; 3 3)", "(1 2; −1 2)", "(1 0; 0 2)"]
+correct = "b"
+why = "The given matrix has trace 3, det 0: eigenvalues 0, 3, diagonalisable. (0 0; 3 3) also has eigenvalues 0 and 3. The others have trace 6, det 4, or eigenvalues 1, 2."
+
+
+[[item]]
+id = "P2202A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Trovare l'angolo formato dai vettori (1, −1, 1, −1), (0, 2, −2, 0) ∈ R⁴."
+[item.data]
+options = ["π/4", "π/3", "3π/4", "2π/3"]
+correct = "c"
+why = "⟨v, w⟩ = −4, ‖v‖ = 2, ‖w‖ = 2√2: cos θ = −1/√2, θ = 3π/4."
+
+
+[[item]]
+id = "P2202A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "orthogonality"
+page = 1
+task = "mcq"
+text = "Trovare il complemento ortogonale di U = Span((1, 0, 1, 0), (1, −1, 0, 0), (0, −1, −1, 0)) ⊆ R⁴."
+[item.data]
+options = ["U⊥ = Span((0, 0, 0, 1), (1, 1, −1, 0))", "U⊥ = Span((1, 0, −1, 0))", "U⊥ = Span((1, 1, −1, 0))", "U⊥ = Span((1, 0, −1, 0), (0, 1, −1, 0), (1, 1, 0, 0))"]
+correct = "a"
+why = "dim U = 2 (third generator = second − first), so dim U⊥ = 2: x + z = 0, x − y = 0, solved by (0, 0, 0, 1) and (1, 1, −1, 0)."
+
+
+[[item]]
+id = "P2202A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti forme quadratiche è equivalente a p(x1, x2, x3) = x1² + x2x3?"
+[item.data]
+options = ["x1² + x2²", "x1² − x2²", "x1² + x2² − x3²", "x1² + x2² + x3²"]
+correct = "c"
+why = "x2x3 has eigenvalues ±1/2: p has signature (2, 1, 0), the same as x1² + x2² − x3² (Sylvester)."
+
+
+[[item]]
+id = "P2202A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Dati la retta L: x = t + 1, y = −t + 1, z = −t + 2 e il piano π: 2x − y + 3z = 6 in R³"
+[item.data]
+options = ["L ⊆ π", "L e π sono paralleli", "L e π sono perpendicolari", "L e π sono incidenti ma non perpendicolari"]
+correct = "b"
+why = "Direction (1, −1, −1)·(2, −1, 3) = 2 + 1 − 3 = 0: L ∥ π. The point (1, 1, 2) gives 2 − 1 + 6 = 7 ≠ 6: L ⊄ π."
+
+
+[[item]]
+id = "P2202A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Classificare la quadrica Q ⊆ R³ di equazione x1x2 + x2x3 = 3."
+[item.data]
+options = ["Q è un cilindro iperbolico", "Q è un cilindro ellittico", "Q è un iperboloide iperbolico", "Q è un iperboloide ellittico"]
+correct = "a"
+why = "Matrix (0 1/2 0; 1/2 0 1/2; 0 1/2 0): eigenvalues ±1/√2 and 0, no linear terms: (1/√2)(X² − Y²) = 3, a hyperbolic cylinder."
+
+
+[[item]]
+id = "P2202A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "bases"
+page = 2
+task = "basis_eqs"
+setup = "Sia U ⊆ R⁴ il sottospazio U: { x1 + x3 = 0;  x1 + x2 − x4 = 0 }."
+text = "a) Determinare la dimensione di U, e scrivere una sua base."
+data = { A = [[1, 0, 1, 0], [1, 1, 0, -1]], names = ["x1", "x2", "x3", "x4"], hide = true }
+
+
+[[item]]
+id = "P2202A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "projections"
+page = 2
+task = "matexpr"
+text = "b) Scrivere la matrice di proiezione sul sottospazio U."
+data = { matrices = { P = [["2/5", "-1/5", "-2/5", "1/5"], ["-1/5", "3/5", "1/5", "2/5"], ["-2/5", "1/5", "2/5", "-1/5"], ["1/5", "2/5", "-1/5", "3/5"]] }, exprs = ["P"], labels = ["matrix of π_U"], show = false }
+
+
+[[item]]
+id = "P2202A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 3
+topic = "projections"
+page = 2
+task = "proj"
+text = "c) Determinare la proiezione su U⊥ del vettore v = (1, 0, 0, 0)ᵀ."
+data = { A = [[1, 0, 1, 0], [1, 1, 0, -1]], v = [1, 0, 0, 0], name = "U", ask = ["perp"] }
+
+
+[[item]]
+id = "P2202A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 3
+topic = "linear_maps"
+page = 3
+task = "kerim"
+setup = "Sia L: R³ → R³, L(x, y, z) = (x − z, 2x − y − 2z, 3x − 3z)."
+text = "a) Determinare una base, la dimensione e un sistema di equazioni cartesiane per ker(L) e per Im(L). (Give the bases; equations: ker L = {x = z, y = 0}, Im L = {3x − z = 0}.)"
+data = { A = [[1, 0, -1], [2, -1, -2], [3, 0, -3]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2202A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "charpoly"
+text = "b) Determinare gli autovalori di L."
+data = { A = [[1, 0, -1], [2, -1, -2], [3, 0, -3]], keep = ["spectrum"] }
+
+
+[[item]]
+id = "P2202A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "yesno"
+text = "c) Stabilire se esiste una base B di R³ tale che M_L^{B,B} = (0 1 1; 0 −1 1; 0 0 −2)."
+data = { answer = true, why = "Both L and the given triangular matrix have the three distinct eigenvalues 0, −1, −2, so both are diagonalisable and similar to diag(0, −1, −2): the given matrix is M^B_B(L) for a suitable basis B." }
+
+
+[[item]]
+id = "P2202A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Nello spazio R³ si considerino le rette r: {x1 = 0, x2 = x3} e s: {x1 = x3, x2 = 1}, e la superficie Ω dei punti equidistanti da r ed s."
+text = "a) Verificare che Ω è una quadrica, di equazione x1² − x2² + 2x1x3 − 2x2x3 + 4x2 − 2 = 0."
+[item.data]
+solution = """
+r = Span((0, 1, 1)), s = (0, 1, 0) + Span((1, 0, 1)). d(x, r)² = ‖x‖² − (x2 + x3)²/2, d(x, s)² = ‖x − (0, 1, 0)‖² − (x1 + x3)²/2. Equating, expanding and multiplying by 2 gives x1² − x2² + 2x1x3 − 2x2x3 + 4x2 − 2 = 0."""
+
+
+[[item]]
+id = "P2202A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Scrivere una forma canonica di Ω."
+[item.data]
+solution = """
+A = (1 0 1; 0 −1 −1; 1 −1 0): eigenvalues √3, −√3, 0; no centre and det of the 4 × 4 matrix = 4 ≠ 0: a hyperbolic paraboloid. With λ1λ2c² = −det: 3c² = 4, c = 2/√3. Canonical form √3X² − √3Y² = (4/√3)Z, i.e. X² − Y² = (4/3)Z."""
