@@ -1,0 +1,190 @@
+[source]
+id = "P2111I1"
+title = "Prova in itinere 1, 11/2021"
+kind = "exam"
+date = "2021-11-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2021-11 Itinere 1 - Parte A.pdf", sha256 = "aba080eb70cb95f4b8663051ad2e425da3cb7d6721656f0bebc34d94c4538d30", pages = 4 },
+]
+note = "Previous lecturer's first itinere, test part only (12 questions, 1 point each; the score is also shown out of 16). No official solutions: keys worked out and checked by the trainer."
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "altro docente", half = 1 }
+
+
+[[item]]
+id = "P2111I1-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Il sistema lineare { x + y + z = a;  y − z = b;  y + z = c } ammette soluzioni reali"
+[item.data]
+options = ["per ogni a, b, c ∈ R", "se e solo se a = b = c = 0", "per infiniti valori di a, b, c ∈ R, ma non per tutti", "nessuna delle altre risposte è corretta"]
+correct = "a"
+why = "The coefficient matrix has det = 1·(1·1 − (−1)·1) = 2 ≠ 0: exactly one solution for every a, b, c."
+
+
+[[item]]
+id = "P2111I1-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Siano v, w soluzioni di un sistema lineare AX = B. Allora"
+[item.data]
+options = ["v − w è ancora soluzione del sistema AX = B", "v + w è soluzione del sistema omogeneo AX = 0", "2v − 3w è soluzione del sistema AX = −B", "v = w"]
+correct = "c"
+why = "A(2v − 3w) = 2B − 3B = −B. A(v − w) = 0 and A(v + w) = 2B."
+
+
+[[item]]
+id = "P2111I1-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "La matrice A = (k 0 0 k; 0 k 0 0; 0 0 k 0; 1 0 0 k)"
+[item.data]
+options = ["A ha rango 4 per ogni k ≠ 0", "per k = 0, A ha rango 2", "A ha rango almeno 3 per k ≠ 0", "per k = 1, A ha rango 2"]
+correct = "c"
+why = "det A = k³(k − 1): rank 4 for k ≠ 0, 1; for k = 1 rows 1 and 4 coincide and the rank is 3; for k = 0 the rank is 1."
+
+
+[[item]]
+id = "P2111I1-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "L'inversa della matrice (1 0 2; 2 1 0; 0 0 1) è"
+[item.data]
+options = ["(1 0 −2; −2 1 4; 0 0 1)", "(1 −2 0; 0 1 0; −2 4 1)", "(1 0 −2; −2 1 4; 0 1 0)", "non esiste"]
+correct = "a"
+why = "Check: (1 0 2; 2 1 0; 0 0 1)(1 0 −2; −2 1 4; 0 0 1) = I."
+
+
+[[item]]
+id = "P2111I1-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "I polinomi x² − 2x + 1, x² − x, 1 − x ∈ R[x]_≤2"
+[item.data]
+options = ["formano una base di R[x]_≤2", "sono un insieme di generatori di R[x]_≤2", "sono linearmente indipendenti", "generano un sottospazio di R[x]_≤2 di dimensione 2"]
+correct = "d"
+why = "(x² − x) − (x² − 2x + 1) = x − 1 = −(1 − x): dependent, and the first two are independent: the span has dimension 2."
+
+
+[[item]]
+id = "P2111I1-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Il vettore delle coordinate di v = (1, 1, 1) rispetto alla base {(1, 1, 0), (0, −1, −1), (1, 0, 1)} è"
+[item.data]
+options = ["(−1/2, 1/2, 1/2)", "(1/2, −1/2, 1/2)", "(1/2, 1/2, −1/2)", "(−1/2, −1/2, 1/2)"]
+correct = "b"
+why = "½(1, 1, 0) − ½(0, −1, −1) + ½(1, 0, 1) = (1, 1, 1)."
+
+
+[[item]]
+id = "P2111I1-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Dati U = Span((1, −1, 0), (1, 0, −1), (0, 1, −1)) e V = {(x, y, z) | x − y + z = 0} in R³"
+[item.data]
+options = ["U è un sottospazio di V", "V è un sottospazio di U", "U ∩ V = {(0, 0, 0)} e U + V = R³", "dim(U ∩ V) = 1"]
+correct = "d"
+why = "U = {x + y + z = 0} (the third generator is the difference of the first two): two distinct planes through 0 meet in a line."
+
+
+[[item]]
+id = "P2111I1-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Dire quale delle seguenti funzioni f: R³ → R² è un'applicazione lineare:"
+[item.data]
+options = ["f(x, y, z) = (0, 0)", "f(x, y, z) = (1, 1)", "f(x, y, z) = (x + y + 1, z)", "f(x, y, z) = (x + 2xy, xy + 2y)"]
+correct = "a"
+why = "The zero map is linear. B and C do not send 0 to 0; D contains products xy."
+
+
+[[item]]
+id = "P2111I1-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R³, L(x, y, z) = (x − z, 2x + 3y + z, −x + y + 2z)ᵀ."
+[item.data]
+options = ["L non è lineare", "dim Im(L) = 3", "dim Im(L) = 1", "dim Im(L) = 2"]
+correct = "d"
+why = "The matrix (1 0 −1; 2 3 1; −1 1 2) has rank 2 (det = 0, two independent rows)."
+
+
+[[item]]
+id = "P2111I1-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia f: Mat_R(3, 3) → Mat_R(3, 3), f(X) = X − Xᵀ."
+[item.data]
+options = ["f è iniettiva", "f non è un'applicazione lineare", "dim ker(f) = 6", "dim Im(f) = 6"]
+correct = "c"
+why = "ker f = symmetric matrices (dimension 6); Im f = antisymmetric matrices (dimension 3); 6 + 3 = 9."
+
+
+[[item]]
+id = "P2111I1-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Sia f: R[x]_≤2 → R² rappresentata dalla matrice (1 0 1; 1 1 0) rispetto alle basi {1, 2x, 4x²} e {e1, e2}. Allora"
+[item.data]
+options = ["f(3 + 2x + 4x²) = (4, 4)ᵀ", "f(2x) = (0, 2)ᵀ", "f(1 + 2x) = (1, 1)ᵀ", "f(1 + x + x²) = (3, 3)ᵀ"]
+correct = "a"
+why = "3 + 2x + 4x² has coordinates (3, 1, 1) and M(3, 1, 1)ᵀ = (4, 4). f(2x) = (0, 1), f(1 + 2x) = (1, 2)."
+
+
+[[item]]
+id = "P2111I1-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Le rette r = {(3, −3, 3) + t(1, −1, 1)} e s = {x + y = y + z = 0} di R³"
+[item.data]
+options = ["sono incidenti in un solo punto", "sono coincidenti", "sono parallele e distinte", "sono sghembe"]
+correct = "b"
+why = "s = Span((1, −1, 1)) through 0, and (3, −3, 3) ∈ s: the same line."
