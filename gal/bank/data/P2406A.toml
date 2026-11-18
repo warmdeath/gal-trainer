@@ -1,0 +1,348 @@
+[source]
+id = "P2406A"
+title = "Appello 06/2024 (Parte A + B)"
+kind = "exam"
+date = "2024-06-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-06 Appello - Parte A.pdf", sha256 = "f5c683b9795bbc742bd06f2da99f11c121141d6d52acb085add14b4c0e5d102a", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2024-06 Appello - Parte B.pdf", sha256 = "efc0e722b7839e4099d441fdff9831f4c6f1197e3dc7c138293f7eb2fa563b4e", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2406A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Date A, B ∈ Mat_R(n, n) tali che A e B hanno un autovettore comune. Allora la matrice C = AB − BA"
+[item.data]
+options = ["ha rango strettamente minore di n.", "è ortogonale.", "coincide con la matrice nulla.", "è invertibile."]
+correct = "a"
+why = "If Av = λv and Bv = μv (v ≠ 0) then Cv = λμv − μλv = 0: ker C ≠ {0}, so rk C < n. C need not be zero."
+
+
+[[item]]
+id = "P2406A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Nello spazio R[t]_≤3 si consideri S = {−1, t − t³, t² − t + 1, t³}."
+[item.data]
+options = ["S è contenuto nel sottospazio {p ∈ R[t]_≤3 | p(0) = 0}.", "Esiste un polinomio che non si scrive come combinazione lineare di elementi di S.", "S è un insieme di vettori linearmente indipendenti.", "L'insieme S′ = S ∪ {1 − t + 2t² − t³} è linearmente indipendente."]
+correct = "c"
+why = "The coordinate matrix of S has det −1 ≠ 0: S is a basis (independent and generating). −1 has p(0) ≠ 0; 5 vectors in dimension 4 are dependent."
+
+
+[[item]]
+id = "P2406A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "In Mat_R(2, 2) si considerino U0 = {A | Tr(A) = 0} e U1 = {A | Aᵀ + A = 0}. Allora"
+[item.data]
+options = ["U1 è un sottospazio vettoriale di U0.", "U0 + U1 = V.", "dim(Mat_R(2, 2)) − dim(U0) − dim(U1) > 0.", "dim(U0 ∩ U1) = 2."]
+correct = "a"
+why = "Antisymmetric matrices have zero diagonal, hence trace 0: U1 ⊆ U0. dim U0 = 3, dim U1 = 1: 4 − 3 − 1 = 0, U0 + U1 = U0 and U0 ∩ U1 = U1 (dim 1)."
+
+
+[[item]]
+id = "P2406A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "L'equazione x² − y² + 2x + 6y − 8 = 0 definisce nel piano R²"
+[item.data]
+options = ["una coppia di rette sghembe.", "una coppia di rette ortogonali.", "una coppia di rette parallele distinte.", "una coppia di rette coincidenti."]
+correct = "b"
+why = "(x + 1)² − (y − 3)² = 0 ⇔ (x − y + 4)(x + y − 2) = 0: lines with slopes 1 and −1, orthogonal."
+
+
+[[item]]
+id = "P2406A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: V → W un'applicazione lineare iniettiva fra due spazi vettoriali. Allora:"
+[item.data]
+options = ["dim(V) ≤ dim(W) + dim(ker(f)).", "dim(W) ≤ dim(Im(f)) + dim(ker(f)).", "dim(W) = dim(Im(f)) + dim(ker(f)).", "dim(V) = dim(W) + dim(Im(f))."]
+correct = "a"
+why = "Injective: ker = {0} and dim V = dim Im ≤ dim W, so dim V ≤ dim W + 0. B and C would force dim W = dim V."
+
+
+[[item]]
+id = "P2406A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(n, n) e supponiamo che esista un intero positivo N tale che A^N = 0. Se A è diagonalizzabile allora:"
+[item.data]
+options = ["A ha rango massimo.", "A è una matrice ortogonale.", "A è la matrice nulla.", "Tr(A) = n."]
+correct = "c"
+why = "Every eigenvalue satisfies λ^N = 0, so λ = 0; A = PDP⁻¹ with D = O, hence A = O."
+
+
+[[item]]
+id = "P2406A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Si consideri L: R³ → R², L(x, y, z) = (2x − y, 3x − 2z). Allora L⁻¹(0, 1) è"
+[item.data]
+options = ["una retta di R³.", "una retta di R².", "un piano di R³.", "vuota."]
+correct = "a"
+why = "2x − y = 0, 3x − 2z = 1: a consistent system of rank 2 in R³, whose solutions form a line."
+
+
+[[item]]
+id = "P2406A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Sia A = [v1|v2|v3] e B = [−v1 − v3 | v1 + v2 | v3]. Allora:"
+[item.data]
+options = ["det(A) = det(B).", "det(A) = −det(B).", "det(B) = 0.", "det(A) = (det(B))²."]
+correct = "b"
+why = "Add column 3 to column 1: (−v1 | v1 + v2 | v3); add column 1 to column 2: (−v1 | v2 | v3), whose det is −det A."
+
+
+[[item]]
+id = "P2406A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Supponiamo che A ∈ Mat_R(3, 3) abbia polinomio caratteristico χ_A(x) = −x³ + 6x² − 9x. Allora:"
+[item.data]
+options = ["la matrice A è sicuramente diagonalizzabile.", "l'applicazione lineare indotta dalla moltiplicazione per A è suriettiva.", "det(A) > 0.", "rk(A) ≤ 2."]
+correct = "d"
+why = "χ_A = −x(x − 3)²: 0 is an eigenvalue, so det A = 0 and rk A ≤ 2. Diagonalisability depends on mg(3)."
+
+
+[[item]]
+id = "P2406A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Si consideri w = (2, 3) ∈ R². Di quale dei seguenti vettori v il vettore w è la proiezione ortogonale w = π_H(v), per un opportuno sottospazio H ⊆ R²?"
+[item.data]
+options = ["v = (4, 6)", "v = (1, 1)", "v = (8, −1)", "v = (−3, 2)"]
+correct = "c"
+why = "w = π_H(v) needs v − w ⊥ w (take H = Span(w)): (8, −1) − (2, 3) = (6, −4), and (6, −4)·(2, 3) = 0."
+
+
+[[item]]
+id = "P2406A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "orthogonality"
+page = 1
+task = "mcq"
+text = "Siano v = (1, −1, 0) e u = (0, 1, −1) in R³, V = Span(v)⊥ e U = Span(u)⊥. Allora:"
+[item.data]
+options = ["U + V = R³ e U ∩ V = {0}.", "dim(U ∩ V) = 2.", "U e V coincidono.", "U ∩ V è generato dal vettore (1, 1, 1)."]
+correct = "d"
+why = "V: x − y = 0, U: y − z = 0: U ∩ V = {x = y = z} = Span((1, 1, 1)). Two distinct planes: U + V = R³ but the intersection is a line."
+
+
+[[item]]
+id = "P2406A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat_R(n, n), b ∈ Rⁿ e B = [A|b] la matrice completa del sistema Ax = b."
+[item.data]
+options = ["Se dim(Col(B)) = dim(Col(A)) + 1 allora il sistema Ax = b è risolubile.", "Se dim(Col(B)) = 2 il sistema Ax = b è risolubile.", "Se B è ridotta a scala allora il sistema Ax = b è risolubile.", "Se dim(Col(A)) = dim(Col(B)) il sistema Ax = b è risolubile."]
+correct = "d"
+why = "Rouché-Capelli: solvable ⇔ rg(A) = rg(A|b), i.e. dim Col(A) = dim Col(B)."
+
+
+[[item]]
+id = "P2406A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 1
+topic = "bilinear"
+page = 2
+task = "open"
+setup = "In R³ si consideri l'operazione ⟨u, v⟩ = u1v1 + 2u2v2 + u3v3 − u1v2 − u2v1."
+text = "a) Verificare che ⟨u, v⟩ = uᵀMv, dove M = (1 −1 0; −1 2 0; 0 0 1)."
+[item.data]
+solution = """
+uᵀMv = u1(v1 − v2) + u2(−v1 + 2v2) + u3v3 = u1v1 + 2u2v2 + u3v3 − u1v2 − u2v1."""
+
+
+[[item]]
+id = "P2406A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 1
+topic = "isometries"
+page = 2
+task = "gram"
+text = "b) Verificare che la forma quadratica q(x) = xᵀMx è definita positiva."
+data = { G = [[1, -1, 0], [-1, 2, 0], [0, 0, 1]], keep = ["is it"] }
+
+
+[[item]]
+id = "P2406A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "scalar_products"
+page = 2
+task = "open"
+text = "c) Dimostrare che ⟨u, v⟩ è un prodotto scalare."
+[item.data]
+solution = """
+Bilinear (it is uᵀMv), symmetric (M = Mᵀ), positive definite: q(x) = (x1 − x2)² + x2² + x3² > 0 for x ≠ 0 (or: leading minors 1, 1, 1 > 0)."""
+
+
+[[item]]
+id = "P2406A-E1d"
+ref = "Esercizio 1 d)"
+section = "II"
+points = 1
+topic = "scalar_products"
+page = 2
+task = "yesno"
+text = "d) Verificare se i vettori a = (1, 0, 2) e b = (0, 1, 1) sono ortogonali rispetto a questo prodotto scalare."
+data = { answer = false, why = "⟨a, b⟩ = aᵀMb = (1, 0, 2)·(−1, 2, 1) = −1 + 0 + 2 = 1 ≠ 0: not orthogonal." }
+
+
+[[item]]
+id = "P2406A-E1e"
+ref = "Esercizio 1 e)"
+section = "II"
+points = 2
+topic = "gram_schmidt"
+page = 2
+task = "gram_schmidt"
+text = "e) Determinare una base ortogonale del sottospazio W = Span{a, b}."
+data = { vectors = [[1, 0, 2], [0, 1, 1]], S = [[1, -1, 0], [-1, 2, 0], [0, 0, 1]] }
+
+
+[[item]]
+id = "P2406A-E1f"
+ref = "Esercizio 1 f)"
+section = "II"
+points = 1
+topic = "orthogonality"
+page = 2
+task = "perp"
+text = "f) Calcolare una base del sottospazio ortogonale W⊥ rispetto al prodotto scalare ⟨·,·⟩."
+data = { span = [[1, 0, 2], [0, 1, 1]], S = [[1, -1, 0], [-1, 2, 0], [0, 0, 1]], only_basis = true }
+
+
+[[item]]
+id = "P2406A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+setup = "Sia A_t = (t 1 1; 0 2 1; 0 0 t) ∈ Mat_R(3, 3), t ∈ R."
+text = "a) Trovare i valori di t per cui A_t è diagonalizzabile."
+data = { param = "t", A = [["t", 1, 1], [0, 2, 1], [0, 0, "t"]], name = "A_t", candidates = [1, 2] }
+
+
+[[item]]
+id = "P2406A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Per i valori di t trovati, calcolare la matrice P e la matrice diagonale D tali che A_t = PDP⁻¹."
+data = { A = [[1, 1, 1], [0, 2, 1], [0, 0, 1]], name = "A_1", keep = ["P with"] }
+
+
+[[item]]
+id = "P2406A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "open"
+text = "c) Usando la matrice P trovata, calcolare P⁻¹A_tᵏP per ogni k ≥ 1."
+[item.data]
+solution = """
+P⁻¹A_1ᵏP = (P⁻¹A_1P)ᵏ = Dᵏ: with D = diag(1, 1, 2) (columns of P: two eigenvectors of 1, one of 2) it is diag(1, 1, 2ᵏ)."""
+
+
+[[item]]
+id = "P2406A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 4
+task = "values"
+setup = "Si consideri l'endomorfismo L: R[t]_≤n → R[t]_≤n, L(p(t)) = p′(t) (n ≥ 1)."
+text = "a) Trovare l'unico autovalore di L."
+data = { answers = [["the eigenvalue", 0]], why = "In the basis {1, t, ..., tⁿ} the matrix is strictly upper triangular: p_L(λ) = λⁿ⁺¹, the only eigenvalue is 0." }
+
+
+[[item]]
+id = "P2406A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 4
+task = "open"
+text = "b) Trovare una base dell'autospazio associato."
+[item.data]
+solution = """
+V_0 = ker L = {p : p′ = 0} = constants = Span(1)."""
+
+
+[[item]]
+id = "P2406A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 4
+task = "open"
+text = "c) Trovarne le molteplicità algebrica e geometrica. L è diagonalizzabile?"
+[item.data]
+solution = """
+ma(0) = n + 1, mg(0) = dim V_0 = 1 < n + 1: L is not diagonalisable (for n ≥ 1)."""

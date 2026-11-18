@@ -206,7 +206,17 @@ def _gcd(a, b):
 
 
 def _divisors(n: int) -> list[int]:
-    return [d for d in range(1, n + 1) if n % d == 0] if n else [1]
+    """Positive divisors of n in O(√n) (pairs d, n/d); [1] for n = 0."""
+    if not n:
+        return [1]
+    from math import isqrt
+    small, large = [], []
+    for d in range(1, isqrt(n) + 1):
+        if n % d == 0:
+            small.append(d)
+            if d != n // d:
+                large.append(n // d)
+    return small + large[::-1]
 
 
 def charpoly(A: Matrix) -> Poly:

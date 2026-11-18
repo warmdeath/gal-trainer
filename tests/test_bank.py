@@ -566,7 +566,8 @@ def v_param_diag(d, a):
     var = sp.Symbol(d.get("param", "k"))
     A = _pm_sym(d["A"], var)
     n = A.rows
-    roots = sp.roots(sp.Poly(A.charpoly(t).as_expr(), t))
+    lam = sp.Symbol("_lam")          # not `t`: the parameter itself may be called t
+    roots = sp.roots(sp.Poly(A.charpoly(lam).as_expr(), lam))
     assert sum(roots.values()) == n, "eigenvalues must be rational functions of the parameter"
     exprs = list(roots)
     crit = set()
