@@ -1,0 +1,298 @@
+[source]
+id = "P2309A"
+title = "Appello 09/2023 (Parte A + B)"
+kind = "exam"
+date = "2023-09-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-09 Appello - Parte A.pdf", sha256 = "774e1dc77e63fecf3f7328fd43dd5a025f0d59d14ebb984bb4416c90fa6cad3f", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-09 Appello - Parte B.pdf", sha256 = "cc310c4217eedf787ccc826900e26167791e6112ef9f2546cce52ebccec38c59", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2309A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Sia {v1, v2, v3} una base di R³. Posto A = [v1|v2|v3] e b = 2v1 + 3v3, il sistema lineare Ax = b"
+[item.data]
+options = ["ammette come unica soluzione (2, 0, 3)ᵀ", "ha infinite soluzioni tra cui (2, 0, 3)ᵀ", "è impossibile", "non ci sono informazioni sufficienti per stabilire se il sistema è determinato, indeterminato o impossibile"]
+correct = "a"
+why = "A(2, 0, 3)ᵀ = 2v1 + 0v2 + 3v3 = b, and A is invertible (its columns are a basis): unique solution."
+
+
+[[item]]
+id = "P2309A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti sottoinsiemi di Mat_R(2, 2) è un suo sottospazio vettoriale?"
+[item.data]
+options = ["{A : Tr(A) + 2 = 0}", "{A : det(A) = 0}", "{A : A² + 2A + I2 = O2}", "{A : 2A + Aᵀ = O2}"]
+correct = "d"
+why = "2A + Aᵀ = O is a homogeneous linear condition. A misses O; det = 0 and A² + 2A + I = O are not closed under sum."
+
+
+[[item]]
+id = "P2309A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "La dimensione del sottospazio {p(x) ∈ R[x]_≤2 : 2p(1) + p(0) = 0} è"
+[item.data]
+options = ["3", "2", "1", "0"]
+correct = "b"
+why = "One nonzero linear condition (3a + 2b + 2c = 0) on a space of dimension 3: dimension 2."
+
+
+[[item]]
+id = "P2309A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Di A, B ∈ Mat_R(3, 3) si sa solo che il loro polinomio caratteristico è (λ − 2)(1 − λ²). Allora"
+[item.data]
+options = ["non si può sapere se A e B sono simili", "A e B non sono simili", "A e B sono simili", "A e B sono simili ma non sono diagonalizzabili"]
+correct = "c"
+why = "Three distinct eigenvalues 2, 1, −1: both are diagonalisable and similar to diag(2, 1, −1), hence to each other."
+
+
+[[item]]
+id = "P2309A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Date A = (1 0; 0 0), B = (0 0; 0 1), C = (0 1; 1 0), L: R³ → Mat_R(2, 2), L(α, β, γ) = αA + βB + γC"
+[item.data]
+options = ["è suriettiva ma non è iniettiva.", "è iniettiva ma non è suriettiva.", "è un isomorfismo.", "non è lineare."]
+correct = "b"
+why = "L(α, β, γ) = (α γ; γ β) = O only for α = β = γ = 0: injective. dim Im = 3 < 4: not surjective."
+
+
+[[item]]
+id = "P2309A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L(v) = Av con A = (1 2; −1 0) e H = {x + y = 0}. Allora"
+[item.data]
+options = ["L(H) = {(x, y) : x − y = 0}", "L(H) = {(x, y) : x + 3y = 0}", "L(H) = {0}", "L(H) = R²"]
+correct = "a"
+why = "H = Span((1, −1)) and A(1, −1) = (−1, −1): L(H) = Span((1, 1)) = {x − y = 0}."
+
+
+[[item]]
+id = "P2309A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Nello spazio R[x]_≤3 l'insieme {1 − x, x² − x, x³, x³ + x}"
+[item.data]
+options = ["è formato da vettori linearmente indipendenti ma non generatori di R[x]_≤3", "genera R[x]_≤3 ma è formato da vettori linearmente dipendenti", "è una base di R[x]_≤3", "è formato da vettori dipendenti"]
+correct = "c"
+why = "The coordinate matrix has determinant 1 ≠ 0: 4 independent vectors in a space of dimension 4, a basis."
+
+
+[[item]]
+id = "P2309A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Siano v, w con ‖v‖ = 1, ‖w‖ = √2 e v ⊥ w. Allora"
+[item.data]
+options = ["‖v + 2w‖ = 9", "‖v + 2w‖ = 3", "‖v + 2w‖ = 2", "‖v + 2w‖ = 1"]
+correct = "b"
+why = "‖v + 2w‖² = 1 + 4·2 = 9."
+
+
+[[item]]
+id = "P2309A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Dati i piani π1: x + y + z = 1, π2: y + z = 1, π3: x + 2y + 2z = 1 di R³"
+[item.data]
+options = ["I tre piani si intersecano a due a due in tre rette parallele disgiunte", "I tre piani si incontrano in una retta", "I tre piani sono paralleli e disgiunti", "I tre piani si incontrano in un punto"]
+correct = "a"
+why = "No two normals are parallel, but n3 = n1 + n2 while 1 + 1 ≠ 1: rg A = 2 < rg(A|b) = 3. The pairwise intersection lines are all parallel to (0, 1, −1) and have no common point."
+
+
+[[item]]
+id = "P2309A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat_R(2, 2) allora"
+[item.data]
+options = ["det(A + B) = det(A) + det(B)", "det(Aᵀ) = −det(A)", "det(3AB) = 9 det(A)det(B)", "nessuna delle precedenti"]
+correct = "c"
+why = "det(3AB) = 3² det(AB) = 9 det A det B for 2 × 2 matrices; det(Aᵀ) = det A."
+
+
+[[item]]
+id = "P2309A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Si consideri la forma quadratica associata alla matrice A = (1 1 1; 1 0 0; 1 0 0). Allora la sua segnatura è"
+[item.data]
+options = ["(2, 0, 1)", "(0, 2, 1)", "(1, 1, 1)", "nessuna delle precedenti affermazioni è vera."]
+correct = "c"
+why = "Eigenvalues 2, −1, 0: one positive, one negative, one zero."
+
+
+[[item]]
+id = "P2309A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti matrici diagonalizza (−7 −10; 2 2)?"
+[item.data]
+options = ["(−2 1; 1 1)", "(−10 −1; 4 1)", "(1 −1; 1 1)", "(−4 −5; 2 2)"]
+correct = "d"
+why = "Eigenvalues −2 (eigenvector (−2, 1)) and −3 (eigenvector (−5, 2)); D's columns (−4, 2), (−5, 2) are eigenvectors: P⁻¹MP = diag(−2, −3)."
+
+
+[[item]]
+id = "P2309A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 2
+task = "interp_matrix"
+setup = "Sia L: R⁴ → R⁴ l'endomorfismo con L(1, 1, 1, 1) = (1, 0, −1, 1), L(1, 0, 0, 0) = (0, 1, 0, 0), L(0, 0, 1, 0) = (0, 0, 0, 0), L(1, 0, 0, 1) = (0, 0, 0, 0)."
+text = "a) Dimostrare che la matrice rappresentativa di L rispetto alle basi canoniche è (0 1 0 0; 1 0 0 −1; 0 −1 0 0; 0 1 0 0). (Compute it.)"
+data = { basis = [[1, 1, 1, 1], [1, 0, 0, 0], [0, 0, 1, 0], [1, 0, 0, 1]], images = [[1, 0, -1, 1], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]], ask = ["E_E"] }
+
+
+[[item]]
+id = "P2309A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "b) Determinare una base per Ker(L) e una base per Im(L)."
+data = { A = [[0, 1, 0, 0], [1, 0, 0, -1], [0, -1, 0, 0], [0, 1, 0, 0]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2309A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "c) Determinare una base per Ker(L) ∩ Im(L) e una base per Ker(L) + Im(L)."
+data = { U = { A = [[0, 1, 0, 0], [1, 0, 0, -1], [0, -1, 0, 0], [0, 1, 0, 0]] }, W = { span = [[0, 1, 0, 0], [1, 0, -1, 1]] }, parts = ["int_basis", "sum_basis"], uw = ["Ker", "Im"] }
+
+
+[[item]]
+id = "P2309A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "yesno"
+setup = "Si considerino A = (2 0 0; 0 2 0; 4 0 −2) e B = (0 0 2; 0 2 0; 2 0 0)."
+text = "a) Stabilire se le due matrici sono simili."
+data = { answer = true, why = "Both have eigenvalues 2, 2, −2 and are diagonalisable: mg_A(2) = 3 − rg(A − 2I) = 2, and B is symmetric. Both are similar to diag(2, 2, −2)." }
+
+
+[[item]]
+id = "P2309A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 3
+task = "open"
+text = "b) Stabilire se A o B sono ortogonalmente diagonalizzabili e, nel caso, determinarne una base di autovettori ortonormali."
+[item.data]
+solution = """
+A is not symmetric, so it is not orthogonally diagonalisable. B is symmetric: orthonormal eigenbasis e2 = (0, 1, 0) and (1, 0, 1)/√2 (eigenvalue 2), (1, 0, −1)/√2 (eigenvalue −2)."""
+
+
+[[item]]
+id = "P2309A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 3
+task = "open"
+text = "c) Sia v = (1, 0, 1)ᵀ. Dimostrare che x ⊥ v se e solo se Bx ⊥ v. Determinare x ∈ R³ con ⟨x, v⟩ = 0 ma ⟨Ax, v⟩ ≠ 0."
+[item.data]
+solution = """
+B is symmetric and Bv = 2v: ⟨Bx, v⟩ = ⟨x, Bv⟩ = 2⟨x, v⟩, so one vanishes iff the other does. For A: ⟨Ax, v⟩ = ⟨x, Aᵀv⟩ with Aᵀv = (6, 0, −2); x = (1, 0, −1) gives ⟨x, v⟩ = 0 but ⟨Ax, v⟩ = 8 ≠ 0."""
+
+
+[[item]]
+id = "P2309A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 4
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Data la quadrica Q ⊆ R³: −2x² + 2y² − z² + 4xy + 2y + 2z − 1 = 0."
+text = "a) Classificare affinemente e metricamente Q."
+[item.data]
+solution = """
+Quadratic part (−2 2 0; 2 2 0; 0 0 −1): eigenvalues 2√2, −2√2, −1 (det = 8 ≠ 0): a centre, c = (−1/4, −1/4, 1), where the constant becomes −1/4. Metric form 2√2X² − 2√2Y² − Z² = 1/4: one positive and two negative coefficients, a hyperboloid of two sheets (affinely too)."""
+
+
+[[item]]
+id = "P2309A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Determinare le equazioni (cartesiane o parametriche) degli assi di simmetria di Q."
+[item.data]
+solution = """
+The lines through the centre (−1/4, −1/4, 1) along the eigenvectors: (√2 − 1, 1, 0) (λ = 2√2), (−√2 − 1, 1, 0) (λ = −2√2) and (0, 0, 1) (λ = −1)."""
