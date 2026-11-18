@@ -1,0 +1,310 @@
+[source]
+id = "P2201I2"
+title = "Prova in itinere 2, 01/2022 (Parte A + B)"
+kind = "exam"
+date = "2022-01-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-01 Itinere 2 - Parte A.pdf", sha256 = "3a07a668d9dca6e2f520e2589d9ce2576d44f1a7a2f9d9e3a25fdcbc16bee727", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2021-2022 (altro docente)/2022-01 Itinere 2 - Parte B.pdf", sha256 = "3584810c5d825fbbded2c07acba585e664034ace8ef35ecf5ff7aba7543183b7", pages = 4 },
+]
+note = "Previous lecturer's second itinere: 12 questions + exercises worth 20 points (a full written exam on the second half), timed like an appello. No official solutions: keys worked out and checked by the trainer."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2201I2-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Trovare tutti i valori di k ∈ R per cui A_k = (k k 0; 2 − k 1 k²; 0 1 3) è ortogonalmente diagonalizzabile."
+[item.data]
+options = ["k = 0", "k = 0, 1", "k = 1", "k = −1, 1"]
+correct = "c"
+why = "Orthogonally diagonalisable ⇔ symmetric: k = 2 − k and k² = 1 ⇔ k = 1."
+
+
+[[item]]
+id = "P2201I2-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(3, 3) simmetrica con autovalori 0 e 1. Se l'autospazio E_0 è il piano x + y − 2z = 0, allora l'autospazio E_1 è"
+[item.data]
+options = ["generato da (−1, −1, 1)ᵀ", "generato da (1, 1, −2)ᵀ", "generato da (1, 1, 1)ᵀ, (0, 2, 1)ᵀ", "non ci sono abbastanza informazioni per ricavarlo"]
+correct = "b"
+why = "Spectral theorem: E_1 = E_0⊥ = Span of the normal (1, 1, −2)."
+
+
+[[item]]
+id = "P2201I2-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La forma quadratica q_k(x) = xᵀAx con A = (k − 2 0 0; 0 1 − k 1; 0 1 2) ha segnatura (2, 1, 0) se e solo se"
+[item.data]
+options = ["k = 1/2 o k = 2", "1/2 ≤ k ≤ 2", "1/2 < k < 2", "k < 1/2 o k > 2"]
+correct = "d"
+why = "Eigenvalue k − 2 and the block (1 − k 1; 1 2) with det 1 − 2k. k < 1/2: block positive definite, k − 2 < 0 → (2, 1, 0). k > 2: block indefinite, k − 2 > 0 → (2, 1, 0). For 1/2 < k < 2 it is (1, 2, 0); at k = 1/2 or 2 a zero eigenvalue appears."
+
+
+[[item]]
+id = "P2201I2-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Un sistema lineare di tre equazioni in due incognite"
+[item.data]
+options = ["non ammette mai soluzione", "ammette una e una sola soluzione", "ammette sempre infinite soluzioni", "può ammettere infinite soluzioni"]
+correct = "d"
+why = "Depending on the ranks it can have none, one or infinitely many solutions (e.g. three copies of x + y = 0)."
+
+
+[[item]]
+id = "P2201I2-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "Si consideri A = (1 k k; 0 k 1; 0 0 k), k ∈ R."
+[item.data]
+options = ["Se k = 0 allora A non è invertibile.", "Se k = 1 allora A ha rango 2.", "A non ha mai rango 3.", "A non è invertibile se e solo se k = 0 o k = 1."]
+correct = "a"
+why = "Triangular: det A = k², zero only for k = 0. For k = 1 the rank is 3."
+
+
+[[item]]
+id = "P2201I2-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Siano v, w ortogonali con ‖v‖ = ‖w‖ = 1. Allora"
+[item.data]
+options = ["⟨2v + w, v − 3w⟩ = −1", "⟨v − w, v − w⟩ = 0", "⟨v + w, v − w⟩ = 1", "⟨v + w, v − w⟩ = 2"]
+correct = "a"
+why = "⟨2v + w, v − 3w⟩ = 2‖v‖² − 3‖w‖² = 2 − 3 = −1 (the mixed terms vanish). ⟨v + w, v − w⟩ = 0, ⟨v − w, v − w⟩ = 2."
+
+
+[[item]]
+id = "P2201I2-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La quadrica di equazione x² − y² − 3z² = 0 è"
+[item.data]
+options = ["un ellissoide immaginario", "un paraboloide iperbolico", "un cono", "un unione di due piani reali"]
+correct = "c"
+why = "Homogeneous of degree 2 with signature (1, 2, 0) and rank 3: a real cone with vertex 0."
+
+
+[[item]]
+id = "P2201I2-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Se una matrice A ha polinomio caratteristico χ_A(x) = −x³ + 2x² − x allora"
+[item.data]
+options = ["λ = 0 è un autovalore e la sua molteplicità geometrica può essere diversa da 1", "λ = 1 è un autovalore con molteplicità geometrica minore o uguale a 2", "λ = 1 è un autovalore con molteplicità geometrica e molteplicità algebrica uguali", "nessuna delle altre affermazioni è vera"]
+correct = "b"
+why = "χ_A = −x(x − 1)²: ma(0) = 1 forces mg(0) = 1; ma(1) = 2, so 1 ≤ mg(1) ≤ 2 (equality not guaranteed)."
+
+
+[[item]]
+id = "P2201I2-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R³ con L(e1) = e3, L(e2) = e1, L(e3) = 2e1 − e2 + e3. Allora"
+[item.data]
+options = ["L((1, 2, 3)ᵀ) = (−3, 8, 4)ᵀ", "L((1, 2, 3)ᵀ) = (4, −3, 8)ᵀ", "L((1, 2, 3)ᵀ) = (4, 8, −3)ᵀ", "L((1, 2, 3)ᵀ) = (8, −3, 4)ᵀ"]
+correct = "d"
+why = "L(1, 2, 3) = e3 + 2e1 + 3(2e1 − e2 + e3) = (8, −3, 4)."
+
+
+[[item]]
+id = "P2201I2-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "cart_param"
+page = 1
+task = "mcq"
+text = "Il sottospazio U = Span((1, 0, 0, 1), (0, 0, 1, 0)) ⊆ R⁴ ha equazioni"
+[item.data]
+options = ["{x1 = x4, x2 = 0}", "{x2 = x3, x4 = 0}", "{x1 = x3, x2 = x4}", "{x1 = 1, x2 = 0, x4 = 1}"]
+correct = "a"
+why = "dim U = 2, so 2 equations: both generators satisfy x2 = 0 and x1 = x4. D is not even homogeneous."
+
+
+[[item]]
+id = "P2201I2-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Si consideri U = Span((1, 2, 3)) ⊆ R³."
+[item.data]
+options = ["La proiezione ortogonale di (x, y, z) su U è π_U(x, y, z) = (x + z, 0, x + z).", "Il complemento ortogonale è U⊥ = Span((−1, −2, 3)).", "Il complemento ortogonale è U⊥ = Span((1, 1, −1), (−3, 0, 1)).", "Nessuna delle altre affermazioni è vera."]
+correct = "c"
+why = "U⊥ = {x + 2y + 3z = 0} has dimension 2; (1, 1, −1) and (−3, 0, 1) satisfy it and are independent. π_U(v) = (⟨v, u⟩/14)u."
+
+
+[[item]]
+id = "P2201I2-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Le rette di R³ {x = 1 − t, y = t, z = 2} e {x = 1, y = 3} sono"
+[item.data]
+options = ["perpendicolari", "sghembe con direzioni ortogonali", "sghembe con direzioni non ortogonali", "incidenti ma non perpendicolari"]
+correct = "b"
+why = "Directions (−1, 1, 0) and (0, 0, 1): orthogonal, not parallel. A common point needs 1 − t = 1 and t = 3: impossible. So skew, with orthogonal directions."
+
+
+[[item]]
+id = "P2201I2-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "cart_param"
+page = 2
+task = "cartesian"
+setup = "Dati U = Span((0, 0, 1, −1), (1, 1, 1, 0)) e W = Span(w1, w2) = Span((1, −1, 1, 0), (1, 0, 1, −1)) in R⁴."
+text = "a) Determinare un sistema di equazioni cartesiane per U."
+data = { dirs = [[0, 0, 1, -1], [1, 1, 1, 0]], names = ["x1", "x2", "x3", "x4"], hide = true }
+
+
+[[item]]
+id = "P2201I2-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "orthogonality"
+page = 2
+task = "perp"
+text = "b) Determinare una base di U⊥ (rispetto al prodotto scalare standard) e completarla ad una base di R⁴. (Give the basis of U⊥; adding a basis of U completes it, since R⁴ = U ⊕ U⊥.)"
+data = { span = [[0, 0, 1, -1], [1, 1, 1, 0]], name = "U", only_basis = true }
+
+
+[[item]]
+id = "P2201I2-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 2
+task = "interp_matrix"
+text = "c) Esiste un endomorfismo T: R⁴ → R⁴ che abbia U come nucleo e tale che T(e1) = w1, T(e1 + e2) = w2? Se sì, determinare la matrice rappresentativa rispetto alle basi canoniche. (Yes: u1, u2, e1, e1 + e2 are a basis of R⁴ and w1, w2 are independent.)"
+data = { basis = [[0, 0, 1, -1], [1, 1, 1, 0], [1, 0, 0, 0], [1, 1, 0, 0]], images = [[0, 0, 0, 0], [0, 0, 0, 0], [1, -1, 1, 0], [1, 0, 1, -1]], ask = ["E_E"] }
+
+
+[[item]]
+id = "P2201I2-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 1
+topic = "rep_matrix"
+page = 3
+task = "open"
+setup = "Sia B = {b1, b2, b3} una base ortonormale di R³ e T_k: R³ → R³ con T_k(b1) = (k + 2)b1 + (k − 2)b3, T_k(b2) = 3b2, T_k(b3) = kb1 + kb3, k ∈ R."
+text = "a) Scrivere la matrice M_{T_k}^{B,B}."
+[item.data]
+solution = """
+Columns = B-coordinates of the images: M = (k + 2  0  k; 0  3  0; k − 2  0  k)."""
+
+
+[[item]]
+id = "P2201I2-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 3
+topic = "diagonalization"
+page = 3
+task = "param_diag"
+text = "b) Trovare i valori di k per cui T_k è diagonalizzabile."
+data = { param = "k", A = [["k + 2", 0, "k"], [0, 3, 0], ["k - 2", 0, "k"]], name = "M", candidates = [1, "3/2"] }
+
+
+[[item]]
+id = "P2201I2-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 3
+task = "open"
+text = "c) Trovare i valori di k per cui T_k è ortogonalmente diagonalizzabile."
+[item.data]
+solution = """
+B is orthonormal, so T_k is orthogonally diagonalisable ⇔ M is symmetric ⇔ k = k − 2: impossible. No value of k."""
+
+
+[[item]]
+id = "P2201I2-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Siano π = {x1 + x2 + x3 = 2} ⊂ R³ e P = (1, 2, 1)ᵀ."
+text = "a) Dimostrare che Q = {x : d(x, π) = d(x, P)/√3} è la quadrica 2x1x2 + 2x1x3 + 2x2x3 − 2x1 − 2x3 − 2 = 0."
+[item.data]
+solution = """
+d(x, π)² = (x1 + x2 + x3 − 2)²/3 and d(x, P)²/3 = ((x1 − 1)² + (x2 − 2)² + (x3 − 1)²)/3. Equating and expanding, the squares cancel: 2x1x2 + 2x1x3 + 2x2x3 − 2x1 − 2x3 − 2 = 0."""
+
+
+[[item]]
+id = "P2201I2-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Scrivere l'equazione canonica metrica della quadrica Q."
+[item.data]
+solution = """
+A = (0 1 1; 1 0 1; 1 1 0): eigenvalues 2 ((1, 1, 1)) and −1 (double). Centre (0, 1, 0), where the constant is −2: 2X² − Y² − Z² = 2, i.e. X² − Y²/2 − Z²/2 = 1: a hyperboloid of two sheets."""
+
+
+[[item]]
+id = "P2201I2-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "affine_forms"
+text = "c) Dimostrare che Q è una quadrica di rotazione e determinare una parametrizzazione dell'asse di rotazione. (The eigenvalue −1 is double; the axis passes through the centre along the simple eigenvalue's eigenvector.)"
+data = { point = [0, 1, 0], dirs = [[1, 1, 1]], names = ["x1", "x2", "x3"] }
