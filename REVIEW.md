@@ -8,8 +8,9 @@
 | Exercise generators | 87, all random with nice numbers, each verified against sympy |
 | Worked examples | 37, mostly the numerical examples of the notes, recomputed by the engine |
 | Official material | 8 Fogli + 4 Quiz = 385 items (341 auto-checked, 44 self-assessed); 7 handwritten Esercitazioni linked to 69 items |
-| Tests | ~1900 (`pytest`, ~25 s) |
-| Code | ~8.5k lines in `gal/`, ~2.5k lines in `tests/`, ~4.4k lines of bank data |
+| Past exam papers | 37 papers (13 by this year's lecturer with official solutions, 24 by the previous one): 690 items, 589 auto-checked; timed `paper` mode graded /32, study `plan` |
+| Tests | ~2900 (`pytest`, under a minute) |
+| Code | ~9.6k lines in `gal/`, ~3.1k lines in `tests/`, ~14.4k lines of bank data |
 
 ## Architecture (summary — details in CLAUDE.md)
 
@@ -237,6 +238,39 @@ These are mostly theory. The definition, statement and an example are in the les
     - F07-E13 b) is ambiguous ("Xv ∈ Span(v)" vs "v eigenvector"); the read that includes O is
       used, as the model answer explains.
 
+### Past exam papers and the study plan
+
+24. **A paper is a bank source**, not a new kind of object: the same items, answer checkers
+    and verifiers, plus `section` (Parte I/II), `points` and `paper` metadata. Everything
+    that works for sheets (practice, `item`, per-item progress) works for papers too.
+25. **Points.** This year's papers do not print the exercise points: the 22 (or 11)
+    points are split evenly over the sub-questions and flagged `points_estimated`. The
+    previous lecturer's papers print them, and the test is 1 point per question (12
+    questions + 20 points = 32 for a full sitting). Itinere papers keep their real
+    structure (last year's had 4 questions, this year's 5) and are always worth 16.
+26. **Keys.** For this lecturer they come from the official *Soluzioni*: the `@`-marked
+    option in the appelli; the itinere solutions put the right option first, so those
+    keys were recomputed against the paper's own option order. For the previous lecturer
+    there are no solutions: every key was worked out, and every computable one (ranks,
+    inverses, coordinates, signatures, distances, quadric reductions) is re-derived with
+    sympy in `tests/test_paper_keys.py`. Every paper also has a full-marks run in
+    `tests/test_papers.py`, so a broken item can't hide.
+27. **Exam conditions over convenience.** No feedback until hand-in, the toolbar clock,
+    answers arriving after time are refused, proofs are written on paper and graded at the
+    end against the model answer (the info sheet says clarity of reasoning counts).
+    A paper sat in the trainer is recorded like a real past paper (weight 2×).
+28. **The plan's shape.** Itinere papers first: they cover chapters 1-3 and take 60 minutes,
+    so they fit while the student is still catching up. Then the previous lecturer's most
+    recent papers. This lecturer's appelli come last, in date order, so the final weeks
+    rehearse the real thing and the last one is two days before the exam. The cadence is
+    2 per week, then every other day in the last 14 days. Missed sessions stay due rather
+    than silently moving, so `next` keeps asking. With more papers than slots, the oldest
+    older-lecturer papers are left out of the plan (still available via `papers`).
+29. **Ambiguities found while transcribing** (stated in the item text): 02/2024 D4 says
+    "H, K ⊆ R³" with vectors in R⁴; 11/2024 versione B D3 has two options that are true as
+    worded (the intended one is d; a is accepted too, via `accept`); 01/2026 V1 has all ten
+    keys on option A (V2 shuffles them, so practise both).
+
 ## Known limitations
 
 - No checking of intermediate steps: only final answers are graded. A wrong echelon form
@@ -251,6 +285,10 @@ These are mostly theory. The definition, statement and an example are in the les
 - `gal ingest` text extraction is rough (formulas garbled, headers occasionally missed). The
   skeleton items are readable but need a human (or Claude Code) pass before auto-checking.
 - Self-assessment is only as honest as the student.
+- Some exam sub-questions mix a computation with an explanation ("determine ... and explain
+  why"): the trainer checks the computation and leaves the explanation to the self-graded
+  model answer, so a paper's auto score can be slightly generous on Parte II.
+- Exercise points of this year's papers are estimated (evenly split), see 25.
 - Terminals without good Unicode fonts may show boxes for ⎡ ⎤ ⟨ ⟩ (see the README for
   Windows).
 
@@ -267,10 +305,9 @@ These are mostly theory. The definition, statement and an example are in the les
    Sylvester, canonical forms). This would replace the extra conics topic.
 6. Exercises over C (complex eigenvalues, unitary diagonalisation) using an exact
    Gaussian-rational type.
-7. Full past papers: when the course publishes *temi d'esame* (folders `Esami*`/`Temi*` are
-   already scanned by `gal ingest`), transcribe them as sources with `exam = "date"` on every
-   item and add an `exam past <date>` command that replays a real paper under its real
-   time limit.
+7. Theory-oral drill: the prova teorica asks for definitions, examples, counterexamples and
+   proofs on the whole course; a card deck per chapter with spaced repetition would prepare
+   it the way `paper` prepares the written exam.
 8. Assisted transcription: a `gal ingest --draft` that proposes `task`/`data` for simple
    items (systems, determinants) from the extracted text, for a human to confirm.
 9. Fully Italian UI option, and an export of the mistakes log to review with a tutor.

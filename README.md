@@ -17,10 +17,15 @@ a student who missed lectures and needs to catch up before the January exam.
 - **The course's official practice material, built in**: all 8 *Fogli di esercizi* and 4
   *Quiz* (385 items, 341 auto-checked, the rest self-assessed against a model answer). The
   handwritten *Esercitazioni* are linked page by page to the exercises they solve.
+- **37 real past exam papers (2021–2026), sat under exam conditions**: all of this year's
+  lecturer's papers (with the official solutions) and the previous lecturer's, transcribed
+  question by question (690 items, 589 auto-checked). A timed `paper` runs exactly like the
+  written exam (1 h 45, 10 questions + exercises, graded /32), and a **study plan** schedules
+  them from now to your exam date.
 - **Ready for new material**: drop newly downloaded PDFs next to the notes and run
   `gal ingest`. They are recognised, split into exercises and usable right away.
 - **Verified against sympy**: every generator, solver and official answer key is checked in
-  the test suite (about 1900 tests).
+  the test suite (about 2900 tests).
 - **Progress profile**: mastery per topic, spaced repetition of weak topics, and a `next`
   command that picks what to do. Timed **mock exams** mix the topics and are graded out of 30.
 - **Bonus — why this matters for AI**: a tiny neural network built from scratch with the
@@ -85,7 +90,7 @@ Tip: you can reach the WSL files from Windows Explorer at `\\wsl$\Ubuntu\home\<y
 ## How to use it
 
 ```
-gal> next                 # the trainer decides: a lesson, more practice, a review, or an exam
+gal> next                 # the trainer decides: today's planned paper, a lesson, practice, a review
 gal> topics               # all topics, your mastery, when each review is due
 gal> learn rank           # lesson + worked examples from the notes, then practice
 gal> practice det         # unlimited exercises ('q' to stop); also: p det, or just: det
@@ -96,6 +101,10 @@ gal> sheets               # the official Fogli / Quiz / Esercitazioni and your p
 gal> sheet 3              # work through Foglio di esercizi 3 in order (skips what you got right)
 gal> quiz                 # 10 random quiz questions (theory drill); 'quiz 2' = Quiz 2 in order
 gal> official eigen       # the official exercises of one topic; 'item F02-E4a' = one exercise
+gal> plan                 # your study plan: which past paper on which day, until the exam
+gal> paper                # sit the paper that is due, in exam conditions (timer, /32)
+gal> papers               # all 37 past papers; 'paper P2602AV1' sits a specific one
+gal> examinfo             # the rules of the written and oral exam
 gal> proofs 7             # the proofs / open questions of Foglio 7, with your grades
 gal> grade F07-E13 F07-E14 y F05-E2a p   # grade proofs you did on paper (y / p / n, 0.7, 3/4)
 gal> past add             # record a real past exam you did on paper and graded
@@ -140,6 +149,7 @@ Your progress is saved in `~/.gal_trainer/profile.json`. Set `GAL_TRAINER_HOME` 
   the next review comes later (0, 1, 2, 4, 7, 14 days). A wrong answer sends it back to box 0,
   due again today.
 - **`next`** picks, in this order:
+  0. the past paper your study plan has due (see below);
   1. weak topics that are due;
   2. mastered topics whose review is overdue;
   3. the next topic of the course, after any shaky prerequisite;
@@ -178,6 +188,43 @@ its topics back to review today, so `next` picks them up. If you only have the t
 unchanged. `stats` and `past` show an **exam readiness** grade: the weighted mean of your
 last 5 mock and past exams, with past papers counting 2×. `past rm 3` deletes record 3.
 
+## Past exam papers and the study plan
+
+The exam (from *Informazioni sull'esame*, `Informazioni_esame_GAL.pdf`): a **written exam**
+of 1 h 45 min with 10 multiple-choice questions (1 point each) and open exercises (22 points),
+32 points in total; **16 points** admit you to the **oral** (definitions, examples,
+counterexamples, theorems and proofs on the whole course). The optional *prova in itinere*
+(60 min, 5 questions + 1 exercise, 16 points, chapters 1–3) counts at the first winter
+appello as max(PC, ⅔(PI + PC)). Type `examinfo` for the summary.
+
+`papers` lists the 37 transcribed papers from `Esami_anni_precedenti-<date>/` and
+`Esami_A.A._202627-<date>/`:
+- **this year's lecturer** (2025-26 and the itinere of 30/10/2026, 13 papers): keys
+  checked against the official *Soluzioni*;
+- **the previous lecturer** (2021–2025, 24 sittings, Parte A + Parte B merged into one
+  paper): no official solutions, so every key was worked out and the computable ones are
+  re-verified with sympy in `tests/test_paper_keys.py`.
+
+`paper <id>` sits one under exam conditions. The timer runs in the toolbar and there is no
+feedback until you hand in. Write proofs and explanations on paper and press Enter. At the
+end you grade them against the model answer (as strictly as the examiner: clarity counts).
+The result shows Parte I and Parte II, the total /32 (itinere papers /16), and whether it
+would admit you to the oral. It is recorded as a real paper (weight 2× in topic mastery)
+and counts in your exam readiness. `paper P2602AV1 untimed` removes the clock.
+
+**The study plan** (`plan`) spreads the papers over the days left until your exam date
+(`examdate`):
+- **twice a week** (Wednesday and Saturday), then **every other day in the last two weeks**,
+  with the last paper two days before the exam;
+- **60-minute itinere papers first** (chapters 1–3, while you catch up on the rest);
+- then the previous lecturer's most recent appelli;
+- then this lecturer's own appelli, the most recent one last as the dress rehearsal.
+
+`next` and the start-up screen tell you when a paper is due. A missed day stays due until
+you sit it, and `plan rebuild` re-spreads the remaining papers from today (e.g. after you
+change the exam date). Your own October 2026 itinere is in the plan as practice: re-taking
+it shows how far you have come.
+
 ## Official course material
 
 The PDFs downloaded from the course website live next to `Note_GAL26.pdf`:
@@ -187,6 +234,7 @@ The PDFs downloaded from the course website live next to `Note_GAL26.pdf`:
 | `Esercizi-<date>/`         | *Fogli di esercizi* 1–8                | `sheet 1` … `sheet 8` (F01–F08) |
 | `Quiz-<date>/`             | *Quiz* 1–4 (multiple choice + *compiti*) | `quiz`, `quiz 1` … (Q01–Q04) |
 | `Esercitazioni-<date>/`    | handwritten class solutions            | linked from each exercise (ES01–ES07) |
+| `Esami_anni_precedenti-<date>/`, `Esami_A.A._<year>-<date>/` | past exam papers (+ *Soluzioni*) | `papers`, `paper <id>`, `plan` (P…) |
 
 Every exercise was transcribed by hand into `gal/bank/data/*.toml`. Computational ones
 (systems, ranks, bases, Grassmann, matrices of maps, eigenvalues, "al variare di λ"
@@ -227,7 +275,7 @@ check the differences, then accept it with `gal ingest --rehash`.
 
 ```bash
 pip install -e '.[dev]'    # pytest + sympy
-pytest                     # ~1900 tests, about 25 s
+pytest                     # ~2900 tests, under a minute
 ```
 
 See `CLAUDE.md` for the architecture and `REVIEW.md` for design decisions, simplifications and

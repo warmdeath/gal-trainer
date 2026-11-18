@@ -9,6 +9,9 @@ p_A(t) = det(tI − A), ma/mg, ⟨·,·⟩, W⊥, π_W, ...). SPEC.md holds the 
 REVIEW.md the design decisions. The course's official practice material (Fogli di esercizi,
 Quiz, handwritten Esercitazioni; PDFs in `Esercizi-*/`, `Quiz-*/`, `Esercitazioni-*/`) is
 transcribed in the practice bank `gal/bank/data/*.toml`, and new PDFs come in via `gal ingest`.
+Past exam papers (`Esami_anni_precedenti-*/`, `Esami_A.A._*/`, 37 papers P*) are bank sources
+with `kind = "exam"`, sat with `paper <id>` and scheduled by `plan`; the exam rules come from
+`Informazioni_esame_GAL.pdf` (gal/papers.py).
 
 **Correctness first.** Exact arithmetic everywhere (`fractions.Fraction`, `Surd` = q·√n).
 Floats only in `gal/ai/nn.py` (numerical training demo). Every generator is verified with sympy.
@@ -40,8 +43,11 @@ gal/
     tasks.py       TASKS registry: task kind -> builder(data, text) -> (extra prompt, parts, steps)
     ingest.py      `gal ingest`: SHA-256 manifest, new/duplicate/changed PDFs, text extraction,
                    split into items, topic guess, skeleton TOML
-    data/*.toml    F01..F08 sheets, Q01..Q04 quizzes, ES01..ES07 esercitazioni (links only)
-  profile.py       JSON profile: mastery, Leitner boxes, exam history, per-item bank progress,
+    data/*.toml    F01..F08 sheets, Q01..Q04 quizzes, ES01..ES07 esercitazioni (links only),
+                   P<yymm><A|I1|I2><V1..> exam papers (Parte A + B merged for older papers)
+  papers.py        exam rules (RULES, written_score), PaperResult (points per Parte), study plan:
+                   session_dates, paper_order, make_plan, due_session
+  profile.py       JSON profile: mastery, Leitner boxes, exam history, per-item bank progress, plan,
                    past_exams (real papers graded by hand, weight PAST_WEIGHT=2 via
                    record(weight=w): alpha_w = 1-(1-alpha)^w), readiness(), parse_grade
   planner.py       `next` recommendation
@@ -55,7 +61,9 @@ tests/             helpers.py (sympy conversions), verify.py (run(topic, key, ve
                    test_profile_planner /
                    test_bank (structure, round trip, generic sympy verifier per task kind) /
                    test_bank_keys (item-specific sympy checks of hand-keyed answers) /
-                   test_material (every PDF ingested + hashes match; ingest pipeline end to end)
+                   test_material (every PDF ingested + hashes match; ingest pipeline end to end) /
+                   test_papers (paper structure, full-marks run of EVERY paper, timer, plan) /
+                   test_paper_keys (sympy re-derivation of hand-keyed paper answers)
 ```
 
 ### Conventions for generators
@@ -72,7 +80,7 @@ tests/             helpers.py (sympy conversions), verify.py (run(topic, key, ve
 ```bash
 pip install -e '.[dev]'
 gal                 # or: python -m gal ; single command: gal practice det
-pytest              # full suite (~1900 tests, ~25 s)
+pytest              # full suite (~2900 tests, under a minute)
 pytest tests/test_generators.py -k determinant
 pytest tests/test_bank.py tests/test_bank_keys.py tests/test_material.py   # just the bank
 gal ingest          # after downloading new course PDFs (needs pdftotext or `pip install '.[ingest]'`)
@@ -109,20 +117,36 @@ transcribe a source properly:
    | roots, charpoly_target, eigen_target | `p = "x^3 - 3x^2 + 4"` (`var`); `eigen_target`: `+ eigenspaces = {"2" = [[..]]}, P, J` |
    | metric, gram, gram_schmidt, orthobasis | `v, w` (`S` = Gram matrix) / `G` / `vectors` (`S`) / `basis = [{dir = [..], scale = "1/sqrt(3)"}], v` |
    | param_rank, param_invertible, param_indep, param_system, param_diag | `param = "λ", A = [[1, "λ"], ...]` (`ask_det`; `param_indep`: `vectors`; `param_system`: `+ b`; `param_diag`: `candidates = [..]`, the values to inspect) |
+   | perp, proj, affine_meet | `span` or `A` (`S` Gram, `name`, `orthogonal`, `only_basis`) / `+ v`, `ask = ["W","perp","dist"]` / `S1, S2` (`name1/2`) |
+
+   Generic options: `keep = ["basis of", ...]` asks only the parts whose label starts with a
+   prefix (the generic verifiers still check all of them); grassmann `parts = ["U", "W",
+   "dim_sum", "dim_int", "direct", "int_basis", "sum_basis"]` and `uw = ["V", "W"]` (the
+   paper's names); matexpr `labels` (hide the formula, e.g. `X` for `M^-1*N`) and `^-1`;
+   values accept exact roots (`"sqrt(2)"`); mcq `why` may be one string, `accept = ["a"]`
+   for an option that is also true as worded; `setup = "..."` on the first sub-item of an
+   exercise is inherited by its siblings (shown once in paper mode).
 
    Builders live in gal/bank/tasks.py: read the one you use for every option. `build(item)`
    must not raise; a TaskError (e.g. a parameter whose rank drops at irrational values)
    means the item must be `open` or keyed by hand (`values`/`yesno`/`mcq`).
 3. Past-exam exercises: set `exam = "dd/mm/yyyy"` on every sub-item; they are then chained
    into one multi-part exercise in mock exams.
-4. Handwritten solutions (esercitazioni): a source with `kind = "esercitazione"` and no items,
+4. Exam papers: `[source] kind = "exam"`, `paper = { format = "appello"|"itinere", minutes,
+   points, lecturer, version, half = 1|2, points_estimated }`, the solutions PDF in `files`
+   with `role = "solutions"`. Every item needs `section = "I"` (test) or `"II"` (exercises)
+   and `points`; this lecturer's papers must total 32 (appello) / 16 (itinere). Keys: from the
+   official solutions (the `@`-marked option; for itinere papers check by computing — their
+   solutions reorder the options), else compute them and add a check in
+   tests/test_paper_keys.py. Delete the ingest skeleton(s) of the files you merge.
+5. Handwritten solutions (esercitazioni): a source with `kind = "esercitazione"` and no items,
    plus `[[solution]] items = ["F03-E2b", ...], pages = [2]` entries. Every exercise then shows
    "Solved in class (handwritten): ..., p. 2 → <pdf path>".
-5. Set `status = "transcribed"`, run `pytest tests/test_bank.py tests/test_material.py`.
+6. Set `status = "transcribed"`, run `pytest tests/test_bank.py tests/test_material.py`.
    Auto tasks are recomputed with sympy by the generic verifier of their kind in
    tests/test_bank.py (add one there for a NEW task kind, and register the builder with
    `@task("name")`). For hand-keyed answers (yesno/mcq/values) add an item-specific sympy check
    in tests/test_bank_keys.py whenever the answer is computable. MCQ: the number of correct
    options must match "(N risposte)" in the text, if present.
-6. A revised PDF with the same name is reported as *changed*: diff it against the source,
+7. A revised PDF with the same name is reported as *changed*: diff it against the source,
    update the items, then `gal ingest --rehash` stores the new hash.
