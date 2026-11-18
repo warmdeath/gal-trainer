@@ -188,3 +188,14 @@ def test_p2409a():
     s2 = sp.sqrt(2)
     q = x1**2 + x3**2 + 2*x1*x3 + 2*s2*x1 + 2*x2 + 2*s2*x3 + 4
     assert sp.expand(q.subs(x1, s2*u - x3) - (2*(u + 1)**2 + 2*(x2 + 1))) == 0
+
+
+# ------------------------------------------------------------------ 02/2023
+def test_p2302a():
+    n = sp.Matrix([1, -1, 2]).cross(sp.Matrix([-1, 3, -2]))
+    assert abs(sp.Matrix([0, 1, -2]).dot(n)) / n.norm() == 2 / sp.sqrt(5) and mcq_key("P2302A-D5") == "a"
+    assert M([[1, 0, -1], [1, 2, 1], [2, 0, 2]]).det() == 8 and mcq_key("P2302A-D12") == "c"
+    x1, x2, x3, X, Y, Z = sp.symbols("x1 x2 x3 X Y Z")
+    s2 = sp.sqrt(2)
+    q = x1**2 + x2**2 + x3**2 + 6*x1*x3 - 16*x1 + 4*x2
+    assert sp.expand(q.subs({x1: (X + Y)/s2 - 1, x2: Z - 2, x3: (X - Y)/s2 + 3})) == 4*X**2 - 2*Y**2 + Z**2 + 4
