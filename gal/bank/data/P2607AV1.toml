@@ -1,0 +1,293 @@
+[source]
+id = "P2607AV1"
+title = "Esame 17/07/2026 (V1)"
+kind = "exam"
+date = "2026-07-17"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/2026-07 Appello - V1.pdf", sha256 = "27c480ff3243af93d46aa2fa6307651b2937a8f1b423f244d8350fac20177d45", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/Soluzioni/2026-07 Appello - soluzioni.pdf", sha256 = "29151b8a7e4ece105de603d53e5a0ad819ffab02503b59caebd0ac729aa6fc62", pages = 12, role = "solutions" },
+]
+note = "Keys of Parte I from the official solutions. Exercise points are not printed: the 22 points are split evenly over the sub-questions."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "Frapporti", version = "V1", points_estimated = true }
+
+# ================================================================ Parte I
+[[item]]
+id = "P2607AV1-D1"
+ref = "Domanda 1"
+section = "I"
+points = 1
+topic = "cart_param"
+page = 1
+task = "mcq"
+text = "Sia U = {(x, y, z, w)ᵀ ∈ R⁴ : x − y + z = 0, y + w = 0}. Allora:"
+[item.data]
+options = ["U non è un sottospazio vettoriale.", "U è un sottospazio vettoriale con dim U = 1.", "U è un sottospazio vettoriale con dim U = 2.", "U è un sottospazio vettoriale con dim U = 3."]
+correct = "c"
+why = "U = Sol of a homogeneous system (a subspace) with 2 independent equations in 4 unknowns: dim U = 4 − 2 = 2."
+
+[[item]]
+id = "P2607AV1-D2"
+ref = "Domanda 2"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Data una matrice M ∈ M_R(n, n), quale delle seguenti matrici è sicuramente antisimmetrica?"
+[item.data]
+options = ["M + Mᵀ", "M² − M", "−M", "M − Mᵀ"]
+correct = "d"
+why = "(M − Mᵀ)ᵀ = Mᵀ − M = −(M − Mᵀ). M + Mᵀ is symmetric; the others depend on M."
+
+[[item]]
+id = "P2607AV1-D3"
+ref = "Domanda 3"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L_A: R⁴ → R³ un'applicazione lineare con rg(L_A) = 2. Allora:"
+[item.data]
+options = ["dim ker(L_A) = 2.", "L_A è suriettiva.", "dim ker(L_A) = 1.", "L_A è iniettiva."]
+correct = "a"
+why = "Nullità + rango: dim ker = 4 − 2 = 2 (so not injective); dim Im = 2 < 3 (not surjective)."
+
+[[item]]
+id = "P2607AV1-D4"
+ref = "Domanda 4"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "Per quali valori del parametro k ∈ R la matrice (2 0 −1; k 1 k; −1 k 2) ∈ M_3,3(R) è invertibile?"
+[item.data]
+options = ["Per ogni k ∈ R.", "Per ogni k ≠ 1, −1.", "Solo per k = 1, −1.", "Solo per k ≠ 0, 1."]
+correct = "b"
+why = "det = 2(2 − k²) − (k² + 1) = 3 − 3k² = 3(1 − k)(1 + k) ≠ 0 ⇔ k ≠ ±1."
+
+[[item]]
+id = "P2607AV1-D5"
+ref = "Domanda 5"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "Nello spazio vettoriale V = R⁵, quale delle seguenti affermazioni è vera?"
+[item.data]
+options = ["Qualsiasi insieme di 3 vettori di V è linearmente dipendente.", "Qualsiasi insieme di 4 vettori di V è linearmente indipendente.", "Qualsiasi insieme di 5 vettori di V è una base di V.", "Qualsiasi insieme di 6 vettori di V è linearmente dipendente."]
+correct = "d"
+why = "In a space of dimension 5 at most 5 vectors can be independent, so 6 vectors are always dependent. The other statements fail e.g. for sets containing 0 or repeated vectors."
+
+[[item]]
+id = "P2607AV1-D6"
+ref = "Domanda 6"
+section = "I"
+points = 1
+topic = "rank"
+page = 2
+task = "mcq"
+text = "Data la matrice M = (1 1 2 2; 2 2 4 4; 0 3 6 0; 0 2 4 0). Una riduzione a scala di M è:"
+[item.data]
+options = ["(1 1 0 0; 0 0 2 2; 0 0 0 0; 0 0 0 0)", "(0 0 1 1; 2 2 0 0; 0 0 0 0; 0 0 0 0)", "(1 1 2 2; 0 2 4 0; 0 0 0 0; 0 0 0 0)", "(1 0 0 2; 0 2 0 2; 0 0 3 3; 0 0 0 0)"]
+correct = "c"
+why = "R2 → R2 − 2R1 = 0, R3 = (3/2)R4: MEG gives (1 1 2 2; 0 2 4 0; 0 0 0 0; 0 0 0 0), rank 2. B is not in echelon form; A and D have different row spaces."
+
+[[item]]
+id = "P2607AV1-D7"
+ref = "Domanda 7"
+section = "I"
+points = 1
+topic = "isometries"
+page = 2
+task = "mcq"
+text = "La forma quadratica associata alla matrice (0 0 1; 0 −1 0; 1 0 0) ha segnatura:"
+[item.data]
+options = ["(1, 2, 0)", "(2, 1, 0)", "(1, 1, 1)", "(3, 0, 0)"]
+correct = "a"
+why = "p(x) = (x + 1)(x² − 1) = (x + 1)²(x − 1): eigenvalues 1, −1, −1, so (n+, n−, n0) = (1, 2, 0)."
+
+[[item]]
+id = "P2607AV1-D8"
+ref = "Domanda 8"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 2
+task = "mcq"
+text = "Sia A ∈ M_R(3, 3) con polinomio caratteristico p_A(x) = (x − 1)²(x + 2) e autospazi di dimensione dim V_1 = 2 e dim V_−2 = 1. Allora:"
+[item.data]
+options = ["A ha tre autovalori distinti.", "A non è diagonalizzabile.", "A è simmetrica.", "A è diagonalizzabile."]
+correct = "d"
+why = "mg = ma for both eigenvalues (2 and 1) and the sum is 3: A is diagonalisable. It need not be symmetric."
+
+[[item]]
+id = "P2607AV1-D9"
+ref = "Domanda 9"
+section = "I"
+points = 1
+topic = "determinant"
+page = 2
+task = "mcq"
+text = "Sia M ∈ M_R(3, 3) una matrice con det M ≠ 0. Quale affermazione è sicuramente vera?"
+[item.data]
+options = ["Nessuna delle altre risposte è corretta.", "Una riga di M contiene solo zeri.", "Due colonne di M sono proporzionali.", "Una colonna di M è combinazione lineare delle altre due."]
+correct = "a"
+why = "det M ≠ 0 ⇔ the columns (and rows) are independent: B, C, D would each force det M = 0."
+
+[[item]]
+id = "P2607AV1-D10"
+ref = "Domanda 10"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 2
+task = "mcq"
+text = "Sia (V, ⟨·,·⟩) uno spazio euclideo. Se v, w ∈ V soddisfano ⟨v, w⟩ = 0, quale delle seguenti vale sicuramente?"
+[item.data]
+options = ["‖v + w‖ = ‖v‖ + ‖w‖.", "‖v + w‖² = ‖v‖² + ‖w‖².", "v = 0 oppure w = 0.", "⟨v, v + w⟩ = 0."]
+correct = "b"
+why = "Pythagoras: ‖v + w‖² = ‖v‖² + 2⟨v, w⟩ + ‖w‖² = ‖v‖² + ‖w‖². D: ⟨v, v + w⟩ = ‖v‖², not 0 in general."
+
+# ================================================================ Parte II
+[[item]]
+id = "P2607AV1-E1i"
+ref = "Esercizio 1 i)"
+section = "II"
+points = 1.83
+topic = "eigen"
+page = 3
+task = "charpoly"
+setup = "Sia A = (1 1 0; 1 1 0; 0 0 −2) e sia L_A: R³ → R³ l'applicazione lineare associata ad A."
+text = "i) Calcolare il polinomio caratteristico p_A(x) e gli autovalori di A."
+data = { A = [[1, 1, 0], [1, 1, 0], [0, 0, -2]] }
+
+[[item]]
+id = "P2607AV1-E1ii"
+ref = "Esercizio 1 ii)"
+section = "II"
+points = 1.83
+topic = "eigen"
+page = 3
+task = "eigen"
+text = "ii) Determinare gli autospazi di A."
+data = { A = [[1, 1, 0], [1, 1, 0], [0, 0, -2]], keep = ["basis of V"] }
+
+[[item]]
+id = "P2607AV1-E1iii"
+ref = "Esercizio 1 iii)"
+section = "II"
+points = 1.83
+topic = "isometries"
+page = 3
+task = "open"
+text = "iii) Scrivere una base ortonormale di R³ formata da autovettori di A e la matrice diagonale associata in tale base."
+[item.data]
+solution = """
+A is symmetric, so eigenspaces of distinct eigenvalues are orthogonal: normalise one eigenvector for each eigenvalue.
+V_−2 = Span((0, 0, 1)), V_0 = Span((1, −1, 0)), V_2 = Span((1, 1, 0)).
+B = {(0, 0, 1), (1/√2, −1/√2, 0), (1/√2, 1/√2, 0)} is an orthonormal basis of eigenvectors and
+M^B_B(L_A) = D = diag(−2, 0, 2) = PᵀAP, P orthogonal with the vectors of B as columns."""
+
+[[item]]
+id = "P2607AV1-E1iv"
+ref = "Esercizio 1 iv)"
+section = "II"
+points = 1.83
+topic = "isometries"
+page = 3
+task = "open"
+text = "iv) Determinare la forma canonica metrica della quadrica Q := {x ∈ R³ : xᵀAx = 0}."
+[item.data]
+solution = """
+With the orthogonal change of coordinates x = Py (P from iii): 0 = xᵀAx = yᵀPᵀAPy = yᵀDy.
+In the order of iii) this is −2y1² + 0·y2² + 2y3² = 0, i.e. (renaming) 2y1² − 2y2² = 0: two planes through the origin."""
+
+[[item]]
+id = "P2607AV1-E2i"
+ref = "Esercizio 2 i)-ii)"
+section = "II"
+points = 3.66
+topic = "linear_maps"
+page = 3
+task = "homog"
+setup = "Sia A = (1 0 1 0; 1 1 2 0; 0 1 1 0) e sia L_A: R⁴ → R³ l'applicazione lineare associata ad A. Siano inoltre U = Span((0, 0, 1, 0)ᵀ, (0, 0, 0, 1)ᵀ) ⊲ R⁴ e W = Span((0, 1, −1)ᵀ) ⊲ R³."
+text = "i) Determinare una base di ker(L_A).  ii) Determinare rg(A)."
+data = { A = [[1, 0, 1, 0], [1, 1, 2, 0], [0, 1, 1, 0]] }
+
+[[item]]
+id = "P2607AV1-E2iii"
+ref = "Esercizio 2 iii)"
+section = "II"
+points = 1.83
+topic = "affine"
+page = 3
+task = "cartesian"
+text = "iii) Determinare un'equazione cartesiana del piano ortogonale a W (rispetto al prodotto scalare standard di R³) e passante per il punto P = (1, 2, 3)ᵀ."
+data = { point = [1, 2, 3], dirs = [[1, 0, 0], [0, 1, 1]], hide = true }
+
+[[item]]
+id = "P2607AV1-E2iv"
+ref = "Esercizio 2 iv)"
+section = "II"
+points = 1.83
+topic = "linear_maps"
+page = 3
+task = "kerim"
+text = "iv) Determinare una base di L_A(U) e stabilire se la restrizione L_A|_U: U → R³ è iniettiva. (Matrix of L_A|_U: columns L_A(e3), L_A(e4); coordinates w.r.t. {e3, e4} on U.)"
+data = { A = [[1, 0], [2, 0], [1, 0]], keep = ["basis of Im", "injective"] }
+
+[[item]]
+id = "P2607AV1-E3i"
+ref = "Esercizio 3 i)"
+section = "II"
+points = 1.83
+topic = "matrices"
+page = 3
+task = "open"
+setup = "Per a, b ∈ R, sia M_a,b = (a 0; b 1) ∈ M_R(2, 2) e si ponga S = {M_a,b : a, b ∈ R}."
+text = "i) Si verifichi che M_a,b · M_c,d ∈ S per ogni a, b, c, d ∈ R, scrivendo esplicitamente M_a,b · M_c,d nella forma M_α,β."
+[item.data]
+solution = "(a 0; b 1)(c 0; d 1) = (ac 0; bc + d 1) = M_α,β with α = ac, β = bc + d."
+
+[[item]]
+id = "P2607AV1-E3ii"
+ref = "Esercizio 3 ii)"
+section = "II"
+points = 1.83
+topic = "inverse"
+page = 3
+task = "values"
+text = "ii) Si determini per quali a, b ∈ R la matrice M_a,b è invertibile. (Give the value of a for which it is NOT invertible; b plays no role.)"
+[item.data]
+answers = [["a such that M_a,b is NOT invertible", 0]]
+why = "det M_a,b = a·1 − 0·b = a: invertible ⇔ a ≠ 0, for every b."
+
+[[item]]
+id = "P2607AV1-E3iii"
+ref = "Esercizio 3 iii)"
+section = "II"
+points = 1.83
+topic = "inverse"
+page = 3
+task = "matexpr"
+text = "iii) Si trovi una matrice X = (x z; y w) ∈ M_R(2, 2) tale che M_1,3 · X = M_−1,1."
+data = { matrices = { M = [[1, 0], [3, 1]], N = [[-1, 0], [1, 1]] }, exprs = ["M^-1*N"], labels = ["X"], show = false }
+
+[[item]]
+id = "P2607AV1-E3iv"
+ref = "Esercizio 3 iv)"
+section = "II"
+points = 1.87
+topic = "systems"
+page = 3
+task = "open"
+text = "iv) Si determini al variare dei parametri a, b, c, d ∈ R, quante matrici X ∈ M_R(2, 2) soddisfano l'equazione M_a,b · X = M_c,d."
+[item.data]
+solution = """
+M_a,b·X = (ax az; bx + y bz + w) = (c 0; d 1): the linear system ax = c, bx + y = d, az = 0, bz + w = 1 in (x, y, z, w).
+• a ≠ 0: the coefficient matrix has rank 4 → exactly one solution (X = M_a,b⁻¹ M_c,d).
+• a = 0, c = 0: rank 2 = rank of the complete matrix → infinitely many solutions (∞², x and z free).
+• a = 0, c ≠ 0: the equation 0 = c is impossible → no solutions."""

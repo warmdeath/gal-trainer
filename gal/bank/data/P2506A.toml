@@ -1,0 +1,323 @@
+[source]
+id = "P2506A"
+title = "Appello 06/2025 (Parte A + B)"
+kind = "exam"
+date = "2025-06-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-06 Appello - Parte A.pdf", sha256 = "8c714fb845523afd781592e747a3f63aeab2773811b207f4dcebfcc65103d6d4", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-06 Appello - Parte B.pdf", sha256 = "06df83e9f07716f7f5e7d7c413379a65df78f3c0cab09d9dbad40a6aa076cd13", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2506A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Dati due parametri h, k ∈ R, il sistema lineare { x − ky + z = 1 + h;  x − y = 1;  x − y + hz = k }"
+[item.data]
+options = ["ammette soluzione se h ≠ 0 e k ≠ 1", "non ammette infinite soluzioni per alcun h, k", "ammette sempre soluzione", "ammette soluzione se e solo se h = 0 e k = 1"]
+correct = "a"
+why = "det = h(k − 1): for h ≠ 0, k ≠ 1 there is exactly one solution. For h = 0, k = 1 there are infinitely many (so B is false); for h = 0, k ≠ 1 none (so C, D are false)."
+
+
+[[item]]
+id = "P2506A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Data una matrice A ∈ Mat_R(4, 3). Possiamo affermare che:"
+[item.data]
+options = ["se le sue colonne sono linearmente indipendenti allora lo sono anche le sue righe", "se le sue righe sono linearmente dipendenti allora lo sono anche le sue colonne", "se tutte le sottomatrici 3 × 3 sono nulle allora rk(A) = 2", "e rk(A) = 3 allora almeno una sottomatrice 2 × 2 non è nulla"]
+correct = "d"
+why = "rk(A) = 3 means some 3 × 3 minor is ≠ 0, and then some 2 × 2 minor of it is ≠ 0 too. 4 rows in R³ are always dependent, so A and B fail; with all 3 × 3 minors zero the rank is ≤ 2, not necessarily 2."
+
+
+[[item]]
+id = "P2506A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Nello spazio vettoriale R[x]_≤3, sia W = {p(x) ∈ R[x]_≤3 : p(−1) = p(0) = p(1) = 0, p′(0) = 1}. Allora:"
+[item.data]
+options = ["W = ∅", "W non è un sottospazio vettoriale di R[x]_≤3", "W è un sottospazio vettoriale di R[x]_≤3 e dim(W) = 0", "nessuna delle altre risposte è corretta"]
+correct = "b"
+why = "p vanishing at −1, 0, 1 is p = a(x³ − x); p′(0) = −a = 1 gives W = {x − x³}: not empty, but 0 ∉ W, so it is not a subspace."
+
+
+[[item]]
+id = "P2506A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(4, 4) una matrice avente polinomio caratteristico χ_A(λ) = λ(λ − 1)(λ + 1)². Allora:"
+[item.data]
+options = ["sicuramente A non è diagonalizzabile", "sicuramente A è invertibile", "dim(Col(A)) < 4", "Tr(A) = 0"]
+correct = "c"
+why = "0 is an eigenvalue: det A = 0, rk A = dim Col(A) < 4. Tr A = 0 + 1 − 1 − 1 = −1. A may or may not be diagonalisable (depends on mg(−1))."
+
+
+[[item]]
+id = "P2506A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia T: R[x]_≤2 → R[x]_≤2 l'endomorfismo rappresentato, rispetto alla base {1 + x², x, 1 − x²}, dalla matrice (1 0 1; 0 1 0; −1 0 −1). Allora:"
+[item.data]
+options = ["Im(T) = R[x]_≤2", "ker(T) = Span{x²}", "ker(T) ∩ Im(T) = {0}", "ker(T) ∩ Im(T) = {0} e ker(T) + Im(T) = R[x]_2"]
+correct = "b"
+why = "ker of the matrix: (−1, 0, 1), i.e. −(1 + x²) + (1 − x²) = −2x², so ker T = Span{x²}. Im T = Span(2x², x) contains x², so ker ∩ Im ≠ {0}; rank 2, not surjective."
+
+
+[[item]]
+id = "P2506A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: Mat_R(2, 3) → Mat_R(3, 3) un'applicazione lineare tale che ker(L) = Span{(1 1 1; 1 1 1), (−1 0 1; 1 0 −1), (2 1 0; 0 1 2)}. Allora"
+[item.data]
+options = ["dim(Im(L)) = 9", "dim(Im(L)) = 6", "dim(Im(L)) = 4", "dim(Im(L)) = 3"]
+correct = "c"
+why = "The third generator is the first minus the second, so dim ker L = 2 and dim Im L = 6 − 2 = 4 (nullità + rango)."
+
+
+[[item]]
+id = "P2506A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "In R³ il piano contenente il punto (1, 0, −1) e parallelo alle rette r1 = {(0, 1, 0) + t(1, 1, 1)} e r2 = {(1, 0, 1) + s(1, −1, 1)} ha equazione"
+[item.data]
+options = ["x − z − 2 = 0", "x + z = 0", "x + y + z = 0", "y − 1 = 0"]
+correct = "a"
+why = "Normal = (1, 1, 1) × (1, −1, 1) = (2, 0, −2) ∝ (1, 0, −1): x − z = 1 − (−1) = 2."
+
+
+[[item]]
+id = "P2506A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Dato il parametro h ∈ R e la matrice A_h = (1 1 + h²; 2 5h). L'operazione ⟨x, y⟩ = xᵀAy"
+[item.data]
+options = ["definisce un prodotto scalare per un unico h", "definisce un prodotto scalare per un numero n > 1 di valori distinti di h", "definisce un prodotto scalare per ogni h", "non definisce un prodotto scalare per alcun h"]
+correct = "a"
+why = "Symmetric ⇔ 1 + h² = 2 ⇔ h = ±1. Positive definite: a11 = 1 > 0 and det = 5h − 4 > 0 only for h = 1. So exactly one h."
+
+
+[[item]]
+id = "P2506A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Dato R³ con la struttura euclidea canonica, le isometrie f: R³ → R³ soddisfacenti f(e1 + e2) = e3 e f(e1 − e2) = e1 − e2 sono:"
+[item.data]
+options = ["una", "due", "nessuna", "infinite"]
+correct = "c"
+why = "An isometry preserves norms, but ‖e1 + e2‖ = √2 ≠ 1 = ‖e3‖: there is none."
+
+
+[[item]]
+id = "P2506A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(4, 4) simmetrica con autovalori ±1. Se E_1 = {(x, y, z, w) ∈ R⁴ : x + y + z + w = 0}, allora"
+[item.data]
+options = ["E_−1 = Span{(1, 1, 0, 0), (0, 0, 1, 1), (1, 1, 1, 1)}", "E_−1 = Span{(1, −1, 0, 0), (0, 0, 1, −1)}", "E_−1 = Span{(1, 1, 1, 1)}", "E_−1 non è determinabile"]
+correct = "c"
+why = "A symmetric: eigenspaces are orthogonal and fill R⁴, so E_−1 = E_1⊥ = Span{(1, 1, 1, 1)}."
+
+
+[[item]]
+id = "P2506A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Sia A = (C1, C2, C3) una matrice quadrata, dove C1, C2, C3 sono vettori colonna. Allora"
+[item.data]
+options = ["det(C1, C2 + C3, C2) = 0", "det(C1, C2 + C3, C2) = det(A)", "det(C1, C2 + C3, C2) = 2det(A)", "det(C1, C2 + C3, C2) = −det(A)"]
+correct = "d"
+why = "Subtract column 3 from column 2: det(C1, C3, C2) = −det(C1, C2, C3)."
+
+
+[[item]]
+id = "P2506A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "In R² la conica C: x² + 2xy + y² + 2y + 1 = 0 è"
+[item.data]
+options = ["una circonferenza", "una parabola", "un'iperbole", "sono due rette"]
+correct = "b"
+why = "Quadratic part (1 1; 1 1) has det 0 (parabolic type) and the full 3 × 3 matrix (1 1 0; 1 1 1; 0 1 1) has det −1 ≠ 0: a non-degenerate parabola."
+
+
+[[item]]
+id = "P2506A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "open"
+setup = "Considerare l'applicazione T: R[x]_≤2 → Mat_R(2, 2) definita da T(p(x)) = (p(0) p(1); p′(0) p′(1)), dove p′ è la derivata di p. (Coordinates: {1, x, x²} and {E11, E12, E21, E22}; T(a + bx + cx²) = (a  a + b + c; b  b + 2c).)"
+text = "a) Dimostrare che T è un'applicazione lineare."
+[item.data]
+solution = """
+Evaluation and derivative are linear: (αp + βq)(0) = αp(0) + βq(0), (αp + βq)′(1) = αp′(1) + βq′(1), and so on entry by entry, so T(αp + βq) = αT(p) + βT(q)."""
+
+
+[[item]]
+id = "P2506A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "b) Determinare una base e la dimensione del nucleo e dell'immagine di T."
+data = { A = [[1, 0, 0], [1, 1, 1], [0, 1, 0], [0, 1, 2]], keep = ["basis of ker", "basis of Im"], coords_note = "coordinates: {1, x, x²} and {E11, E12, E21, E22}" }
+
+
+[[item]]
+id = "P2506A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 2
+task = "repmat"
+text = "c) Determinare la matrice rappresentativa di T rispetto alle basi B1 = {1, x, x²} e B2 = {(1 0; 0 0), (1 1; 0 0), (0 0; 1 1), (0 0; 0 1)}."
+data = { A = [[1, 0, 0], [1, 1, 1], [0, 1, 0], [0, 1, 2]], B = [[1, 0, 0], [0, 1, 0], [0, 0, 1]], C = [[1, 0, 0, 0], [1, 1, 0, 0], [0, 0, 1, 1], [0, 0, 0, 1]], label = "M^B1_B2(T)", name = "M^B1_E(T)" }
+
+
+[[item]]
+id = "P2506A-E1d"
+ref = "Esercizio 1 d)"
+section = "II"
+points = 2
+topic = "systems"
+page = 2
+task = "solve"
+text = "d) Determinare l'insieme T⁻¹(M), la controimmagine della matrice M = (1 2; 3 4). (Unknowns a, b, c of p = a + bx + cx².)"
+data = { A = [[1, 0, 0], [1, 1, 1], [0, 1, 0], [0, 1, 2]], b = [1, 2, 3, 4], names = ["a", "b", "c"] }
+
+
+[[item]]
+id = "P2506A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 3
+task = "eigen"
+setup = "Si consideri la forma quadratica in R³ Q(x) = xᵀAx con A = (2 1 1; 1 2 1; 1 1 2)."
+text = "a) Calcolare gli autovalori di A e determinare una base ortonormale di R³ composta da autovettori di A. (Give the eigenvalues and bases of the eigenspaces; then Gram-Schmidt in E_1 and normalise.)"
+data = { A = [[2, 1, 1], [1, 2, 1], [1, 1, 2]], keep = ["spectrum", "basis of V"] }
+
+
+[[item]]
+id = "P2506A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "projections"
+page = 3
+task = "matexpr"
+text = "b) Determinare la matrice rappresentativa della proiezione ortogonale sull'autospazio E_1."
+data = { matrices = { P = [["2/3", "-1/3", "-1/3"], ["-1/3", "2/3", "-1/3"], ["-1/3", "-1/3", "2/3"]] }, exprs = ["P"], labels = ["matrix of π_E1"], show = false }
+
+
+[[item]]
+id = "P2506A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 3
+task = "open"
+text = "c) Determinare una matrice ortogonale P e una matrice diagonale D tali che D = PᵀAP."
+[item.data]
+solution = """
+E_1 = {x1 + x2 + x3 = 0} = Span((1, −1, 0), (1, 1, −2)) (orthogonal), E_4 = Span((1, 1, 1)). Normalising:
+P = (1/√2 1/√6 1/√3; −1/√2 1/√6 1/√3; 0 −2/√6 1/√3), D = diag(1, 1, 4) = PᵀAP."""
+
+
+[[item]]
+id = "P2506A-E2d"
+ref = "Esercizio 2 d)"
+section = "II"
+points = 1
+topic = "isometries"
+page = 3
+task = "values"
+text = "d) Determinare la segnatura della forma quadratica Q(x) e scriverne la forma canonica di Sylvester. (Signature (n+, n−, n0).)"
+data = { answers = [["n+", 3], ["n−", 0], ["n0", 0]], why = "Eigenvalues 1, 1, 4 > 0: Q is positive definite, signature (3, 0, 0), Sylvester canonical form y1² + y2² + y3²." }
+
+
+[[item]]
+id = "P2506A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Considerare la quadrica Q = {x ∈ R³ : Q(x) = 4}, dove Q è la forma quadratica dell'esercizio precedente."
+text = "a) Classificare Q metricamente. Stabilire se si tratta di una quadrica di rotazione e in caso affermativo trovarne l'asse di rotazione."
+[item.data]
+solution = """
+In the orthonormal eigenbasis: y1² + y2² + 4y3² = 4, i.e. y1²/4 + y2²/4 + y3² = 1: a real ellipsoid. Two equal semi-axes (eigenvalue 1 double): an ellipsoid of rotation, with axis the eigenline E_4 = Span((1, 1, 1)) through the origin."""
+
+
+[[item]]
+id = "P2506A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "conics"
+page = 4
+task = "open"
+text = "b) Classificare metricamente la conica ottenuta intersecando la quadrica Q con il piano {x1 = 0}."
+[item.data]
+solution = """
+x1 = 0: 2x2² + 2x2x3 + 2x3² = 4, i.e. x2² + x2x3 + x3² = 2, matrix (1 1/2; 1/2 1) with eigenvalues 3/2, 1/2: (3/2)u² + (1/2)v² = 2, i.e. u²/(4/3) + v²/4 = 1, a real ellipse."""

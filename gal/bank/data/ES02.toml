@@ -1,0 +1,47 @@
+[source]
+id = "ES02"
+title = "Esercitazione 2 (2026-10-07, Foglio 3)"
+kind = "esercitazione"
+date = "2026-10-07"
+files = [{ path = "Esercitazioni-20261117/2026-10-07 Esercitazione 2.pdf", sha256 = "4f29b2228a618be015c3e3fb2961e3ec9a86ef971c6aaa47bab463eaae9337ec", pages = 10 }]
+note = "Handwritten worked solutions (not machine-readable): linked page by page to the sheet items they solve."
+
+[[solution]]
+items = ["F03-E1P", "F03-E1S"]
+pages = [1]
+
+[[solution]]
+items = ["F03-E2b"]
+pages = [2]
+
+[[solution]]
+items = ["F03-E3d", "F03-E3f"]
+pages = [3]
+
+[[solution]]
+items = ["F03-E3e", "F03-E3j", "F03-E3n"]
+pages = [4]
+
+[[solution]]
+items = ["F03-E4b", "F03-E4e"]
+pages = [5]
+
+[[solution]]
+items = ["F03-E5c", "F03-E5e"]
+pages = [6]
+
+[[solution]]
+items = ["F03-E6"]
+pages = [7]
+
+[[solution]]
+items = ["F03-E7e", "F03-E7i"]
+pages = [8]
+
+[[solution]]
+items = ["F03-E8d"]
+pages = [9]
+
+[[solution]]
+items = ["F03-E10c", "F03-E10d"]
+pages = [10]

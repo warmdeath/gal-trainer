@@ -1,0 +1,314 @@
+[source]
+id = "P2509A"
+title = "Appello 09/2025 (Parte A + B)"
+kind = "exam"
+date = "2025-09-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-09 Appello - Parte A.pdf", sha256 = "a17b0ab9aaa3373320aff71cab9ae5c18e4a4353a8ce7dbe86ec04f7bfa9414f", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-09 Appello - Parte B.pdf", sha256 = "5a0a1dcca7c835113f9ab61a60542d691507104edc72a579031b9d080e42d033", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2509A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Data una matrice A ∈ Mat_R(2, 2), possiamo sicuramente affermare che"
+[item.data]
+options = ["se det(A) ≠ 0 e tr(A) = 0, allora A è diagonalizzabile.", "se det(A) = 0 e tr(A) ≠ 0, allora A è diagonalizzabile.", "se tr(A) = 0, allora det(A) = 0.", "se det(A) = 0, allora tr(A) = 0."]
+correct = "b"
+why = "p_A(t) = t² − tr(A)t + det(A). With det = 0, tr ≠ 0 the eigenvalues 0 and tr(A) are distinct: diagonalisable. With tr = 0, det > 0 the roots are not real (e.g. a rotation)."
+
+
+[[item]]
+id = "P2509A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(3, 3) una matrice simmetrica tale che rk(A) = 2. Sapendo che Span{(1, 2, 3), (0, 1, 2)} è un autospazio di A, quale dei seguenti vettori appartiene al nucleo di A?"
+[item.data]
+options = ["(1, −2, 1)", "(0, 0, 1)", "(1, 1, 1)", "(1, 3, 5)"]
+correct = "a"
+why = "ker A = V_0 has dimension 1, so the given 2-dimensional eigenspace belongs to an eigenvalue ≠ 0. A symmetric ⇒ V_0 ⊥ it: V_0 = Span((1,2,3) × (0,1,2)) = Span((1, −2, 1))."
+
+
+[[item]]
+id = "P2509A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "In R³ si consideri la retta r di equazioni x + y = x − y = 1. Il piano π passante per il punto (1, 0, 0) e ortogonale alla retta r ha equazione:"
+[item.data]
+options = ["x = 1", "y = 0", "z = 0", "x − 1 = y = 0"]
+correct = "c"
+why = "r: x = 1, y = 0, z free: direction (0, 0, 1). The plane orthogonal to it through (1, 0, 0) is z = 0 (D is a line, not a plane)."
+
+
+[[item]]
+id = "P2509A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Sia B = {(1, 0, 0), (1, 2, 0), (1, 2, 3)} una base di R³ e sia L: R³ → R³ l'applicazione lineare rappresentata rispetto a B (sul dominio e sul codominio) dalla matrice (1 2 3; 0 1 2; 0 0 1). Allora"
+[item.data]
+options = ["L(0, 0, 3) = (3, 4, 3)", "L(0, 0, 3) = (9, 6, 3)", "L(0, 0, 3) = (0, 0, 3)", "nessuna delle altre affermazioni è corretta."]
+correct = "a"
+why = "(0, 0, 3) = b3 − b2 has B-coordinates (0, −1, 1); M(0, −1, 1)ᵀ = (1, 1, 1)ᵀ, so L(0, 0, 3) = b1 + b2 + b3 = (3, 4, 3)."
+
+
+[[item]]
+id = "P2509A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Data l'applicazione lineare L: R³ → Mat_R(2, 2) definita da L(x, y, z) = (0  x; x + y  x + y + z). Allora"
+[item.data]
+options = ["L è suriettiva e iniettiva", "L è suriettiva ma non iniettiva", "L è un isomorfismo", "nessuna delle precedenti"]
+correct = "d"
+why = "L = O forces x = y = z = 0: injective. But dim Im L = 3 < 4 = dim Mat(2, 2): not surjective, so none of A, B, C."
+
+
+[[item]]
+id = "P2509A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "In R[x]_≤2 si consideri la base B = {1 + x², x, x + x²}. Sapendo che [p(x)]_B = (1, 2, 3), si ha"
+[item.data]
+options = ["p(x) = x² + 5x + 4", "p(x) = x² + 2x + 3", "p(x) = 1 + 2x + 3x²", "p(x) = 1 + 5x + 4x²"]
+correct = "d"
+why = "p = 1·(1 + x²) + 2x + 3(x + x²) = 1 + 5x + 4x²."
+
+
+[[item]]
+id = "P2509A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Il sistema lineare { x + y = 1;  x − 3y = 5;  x − y = 3 }"
+[item.data]
+options = ["non ammette soluzioni", "ammette un'unica soluzione", "ammette due soluzioni", "ammette infinite soluzioni"]
+correct = "b"
+why = "The first two equations give (x, y) = (2, −1), which also satisfies x − y = 3: exactly one solution."
+
+
+[[item]]
+id = "P2509A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Quale tra le seguenti applicazioni è un'applicazione lineare da R² in R:"
+[item.data]
+options = ["L(x, y) = x² − 3y", "L(x, y) = x + y + 1", "L(x, y) = |x| − y", "L(x, y) = x + 7y"]
+correct = "d"
+why = "Only x + 7y is a linear combination of the coordinates; B does not send 0 to 0, A and C are not additive."
+
+
+[[item]]
+id = "P2509A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "In R³ considerare le basi B = {e1 + e2 + e3, e1 + e2, e2 + e3} e C = {e2, e3, e1}. Allora la matrice del cambio di base da B a C è:"
+[item.data]
+options = ["(1 1 1; 1 0 1; 1 1 0)", "(1 0 1; 1 1 1; 1 1 0)", "(1 1 0; 1 0 1; 1 1 1)", "(0 1 0; 1 0 1; 1 1 0)"]
+correct = "a"
+why = "Columns = C-coordinates (coefficients of e2, e3, e1) of the B vectors: e1 + e2 + e3 → (1, 1, 1), e1 + e2 → (1, 0, 1), e2 + e3 → (1, 1, 0)."
+
+
+[[item]]
+id = "P2509A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti matrici è simile alla matrice A = (1 −2; 1 4)?"
+[item.data]
+options = ["(3 1; 1 2)", "(1 −2; −2 4)", "(2 0; 0 3)", "nessuna delle precedenti"]
+correct = "c"
+why = "p_A(t) = t² − 5t + 6 = (t − 2)(t − 3): distinct eigenvalues, A ~ diag(2, 3). A has det 5 and B det 0, not 6."
+
+
+[[item]]
+id = "P2509A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La segnatura della forma quadratica q(x, y) = x² − 2xy − 2y²"
+[item.data]
+options = ["è (1, 1, 0)", "è (1, 0, 1)", "è (2, 0, 0)", "è (0, 2, 0)"]
+correct = "a"
+why = "Matrix (1 −1; −1 −2) has det −3 < 0: one positive and one negative eigenvalue, (1, 1, 0)."
+
+
+[[item]]
+id = "P2509A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "La conica C: x² + y² + 2x + 1 = 0"
+[item.data]
+options = ["ha un unico centro", "ha infiniti centri", "è senza centro", "nessuna delle precedenti"]
+correct = "a"
+why = "(x + 1)² + y² = 0: the quadratic part is invertible (I), so there is exactly one centre, (−1, 0) (the conic reduces to that single point)."
+
+
+[[item]]
+id = "P2509A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "open"
+setup = "Si consideri l'applicazione T: Mat_R(2, 2) → Mat_R(2, 2) definita da T(A) = CAC⁻¹, dove C = (1 2; 0 −1)."
+text = "a) Dimostrare che T è un'applicazione lineare."
+[item.data]
+solution = """
+T(αA + βB) = C(αA + βB)C⁻¹ = αCAC⁻¹ + βCBC⁻¹ = αT(A) + βT(B), by distributivity of the matrix product."""
+
+
+[[item]]
+id = "P2509A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "yesno"
+text = "b) Stabilire se T è iniettiva."
+data = { answer = true, why = "T(A) = O ⇒ CAC⁻¹ = O ⇒ A = C⁻¹OC = O: ker T = {O}. (T is even invertible, with inverse B ↦ C⁻¹BC; here C⁻¹ = C.)" }
+
+
+[[item]]
+id = "P2509A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 2
+task = "yesno"
+text = "c) Esiste una matrice A ∈ Mat_R(2, 2) tale che rk(A) ≠ rk(T(A))?"
+data = { answer = false, why = "No: multiplying by invertible matrices does not change the rank (A and CAC⁻¹ are similar), so rk(T(A)) = rk(A) for every A." }
+
+
+[[item]]
+id = "P2509A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 3
+task = "grassmann"
+setup = "In R[t]_≤2 considerare i sottospazi U = {p(t) ∈ R[t]_≤2 : p(1) = 2p(0)} e W = Span{t − 1, t²}. (Coordinates w.r.t. {1, t, t²}: p = a + bt + ct² ∈ U ⇔ −a + b + c = 0.)"
+text = "a) Determinare una base e la dimensione di U e W."
+data = { U = { A = [[-1, 1, 1]] }, W = { span = [[-1, 1, 0], [0, 0, 1]] }, names = ["a", "b", "c"], parts = ["U", "W"] }
+
+
+[[item]]
+id = "P2509A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 3
+topic = "sum_intersection"
+page = 3
+task = "grassmann"
+text = "b) Determinare una base e la dimensione di U ∩ W e U + W."
+data = { U = { A = [[-1, 1, 1]] }, W = { span = [[-1, 1, 0], [0, 0, 1]] }, names = ["a", "b", "c"], parts = ["int_basis", "dim_int", "sum_basis", "dim_sum"] }
+
+
+[[item]]
+id = "P2509A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 3
+task = "open"
+text = "c) Scrivere (se possibile) il polinomio p(t) = t come somma di un polinomio in U e di un polinomio in W. Può essere scritto in modo unico? Perché?"
+[item.data]
+solution = """
+U + W = R[t]_≤2, so it is possible: e.g. t = (t − t²) + t², with t − t² ∈ U (p(1) = 0 = 2p(0)) and t² ∈ W.
+Not unique: U ∩ W = Span(−1 + t − 2t²) ≠ {0} (the sum is not direct); adding any element of U ∩ W to the first summand and subtracting it from the second gives another decomposition."""
+
+
+[[item]]
+id = "P2509A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 3
+topic = "conics"
+page = 4
+task = "open"
+setup = "In R² considerare il punto F = (5/4, 5/4) e la retta r = {(x, y) ∈ R² : y + x − 3/2 = 0}, e il luogo C = {x ∈ R² : d(x, F) = d(x, r)}."
+text = "a) Dimostrare che C è una conica di equazione x² + y² − 2xy − 2x − 2y + 4 = 0."
+[item.data]
+solution = """
+d(x, F)² = (x − 5/4)² + (y − 5/4)², d(x, r)² = (x + y − 3/2)²/2. Equating and multiplying by 2:
+2x² + 2y² − 5x − 5y + 25/4 = x² + y² + 2xy − 3x − 3y + 9/4, i.e. x² + y² − 2xy − 2x − 2y + 4 = 0."""
+
+
+[[item]]
+id = "P2509A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "conics"
+page = 4
+task = "open"
+text = "b) Trovare la forma canonica metrica e classificare la conica C."
+[item.data]
+solution = """
+A = (1 −1; −1 1) has eigenvalues 2 and 0: parabolic type; the complete 3 × 3 matrix is invertible, so C is a non-degenerate parabola. b′ = π_kerA(b) = −(1, 1), ‖b′‖ = √2: canonical form 2z1² + 2√2 z2 = 0, i.e. z1² = −√2 z2 (focus–directrix distance p = d(F, r) = √2/2, y² = 2px)."""
+
+
+[[item]]
+id = "P2509A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "conics"
+page = 4
+task = "open"
+text = "c) Determinare l'equazione dell'asse di simmetria e del vertice di C."
+[item.data]
+solution = """
+The axis is the line through F orthogonal to r: x − y = 0. The vertex is the midpoint of F and its projection (3/4, 3/4) on r: V = (1, 1) (indeed 1 + 1 − 2 − 2 − 2 + 4 = 0)."""

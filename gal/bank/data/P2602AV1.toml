@@ -1,0 +1,276 @@
+[source]
+id = "P2602AV1"
+title = "Esame 12/02/2026 (V1)"
+kind = "exam"
+date = "2026-02-12"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/2026-02 Appello - V1.pdf", sha256 = "7af5e7c04caf97449644e002cb5de56d291f9657ea85e4f9f6b80b59ba556223", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/Soluzioni/2026-02 Appello - soluzioni.pdf", sha256 = "c407b44b52250f49ef76ff608c37f59503a693436ea8c7130fa7a53272d43cb0", pages = 12, role = "solutions" },
+]
+note = "Keys of Parte I from the official solutions. Exercise points are not printed: the 22 points are split evenly over the sub-questions."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "Frapporti", version = "V1", points_estimated = true }
+
+# ================================================================ Parte I
+[[item]]
+id = "P2602AV1-D1"
+ref = "Domanda 1"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti sottoinsiemi è un sottospazio vettoriale di R²?"
+[item.data]
+options = ["{(a, b)ᵀ ∈ R² : a + b ≥ 0}", "{(a, b)ᵀ ∈ R² : ab ≥ 0}", "{(a, b)ᵀ ∈ R² : a + b = 0}", "{(a, b)ᵀ ∈ R² : a + b² = 0}"]
+correct = "c"
+why = "a + b = 0 is a line through the origin. The others are a half-plane, two quadrants (not closed under sum) and a parabola."
+
+[[item]]
+id = "P2602AV1-D2"
+ref = "Domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A ∈ M_R(3) e b ∈ R³ tali che il sistema lineare Ax = 0 ha infinite soluzioni. Quale affermazione è sicuramente vera?"
+[item.data]
+options = ["Il sistema lineare Ax = b non ha soluzioni.", "Il sistema lineare Ax = b ha un'unica soluzione.", "Il sistema lineare Ax = b ha infinite soluzioni.", "Il numero di soluzioni del sistema lineare Ax = b dipende da b."]
+correct = "d"
+why = "ker A ≠ {0} so rg(A) < 3. By Rouché-Capelli: if rg(A|b) = rg(A) there are infinitely many solutions, otherwise none: it depends on b."
+
+[[item]]
+id = "P2602AV1-D3"
+ref = "Domanda 3"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Tra le seguenti identità si selezioni quella corretta."
+[item.data]
+options = ["det(M1 + M2) = det(M1) + det(M2) per ogni M1, M2 ∈ M_R(3)", "det(a1 + a2 | a3 | a4) = det(a1 | a3 | a4) + det(a2 | a3 | a4) per ogni a1, a2, a3, a4 ∈ R³", "det(cM) = c det(M) per ogni c ∈ R, M ∈ M_R(3)", "det(2M) = det(M)² per ogni M ∈ M_R(3)"]
+correct = "b"
+why = "det is linear in each column (multilinearity). With M1 = M2 = M = I: det(2I) = 8 ≠ 2 = det I + det I, det(cI) = c³ ≠ c, det(2I) = 8 ≠ 1."
+
+[[item]]
+id = "P2602AV1-D4"
+ref = "Domanda 4"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "La conica di equazione 2x² − 3xy − 2y² − 5y − 3 = 0 è"
+[item.data]
+options = ["un'iperbole.", "un'ellisse.", "una parabola.", "l'unione di due rette parallele."]
+correct = "a"
+why = "A = (2 −3/2; −3/2 −2), det A = −4 − 9/4 < 0: eigenvalues ±5/2 of opposite sign. The conic has centre (−3/5, −4/5) and c' = −1 ≠ 0, so it is a non-degenerate hyperbola: (5/2)z1² − (5/2)z2² − 1 = 0."
+
+[[item]]
+id = "P2602AV1-D5"
+ref = "Domanda 5"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Sia (V, ⟨·,·⟩) uno spazio euclideo. Quale delle seguenti identità vale per ogni v, w ∈ V?"
+[item.data]
+options = ["‖v + w‖ = ‖v‖ + ‖w‖", "‖v‖‖w‖ = ⟨v, w⟩", "‖v + w‖² − ‖v‖² − ‖w‖² = 2⟨v, w⟩", "‖v + w‖² = ‖v‖² + ‖w‖²"]
+correct = "c"
+why = "‖v + w‖² = ⟨v + w, v + w⟩ = ‖v‖² + 2⟨v, w⟩ + ‖w‖² (polarisation). D is Pythagoras, true only if v ⊥ w."
+
+[[item]]
+id = "P2602AV1-D6"
+ref = "Domanda 6"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 2
+task = "mcq"
+text = "In R⁴ si considerino i piani H = Span((1,1,0,0), (1,1,1,0)) e K_m = Span((1,1,1,1), (m,1,0,1)), con m ∈ R parametro. Per quali valori di m si ha dim(H ∩ K_m) = 1?"
+[item.data]
+options = ["Solo per m = 0.", "Solo per m = 1.", "Per ogni m ≠ 0.", "Per ogni m ≠ 1."]
+correct = "b"
+why = "dim H = dim K_m = 2; the 4 vectors reduce to rank 3 if m = 1, 4 otherwise. Grassmann: dim(H ∩ K_m) = 2 + 2 − dim(H + K_m) = 1 only for m = 1."
+
+[[item]]
+id = "P2602AV1-D7"
+ref = "Domanda 7"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 2
+task = "mcq"
+text = "Per quali valori del parametro r ∈ R la matrice (2 1; 0 r) ∈ M_R(2) è diagonalizzabile?"
+[item.data]
+options = ["Solo per r = 1.", "Per ogni r ≠ 1.", "Solo per r = 2.", "Per ogni r ≠ 2."]
+correct = "d"
+why = "Triangular: eigenvalues 2 and r. If r ≠ 2 they are distinct → diagonalisable. If r = 2, mg(2) = 2 − rg(0 1; 0 0) = 1 < 2 = ma(2)."
+
+[[item]]
+id = "P2602AV1-D8"
+ref = "Domanda 8"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "Sia V uno spazio vettoriale con base {v1, v2, v3} e L: V → V lineare con L(v1) = 2v1 + v2, L(v2) = v2 + 2v3, L(v3) = v1 + v2 + v3. Allora"
+[item.data]
+options = ["ker(L) = Span(v1 + v2 − 2v3).", "L è suriettiva.", "L è iniettiva.", "Im(L) = Span(v1 + v2 + v3)."]
+correct = "a"
+why = "L(v1 + v2 − 2v3) = (2v1 + v2) + (v2 + 2v3) − 2(v1 + v2 + v3) = 0, and the matrix (2 0 1; 1 1 1; 0 2 1) has rank 2, so ker L has dim 1 and L is neither injective nor surjective; dim Im L = 2."
+
+[[item]]
+id = "P2602AV1-D9"
+ref = "Domanda 9"
+section = "I"
+points = 1
+topic = "affine"
+page = 2
+task = "mcq"
+text = "Date le rette l1 = (4, 3, 2) + R(1, −1, −2) e l2 = (1, 2, 1) + R(3, 1, 1) in R³. Allora:"
+[item.data]
+options = ["l1 e l2 sono incidenti, ma non ortogonali.", "l1 e l2 sono parallele.", "l1 e l2 sono sghembe.", "l1 e l2 sono incidenti ed ortogonali."]
+correct = "d"
+why = "(4 + t, 3 − t, 2 − 2t) = (1 + 3s, 2 + s, 1 + s) gives s = 1, t = 0: they meet at (4, 3, 2). (1, −1, −2)·(3, 1, 1) = 3 − 1 − 2 = 0: orthogonal."
+
+[[item]]
+id = "P2602AV1-D10"
+ref = "Domanda 10"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 2
+task = "mcq"
+text = "Per p ∈ {0, ..., 3}, sia v_p := (1, p, p + 1)ᵀ ∈ R³. La dimensione di Span(v0, ..., v3) è"
+[item.data]
+options = ["1", "2", "3", "4"]
+correct = "b"
+why = "v_p = (1, 0, 1) + p(0, 1, 1): all v_p lie in Span((1,0,1), (0,1,1)) and v0, v1 are independent, so the dimension is 2."
+
+# ================================================================ Parte II
+[[item]]
+id = "P2602AV1-E1i"
+ref = "Esercizio 1 i)"
+section = "II"
+points = 2.2
+topic = "cart_param"
+page = 3
+task = "cartesian"
+setup = "Si considerino i sottospazi di R⁴  U = Span((1, 0, 0, −2), (0, 1, 1, 0), (1, −1, 0, 0))  e  W = {(x1, x2, x3, x4)ᵀ ∈ R⁴ : x1 + x2 + x3 + x4 = 0}."
+text = "i) Si scriva U in forma cartesiana e si determini dim U."
+data = { dirs = [[1, 0, 0, -2], [0, 1, 1, 0], [1, -1, 0, 0]], names = ["x1", "x2", "x3", "x4"], ask_dim = true, hide = true }
+
+[[item]]
+id = "P2602AV1-E1ii"
+ref = "Esercizio 1 ii)"
+section = "II"
+points = 2.2
+topic = "projections"
+page = 3
+task = "perp"
+text = "ii) Si determini dim U⊥ e si scriva U⊥ in forma parametrica (give a basis of U⊥)."
+data = { span = [[1, 0, 0, -2], [0, 1, 1, 0], [1, -1, 0, 0]], name = "U" }
+
+[[item]]
+id = "P2602AV1-E1iii"
+ref = "Esercizio 1 iii)"
+section = "II"
+points = 2.2
+topic = "sum_intersection"
+page = 3
+task = "grassmann"
+text = "iii) Si determinino una base di U ∩ W e una base di U + W."
+data = { U = { span = [[1, 0, 0, -2], [0, 1, 1, 0], [1, -1, 0, 0]] }, W = { A = [[1, 1, 1, 1]] }, names = ["x1", "x2", "x3", "x4"], ask_bases = true, only_bases = true }
+
+[[item]]
+id = "P2602AV1-E2i"
+ref = "Esercizio 2 i)"
+section = "II"
+points = 2.2
+topic = "bases"
+page = 3
+task = "coords"
+setup = "V = M_R(2) con base canonica B := {B1 = (1 0; 0 0), B2 = (0 1; 0 0), B3 = (0 0; 1 0), B4 = (0 0; 0 1)}, W := Span(B1, B2, B3) ⊲ V."
+text = "i) Si verifichi che C := {B1 + B2, B2 + B3, B3 − B2} è una base di W. (Coordinates w.r.t. {B1, B2, B3}; as v take B1 + B2 + B3 and give its C-coordinates too.)"
+data = { basis = [[1, 1, 0], [0, 1, 1], [0, -1, 1]], v = [1, 1, 1], labels = ["B1 + B2", "B2 + B3", "B3 − B2"], vlabel = "B1 + B2 + B3", coords_note = "coordinates w.r.t. {B1, B2, B3} of W" }
+
+[[item]]
+id = "P2602AV1-E2ii"
+ref = "Esercizio 2 ii)"
+section = "II"
+points = 2.2
+topic = "linear_maps"
+page = 3
+task = "open"
+text = "ii) Si verifichi che la funzione f: W → V, f(X) = AX + XᵀA con A := (1 2; −2 3) è un'applicazione lineare."
+[item.data]
+solution = """
+For X, Y ∈ W and λ, μ ∈ R:
+f(λX + μY) = A(λX + μY) + (λX + μY)ᵀA = λAX + μAY + (λXᵀ + μYᵀ)A = λ(AX + XᵀA) + μ(AY + YᵀA) = λf(X) + μf(Y),
+by distributivity of the matrix product and linearity of the transpose."""
+
+[[item]]
+id = "P2602AV1-E2iii"
+ref = "Esercizio 2 iii)"
+section = "II"
+points = 2.2
+topic = "rep_matrix"
+page = 3
+task = "repmat"
+text = "iii) Si scriva la matrice rappresentativa di f rispetto alla base C di W e alla base B di V. (f(B1) = (2 2; −2 0), f(B2) = (0 1; 1 0), f(B3) = (0 3; 3 0).)"
+data = { A = [[2, 0, 0], [2, 1, 3], [-2, 1, 3], [0, 0, 0]], B = [[1, 1, 0], [0, 1, 1], [0, -1, 1]], name = "matrix of f w.r.t. {B1,B2,B3} and B", label = "M^C_B(f)" }
+
+[[item]]
+id = "P2602AV1-E2iv"
+ref = "Esercizio 2 iv)"
+section = "II"
+points = 2.2
+topic = "linear_maps"
+page = 3
+task = "kerim"
+text = "iv) Si determinino una base dell'immagine di f e la dimensione di ker(f). (Coordinates: {B1, B2, B3} for W, B for V.)"
+data = { A = [[2, 0, 0], [2, 1, 3], [-2, 1, 3], [0, 0, 0]] }
+
+[[item]]
+id = "P2602AV1-E3i"
+ref = "Esercizio 3 i)"
+section = "II"
+points = 2.2
+topic = "isometries"
+page = 3
+task = "open"
+setup = "Sia A ∈ M_R(3) una matrice simmetrica."
+text = "i) Si verifichi che A² è simmetrica."
+[item.data]
+solution = "(A²)ᵀ = (AA)ᵀ = AᵀAᵀ = AA = A², using (XY)ᵀ = YᵀXᵀ and Aᵀ = A."
+
+[[item]]
+id = "P2602AV1-E3ii"
+ref = "Esercizio 3 ii)"
+section = "II"
+points = 2.2
+topic = "eigen"
+page = 3
+task = "open"
+text = "ii) Sia v un autovettore di A associato ad un autovalore λ. Si verifichi che è anche un autovettore di A²; qual è l'autovalore associato?"
+[item.data]
+solution = "v ≠ 0 and Av = λv, so A²v = A(Av) = A(λv) = λAv = λ²v: v is an eigenvector of A² with eigenvalue λ²."
+
+[[item]]
+id = "P2602AV1-E3iii"
+ref = "Esercizio 3 iii)"
+section = "II"
+points = 2.2
+topic = "isometries"
+page = 3
+task = "open"
+text = "iii) Siano λ1, λ2, λ3 gli autovalori di A. Si determinino gli autovalori di A² e si dimostri che la forma quadratica associata a A² è semi-definita positiva."
+[item.data]
+solution = """
+Spectral theorem: A = PDPᵀ with P orthogonal, D = diag(λ1, λ2, λ3). Then A² = PD²Pᵀ, so the eigenvalues of A² are
+λ1², λ2², λ3² (all ≥ 0). Hence the quadratic form q(x) = xᵀA²x is positive semi-definite;
+directly: xᵀA²x = xᵀAᵀAx = (Ax)ᵀ(Ax) = ‖Ax‖² ≥ 0 for every x."""

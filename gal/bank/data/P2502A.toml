@@ -1,0 +1,330 @@
+[source]
+id = "P2502A"
+title = "Appello 02/2025 (Parte A + B)"
+kind = "exam"
+date = "2025-02-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-02 Appello - Parte A.pdf", sha256 = "1f1a6b6da15252e80c2eef1dde28f36058c497cba6419a77ddc1bce590fe115e", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-02 Appello - Parte B.pdf", sha256 = "5986993b3aee1c7940ed58071a758863db5714e33e10c9d6e03e987cd2ba7cb0", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2502A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat(n, n) e b ∈ Rⁿ."
+[item.data]
+options = ["Se A è invertibile allora bA⁻¹ è una soluzione del sistema", "Se il sistema ammette infinite soluzioni, allora det(A) ≠ 0", "Se il sistema ammette soluzioni allora A è invertibile", "Se A è invertibile allora il sistema Ax = b ammette un'unica soluzione"]
+correct = "d"
+why = "A invertible ⇒ x = A⁻¹b is the unique solution (bA⁻¹ is not even defined for a column b). Infinitely many solutions force det A = 0; solvable does not imply invertible."
+
+
+[[item]]
+id = "P2502A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Quanti polinomi p(t) ∈ R[t]_2 esistono tali che p(1) = 3, p(2) = 5, p(3) = 7?"
+[item.data]
+options = ["infiniti", "nessuno", "uno", "tre"]
+correct = "c"
+why = "p(t) = a + bt + ct²: 3 conditions, a Vandermonde system with nonzero determinant (distinct nodes) → exactly one, p(t) = 2t + 1."
+
+
+[[item]]
+id = "P2502A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Siano H, K ⊆ R¹⁰ due sottospazi vettoriali, con dim H = dim K = 5."
+[item.data]
+options = ["dim(H ∩ K) > 0", "H = K", "dim(H + K) < 10", "Se dim(H ∩ K) = {0} allora H + K = R¹⁰"]
+correct = "d"
+why = "Grassmann: dim(H + K) = 10 − dim(H ∩ K). If H ∩ K = {0} then dim(H + K) = 10, so H + K = R¹⁰. The intersection can be {0}, so A and C are not forced."
+
+
+[[item]]
+id = "P2502A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat(2, 2)."
+[item.data]
+options = ["Se A, B sono simili, allora A, B hanno lo stesso polinomio caratteristico", "Se A, B hanno lo stesso polinomio caratteristico, allora A, B sono simili", "Se A, B hanno lo stesso rango, allora A, B sono simili", "Se A, B sono simili, allora sono invertibili"]
+correct = "a"
+why = "B = P⁻¹AP ⇒ det(tI − B) = det(tI − A). The converse fails: (1 1; 0 1) and I have the same p_A but are not similar."
+
+
+[[item]]
+id = "P2502A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat(n, n), e sia A′ una sua riduzione a scala. Allora"
+[item.data]
+options = ["det(A) = det(A′)", "rk(A) = rk(A′)", "tr(A) = tr(A′)", "χ_A(x) = χ_A′(x)"]
+correct = "b"
+why = "Elementary row operations preserve the rank; they can change det (swaps, scalings), trace and characteristic polynomial."
+
+
+[[item]]
+id = "P2502A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat(n, n). Allora"
+[item.data]
+options = ["col(AB) ⊆ col(A)", "col(AB) ⊆ col(B)", "col(A) ⊆ col(AB)", "col(B) ⊆ col(AB)"]
+correct = "a"
+why = "Every column of AB is A times a column of B, i.e. a combination of the columns of A."
+
+
+[[item]]
+id = "P2502A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: V → W un'applicazione lineare, e v1, ..., vn ∈ V dei vettori."
+[item.data]
+options = ["Se L è suriettiva e v1, ..., vn sono linearmente indipendenti, allora L(v1), ..., L(vn) sono linearmente indipendenti", "Se v1, ..., vn sono generatori di V, allora L(v1), ..., L(vn) sono generatori di W", "Se L è iniettiva e v1, ..., vn sono linearmente indipendenti, allora L(v1), ..., L(vn) sono linearmente indipendenti", "Se L(v1), ..., L(vn) sono generatori di W, allora v1, ..., vn sono generatori di V"]
+correct = "c"
+why = "Σ ai L(vi) = 0 ⇒ L(Σ ai vi) = 0 ⇒ (injective) Σ ai vi = 0 ⇒ all ai = 0. Generators of V only generate Im L."
+
+
+[[item]]
+id = "P2502A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Si consideri Rⁿ con un prodotto scalare. Allora"
+[item.data]
+options = ["La funzione p: Rⁿ → R definita da p(v) = ‖v‖ è una forma quadratica", "La funzione L: Rⁿ → R definita da L(v) = ‖v‖² è un'applicazione lineare", "La funzione p: Rⁿ → R definita da p(v) = ‖v‖² è una forma quadratica", "La funzione L: Rⁿ → R definita da L(v) = ‖v‖ è un'applicazione lineare"]
+correct = "c"
+why = "‖v‖² = ⟨v, v⟩ is the quadratic form of the scalar product. ‖v‖ is not quadratic (‖2v‖ = 2‖v‖ ≠ 4‖v‖) and neither is linear."
+
+
+[[item]]
+id = "P2502A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "In R² considerare la base {(1, 1), (0, 1)}, allora il vettore delle coordinate di (3, 1) è"
+[item.data]
+options = ["(3, −2)", "(3, 1)", "(3, −4)", "(2, 1)"]
+correct = "a"
+why = "a(1, 1) + b(0, 1) = (3, 1) ⇔ a = 3, a + b = 1 ⇔ (a, b) = (3, −2)."
+
+
+[[item]]
+id = "P2502A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Sia L: V → V un endomorfismo e siano B e C due basi di V. Allora"
+[item.data]
+options = ["M_L^{B,B} e M_L^{C,C} sono congruenti", "M_L^{B,B} e M_L^{C,C} sono simili", "M_L^{B,C} e M_L^{C,B} sono simili", "nessuna delle precedenti"]
+correct = "b"
+why = "M_L^{C,C} = P⁻¹ M_L^{B,B} P with P the change-of-basis matrix: similar (congruent would need Pᵀ, and only for orthonormal changes the two agree)."
+
+
+[[item]]
+id = "P2502A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "La matrice (2 1; 3 5)"
+[item.data]
+options = ["è invertibile con inversa (5/7 −1/7; −3/7 2/7)", "è invertibile con inversa (5 −1; −3 2)", "è invertibile con inversa (−5/2 1/2; 3/2 −1)", "non è invertibile"]
+correct = "a"
+why = "det = 10 − 3 = 7: the inverse is (1/7)(5 −1; −3 2)."
+
+
+[[item]]
+id = "P2502A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat(3, 3) una matrice diagonalizzabile tale che χ_A(t) = t²(2 − t). Allora"
+[item.data]
+options = ["A è invertibile", "dim(E_0) = 2", "A è ortogonalmente diagonalizzabile", "esiste una base ortonormale di R³ composta da autovettori di A"]
+correct = "b"
+why = "0 is an eigenvalue with ma = 2 and A is diagonalisable, so mg(0) = dim E_0 = 2 (and A is not invertible). Orthogonal diagonalisability needs A symmetric."
+
+
+[[item]]
+id = "P2502A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "affine"
+page = 2
+task = "affine_forms"
+setup = "In R³ si consideri la retta r1: { 2x1 + 4x2 + 3x3 = 7;  2x1 − 4x2 − x3 = −5 }."
+text = "a) Trovare la retta r2 parallela a r1 e passante per (2, 1, 4)."
+data = { point = [2, 1, 4], dirs = [[1, 1, -2]], names = ["x1", "x2", "x3"] }
+
+
+[[item]]
+id = "P2502A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "affine"
+page = 2
+task = "cartesian"
+text = "b) Trovare il piano contenente r1 e r2. (r1 passes through (1/2, 3/2, 0).)"
+data = { point = [2, 1, 4], dirs = [[1, 1, -2], [3, -1, 8]], names = ["x1", "x2", "x3"], hide = true }
+
+
+[[item]]
+id = "P2502A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "cross_distances"
+page = 2
+task = "affine_forms"
+text = "c) Trovare la retta perpendicolare a r1 e passante per (6, −1, 3) (the one meeting r1)."
+data = { point = [6, -1, 3], dirs = [[3, -1, 1]], names = ["x1", "x2", "x3"] }
+
+
+[[item]]
+id = "P2502A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 3
+task = "matexpr"
+setup = "Si consideri l'endomorfismo T: R³ → R³ definito da T(x, y, z) = (x + y + z, y + z, z)."
+text = "a) Trovare la matrice rappresentativa di T rispetto alla base canonica di R³."
+data = { matrices = { T = [[1, 1, 1], [0, 1, 1], [0, 0, 1]] }, exprs = ["T"], labels = ["M^E_E(T)"], show = false }
+
+
+[[item]]
+id = "P2502A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Stabilire se T è diagonalizzabile."
+data = { A = [[1, 1, 1], [0, 1, 1], [0, 0, 1]], keep = ["diagonalisable"] }
+
+
+[[item]]
+id = "P2502A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 3
+task = "repmat"
+text = "c) Trovare la matrice rappresentativa di T rispetto alla base B = {(1, 2, 0), (1, 1, 1), (1, 1, 0)}."
+data = { A = [[1, 1, 1], [0, 1, 1], [0, 0, 1]], B = [[1, 2, 0], [1, 1, 1], [1, 1, 0]], C = [[1, 2, 0], [1, 1, 1], [1, 1, 0]], label = "M^B_B(T)", hide = true }
+
+
+[[item]]
+id = "P2502A-E2d"
+ref = "Esercizio 2 d)"
+section = "II"
+points = 1
+topic = "diagonalization"
+page = 3
+task = "open"
+text = "d) Stabilire se le matrici del punto a) e del punto c) sono simili. In caso affermativo trovare la matrice invertibile che realizza la similitudine."
+[item.data]
+solution = """
+Yes: they represent the same endomorphism in two bases, M^B_B(T) = P⁻¹ M^E_E(T) P with P = M^B_E(id) = (1 1 1; 2 1 1; 0 1 0), the matrix whose columns are the vectors of B."""
+
+
+[[item]]
+id = "P2502A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "scalar_products"
+page = 4
+task = "gram"
+setup = "Sia V = R[x]_≤1 lo spazio dei polinomi di grado al più 1, con l'operazione ⟨p(x), q(x)⟩ = p(0)q(0) + p(1)q(1). (In coordinates w.r.t. {1, x} its Gram matrix is G = (2 1; 1 1).)"
+text = "a) Dimostrare che l'operazione ⟨·,·⟩ è un prodotto scalare in V."
+data = { G = [[2, 1], [1, 1]], keep = ["is it"] }
+
+
+[[item]]
+id = "P2502A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "projections"
+page = 4
+task = "proj"
+text = "b) Rispetto a questo prodotto scalare, trovare la proiezione ortogonale del polinomio 6x + 1 sul sottospazio H = Span(x + 1). (Coordinates w.r.t. {1, x}.)"
+data = { span = [[1, 1]], v = [1, 6], S = [[2, 1], [1, 1]], name = "H", ask = ["W"] }
+
+
+[[item]]
+id = "P2502A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "gram_schmidt"
+page = 4
+task = "gram_schmidt"
+text = "c) Verificare che il polinomio x ha norma ‖x‖ = 1, ed estendere l'insieme {x} a una base ortonormale di V. (Apply Gram-Schmidt to x, 1; coordinates w.r.t. {1, x}.)"
+data = { vectors = [[0, 1], [1, 0]], S = [[2, 1], [1, 1]] }
+
+
+[[item]]
+id = "P2502A-E3d"
+ref = "Esercizio 3 d)"
+section = "II"
+points = 1
+topic = "isometries"
+page = 4
+task = "open"
+text = "d) Verificare che l'endomorfismo L: V → V definito da L(a + bx) = 3a + 2b − bx è simmetrico rispetto a questo prodotto scalare."
+[item.data]
+solution = """
+In the basis {1, x}: M = M(L) = (3 2; 0 −1) and G = (2 1; 1 1). L is symmetric ⇔ ⟨L(p), q⟩ = ⟨p, L(q)⟩ ⇔ MᵀG = GM. GM = (6 3; 3 1) is symmetric, so MᵀG = (GM)ᵀ = GM: L is symmetric. (Equivalently, check ⟨L(1), x⟩ = ⟨1, L(x)⟩: L(1) = 3, L(x) = 2 − x, ⟨3, x⟩ = 3 = ⟨1, 2 − x⟩.)"""

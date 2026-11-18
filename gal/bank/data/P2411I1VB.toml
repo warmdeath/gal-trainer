@@ -1,0 +1,191 @@
+[source]
+id = "P2411I1VB"
+title = "Prova in itinere 1, 11/2024 (versione B)"
+kind = "exam"
+date = "2024-11-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2024-11 Itinere 1 - Parte A (versione B).pdf", sha256 = "39c26821eb07e2cc9c5f176b4db83cdf56e86d8e0e4771a2dcf05846073abe7d", pages = 5 },
+]
+note = "Previous lecturer's first itinere, test part only (12 questions, 1 point each; the score is also shown out of 16). No official solutions: keys worked out and checked by the trainer."
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "altro docente", half = 1 }
+
+
+[[item]]
+id = "P2411I1VB-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Dato il parametro h ∈ R, considerare il sistema lineare { x + hy + z = 1;  hx + y + hz = 1;  (1 + h)x + (1 + h)y + (1 + h)z = 0 }. Esiste h ∈ R per cui il sistema"
+[item.data]
+options = ["non ammette soluzioni", "ammette unica soluzione", "ammette esattamente due soluzioni", "ammette infinite soluzioni"]
+correct = "a"
+why = "The sum of the first two equations is (1 + h)(x + y + z) = 2, while the third says it is 0: the system is inconsistent for every h."
+
+
+[[item]]
+id = "P2411I1VB-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Data la matrice A = (1 k 0 1; k 0 0 −1; 2 1 k − 1 0; 0 1 0 2k) con k ∈ R, si ha"
+[item.data]
+options = ["rk(A) = 2 per k = 1", "rk(A) = 3 per k = 1", "rk(A) = 3 per k ≠ 1", "rk(A) ≠ 4 per ogni k ∈ R"]
+correct = "a"
+why = "det A = −(k − 1)²(2k² + 2k + 1): for k ≠ 1 the rank is 4; for k = 1 the rank drops to 2."
+
+
+[[item]]
+id = "P2411I1VB-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "lines_planes"
+page = 1
+task = "mcq"
+text = "In R² le rette r1: 2x + 2y = 4, r2: 3x + y = 4, r3 = {(1, 1) + t(3, −1) : t ∈ R}"
+[item.data]
+options = ["sono a coppie intersecanti", "sono sghembe", "sono tutte parallele", "si intersecano in un punto"]
+correct = "d"
+accept = ["a"]
+why = "r1 ∩ r2 = {(1, 1)} and r3 passes through (1, 1): all three meet in that point. (Literally they are also pairwise intersecting, so a is accepted too.)"
+
+
+[[item]]
+id = "P2411I1VB-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Date due matrici A ∈ Mat_R(2, 4) e B ∈ Mat_R(2, 3) quale operazione è possibile svolgere"
+[item.data]
+options = ["A + B", "BᵀA", "AB", "BA"]
+correct = "b"
+why = "Bᵀ ∈ Mat(3, 2): BᵀA = (3 × 2)(2 × 4) = 3 × 4. AB and BA need matching inner sizes (4 ≠ 2, 3 ≠ 2)."
+
+
+[[item]]
+id = "P2411I1VB-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "La matrice (1 0 1; 1 −1 2; 0 −2 1)"
+[item.data]
+options = ["non è invertibile", "ha inversa (3 1 1; 1 −1 1; −2 −2 −1)", "ha inversa (3 −2 1; −1 1 −1; −2 2 −1)", "ha inversa (3 −2 1; 2 −2 1; −2 2 −1)"]
+correct = "c"
+why = "det = 1(−1 + 4) + 1(−2 − 0) = 1; the inverse is (3 −2 1; −1 1 −1; −2 2 −1) (check: A·A⁻¹ = I)."
+
+
+[[item]]
+id = "P2411I1VB-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti sottoinsiemi di V = Mat_R(3, 3) non definisce un sottospazio vettoriale?"
+[item.data]
+options = ["U = {A ∈ V | r(A) = 0}", "U = {A ∈ V | Aᵀ = A}", "U = {A ∈ V | r(A) < 3}", "U = {A ∈ V | Aᵀ = 0}"]
+correct = "c"
+why = "Singular matrices are not closed under sum: diag(1, 0, 0) + diag(0, 1, 1) = I. The others are subspaces ({O} and the symmetric matrices)."
+
+
+[[item]]
+id = "P2411I1VB-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "In R[x]_≤2 si consideri la base B = {1 + x², x, 1 − x²}. Il vettore delle coordinate del polinomio p(x) = 2 − x è:"
+[item.data]
+options = ["(1, −1, 1)", "(1, 1, −1)", "(−1, 1, 1)", "(1, 1, 1)"]
+correct = "a"
+why = "a(1 + x²) + bx + c(1 − x²) = 2 − x ⇔ a + c = 2, b = −1, a − c = 0 ⇔ (1, −1, 1)."
+
+
+[[item]]
+id = "P2411I1VB-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R² la funzione L(x, y, z) = (2x + y − 3z, −4x − 2y + 6z), allora"
+[item.data]
+options = ["L non è un'applicazione lineare", "dim Im(L) = 1", "dim Im(L) = 2", "dim Im(L) = 3"]
+correct = "b"
+why = "The second component is −2 times the first: the matrix has rank 1."
+
+
+[[item]]
+id = "P2411I1VB-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "In R[x]_≤2 si consideri la base canonica E = {1, x, x²} e sia L(a + bx + cx²) = a + (2a + b)x + (2a + 4b + c)x². La matrice rappresentativa di L rispetto alla base E è:"
+[item.data]
+options = ["(1 2 2; 0 1 4; 0 0 1)", "(1 0 0; 2 1 0; 2 4 1)", "(1 2 2; 2 1 4; 2 4 1)", "(1 0 0; 0 3 0; 0 0 7)"]
+correct = "b"
+why = "Columns = coordinates of L(1) = 1 + 2x + 2x², L(x) = x + 4x², L(x²) = x²."
+
+
+[[item]]
+id = "P2411I1VB-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Le rette r = {(x, y, z) ∈ R³ : x − y + z = 2x − y − z + 3 = 0} e s = {(−1, 0, 1) + t(2, 3, 1) : t ∈ R}"
+[item.data]
+options = ["sono sghembe", "sono incidenti", "sono coincidenti", "sono parallele"]
+correct = "c"
+why = "r has direction (1, −1, 1) × (2, −1, −1) = (2, 3, 1), the same as s, and (−1, 0, 1) ∈ s satisfies both equations of r: the lines coincide."
+
+
+[[item]]
+id = "P2411I1VB-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Sia B = {(1 0; 0 0), (1 1; 0 0), (1 1; 1 0), (1 1; 1 1)} una base per Mat_R(2, 2) e sia F rappresentata rispetto a B dalla matrice (1 1 1 1; 0 1 1 1; 0 0 1 1; 0 0 0 1). Allora"
+[item.data]
+options = ["F(0 1; 1 0) = (5 1; 3 0)", "F(0 1; 1 0) = (2 2; 1 0)", "F(0 1; 1 0) = (5 3; 1 0)", "F(0 1; 1 0) = (1 2; 1 0)"]
+correct = "b"
+why = "(0 1; 1 0) has B-coordinates (−1, 0, 1, 0); M·(−1, 0, 1, 0)ᵀ = (0, 1, 1, 0): F(0 1; 1 0) = B2 + B3 = (2 2; 1 0)."
+
+
+[[item]]
+id = "P2411I1VB-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "In R³ siano U = Span{(0, 1, 0), (1, 0, 1), (1, 1, 2)} e W = {(x, y, z) ∈ R³ : x − z = 0}. Allora"
+[item.data]
+options = ["dim(U ∩ W) = 2 e dim(U + W) = 2", "dim(U ∩ W) = 2 e dim(U + W) = 3", "dim(U ∩ W) = 1 e dim(U + W) = 3", "dim(U ∩ W) = 0 e dim(U + W) = 4"]
+correct = "b"
+why = "The three generators are independent (det ≠ 0): U = R³ ⊇ W, so U ∩ W = W (dim 2) and U + W = R³ (dim 3)."

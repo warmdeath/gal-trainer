@@ -1,0 +1,337 @@
+[source]
+id = "Q02"
+title = "Quiz 2"
+kind = "quiz"
+files = [{ path = "Quiz-20261117/QUIZ2.pdf", sha256 = "095cec8bac89caea4b8f599b7ced9ed8a0ee3df3433156a28c83599c84bf1e27", pages = 6 }]
+
+# ================================================================ Compiti (open)
+[[item]]
+id = "Q02-C1"
+ref = "Compito 1"
+topic = "vector_spaces"
+page = 1
+task = "open"
+text = """
+In R² si forniscano esempi di: a) S1 chiuso per il prodotto per scalare ma non per la somma; b) S2 chiuso per la somma
+ma non per il prodotto per scalare; c) come a) ma contenente un sottospazio V3 di dimensione 1; d) come b) ma contenente
+un sottospazio V4 di dimensione 1."""
+[item.data]
+solution = """
+a) S1 = {xy = 0} (union of the two axes): λ(x, y) stays on the same axis, but (1,0) + (0,1) = (1,1) ∉ S1.
+b) S2 = {x ≥ 0, y ≥ 0} (first quadrant): closed under sum, but (−1)·(1,0) ∉ S2. (Also Z² works.)
+c) The same S1 = {xy = 0}: it contains the line V3 = {y = 0}.
+d) S4 = {y ≥ 0} (upper half-plane): closed under sum, not under (−1)·, and it contains V4 = {y = 0}."""
+
+[[item]]
+id = "Q02-C2"
+ref = "Compito 2"
+topic = "vector_spaces"
+page = 1
+task = "open"
+text = """
+Sia v ∈ Rⁿ, v ≠ 0 e V := M_R(n). Dimostrare o confutare: a) {M | M·v = 0} è uno spazio vettoriale;
+b) {M | M·v = v} è uno spazio vettoriale; c) {M | ∃λ ∈ R : M·v = λv} è uno spazio vettoriale."""
+[item.data]
+solution = """
+a) TRUE: it is the kernel of the linear map M ↦ Mv (O·v = 0; (M+N)v = 0; (cM)v = 0).
+b) FALSE: O·v = 0 ≠ v, so O is not in it.
+c) TRUE: O·v = 0·v; if Mv = λv and Nv = μv then (M + N)v = (λ + μ)v and (cM)v = (cλ)v.
+   (It is {M | Mv ∈ Span(v)}.)"""
+
+[[item]]
+id = "Q02-C3"
+ref = "Compito 3"
+topic = "span_independence"
+page = 1
+task = "open"
+text = "Se {v1, ..., vn} sono linearmente indipendenti, allora v1, ..., vn, v_{n+1} sono linearmente dipendenti se e solo se v_{n+1} ∈ Span(v1, ..., vn)."
+[item.data]
+solution = """
+⇐) If v_{n+1} = Σ a_i v_i then Σ a_i v_i − v_{n+1} = 0 is a non-trivial relation (coefficient −1).
+⇒) Take λ1 v1 + ... + λn vn + λ_{n+1} v_{n+1} = 0 with not all λ zero. If λ_{n+1} = 0, the relation involves only
+v1..vn, which are independent ⇒ all λ = 0, contradiction. So λ_{n+1} ≠ 0 and v_{n+1} = −Σ (λ_i/λ_{n+1}) v_i ∈ Span(v1..vn)."""
+
+[[item]]
+id = "Q02-C4"
+ref = "Compito 4"
+topic = "bases"
+page = 1
+task = "open"
+text = "In K[t]≤3 fornire esempi di un insieme di generatori non linearmente indipendente e di un insieme di vettori linearmente indipendenti che non è un insieme di generatori."
+[item.data]
+solution = """
+Generators but dependent: {1, t, t², t³, 1 + t} (5 vectors in a space of dimension 4).
+Independent but not generators: {1, t} (2 < 4 = dim K[t]≤3)."""
+
+[[item]]
+id = "Q02-C5"
+ref = "Compito 5"
+topic = "sum_intersection"
+page = 1
+task = "open"
+text = """
+U, W ◁ V. Si dimostri che sono equivalenti: 1. la somma U + W è diretta (U ∩ W = {0});
+2. se u ∈ U, w ∈ W e u + w = 0 allora u = w = 0; 3. ogni v ∈ U + W si scrive in modo unico come v = u + w."""
+[item.data]
+solution = """
+1 ⇒ 2: u + w = 0 ⇒ u = −w ∈ U ∩ W = {0}.
+2 ⇒ 3: if v = u + w = u′ + w′ then (u − u′) + (w − w′) = 0 with u − u′ ∈ U, w − w′ ∈ W ⇒ both 0.
+3 ⇒ 1: if x ∈ U ∩ W then 0 = 0 + 0 = x + (−x) are two decompositions of 0; uniqueness gives x = 0."""
+
+[[item]]
+id = "Q02-C6"
+ref = "Compito 6"
+topic = "sum_intersection"
+page = 1
+task = "open"
+text = """
+a) Esempi di U, V ⊂ R³ sottospazi con: i) U ∪ V non sottospazio; ii) U ∪ V sottospazio; iii) U + V = R³ ma somma non diretta; iv) U ⊕ V = R³.
+b) Dimostrare che U ∪ W è un sottospazio se e solo se U ⊆ W o W ⊆ U."""
+[item.data]
+solution = """
+a) i) U = x-axis, V = y-axis.  ii) U = V (or U ⊆ V).  iii) U = {z = 0}, V = {x = 0}: U + V = R³, U ∩ V = y-axis.
+   iv) U = {z = 0}, V = z-axis.
+b) ⇐ trivial (U ∪ W is the bigger one). ⇒ Suppose U ⊄ W and W ⊄ U: take u ∈ U \\ W, w ∈ W \\ U. If u + w ∈ U then
+w = (u + w) − u ∈ U, impossible; if u + w ∈ W then u ∈ W, impossible. So u + w ∉ U ∪ W: not closed under sum."""
+
+[[item]]
+id = "Q02-C7"
+ref = "Compito 7"
+topic = "affine"
+page = 1
+task = "open"
+text = "a) Si dimostri che in R⁴ non esistono piani sghembi. b) Si dia un esempio di 2 piani sghembi in R⁵."
+[item.data]
+solution = """
+a) Skew planes need S1,0 ∩ S2,0 = {0}; with dim 2 + 2 Grassmann gives S1,0 ⊕ S2,0 = R⁴. Then P2 − P1 = a + b with
+a ∈ S1,0, b ∈ S2,0, and P1 + a = P2 − b is a common point: they always meet. So no skew planes in R⁴.
+b) π1 = Span(e1, e2), π2 = e5 + Span(e3, e4): giaciture meet only in 0, and a common point would need e5 ∈ Span(e1..e4)."""
+
+# ================================================================ Domande
+[[item]]
+id = "Q02-D1"
+ref = "Domanda 1"
+topic = "span_independence"
+page = 2
+task = "mcq"
+text = "Sia S = {v1, ..., vn} ⊂ V e T = {v1, ..., vn, ..., v_{n+p}} ⊂ V. Seleziona le 3 affermazioni vere."
+[item.data]
+options = ["Se V = Span(T), allora V = Span(S).", "Se V = Span(S), allora V = Span(T).", "Se i vettori di S sono linearmente indipendenti, allora i vettori di T sono linearmente indipendenti.", "Se i vettori di T sono linearmente indipendenti, allora i vettori di S sono linearmente indipendenti.", "Se i vettori di S sono linearmente dipendenti, allora i vettori di T sono linearmente dipendenti.", "Se i vettori di T sono linearmente dipendenti, allora i vettori di S sono linearmente dipendenti."]
+correct = ["b", "d", "e"]
+why = { a = "Removing vectors can lose generators.", b = "Adding vectors keeps generators.", c = "Adding vectors can create dependence.", d = "Subsets of independent sets are independent.", e = "A relation among S is also a relation among T.", f = "The dependence may involve the added vectors." }
+
+[[item]]
+id = "Q02-D2"
+ref = "Domanda 2"
+topic = "vector_spaces"
+page = 2
+task = "mcq"
+text = "Sia W := {(a + b + c + 1, b + c, a − b − c + 1, 0)ᵀ | a, b, c ∈ R} ⊆ R⁴. Allora:"
+[item.data]
+options = ["W è un sottospazio vettoriale di R⁴ di dimensione 3.", "W è un sottospazio vettoriale di R⁴ di dimensione 2.", "W è un sottospazio vettoriale di R⁴ di dimensione 1.", "W è un sottospazio vettoriale di R⁴ di dimensione 0.", "W non è un sottospazio vettoriale di R⁴."]
+correct = "b"
+why = { b = "Put a′ = a + 1, d = b + c: W = {(a′ + d, d, a′ − d, 0)} = Span((1,0,1,0), (1,1,−1,0)): the '+1' is absorbed, dimension 2.", e = "It looks affine, but a = −1, b = c = 0 gives 0, and in fact it is a span.", a = "Only the combinations a + 1 and b + c appear: 2 parameters." }
+
+[[item]]
+id = "Q02-D3"
+ref = "Domanda 3"
+topic = "bases"
+page = 2
+task = "mcq"
+text = "Sia A ∈ M_K(m, n), H = Col(A), v ∈ K^m. Quali affermazioni sono vere? (2 risposte corrette)"
+[item.data]
+options = ["Se v ∈ H, allora rg(A) < rg(A|v).", "Se v ∈ H, allora rg(A) < n.", "v ∈ H se e solo se rg(A) = rg(A|v)", "Il sistema lineare Ax = v ha soluzioni se e solo se v ∈ H."]
+correct = ["c", "d"]
+why = { a = "v ∈ Col(A) ⇒ adding it does not increase the rank.", b = "No relation: A = I_n has Col(A) = K^n and rank n.", c = "Rouché-Capelli in the language of §2.4.1.", d = "Av is a combination of the columns." }
+
+[[item]]
+id = "Q02-D4"
+ref = "Domanda 4"
+topic = "bases"
+page = 2
+task = "mcq"
+text = "Siano w1, w2, w3 ∈ R⁴. Quali affermazioni sono sicuramente vere? (2 risposte corrette)"
+[item.data]
+options = ["Se w1, w2, w3 sono linearmente indipendenti, allora esiste una base di R⁴ che li contiene.", "Esiste una base di R⁴ che contiene w1 e w2.", "Se {w1, w2, w3} è un insieme di vettori linearmente indipendenti, allora {w1 + u, w2 + u, w3 + u} è linearmente indipendente per ogni u ∈ R⁴.", "0 ≤ dim Span(w1, w2, w3) ≤ 3."]
+correct = ["a", "d"]
+why = { a = "Every independent set can be completed to a basis.", b = "False if w1 = w2 or w1 = 0.", c = "u = −w1 gives the zero vector.", d = "3 generators span at most a 3-dimensional space." }
+
+[[item]]
+id = "Q02-D5"
+ref = "Domanda 5"
+topic = "span_independence"
+page = 3
+task = "mcq"
+text = "Sia V uno spazio vettoriale, S = {v1, ..., vn}. Quali affermazioni sono corrette? (2 risposte corrette)"
+[item.data]
+options = ["Se 0 ∈ S, allora S non è un insieme di generatori per V.", "Se 0 ∈ S, allora S non è un insieme di vettori linearmente indipendenti.", "Se 0 ∈ S, allora dim(Span(S)) = 0.", "Se dim V < n, allora S non è un insieme di generatori per V.", "Se dim V < n, allora S non è un insieme di vettori linearmente indipendenti."]
+correct = ["b", "e"]
+why = { a = "{0, e1, e2} still generates R².", b = "1·0 = 0 is a non-trivial relation.", c = "{0, e1} spans a line.", d = "More than dim V vectors can generate (e.g. e1, e2, e1 + e2 in R²).", e = "Steinitz: at most dim V independent vectors." }
+
+[[item]]
+id = "Q02-D6"
+ref = "Domanda 6"
+topic = "sum_intersection"
+page = 3
+task = "mcq"
+text = "Siano {v1, v2, v3} linearmente indipendenti in R⁴ e {b1, b2} ⊂ R⁴. Allora vale (1 risposta corretta)"
+[item.data]
+options = ["Se b1 ≠ 0, allora {v1, v2, v3, b1} genera R⁴.", "Se b1, b2 sono linearmente indipendenti, allora Span(v1, v2, v3) ∩ Span(b1, b2) ≠ {0}.", "Esiste b3 ∈ R⁴ tale che {v1, b1, b2, b3} è una base di R⁴.", "Se b1, b2 sono linearmente indipendenti, allora Span(b1, b2, v1, v2, v3) = R⁴.", "Se b2 = αb1 (α ∈ R), allora Span(v1, v2, v3) + Span(b1, b2) = R⁴."]
+correct = "b"
+why = { a = "b1 may lie in Span(v1, v2, v3).", b = "Grassmann: dim of the intersection ≥ 3 + 2 − 4 = 1.", c = "b1, b2 may be dependent on v1 (e.g. b1 = v1).", d = "b1, b2 may lie in Span(v1, v2, v3).", e = "b1 may lie in Span(v1, v2, v3) (or be 0)." }
+
+[[item]]
+id = "Q02-D7"
+ref = "Domanda 7"
+topic = "rank"
+page = 3
+task = "mcq"
+text = "Sia A ∈ M_Q(7, 6) e b ∈ Q⁷. Allora vale (1 risposta corretta)"
+[item.data]
+options = ["rg(A) = rg(A|b) = 6 se e solo se il sistema lineare Ax = b è risolvibile.", "Se rg(A) = 6, allora il sistema lineare Ax = b è risolvibile.", "Se Ax = b è risolvibile, allora rg(A) = 7.", "Se b = 0, allora Sol(A|b) è uno spazio vettoriale di dimensione al massimo 6.", "Se Sol(A|0) ha dimensione 0, allora il sistema lineare Ax = b ha una soluzione unica."]
+correct = "d"
+why = { a = "Solvable ⇔ rg(A) = rg(A|b), whatever the common value.", b = "rg(A|b) may be 7.", c = "rg(A) ≤ 6.", d = "dim Sol(A|0) = 6 − rg(A) ≤ 6.", e = "Ax = b may have no solution (7 equations)." }
+
+[[item]]
+id = "Q02-D8"
+ref = "Domanda 8"
+topic = "rank"
+page = 3
+task = "mcq"
+text = "Sia A ∈ M_K(m, n). Il sistema lineare Ax = b ha soluzioni se e solo se (selezionare le 2 risposte corrette)"
+[item.data]
+options = ["b = 0", "b ∈ Col(A)", "b ∈ Rig(A)", "rg(A) = rg(A|b)"]
+correct = ["b", "d"]
+why = { a = "Sufficient, not necessary.", b = "Ax is a combination of the columns.", c = "Rows live in K^n, b in K^m.", d = "Rouché-Capelli." }
+
+[[item]]
+id = "Q02-D9"
+ref = "Domanda 9"
+topic = "inverse"
+page = 3
+task = "mcq"
+text = "Sia A ∈ M_K(n). Allora A è invertibile se e solo se (selezionare le 2 risposte corrette)"
+[item.data]
+options = ["Col(A) = Kⁿ", "Rig(A) = K^(n²)", "dim Col(A) = n²", "dim Rig(A) = n"]
+correct = ["a", "d"]
+why = { a = "rg(A) = n ⇔ the columns span Kⁿ.", b = "The rows live in Kⁿ, not K^(n²).", c = "Col(A) ⊆ Kⁿ has dimension ≤ n.", d = "dim Rig(A) = rg(A) = n." }
+
+[[item]]
+id = "Q02-D10"
+ref = "Domanda 10"
+topic = "sum_intersection"
+page = 3
+task = "mcq"
+text = "Siano U, V ◁ R⁷ tali che dim U = 2 dim V. Allora vale (1 risposta corretta)"
+[item.data]
+options = ["Se dim(U + V) = 3, allora U ∩ V = {0}.", "Se dim(U ∩ V) = 1, allora dim U ≤ 3.", "dim(U + V) > 0.", "U ⊕ V = R⁷.", "Se V ◁ U, allora U + V = R⁷."]
+correct = "a"
+why = { a = "dim(U + V) ≥ dim U = 2 dim V, so 3 forces dim V = 1, dim U = 2 and dim(U ∩ V) = 2 + 1 − 3 = 0.", b = "dim V ≥ 1 is all we know: dim U can be 4 or 6.", c = "U = V = {0} is allowed.", d = "No reason at all (dimensions 2k + k = 7 is impossible anyway).", e = "Then U + V = U, of dimension at most 6." }
+
+[[item]]
+id = "Q02-D11"
+ref = "Domanda 11"
+topic = "sum_intersection"
+page = 4
+task = "mcq"
+text = "Siano U, V sottospazi di R⁸ con dim U = 2 e dim V = 5. Quale affermazione è vera?"
+[item.data]
+options = ["Se U ∩ V = {0}, allora U ⊕ V = R⁸.", "Se dim(U + V) = 6, allora dim(U ∩ V) = 2.", "Per opportuni U e V come sopra, può valere dim(U + V) = 3 e dim(U ∩ V) = 4.", "Per opportuni U e V come sopra, può valere dim(U + V) = 6 e dim(U ∩ V) = 3.", "U è un sottospazio di V se e solo se dim(U + V) ≤ 5."]
+correct = "e"
+why = { a = "U ⊕ V has dimension 7 < 8.", b = "Grassmann gives 2 + 5 − 6 = 1.", c = "dim(U + V) ≥ 5.", d = "Grassmann: 2 + 5 ≠ 6 + 3.", e = "U + V ⊇ V, so dim(U + V) ≤ 5 ⇔ U + V = V ⇔ U ⊆ V." }
+
+[[item]]
+id = "Q02-D12"
+ref = "Domanda 12"
+topic = "sum_intersection"
+page = 4
+task = "mcq"
+text = "U, W ◁ V con basi B1 = {v1, ..., vn} e B2 = {w1, ..., wm}. Quali sono vere? (2 risposte corrette)"
+[item.data]
+options = ["B1 ∪ B2 è una base di U + W", "B1 ∪ B2 genera U + W", "B1 ∩ B2 è una base di U ∩ W", "B1 ∩ B2 genera U ∩ W", "B1 ∩ B2 è un insieme di vettori linearmente indipendenti."]
+correct = ["b", "e"]
+why = { a = "Only when the sum is direct.", b = "Every u + w is a combination of B1 ∪ B2.", c = "Bases need not share vectors: B1 ∩ B2 can be empty while U ∩ W ≠ {0}.", d = "Same counterexample.", e = "It is a subset of the independent set B1." }
+
+[[item]]
+id = "Q02-D13"
+ref = "Domanda 13"
+topic = "sum_intersection"
+page = 4
+task = "mcq"
+text = "dim V = 6, U, W ◁ V con dim U = 4, dim W = 3. Allora (2 risposte corrette)"
+[item.data]
+options = ["dim(U + W) = 7", "W ⊆ U", "U ∩ W ≠ {0}", "V = U ⊕ W", "dim(U ∩ W) ≤ 3"]
+correct = ["c", "e"]
+why = { a = "dim(U + W) ≤ dim V = 6.", b = "Not necessarily.", c = "Grassmann: dim(U ∩ W) ≥ 4 + 3 − 6 = 1.", d = "The intersection is not {0}.", e = "U ∩ W ⊆ W." }
+
+[[item]]
+id = "Q02-D14"
+ref = "Domanda 14"
+topic = "sum_intersection"
+page = 4
+task = "mcq"
+text = "dim V = 7, U, W ◁ V con dim U = 4. Allora (3 risposte corrette)"
+[item.data]
+options = ["Se dim W = 3, allora V = U ⊕ W.", "Se dim W = 3, allora dim(U + W) = dim U + dim W.", "Se dim W ≥ 4, allora dim(U + W) = dim U + dim W.", "Se dim W ≤ 4, allora dim(U ∩ W) ≤ 4.", "Se dim W ≤ 2, allora U + W ≠ V.", "Se esiste w ∈ W, w ∉ U, allora dim(U + W) ≥ 5.", "Se esiste w ∈ W, w ∉ U, allora dim(U ∩ W) ≤ 3."]
+correct = ["d", "e", "f"]
+why = { a = "W could be inside U.", b = "Same: W ⊆ U gives dim(U + W) = 4.", c = "W = U gives 4 ≠ 8.", d = "U ∩ W ⊆ W.", e = "dim(U + W) ≤ 4 + 2 = 6 < 7.", f = "U + Span(w) ⊆ U + W has dimension 5.", g = "W = U + Span(w) has U ∩ W = U of dimension 4." }
+
+[[item]]
+id = "Q02-D15"
+ref = "Domanda 15"
+topic = "affine"
+page = 4
+task = "mcq"
+text = "In R³: r = (0, 2, 2) + R(1, −1, −1) e l = {(t, t, 1) | t ∈ R} (the options call it both s and l). Allora (1 risposta corretta):"
+[item.data]
+options = ["r ed s sono sghembe.", "r ed s coincidono.", "r ed l si intersecano e l'unico piano che le contiene entrambe ha equazione parametrica {(a + b, 2 − a + b, 3 − a)}.", "r ed s sono parallele.", "r ed l si intersecano e l'unico piano che le contiene entrambe ha equazione cartesiana {x − y + 2z − 2 = 0}."]
+correct = "e"
+why = { a = "They meet at (1, 1, 1) (t = 1 on both).", b = "Different directions.", c = "Right directions, but (0, 2, 3) is not on the plane: 0 − 2 + 6 = 4 ≠ 2.", d = "Different directions (1,−1,−1) and (1,1,0).", e = "Normal (1,−1,−1) × (1,1,0) = (1,−1,2); through (0,2,2): x − y + 2z = 2." }
+
+[[item]]
+id = "Q02-D16"
+ref = "Domanda 16"
+topic = "affine"
+page = 5
+task = "mcq"
+text = "In R³: l1 = (4, 3, 2) + R(1, −1, −2), l2 = (1, 2, 1) + R(3, 1, 1). Allora:"
+[item.data]
+options = ["l1 e l2 sono uguali.", "l1 e l2 sono incidenti.", "l1 e l2 sono sghembe.", "l1 e l2 sono parallele."]
+correct = "b"
+why = { b = "(4,3,2) = (1,2,1) + 1·(3,1,1) lies on both, and the directions differ.", c = "They have a common point.", d = "Directions not proportional." }
+
+[[item]]
+id = "Q02-D17"
+ref = "Domanda 17"
+topic = "affine"
+page = 5
+task = "mcq"
+text = "L1: (√2, −1, 0) + R(0, 1, −1), L2: (−1, 2, 3) + R(1, −1, 0). Quale equazione descrive un piano parallelo ad entrambe?"
+[item.data]
+options = ["2x + 3y − 3z = 1", "x − y + z = 2", "2x + 2y + 2z = 3", "y − 2z = 4", "x − y − z = 5"]
+correct = "c"
+why = { c = "The normal must be ⊥ (0,1,−1) and (1,−1,0): proportional to (1,1,1). It also contains neither line.", b = "(1,−1,1)·(0,1,−1) = −2 ≠ 0.", e = "(1,−1,−1)·(1,−1,0) = 2 ≠ 0." }
+
+[[item]]
+id = "Q02-D18"
+ref = "Domanda 18"
+topic = "affine"
+page = 5
+task = "mcq"
+text = "Quale equazione definisce il piano contenente la retta l := (1, 2, 3) + R(1, 0, 1) e passante per (0, 0, 3)?"
+[item.data]
+options = ["−6x + 3y + 2z = 6", "x + y = 1", "2x − y + 2z = 6", "4x − 2y + z = 3", "−2x + y + 2z = 6"]
+correct = "e"
+why = { e = "(−2,1,2)·(1,0,1) = 0, −2 + 2 + 6 = 6 and 0 + 0 + 6 = 6.", a = "(−6,3,2)·(1,0,1) = −4 ≠ 0: not parallel to l.", c = "(2,−1,2)·(1,0,1) = 4 ≠ 0." }
+
+[[item]]
+id = "Q02-D19"
+ref = "Domanda 19"
+topic = "affine"
+page = 6
+task = "mcq"
+text = "Quale equazione definisce il piano contenente la retta r := {2x + 2y = 2, x + 2y − z = 2} e passante per P = (2, 3, 4)?"
+[item.data]
+options = ["x + y + z − 9 = 0.", "Tale piano non esiste.", "2x + 2y − 10 = 0.", "x + 3y − 2z − 3 = 0.", "x − 2y + 2z − 4 = 0.", "Più di un piano soddisfa le richieste."]
+correct = "d"
+why = { d = "Fascio λ(2x + 2y − 2) + μ(x + 2y − z − 2) = 0; P gives 8λ + 2μ = 0, μ = −4λ ⇒ −2x − 6y + 4z + 6 = 0, i.e. x + 3y − 2z − 3 = 0.", f = "P is not on r, so the plane is unique.", b = "A plane through a line and a point outside it always exists." }

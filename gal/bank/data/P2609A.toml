@@ -1,0 +1,296 @@
+[source]
+id = "P2609A"
+title = "Esame 07/09/2026"
+kind = "exam"
+date = "2026-09-07"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/2026-09 Appello.pdf", sha256 = "230b984e4d4677bcc03189eb6219bd544b4db45557bc2a0cc846008f0870d022", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2025-2026 (con soluzioni)/Soluzioni/2026-09 Appello - soluzioni.pdf", sha256 = "d5eafef93185e9fac18a498a38eaae0fc5b6e2fe221522e834d8cce24e3c986b", pages = 5, role = "solutions" },
+]
+note = "Keys of Parte I from the official solutions. Exercise points are not printed: the 22 points are split evenly over the sub-questions."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "Frapporti", points_estimated = true }
+
+# ================================================================ Parte I
+[[item]]
+id = "P2609A-D1"
+ref = "Domanda 1"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Per tutti i sottospazi vettoriali U, W ⊲ R⁶ con U + W = R⁶ e dim U = dim W vale:"
+[item.data]
+options = ["dim(U ∩ W) è un numero pari", "dim(U ∩ W) = 0", "dim(U ∩ W) = 1", "dim(U ∩ W) è un numero dispari"]
+correct = "a"
+why = "Grassmann: dim(U ∩ W) = dim U + dim W − dim(U + W) = 2·dim U − 6, always even (e.g. 0 if dim U = 3, 2 if dim U = 4)."
+
+[[item]]
+id = "P2609A-D2"
+ref = "Domanda 2"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Nello spazio R[x]_≤2, il vettore (p)_B delle coordinate di p(x) = 3 + x + 2x² rispetto alla base B = {1 + x, x + x², 1 + x²} è:"
+[item.data]
+options = ["(1, 0, 2)ᵀ", "(3, 1, 2)ᵀ", "(1, 1, 1)ᵀ", "(2, −1, 2)ᵀ"]
+correct = "a"
+why = "a(1 + x) + b(x + x²) + c(1 + x²) = 3 + x + 2x² ⇔ a + c = 3, a + b = 1, b + c = 2 ⇔ (a, b, c) = (1, 0, 2)."
+
+[[item]]
+id = "P2609A-D3"
+ref = "Domanda 3"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "In R² con prodotto scalare ⟨(x1, x2)ᵀ, (y1, y2)ᵀ⟩ = x1y1 + 2x2y2, la norma del vettore (1, 1)ᵀ è:"
+[item.data]
+options = ["3", "√3", "√2", "1"]
+correct = "b"
+why = "‖(1, 1)‖² = 1·1 + 2·1·1 = 3, so the norm is √3."
+
+[[item]]
+id = "P2609A-D4"
+ref = "Domanda 4"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Il sistema lineare (1 1; 2 2; 3 3) x = (2, k, 6)ᵀ è risolubile"
+[item.data]
+options = ["se e solo se k = 4", "se e solo se k = 2", "per ogni k ∈ R", "per nessun k ∈ R"]
+correct = "a"
+why = "rg(A) = 1; the complete matrix has rank 1 iff (2, k, 6) is proportional to (1, 2, 3), i.e. k = 4 (Rouché-Capelli)."
+
+[[item]]
+id = "P2609A-D5"
+ref = "Domanda 5"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Tutti i sottospazi vettoriali U di R⁵ che contengono 3 vettori linearmente indipendenti soddisfano"
+[item.data]
+options = ["dim U ≥ 2", "dim U ≤ 4", "dim U = 3", "dim U ≤ 3"]
+correct = "a"
+why = "3 independent vectors in U give dim U ≥ 3, hence also dim U ≥ 2. dim U can be 3, 4 or 5, so B, C, D can fail."
+
+[[item]]
+id = "P2609A-D6"
+ref = "Domanda 6"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "L'insieme U = {(x, y, z) ∈ R³ : x + y = 1, y + z = 2} è:"
+[item.data]
+options = ["un sottospazio vettoriale di dimensione 1", "una retta affine", "un piano affine", "vuoto"]
+correct = "b"
+why = "Two independent non-homogeneous equations in R³: a consistent system with ∞¹ solutions, a line not through 0."
+
+[[item]]
+id = "P2609A-D7"
+ref = "Domanda 7"
+section = "I"
+points = 1
+topic = "determinant"
+page = 2
+task = "mcq"
+text = "Siano v1, v2, v3 ∈ R³ tali che det(v1 | v2 | v3) = 3. Allora det(2v1 | 2v2 + v1 | 2v3 − v2) è"
+[item.data]
+options = ["24", "6", "3", "0"]
+correct = "a"
+why = "Multilinearity and alternance: the added multiples of earlier columns do not change det, so det = 2·2·2·3 = 24."
+
+[[item]]
+id = "P2609A-D8"
+ref = "Domanda 8"
+section = "I"
+points = 1
+topic = "isometries"
+page = 2
+task = "mcq"
+text = "La forma quadratica φ: R³ → R associata alla matrice A = (1 0 0; 0 0 1; 0 1 0) è:"
+[item.data]
+options = ["indefinita", "semidefinita positiva", "definita positiva", "definita negativa"]
+correct = "a"
+why = "Eigenvalues 1, 1, −1 (the block (0 1; 1 0) has ±1): of both signs, so φ is indefinite (φ(0,1,−1) = −2 < 0 < φ(1,0,0))."
+
+[[item]]
+id = "P2609A-D9"
+ref = "Domanda 9"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 2
+task = "mcq"
+text = "Sia D: R[x]_≤3 → R[x]_≤3 la derivazione D(p) = p′. Allora:"
+[item.data]
+options = ["dim ker(D) = 1", "dim Im(D) = 2", "D è iniettiva", "D è suriettiva"]
+correct = "a"
+why = "ker D = constants (dim 1); Im D = R[x]_≤2 (dim 3): D is neither injective nor surjective."
+
+[[item]]
+id = "P2609A-D10"
+ref = "Domanda 10"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 2
+task = "mcq"
+text = "Due matrici simili A, B ∈ M_R(5, 5) hanno necessariamente:"
+[item.data]
+options = ["lo stesso polinomio caratteristico e lo stesso rango", "le stesse entrate sulla diagonale", "lo stesso polinomio caratteristico, ma possono avere rango diverso", "gli stessi autovettori"]
+correct = "a"
+why = "B = P⁻¹AP: p_B = p_A and rg B = rg A (P invertible). Diagonals and eigenvectors change in general (only the trace is preserved)."
+
+# ================================================================ Parte II
+[[item]]
+id = "P2609A-E1i"
+ref = "Esercizio 1 i)"
+section = "II"
+points = 2
+topic = "cart_param"
+page = 3
+task = "cartesian"
+setup = "Nello spazio vettoriale R⁴ si considerino i vettori u1 = (1, 1, 1, 0)ᵀ, u2 = (0, 2, 1, −1)ᵀ, u3 = (1, −1, 0, 1)ᵀ e i sottospazi vettoriali U = Span(u1, u2, u3) e W = {(x1, x2, x3, x4) ∈ R⁴ : x1 + x4 = 0, x2 − x3 + x4 = 0}. Sia inoltre A = P + W il sottospazio affine di giacitura W e passante per P = (1, 1, 0, 0)ᵀ."
+text = "i) Determinare la dimensione di U e scriverlo in forma cartesiana."
+data = { dirs = [[1, 1, 1, 0], [0, 2, 1, -1], [1, -1, 0, 1]], names = ["x1", "x2", "x3", "x4"], ask_dim = true, hide = true }
+
+[[item]]
+id = "P2609A-E1ii"
+ref = "Esercizio 1 ii)"
+section = "II"
+points = 2
+topic = "cart_param"
+page = 3
+task = "basis_eqs"
+text = "ii) Trovare una base di W e determinarne la dimensione."
+data = { A = [[1, 0, 0, 1], [0, 1, -1, 1]], names = ["x1", "x2", "x3", "x4"], hide = true }
+
+[[item]]
+id = "P2609A-E1iii"
+ref = "Esercizio 1 iii)"
+section = "II"
+points = 2
+topic = "affine"
+page = 3
+task = "affine_forms"
+text = "iii) Scrivere A sia in forma cartesiana che in forma parametrica."
+data = { point = [1, 1, 0, 0], dirs = [[-1, -1, 0, 1], [0, 1, 1, 0]], names = ["x1", "x2", "x3", "x4"] }
+
+[[item]]
+id = "P2609A-E1ivW"
+ref = "Esercizio 1 iv) (U ∩ W)"
+section = "II"
+points = 1
+topic = "sum_intersection"
+page = 3
+task = "grassmann"
+text = "iv) Determinare U ∩ W."
+data = { U = { span = [[1, 1, 1, 0], [0, 2, 1, -1], [1, -1, 0, 1]] }, W = { A = [[1, 0, 0, 1], [0, 1, -1, 1]] }, names = ["x1", "x2", "x3", "x4"], parts = ["int_basis"] }
+
+[[item]]
+id = "P2609A-E1ivA"
+ref = "Esercizio 1 iv) (U ∩ A)"
+section = "II"
+points = 1
+topic = "affine"
+page = 3
+task = "affine_meet"
+text = "iv) Determinare U ∩ A."
+data = { S1 = { dirs = [[1, 1, 1, 0], [0, 2, 1, -1]] }, S2 = { point = [1, 1, 0, 0], dirs = [[-1, -1, 0, 1], [0, 1, 1, 0]] }, name1 = "U", name2 = "A" }
+
+[[item]]
+id = "P2609A-E2i"
+ref = "Esercizio 2 i)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 3
+task = "open"
+setup = "Si consideri la funzione f: R[x]_≤3 → R[x]_≤3 definita per ogni polinomio p ∈ R[x]_≤3 da f(p) = p(x) − p(1)·x."
+text = "i) Dimostrare che f è un'applicazione lineare."
+[item.data]
+solution = """
+f(p + q) = (p + q)(x) − (p + q)(1)·x = p(x) − p(1)x + q(x) − q(1)x = f(p) + f(q);
+f(αp) = αp(x) − αp(1)·x = α(p(x) − p(1)x) = αf(p)  (evaluation at 1 is linear)."""
+
+[[item]]
+id = "P2609A-E2ii"
+ref = "Esercizio 2 ii)"
+section = "II"
+points = 2
+topic = "rep_matrix"
+page = 3
+task = "open"
+text = "ii) Verificare che la matrice rappresentativa di f rispetto alla base E = {1, x, x², x³} sia (1 0 0 0; −1 0 −1 −1; 0 0 1 0; 0 0 0 1)."
+[item.data]
+solution = """
+Columns = coordinates of the images of the basis: f(1) = 1 − x → (1, −1, 0, 0); f(x) = x − x = 0 → (0, 0, 0, 0);
+f(x²) = x² − x → (0, −1, 1, 0); f(x³) = x³ − x → (0, −1, 0, 1). These are exactly the columns of the given matrix."""
+
+[[item]]
+id = "P2609A-E2iii"
+ref = "Esercizio 2 iii)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 3
+task = "kerim"
+text = "iii) Determinare una base di ker(f). (Coordinates w.r.t. E = {1, x, x², x³}: (0, 1, 0, 0) is the polynomial x.)"
+data = { A = [[1, 0, 0, 0], [-1, 0, -1, -1], [0, 0, 1, 0], [0, 0, 0, 1]], keep = ["basis of ker"], coords_note = "coordinates w.r.t. {1, x, x², x³}" }
+
+[[item]]
+id = "P2609A-E2iv"
+ref = "Esercizio 2 iv)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "iv) Stabilire se f è diagonalizzabile, trovando tutti gli autovalori ed una base dei rispettivi autospazi. (Coordinates w.r.t. E.)"
+data = { A = [[1, 0, 0, 0], [-1, 0, -1, -1], [0, 0, 1, 0], [0, 0, 0, 1]], ask_P = false, name = "M^E_E(f)" }
+
+[[item]]
+id = "P2609A-E3i"
+ref = "Esercizio 3 i)"
+section = "II"
+points = 2
+topic = "bilinear"
+page = 3
+task = "values"
+setup = "Nello spazio vettoriale V = R³ si consideri la forma bilineare ⟨·,·⟩: V × V → R, ⟨x, y⟩ = xᵀAy, dove A = (2 1 0; 1 2 1; 0 1 2). Si denoti con E = {e1, e2, e3} la base canonica di R³."
+text = "i) Calcolare ⟨e1, e2⟩, ⟨e2, e3⟩, √⟨e1, e1⟩, √⟨e2, e2⟩."
+[item.data]
+answers = [["⟨e1, e2⟩", 1], ["⟨e2, e3⟩", 1], ["√⟨e1, e1⟩", "sqrt(2)"], ["√⟨e2, e2⟩", "sqrt(2)"]]
+why = "⟨ei, ej⟩ = eiᵀAej = a_ij: ⟨e1, e2⟩ = a12 = 1, ⟨e2, e3⟩ = a23 = 1, ⟨e1, e1⟩ = a11 = 2, ⟨e2, e2⟩ = a22 = 2."
+
+[[item]]
+id = "P2609A-E3ii"
+ref = "Esercizio 3 ii)"
+section = "II"
+points = 2
+topic = "scalar_products"
+page = 3
+task = "gram"
+text = "ii) Verificare che ⟨·,·⟩ è un prodotto scalare su V."
+data = { G = [[2, 1, 0], [1, 2, 1], [0, 1, 2]], keep = ["is it"] }
+
+[[item]]
+id = "P2609A-E3iii"
+ref = "Esercizio 3 iii)"
+section = "II"
+points = 2
+topic = "gram_schmidt"
+page = 3
+task = "gram_schmidt"
+text = "iii) Applicare il procedimento di Gram-Schmidt ad E per ottenere una base ortogonale di V rispetto a ⟨·,·⟩."
+data = { vectors = [[1, 0, 0], [0, 1, 0], [0, 0, 1]], S = [[2, 1, 0], [1, 2, 1], [0, 1, 2]] }

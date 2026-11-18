@@ -1,0 +1,190 @@
+[source]
+id = "P2211I1"
+title = "Prova in itinere 1, 11/2022"
+kind = "exam"
+date = "2022-11-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2022-11 Itinere 1 - Parte A.pdf", sha256 = "781707a209c6e9c9a19a31674893fb5c8a48b775ac10cf0129fe9de594f49769", pages = 5 },
+]
+note = "Previous lecturer's first itinere, test part only (12 questions, 1 point each; the score is also shown out of 16). No official solutions: keys worked out and checked by the trainer."
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "altro docente", half = 1 }
+
+
+[[item]]
+id = "P2211I1-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Per quali valori del parametro λ ∈ R il sistema { −λx − λy − 2λz = −3;  x + y + 2z = 1;  −2x + (λ − 3)y − 3z = −2;  x + y + λz = 2 } ammette un'unica soluzione?"
+[item.data]
+options = ["Per ogni λ ≠ 1 e λ ≠ 2", "λ = 1 o λ = 2", "λ = 3", "Per nessun valore di λ ∈ R"]
+correct = "c"
+why = "4 equations, 3 unknowns: unique solution ⇔ rg(A) = rg(A|b) = 3. This happens only for λ = 3 (for λ = 1, 2 rg(A) = 2 < 3 = rg(A|b); otherwise rg(A|b) = 4)."
+
+
+[[item]]
+id = "P2211I1-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "I tre piani π1: x + y − z = 1, π2: x + z = 0, π3: 2x + y = 1"
+[item.data]
+options = ["sono paralleli", "si incontrano in una retta", "si incontrano in un punto", "due sono paralleli e uno è trasverso"]
+correct = "b"
+why = "π3 = π1 + π2 (equations and constants add up): rg(A) = rg(A|b) = 2, so the three planes share a line."
+
+
+[[item]]
+id = "P2211I1-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_K(3, 3) e b = (1, 2, 3)ᵀ. Si conosce A⁻¹ = (1 1 2; −1 2 1; 3 1 1). Allora il sistema Ax = b"
+[item.data]
+options = ["non ammette soluzioni", "ammette infinite soluzioni", "ammette un'unica soluzione x = (2/3, 5/3, −2/3)ᵀ", "ammette un'unica soluzione x = (9, 6, 8)ᵀ"]
+correct = "d"
+why = "x = A⁻¹b = (1 + 2 + 6, −1 + 4 + 3, 3 + 2 + 3) = (9, 6, 8)."
+
+
+[[item]]
+id = "P2211I1-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "Sia V uno spazio vettoriale su R e B = {v1, v2, v3, v4} una sua base. Allora l'insieme {v1 + 2v3, 2v2 + v4, v1 + 2v2 + 2v3 + v4, v1 + v2, 2v1 + 3v2 + 2v3 + v4}"
+[item.data]
+options = ["non è un insieme linearmente indipendente e non è un insieme di generatori", "è una base", "è un insieme linearmente indipendente", "è un insieme di generatori"]
+correct = "a"
+why = "5 vectors in dimension 4 are dependent; their coordinate matrix has rank 3 < 4, so they do not generate V either."
+
+
+[[item]]
+id = "P2211I1-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti affermazioni è vera?"
+[item.data]
+options = ["{p(t) ∈ K[t]_≤n : p(1) = 0} non è un sottospazio vettoriale di K[t]_≤n", "{p(t) ∈ K[t]_≤n : p(1) − p(2) = 1} è un sottospazio vettoriale di K[t]_≤n", "Fissata B ∈ M_K(n, n), {A ∈ Mat_K(n, n) : AB = BA + In} è un sottospazio vettoriale di Mat_K(2, 2)", "Fissato v ∈ Kⁿ, {A ∈ Mat_K(n, n) : Av = 0} è un sottospazio vettoriale di Mat_K(n, n)"]
+correct = "d"
+why = "A ↦ Av is linear, so its kernel is a subspace. p(1) = 0 is a subspace too (so A is false); B and C do not contain 0."
+
+
+[[item]]
+id = "P2211I1-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "cart_param"
+page = 1
+task = "mcq"
+text = "Le equazioni cartesiane del sottospazio W ⊆ R⁴ sono x + y + z = x − 2y + 3z − 4w = 0. Allora"
+[item.data]
+options = ["W = Span((−6, 4, 2, −2), (1, 0, −1, 0))", "W = Span((−4, 4, 0, −3), (−2, 0, 2, 1))", "W = Span((−2, 4, −2, −4))", "W = Span((4, 4, 4, 2))"]
+correct = "b"
+why = "dim W = 4 − 2 = 2; both vectors of B satisfy the two equations and are independent. (1, 0, −1, 0) fails the second equation; C and D have only one vector."
+
+
+[[item]]
+id = "P2211I1-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Trovare l'intersezione dei sottospazi di R⁴ W = {x + 2y + z = y − z + w = 0} e U = Span((1, 1, 1, 1), (−2, 2, 2, 1))."
+[item.data]
+options = ["W ∩ U = Span((−3, 1, 1, 0))", "W ∩ U = Span((2, −1, 0, 1))", "W ∩ U = Span((−1, 0, 1, 1))", "W ∩ U = Span((1, 1, 1, 1))"]
+correct = "a"
+why = "(−3, 1, 1, 0) = (−2, 2, 2, 1) − (1, 1, 1, 1) lies in U and satisfies −3 + 2 + 1 = 0 and 1 − 1 + 0 = 0. Neither generator of U is in W, so U ∩ W is exactly that line."
+
+
+[[item]]
+id = "P2211I1-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Data la base B = {(1, 0, 0), (1, 2, 0), (1, 1, 1)} di R³ e v = (1, 0, 1), il vettore [v]_B delle coordinate di v rispetto a B è"
+[item.data]
+options = ["(1, −1/2, 1/2)", "(−1/2, 1/2, 1)", "(1/2, −1/2, 1)", "(1/2, 1, −1/2)"]
+correct = "c"
+why = "c = 1 (third coordinate), 2b + c = 0 ⇒ b = −1/2, a + b + c = 1 ⇒ a = 1/2."
+
+
+[[item]]
+id = "P2211I1-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia B = (1 2; 3 4). La funzione L: Mat_K(2, 2) → Mat_K(2, 2) definita da L(A) = AB"
+[item.data]
+options = ["non è lineare e non è invertibile", "non è lineare ma è invertibile", "è lineare ma non è invertibile", "è lineare e invertibile"]
+correct = "d"
+why = "A ↦ AB is linear; det B = −2 ≠ 0, so its inverse is A ↦ AB⁻¹."
+
+
+[[item]]
+id = "P2211I1-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R[t]_≤2 → R³ definita da L(p(t)) = (p(0), p(2), p(2))ᵀ. Allora"
+[item.data]
+options = ["dim(Im(L)) = 2 e una base del kernel è {t² − 2t}", "dim(Im(L)) = 1 e una base del kernel è {t² − 2t, t − 2}", "dim(Im(L)) = 2 e una base del kernel è {t − 2}", "dim(Im(L)) = 3"]
+correct = "a"
+why = "ker: p(0) = p(2) = 0 ⇔ p = c·t(t − 2): dim ker = 1, so dim Im = 3 − 1 = 2."
+
+
+[[item]]
+id = "P2211I1-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Trovare la matrice M_L^{B,B} associata a L(x, y) = (2x + 3y, x + y) rispetto alla base B = {(1, 1), (2, 1)}."
+[item.data]
+options = ["(3 4; −1 −1)", "(−1 −1; 3 4)", "(3 −1; 4 −1)", "(−1 3; −1 4)"]
+correct = "b"
+why = "L(1, 1) = (5, 2) = −1·(1, 1) + 3·(2, 1); L(2, 1) = (7, 3) = −1·(1, 1) + 4·(2, 1): columns (−1, 3), (−1, 4)."
+
+
+[[item]]
+id = "P2211I1-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Siano L1: R³ → R⁴ con dim(ker L1) = 1 e L2: R⁵ → R³ con dim(ker L2) = 2. Allora"
+[item.data]
+options = ["dim(Im(L1 ∘ L2)) = 2.", "dim(Im(L1 ∘ L2)) = 3.", "dim(Im(L1 ∘ L2)) = 1.", "dim(Im(L2 ∘ L1)) = 2."]
+correct = "a"
+why = "rk L2 = 5 − 2 = 3, so L2 is onto R³ and Im(L1 ∘ L2) = Im L1, of dimension 3 − 1 = 2. L2 ∘ L1 is not defined (R⁴ ≠ R⁵)."

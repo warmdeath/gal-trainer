@@ -1,0 +1,322 @@
+[source]
+id = "P2301I2"
+title = "Prova in itinere 2, 01/2023 (Parte A + B)"
+kind = "exam"
+date = "2023-01-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-01 Itinere 2 - Parte A.pdf", sha256 = "7fd9e14545fd1b9922dbd9c0710e6a1769c0fe3e7e0662da2015e35098fa4f62", pages = 5 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-01 Itinere 2 - Parte B.pdf", sha256 = "402ad429d9a10a964c5d03540cfc645e142041f5c0f04c601103c3ad047bb45b", pages = 4 },
+]
+note = "Previous lecturer's second itinere: 12 questions + exercises worth 20 points (a full written exam on the second half), timed like an appello. No official solutions: keys worked out and checked by the trainer."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2301I2-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Sia A ∈ M_R(3, 4). Sapendo che Col(A) = Span((1, 2, 3), (1, −1, 1)) e b = (2, 1, 4), il sistema lineare Ax = b:"
+[item.data]
+options = ["è impossibile", "ammette un'unica soluzione", "ammette infinite soluzioni che dipendono da un solo parametro", "ammette infinite soluzioni che dipendono da due parametri"]
+correct = "d"
+why = "b = (1, 2, 3) + (1, −1, 1) ∈ Col(A): solvable. rg A = 2 with 4 unknowns: ∞^(4 − 2) = ∞² solutions."
+
+
+[[item]]
+id = "P2301I2-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Le rette r: (x, y, z) = (1, 0, 1) + t(−1, 1, −1) e s: x + y − 1 = y + z − 1 = 0 sono"
+[item.data]
+options = ["parallele coincidenti", "parallele distinte", "incidenti in un solo punto", "sghembe"]
+correct = "a"
+why = "s has direction (1, 1, 0) × (0, 1, 1) = (1, −1, 1) ∥ r, and (1, 0, 1) satisfies both equations of s: the lines coincide."
+
+
+[[item]]
+id = "P2301I2-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Sia U = Span((1, 1, −1, 1), (−1, 1, 1, 1)). Per quale dei seguenti sottospazi W di R⁴ si ha R⁴ = U + W e U ∩ W = {0}?"
+[item.data]
+options = ["Span((1, −1, 1, 1))", "Span((0, 2, 0, 2), (1, −1, 1, 1))", "Span((0, 0, 1, 0), (0, 0, 0, 1))", "Span((1, −1, 1, 1), (1, 1, 1, −1), (1, 1, 1, 1))"]
+correct = "c"
+why = "W must have dimension 2 and meet U only in 0: the first two coordinates of the U-generators, (1, 1) and (−1, 1), are independent, so U + Span(e3, e4) = R⁴. In B, (0, 2, 0, 2) = u1 + u2 ∈ U."
+
+
+[[item]]
+id = "P2301I2-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia B = {v1, v2, v3} una base di V e L: V → V l'endomorfismo L(v1) = v1 + v2, L(v2) = v1 − v2, L(v3) = v1. Allora"
+[item.data]
+options = ["Ker(L) = {0}", "Ker(L) = Span(v1 − v2)", "Ker(L) = Span(v1 + v2)", "Ker(L) = Span(v1 + v2 − 2v3)"]
+correct = "d"
+why = "L(v1 + v2 − 2v3) = (v1 + v2) + (v1 − v2) − 2v1 = 0, and rg = 2 (L(v1), L(v2) independent): dim ker = 1."
+
+
+[[item]]
+id = "P2301I2-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia V uno spazio di dimensione finita e L: V → V tale che Im(L) = Ker(L). Allora"
+[item.data]
+options = ["dim(V) è un intero positivo pari o nullo", "dim(V) è un intero positivo dispari", "dim(V) può essere un qualsiasi intero positivo", "dim(V) può essere solo 0"]
+correct = "a"
+why = "Nullità + rango: dim V = dim ker + dim Im = 2 dim ker, even. (e.g. L(x, y) = (y, 0) on R².)"
+
+
+[[item]]
+id = "P2301I2-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Gli endomorfismi T_k: R² → R² hanno due autovalori distinti 1, 2 con autospazi V1 = Span((1, 1)), V2 = Span((k, k + 1)). Allora T_k è ortogonalmente diagonalizzabile se e solo se k è uguale a"
+[item.data]
+options = ["per nessun k ∈ R", "k = −1/2", "k = 1", "per ogni k ∈ R"]
+correct = "b"
+why = "Orthogonally diagonalisable ⇔ the eigenspaces are orthogonal: k + (k + 1) = 0 ⇔ k = −1/2."
+
+
+[[item]]
+id = "P2301I2-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia L: R³ → R³ con autospazio Span((1, 1, 1), (0, 1, 1)) associato a 2 e Span((0, 0, 1)) associato a 3. Allora"
+[item.data]
+options = ["L(1, 2, 3) = (4, 7, 2)", "L(1, 2, 3) = (2, 4, 7)", "L(1, 2, 3) = (7, 2, 4)", "L(1, 2, 3) = (7, 4, 2)"]
+correct = "b"
+why = "(1, 2, 3) = [(1, 1, 1) + (0, 1, 1)] + (0, 0, 1), so L(1, 2, 3) = 2(1, 2, 2) + 3(0, 0, 1) = (2, 4, 7)."
+
+
+[[item]]
+id = "P2301I2-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "La retta ortogonale al piano 2x + y − z = 1 e passante per P = (1, 1, 2) ha equazioni cartesiane"
+[item.data]
+options = ["x − y = 2x − z = 0", "x − 2y = z + y = 0", "x − z + 1 = x + y − 2 = 0", "x − 2y + 1 = y + z − 3 = 0"]
+correct = "d"
+why = "The line is (1, 1, 2) + t(2, 1, −1). In D both equations hold at P and vanish on the direction (2 − 2 = 0, 1 − 1 = 0). A, C fail on the direction, B at P."
+
+
+[[item]]
+id = "P2301I2-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Siano v, w ∈ V con ‖v‖ = √3, ‖w‖ = √5, ⟨v, w⟩ = 3. Allora"
+[item.data]
+options = ["‖v − 2w‖ = √23", "‖v − 2w‖ = √17", "‖v − 2w‖ = √11", "‖v − 2w‖ = √2"]
+correct = "c"
+why = "‖v − 2w‖² = ‖v‖² − 4⟨v, w⟩ + 4‖w‖² = 3 − 12 + 20 = 11."
+
+
+[[item]]
+id = "P2301I2-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La segnatura della forma quadratica q(x, y, z) = x² − y² + z² − 2xz − 2yz è"
+[item.data]
+options = ["(2, 1, 0)", "(0, 3, 0)", "(3, 0, 0)", "(1, 2, 0)"]
+correct = "a"
+why = "Matrix (1 0 −1; 0 −1 −1; −1 −1 1): det = −1 ≠ 0 and the eigenvalues are ≈ 2.17, 0.31, −1.48: two positive, one negative."
+
+
+[[item]]
+id = "P2301I2-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Date due matrici A, B ∈ Mat_R(3, 3), quale delle seguenti affermazioni è vera?"
+[item.data]
+options = ["det(A²) = (det(A))²", "det(A + B) = det(A) + det(B)", "det(5A) = 5 det(A)", "rk(AB) = rk(A) + rk(B)"]
+correct = "a"
+why = "Binet: det(A·A) = det(A)². det(5A) = 125 det A; det is not additive; rk(AB) ≤ min(rk A, rk B)."
+
+
+[[item]]
+id = "P2301I2-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "La conica di equazione x² + 4xy + y² + 2x + 2y + 1 = 0 è"
+[item.data]
+options = ["un'iperbole di centro (1/3, 1/3)", "un'iperbole di centro (−1/3, −1/3)", "una coppia di rette incidenti in (−1/3, −1/3)", "una coppia di rette incidenti in (1/3, 1/3)"]
+correct = "b"
+why = "det(1 2; 2 1) = −3 < 0 (hyperbolic type); the complete matrix (1 2 1; 2 1 1; 1 1 1) has det −1 ≠ 0 (non-degenerate). Centre: (1 2; 2 1)c = −(1, 1) ⇒ c = (−1/3, −1/3)."
+
+
+[[item]]
+id = "P2301I2-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 3
+topic = "linear_maps"
+page = 2
+task = "kerim"
+setup = "Sia L: R³ → R³ l'applicazione lineare L(x, y, z) = (x + 2y + 3z, y + 2z, x + y + z)."
+text = "a) Determinare base e dimensione di immagine e nucleo di L."
+data = { A = [[1, 2, 3], [0, 1, 2], [1, 1, 1]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2301I2-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 2
+task = "repmat"
+text = "b) Determinare la matrice M_L^{B,C} che rappresenta L rispetto alle basi B = {(−2, 0, 1), (0, 1, 0), (1, 1, 1)} e C = {(1, 1, 1), (1, −1, 0), (0, 1, 0)}."
+data = { A = [[1, 2, 3], [0, 1, 2], [1, 1, 1]], B = [[-2, 0, 1], [0, 1, 0], [1, 1, 1]], C = [[1, 1, 1], [1, -1, 0], [0, 1, 0]], label = "M^B_C(L)", hide = true }
+
+
+[[item]]
+id = "P2301I2-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 1
+topic = "linear_maps"
+page = 2
+task = "open"
+text = "c) Determinare un sottospazio H ⊆ R³ tale che dim L(H) < dim H."
+[item.data]
+solution = """
+Any H containing a nonzero vector of ker L = Span((1, −2, 1)), e.g. H = Span((1, −2, 1)): L(H) = {0}, so dim L(H) = 0 < 1 = dim H."""
+
+
+[[item]]
+id = "P2301I2-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "yesno"
+setup = "Date le matrici A = (1 −2; 1 4), B = (1 1; 0 4), C = (3 0; 1 2)."
+text = "a) Determinare se A e B sono simili."
+data = { answer = false, why = "p_A(t) = t² − 5t + 6 (eigenvalues 2, 3) while B is triangular with eigenvalues 1, 4: different characteristic polynomials, not similar." }
+
+
+[[item]]
+id = "P2301I2-E2bA"
+ref = "Esercizio 2 b) (A)"
+section = "II"
+points = 1.5
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Determinare autovalori e autospazi di A e scrivere le equazioni di diagonalizzazione di A."
+data = { A = [[1, -2], [1, 4]], name = "A" }
+
+
+[[item]]
+id = "P2301I2-E2bC"
+ref = "Esercizio 2 b) (C)"
+section = "II"
+points = 1.5
+topic = "diagonalization"
+page = 3
+task = "eigen"
+text = "b) Determinare autovalori e autospazi di C e scrivere le equazioni di diagonalizzazione di C."
+data = { A = [[3, 0], [1, 2]], name = "C" }
+
+
+[[item]]
+id = "P2301I2-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 1
+topic = "diagonalization"
+page = 3
+task = "open"
+text = "c) Determinare se A e C sono simili, ed in tal caso trovare una matrice invertibile S per cui A = S⁻¹CS."
+[item.data]
+solution = """
+Both are similar to D = diag(2, 3): P_A⁻¹AP_A = D with P_A = (2 1; −1 −1), P_C⁻¹CP_C = D with P_C = (0 1; 1 1). Then A = P_A P_C⁻¹ C P_C P_A⁻¹ = S⁻¹CS with S = P_C P_A⁻¹ = (−1 −2; 0 −1)."""
+
+
+[[item]]
+id = "P2301I2-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Dato v = (1, 1, 1), si consideri il luogo Q = {x ∈ R³ | cos(v̂x) = ±1/√2} ∪ {0}."
+text = "a) Dimostrare che Q è una quadrica di equazione x² + y² + z² − 4xy − 4xz − 4yz = 0."
+[item.data]
+solution = """
+cos² = ⟨v, x⟩²/(‖v‖²‖x‖²) = 1/2 ⇔ 2(x + y + z)² = 3(x² + y² + z²) ⇔ x² + y² + z² − 4xy − 4xz − 4yz = 0 (this also contains 0)."""
+
+
+[[item]]
+id = "P2301I2-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Trovare la forma canonica metrica e classificare la quadrica Q."
+[item.data]
+solution = """
+Matrix (1 −2 −2; −2 1 −2; −2 −2 1): eigenvalue −3 on (1, 1, 1), eigenvalue 3 (double) on its orthogonal plane. Canonical form 3X² + 3Y² − 3Z² = 0, i.e. X² + Y² − Z² = 0: a real (circular) cone with vertex 0."""
+
+
+[[item]]
+id = "P2301I2-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "affine_forms"
+text = "c) Dimostrare che Q è una quadrica di rotazione e determinare l'asse di rotazione (nelle coordinate x, y, z). (The double eigenvalue makes it a surface of rotation; give the axis.)"
+data = { point = [0, 0, 0], dirs = [[1, 1, 1]] }

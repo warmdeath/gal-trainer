@@ -1,0 +1,306 @@
+[source]
+id = "P2302A"
+title = "Appello 02/2023 (Parte A + B)"
+kind = "exam"
+date = "2023-02-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-02 Appello - Parte A.pdf", sha256 = "f206fc61024744b872875ee4064917b5ffe6dfc2edfba7742b31ba73e2f3b73e", pages = 3 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-02 Appello - Parte B.pdf", sha256 = "fa0403710f17a25eed5914ce5d2eca50e5ffb3fa2bc9d3b7023dcd90d9e5f956", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2302A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Per quali valori di λ ∈ R la matrice (1 1; 0 λ) è diagonalizzabile?"
+[item.data]
+options = ["per nessun λ ∈ R", "λ = 1", "λ ≠ 1", "per ogni λ ∈ R"]
+correct = "c"
+why = "Eigenvalues 1 and λ: distinct for λ ≠ 1. For λ = 1, mg(1) = 2 − rg(0 1; 0 0) = 1 < 2."
+
+
+[[item]]
+id = "P2302A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat_R(3, 3) invertibili. Quale dei seguenti enunciati è vero?"
+[item.data]
+options = ["(A + B)⁻¹ = A⁻¹ + B⁻¹", "(A + B)ᵀ = Aᵀ + Bᵀ", "(AB)ᵀ = AᵀBᵀ", "(AB)⁻¹ = A⁻¹B⁻¹"]
+correct = "b"
+why = "The transpose is linear. (AB)ᵀ = BᵀAᵀ and (AB)⁻¹ = B⁻¹A⁻¹ (order reversed); A + B need not even be invertible."
+
+
+[[item]]
+id = "P2302A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Si consideri il sistema { x1 + x2 + x3 = a;  x1 + 2x2 + 3x3 = b;  x1 + 4x2 + 9x3 = c } con a, b, c ∈ R."
+[item.data]
+options = ["Il sistema non ha soluzioni", "Il sistema ha un'unica soluzione", "Il sistema ha infinite soluzioni", "Il numero di soluzioni del sistema dipende dai valori di a, b, c"]
+correct = "b"
+why = "Vandermonde matrix with nodes 1, 2, 3: det = (2 − 1)(3 − 1)(3 − 2) = 2 ≠ 0, so one solution for every a, b, c."
+
+
+[[item]]
+id = "P2302A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Sia V uno spazio vettoriale di dimensione n e v1, ..., vm ∈ V."
+[item.data]
+options = ["se m ≥ n, allora v1, ..., vm generano V", "se m ≥ n, allora v1, ..., vm sono linearmente indipendenti", "se v1, ..., vm sono linearmente dipendenti, allora m ≥ n", "se v1, ..., vm generano V, allora m ≥ n"]
+correct = "d"
+why = "A set of generators contains a basis, so it has at least n elements. The others fail e.g. with repeated vectors."
+
+
+[[item]]
+id = "P2302A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "cross_distances"
+page = 1
+task = "mcq"
+text = "La distanza tra le rette r1 = (1, 2, 3) + Span((1, −1, 2)) e r2 = (1, 3, 1) + Span((−1, 3, −2)) è"
+[item.data]
+options = ["2/√5", "0", "√5", "6"]
+correct = "a"
+why = "n = (1, −1, 2) × (−1, 3, −2) = (−4, 0, 2); d = |⟨(0, 1, −2), n⟩| / ‖n‖ = 4/√20 = 2/√5."
+
+
+[[item]]
+id = "P2302A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti funzioni è un'applicazione lineare?"
+[item.data]
+options = ["L: R² → R, L(x, y) = (x, y)(1 2; 2 1)(x, y)ᵀ", "L: R² → R², L(x, y) = (x, y) + (1, 2)", "L: R² → R², L(x, y) = (1, 2)", "L: R² → Mat_R(2, 2), L(x, y) = (1, 2)ᵀ(x, y)"]
+correct = "d"
+why = "(1, 2)ᵀ(x, y) = (x y; 2x 2y): linear in (x, y). A is a quadratic form, B and C do not send 0 to 0."
+
+
+[[item]]
+id = "P2302A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Sia A = (C1, C2, C3, C4) ∈ Mat_R(4, 4) con det(A) = 1 e B = (C1 + C2, 2C2 + C3, 3C3, C4 + C3). Allora"
+[item.data]
+options = ["det(B) = 6", "det(B) = 0", "det(B) = −24", "det(B) = −1"]
+correct = "a"
+why = "Subtract multiples of column 3 (= 3C3) from columns 2 and 4: (C1 + C2, 2C2, 3C3, C4); subtract ½·column 2 from column 1: (C1, 2C2, 3C3, C4). det = 1·2·3·det A = 6."
+
+
+[[item]]
+id = "P2302A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Quante matrici ortogonali A ∈ Mat_R(2, 2) hanno (1/2, √3/2) come prima riga?"
+[item.data]
+options = ["0", "1", "2", "infinite"]
+correct = "c"
+why = "The second row must be a unit vector orthogonal to the first: ±(−√3/2, 1/2). Two matrices (a rotation and a reflection)."
+
+
+[[item]]
+id = "P2302A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti configurazioni di quattro rette non è possibile in R³?"
+[item.data]
+options = ["quattro rette parallele", "quattro rette sghembe", "quattro rette incidenti", "quattro rette perpendicolari"]
+correct = "d"
+why = "Four pairwise perpendicular directions would be 4 mutually orthogonal nonzero vectors in R³, impossible (at most 3)."
+
+
+[[item]]
+id = "P2302A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "projections"
+page = 1
+task = "mcq"
+text = "Sia H ⊆ R⁴ con dim H = 3, e A la matrice della proiezione ortogonale π_H rispetto alla base canonica. Allora"
+[item.data]
+options = ["det(A) = 1", "det(A) = −1", "det(A) = 0", "det(A) = 3"]
+correct = "c"
+why = "π_H(H⊥) = 0 with H⊥ ≠ {0}: A is singular (eigenvalues 1, 1, 1, 0)."
+
+
+[[item]]
+id = "P2302A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "eigen"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(3, 3) con polinomio caratteristico χ_A(x) = −x(x − 1)². Allora"
+[item.data]
+options = ["A non è invertibile", "A è diagonalizzabile", "A è simmetrica", "A è ortogonale"]
+correct = "a"
+why = "0 is an eigenvalue, so det A = 0. Diagonalisability depends on mg(1)."
+
+
+[[item]]
+id = "P2302A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti vettori completa l'insieme {(1, 0, −1), (1, 2, 1)} a una base di R³?"
+[item.data]
+options = ["(2, 2, 0)", "(0, 2, 2)", "(2, 0, 2)", "(2, 0, −2)"]
+correct = "c"
+why = "det((1,0,−1), (1,2,1), (2,0,2)) = 8 ≠ 0. (2, 2, 0) and (0, 2, 2) are sums/differences of the given vectors, (2, 0, −2) = 2(1, 0, −1)."
+
+
+[[item]]
+id = "P2302A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+setup = "Si considerino U = Span((0, −1, 1, 1), (2, −2, 0, 2), (−1, 0, 1, 0)) e W = ker (1 1 1 0; 0 0 1 1) in R⁴."
+text = "a) Determinare una base e la dimensione di U e di W."
+data = { U = { span = [[0, -1, 1, 1], [2, -2, 0, 2], [-1, 0, 1, 0]] }, W = { A = [[1, 1, 1, 0], [0, 0, 1, 1]] }, parts = ["U", "W"] }
+
+
+[[item]]
+id = "P2302A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 3
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "b) Determinare una base e la dimensione di U + W e di U ∩ W."
+data = { U = { span = [[0, -1, 1, 1], [2, -2, 0, 2], [-1, 0, 1, 0]] }, W = { A = [[1, 1, 1, 0], [0, 0, 1, 1]] }, parts = ["sum_basis", "dim_sum", "int_basis", "dim_int"] }
+
+
+[[item]]
+id = "P2302A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "yesno"
+text = "c) Esiste un'applicazione lineare L: R⁴ → R⁴ tale che ker(L) = U e Im(L) = W? Giustificare la risposta."
+data = { answer = true, why = "dim U + dim W = 2 + 2 = 4 = dim R⁴, as nullità + rango requires. Complete a basis u1, u2 of U with v3, v4 to a basis of R⁴ and define L(u1) = L(u2) = 0, L(v3) = w1, L(v4) = w2 (a basis of W)." }
+
+
+[[item]]
+id = "P2302A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "scalar_products"
+page = 3
+task = "gram"
+setup = "Sia M = (2 1; 1 2) e ⟨v, w⟩ := vᵀMw = 2v1w1 + v1w2 + v2w1 + 2v2w2 in R²."
+text = "a) Verificare che ⟨v, w⟩ è un prodotto scalare in R²."
+data = { G = [[2, 1], [1, 2]], keep = ["is it"] }
+
+
+[[item]]
+id = "P2302A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 1
+topic = "orthogonality"
+page = 3
+task = "perp"
+text = "b) Verificare che il complemento ortogonale di H = Span{(1, 0)} rispetto a questo prodotto scalare è H⊥ = Span{(1, −2)}."
+data = { span = [[1, 0]], S = [[2, 1], [1, 2]], name = "H", only_basis = true }
+
+
+[[item]]
+id = "P2302A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "gram_schmidt"
+page = 3
+task = "gram_schmidt"
+text = "c) Determinare una base ortonormale di R² rispetto a questo prodotto scalare. (Give the Gram-Schmidt orthogonal basis from e1, e2; then normalise.)"
+data = { vectors = [[1, 0], [0, 1]], S = [[2, 1], [1, 2]] }
+
+
+[[item]]
+id = "P2302A-E2d"
+ref = "Esercizio 2 d)"
+section = "II"
+points = 2
+topic = "projections"
+page = 3
+task = "proj"
+text = "d) Calcolare la proiezione ortogonale di v = (1, 1) su H rispetto a questo prodotto scalare."
+data = { span = [[1, 0]], v = [1, 1], S = [[2, 1], [1, 2]], name = "H", ask = ["W"] }
+
+
+[[item]]
+id = "P2302A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 4
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Si consideri la quadrica Q ⊆ R³ di equazione x1² + x2² + x3² + 6x1x3 − 16x1 + 4x2 = 0."
+text = "a) Trovare una forma canonica metrica e classificare Q."
+[item.data]
+solution = """
+A = (1 0 3; 0 1 0; 3 0 1): eigenvalues 4 ((1, 0, 1)), −2 ((1, 0, −1)), 1 ((0, 1, 0)). Centre: Ac = (8, −2, 0) ⇒ c = (−1, −2, 3), and the constant becomes bᵀc = 4 (b = (−8, 2, 0)). In the eigen-coordinates: 4X² − 2Y² + Z² + 4 = 0, i.e. Y²/2 − X² − Z²/4 = 1: a hyperboloid of two sheets."""
+
+
+[[item]]
+id = "P2302A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Scrivere esplicitamente l'isometria di R³ che trasforma l'equazione di Q nella forma canonica metrica trovata."
+[item.data]
+solution = """
+x1 = (X + Y)/√2 − 1,  x2 = Z − 2,  x3 = (X − Y)/√2 + 3 (rotation with columns (1, 0, 1)/√2, (1, 0, −1)/√2, (0, 1, 0), then translation to the centre (−1, −2, 3)). Substituting gives 4X² − 2Y² + Z² + 4 = 0."""

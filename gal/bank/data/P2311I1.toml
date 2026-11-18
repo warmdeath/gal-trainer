@@ -1,0 +1,190 @@
+[source]
+id = "P2311I1"
+title = "Prova in itinere 1, 11/2023"
+kind = "exam"
+date = "2023-11-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2023-2024 (altro docente)/2023-11 Itinere 1 - Parte A.pdf", sha256 = "b487e58f56e62cf1b9058702e81908fcf9b745dbea98fcde0182ddce5cb62e43", pages = 4 },
+]
+note = "Previous lecturer's first itinere, test part only (12 questions, 1 point each; the score is also shown out of 16). No official solutions: keys worked out and checked by the trainer."
+paper = { format = "itinere", minutes = 60, points = 16, lecturer = "altro docente", half = 1 }
+
+
+[[item]]
+id = "P2311I1-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Il sistema lineare { −x + y + z = 1;  x − y + z = 1;  x + y − z = 1 }"
+[item.data]
+options = ["ammette unica soluzione", "ammette infinite soluzioni dipendenti da un parametro", "ammette infinite soluzioni dipendenti da due parametri", "non ammette soluzione"]
+correct = "a"
+why = "Adding pairs of equations: 2z = 2, 2y = 2, 2x = 2: the unique solution (1, 1, 1)."
+
+
+[[item]]
+id = "P2311I1-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Il rango della matrice (1 0 1 0; 0 h 0 h; h 0 h 0)"
+[item.data]
+options = ["è uguale a 3 se h ≠ 0", "è uguale a 2 se h ≠ 0", "è uguale a 1 se h = 1", "è uguale a 0 se h = 0"]
+correct = "b"
+why = "Row 3 = h·row 1. For h ≠ 0 rows 1 and 2 are independent: rank 2. For h = 0 the rank is 1."
+
+
+[[item]]
+id = "P2311I1-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "Quale dei seguenti sottoinsiemi di R² è un sottospazio vettoriale?"
+[item.data]
+options = ["U = {(x, y) ∈ R² | xy = 0}", "U = {(x, y) ∈ R² | x + y = 1}", "U = {(x, y) ∈ R² | x² + y² = 0}", "U = {(x, y) ∈ R² | x² + y² = 1}"]
+correct = "c"
+why = "x² + y² = 0 ⇔ (x, y) = (0, 0): U = {0}. A is the union of the axes (not closed under sum), B and D miss the origin."
+
+
+[[item]]
+id = "P2311I1-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Trovare il vettore che non appartiene all'immagine dell'applicazione lineare L: R² → R³ definita da L(e1) = (−1, 1, 1), L(e2) = (1, 1, −1)."
+[item.data]
+options = ["(0, 0, 0)", "(−1, 1, −1)", "(1, −1, −1)", "(−1, −1, 1)"]
+correct = "b"
+why = "Im L = {a(−1,1,1) + b(1,1,−1)} = {(−a + b, a + b, a − b)}: the third coordinate is minus the first. (−1, 1, −1) violates it; (1, −1, −1) = −L(e1), (−1, −1, 1) = −L(e2)."
+
+
+[[item]]
+id = "P2311I1-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "Individuare la matrice inversa di (1 1 1; 0 1 1; 0 0 1)."
+[item.data]
+options = ["(1 0 0; −1 1 0; 0 −1 1)", "(1 1 0; 0 1 1; 0 0 1)", "(1 0 0; 1 1 0; 0 1 1)", "(1 −1 0; 0 1 −1; 0 0 1)"]
+correct = "d"
+why = "(1 1 1; 0 1 1; 0 0 1)(1 −1 0; 0 1 −1; 0 0 1) = I."
+
+
+[[item]]
+id = "P2311I1-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Si considerino i sottospazi di Mat_Q(2, 2): U = {A | a11 + a22 = 0} e W = {(a b; 0 c)}. Allora:"
+[item.data]
+options = ["Mat_Q(2, 2) = U + W e U ∩ W = {0}", "dim(U + W) = 6", "dim(U ∩ W) = 2", "nessuna delle altre risposte è corretta"]
+correct = "c"
+why = "U ∩ W = {(a b; 0 −a)}: dimension 2. Grassmann: dim(U + W) = 3 + 3 − 2 = 4, so U + W = Mat(2, 2) but the sum is not direct."
+
+
+[[item]]
+id = "P2311I1-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Dato uno spazio vettoriale V con dim(V) = 5 e dati U, W ⊆ V sottospazi con dim(U) = 2 e dim(W) = 1. Allora"
+[item.data]
+options = ["U + W ≠ V", "U ∩ W = {0}", "dim(U + W) = 3", "W ⊆ U"]
+correct = "a"
+why = "dim(U + W) ≤ 2 + 1 = 3 < 5. The other statements depend on whether W ⊆ U."
+
+
+[[item]]
+id = "P2311I1-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Sia B = {e1 + e2 + e3, e1 + e2 − e3, e1 − e2 − e3} una base di R³. Individuare il vettore 2v, dove v ha componenti [v]_B = (1, 0, −1)."
+[item.data]
+options = ["2v = (2, 0, −2)", "2v = (0, 4, 4)", "2v = (4, 0, 0)", "2v = (0, 0, 0)"]
+correct = "b"
+why = "v = (e1 + e2 + e3) − (e1 − e2 − e3) = (0, 2, 2), so 2v = (0, 4, 4)."
+
+
+[[item]]
+id = "P2311I1-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "In R³ i punti P1 = (1, 0, 0), P2 = (0, 1, 0), P3 = (0, 0, 1), P4 = (−1, 1, 1)"
+[item.data]
+options = ["sono contenuti in un'unica retta", "non sono contenuti in un'unica retta, ma sono contenuti in un unico piano", "non sono contenuti in un unico piano", "nessuna delle altre risposte è corretta"]
+correct = "b"
+why = "All four satisfy x + y + z = 1 (the plane through P1, P2, P3), and P1, P2, P3 are not collinear."
+
+
+[[item]]
+id = "P2311I1-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia A = (−2 1 1; 1 −2 1; 1 1 −2) ∈ Mat_R(3, 3); allora l'applicazione lineare L_A: R³ → R³"
+[item.data]
+options = ["è biiettiva", "è iniettiva ma non è suriettiva", "è suriettiva ma non è iniettiva", "non è iniettiva e non è suriettiva"]
+correct = "d"
+why = "Each row sums to 0, so A(1, 1, 1)ᵀ = 0: not injective, and for an endomorphism of R³ not surjective either (rank 2)."
+
+
+[[item]]
+id = "P2311I1-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R[t]_≤2 → R[t]_≤2 definita da L(p(t)) = p(−1) − p(1). Il suo nucleo ha dimensione:"
+[item.data]
+options = ["3", "2", "1", "0"]
+correct = "b"
+why = "L(a + bt + ct²) = (a − b + c) − (a + b + c) = −2b: ker L = {b = 0} = Span(1, t²), dimension 2."
+
+
+[[item]]
+id = "P2311I1-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "In R³ le due rette r1 = {x + y − z − 2 = x − y + z = 0} e r2 = {(0, 0, −1) + t(1, 1, 1)} sono"
+[item.data]
+options = ["incidenti", "coincidenti", "parallele distinte", "sghembe"]
+correct = "a"
+why = "r1 has direction (0, 1, 1) ∦ (1, 1, 1). Substituting (t, t, t − 1) into r1: t − 1 = 0 and 0 = 0: they meet at (1, 1, 0)."

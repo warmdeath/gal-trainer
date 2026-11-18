@@ -1,0 +1,372 @@
+[source]
+id = "F08"
+title = "Foglio di esercizi 8"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_08.pdf", sha256 = "ea3dd963b2d0466390d5e15ea034c085e0ade8990e4fc8ce20914329cacad6bd", pages = 2 }]
+
+# ---------------------------------------------------------------- Esercizio 1 (tema d'esame)
+[[item]]
+id = "F08-E1a"
+exam = "07/02/2024"
+ref = "Esercizio 1 a)"
+topic = "rep_matrix"
+page = 1
+task = "repmat"
+text = """
+[Dal tema d'esame del 07/02/2024] V = {A ∈ M_R(2) | A = Aᵀ}, f: V → V, f(A) = MᵀAM con M = (0 1; −1 0).
+a) Determinare la matrice rappresentativa di f rispetto alla base B = {(1 0; 0 0), (0 1; 1 0), (0 0; 0 1)}.
+(Coordinates (a, b, c) for (a b; b c): compute f of each basis matrix.)"""
+data = { A = [[0, 0, 1], [0, -1, 0], [1, 0, 0]], hide = true, label = "M^B_B(f)" }
+
+[[item]]
+id = "F08-E1bc"
+exam = "07/02/2024"
+ref = "Esercizio 1 b) c)"
+topic = "diagonalization"
+page = 1
+task = "eigen"
+text = """
+f(A) = MᵀAM su V = matrici simmetriche 2×2 (M = (0 1; −1 0)), con M^B_B(f) qui sotto.
+b) Determinare basi degli autospazi di f.  c) Dimostrare che f è diagonalizzabile."""
+data = { A = [[0, 0, 1], [0, -1, 0], [1, 0, 0]], name = "M^B_B(f)", coords_note = "coordinates (a, b, c) of (a b; b c): f(a b; b c) = (c −b; −b a)" }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F08-E2A"
+ref = "Esercizio 2 A)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Prodotto scalare standard: norme ||v||, ||w||, distanza d(v, w) e angolo θ (dai cos θ)."
+data = { v = [2, 2, 0], w = [1, 2, -1] }
+
+[[item]]
+id = "F08-E2B"
+ref = "Esercizio 2 B)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Prodotto scalare standard: norme, distanza e angolo (cos θ)."
+data = { v = [-2, 2, 0], w = [1, -2, 1] }
+
+[[item]]
+id = "F08-E2C"
+ref = "Esercizio 2 C)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Prodotto scalare standard: norme, distanza e angolo (cos θ)."
+data = { v = [2, 2, 0], w = [0, 2, -1] }
+
+[[item]]
+id = "F08-E2D"
+ref = "Esercizio 2 D)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Prodotto scalare standard in R⁴: norme, distanza e angolo (cos θ). (The sheet prints v = (1, −1, 1 − 1): read as (1, −1, 1, −1).)"
+data = { v = [1, -1, 1, -1], w = [-1, -1, 1, -1] }
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F08-E3i"
+ref = "Esercizio 3 i."
+topic = "bilinear"
+page = 1
+task = "gram"
+text = "f((x1, y1), (x2, y2)) = 2x1x2 + x1y2 + x2y1 + y1y2: matrice di Gram rispetto alla base canonica; è un prodotto scalare su R²?"
+data = { G = [[2, 1], [1, 1]] }
+
+[[item]]
+id = "F08-E3i-gs"
+ref = "Esercizio 3 i. (base ortonormale)"
+topic = "gram_schmidt"
+page = 1
+task = "gram_schmidt"
+text = "Si trovi una base ortogonale (e poi ortonormale) di R² rispetto a f, applicando Gram-Schmidt alla base canonica."
+data = { vectors = [[1, 0], [0, 1]], S = [[2, 1], [1, 1]] }
+
+[[item]]
+id = "F08-E3ii"
+ref = "Esercizio 3 ii."
+topic = "bilinear"
+page = 1
+task = "gram"
+text = "f(p, q) = p(0)q(0) + p′(1)q′(1) + 2p″(2)q″(2) su R[t]≤2: matrice di Gram rispetto a {1, t, t²}; è un prodotto scalare?"
+data = { G = [[1, 0, 0], [0, 1, 2], [0, 2, 12]] }
+
+[[item]]
+id = "F08-E3ii-gs"
+ref = "Esercizio 3 ii. (base ortonormale)"
+topic = "gram_schmidt"
+page = 1
+task = "gram_schmidt"
+text = "Si trovi una base ortogonale di R[t]≤2 rispetto a f, applicando Gram-Schmidt a {1, t, t²} (coordinates w.r.t. {1, t, t²})."
+data = { vectors = [[1, 0, 0], [0, 1, 0], [0, 0, 1]], S = [[1, 0, 0], [0, 1, 2], [0, 2, 12]] }
+
+[[item]]
+id = "F08-E3iiiA"
+ref = "Esercizio 3 iii. A)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "R² con il prodotto scalare del punto i. (Gram matrix (2 1; 1 1)): norme, distanza, angolo."
+data = { v = [1, 0], w = [0, 1], S = [[2, 1], [1, 1]] }
+
+[[item]]
+id = "F08-E3iiiB"
+ref = "Esercizio 3 iii. B)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "R² con il prodotto scalare del punto i.: norme, distanza, angolo."
+data = { v = [-2, 2], w = [1, -2], S = [[2, 1], [1, 1]] }
+
+[[item]]
+id = "F08-E3iiiC"
+ref = "Esercizio 3 iii. C)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "R² con il prodotto scalare del punto i.: norme, distanza, angolo. (w = (0, 2).)"
+data = { v = [2, 2], w = [0, 2], S = [[2, 1], [1, 1]] }
+
+[[item]]
+id = "F08-E3iiiD"
+ref = "Esercizio 3 iii. D)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "R² con il prodotto scalare del punto i.: norme, distanza, angolo."
+data = { v = [1, -1], w = [-1, 1], S = [[2, 1], [1, 1]] }
+
+# ---------------------------------------------------------------- Esercizio 4
+[[item]]
+id = "F08-E4a1"
+ref = "Esercizio 4 a) (v1, v4)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "v1 = (1,3,4), v2 = (1,1,1), v3 = (1,−3,2), v4 = (0,−1,2): norme, angolo tra v4 e gli altri, distanza tra v3 e gli altri. Qui: v = v1, w = v4."
+data = { v = [1, 3, 4], w = [0, -1, 2] }
+
+[[item]]
+id = "F08-E4a2"
+ref = "Esercizio 4 a) (v2, v4)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Come sopra, con v = v2 = (1,1,1), w = v4 = (0,−1,2)."
+data = { v = [1, 1, 1], w = [0, -1, 2] }
+
+[[item]]
+id = "F08-E4a3"
+ref = "Esercizio 4 a) (v3, v4)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Come sopra, con v = v3 = (1,−3,2), w = v4 = (0,−1,2)."
+data = { v = [1, -3, 2], w = [0, -1, 2] }
+
+[[item]]
+id = "F08-E4a4"
+ref = "Esercizio 4 a) (v3, v1)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Come sopra, con v = v3 = (1,−3,2), w = v1 = (1,3,4)."
+data = { v = [1, -3, 2], w = [1, 3, 4] }
+
+[[item]]
+id = "F08-E4a5"
+ref = "Esercizio 4 a) (v3, v2)"
+topic = "scalar_products"
+page = 1
+task = "metric"
+text = "Come sopra, con v = v3 = (1,−3,2), w = v2 = (1,1,1)."
+data = { v = [1, -3, 2], w = [1, 1, 1] }
+
+[[item]]
+id = "F08-E4b"
+ref = "Esercizio 4 b)"
+topic = "scalar_products"
+page = 2
+task = "open"
+text = """
+Per k ∈ R siano v1 = (1, k, 0), v2 = (0, 1, 0). Per quali k: i) v1 ⊥ v2; ii) formano un angolo di π/4; iii) di 2π/3?
+Si ripeta con il prodotto scalare di matrice di Gram (1 1 0; 1 2 0; 0 0 3)."""
+[item.data]
+solution = """
+Standard product: ⟨v1,v2⟩ = k, ||v1|| = √(1 + k²), ||v2|| = 1, cos θ = k/√(1 + k²).
+ i) k = 0.  ii) k/√(1+k²) = √2/2 ⇔ k > 0 and 2k² = 1 + k² ⇔ k = 1.
+ iii) k/√(1+k²) = −1/2 ⇔ k < 0 and 4k² = 1 + k² ⇔ k = −1/√3 = −√3/3.
+Gram (1 1 0; 1 2 0; 0 0 3): ⟨v1,v2⟩ = 1 + 2k, ||v2||² = 2, ||v1||² = 1 + 2k + 2k².
+ i) k = −1/2.
+ ii) (1 + 2k)/√(2(1 + 2k + 2k²)) = √2/2 ⇔ 1 + 2k > 0 and (1 + 2k)² = 1 + 2k + 2k² ⇔ 2k² + 2k = 0 ⇒ k = 0 (k = −1 is rejected: 1 + 2k < 0).
+ iii) = −1/2 ⇔ 1 + 2k < 0 and 2(1 + 2k)² = 1 + 2k + 2k² ⇔ 6k² + 6k + 1 = 0 ⇒ k = (−3 − √3)/6 (the other root has 1 + 2k > 0)."""
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F08-E5a"
+ref = "Esercizio 5 a)"
+topic = "orthogonality"
+page = 2
+task = "orthobasis"
+text = "B = {(2, 4), (2, −1)}, v = (1, 1): B è ortogonale? ortonormale? Coordinate di v rispetto a B (o alla base normalizzata B′)."
+data = { basis = [{ dir = [2, 4] }, { dir = [2, -1] }], v = [1, 1] }
+
+[[item]]
+id = "F08-E5b"
+ref = "Esercizio 5 b)"
+topic = "orthogonality"
+page = 2
+task = "orthobasis"
+text = "B = {(1/√3, 1/√3), (−1/√2, 1/√2)}, v = (1, 1): B è ortogonale? ortonormale? Coordinate di v."
+data = { basis = [{ scale = "1/sqrt(3)", dir = [1, 1] }, { scale = "1/sqrt(2)", dir = [-1, 1] }], v = [1, 1] }
+
+[[item]]
+id = "F08-E5c"
+ref = "Esercizio 5 c)"
+topic = "orthogonality"
+page = 2
+task = "orthobasis"
+text = "B = {(1/3, 1/3, 1/3), (1/2, 0, −1/2), (1/2, −1/2, 0)}, v = (1, 2, 3): B è ortogonale? ortonormale?"
+data = { basis = [{ scale = "1/3", dir = [1, 1, 1] }, { scale = "1/2", dir = [1, 0, -1] }, { scale = "1/2", dir = [1, -1, 0] }], v = [1, 2, 3] }
+
+[[item]]
+id = "F08-E5d"
+ref = "Esercizio 5 d)"
+topic = "orthogonality"
+page = 2
+task = "orthobasis"
+text = "B = {(1/√3, 1/√3, 1/√3), (1/√2, 0, −1/√2), (1/√6, −√(2/3), 1/√6)}, v = (1, 2, 3): ortogonale? ortonormale? (v)_B."
+data = { basis = [{ scale = "1/sqrt(3)", dir = [1, 1, 1] }, { scale = "1/sqrt(2)", dir = [1, 0, -1] }, { scale = "1/sqrt(6)", dir = [1, -2, 1] }], v = [1, 2, 3] }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F08-E6a"
+ref = "Esercizio 6 (prima parte)"
+topic = "gram_schmidt"
+page = 2
+task = "gram_schmidt"
+text = "R³ con il prodotto scalare standard, W = Span{(−1, 0, 1), (0, 1, 1)}: Gram-Schmidt (base ortogonale; poi normalizza)."
+data = { vectors = [[-1, 0, 1], [0, 1, 1]] }
+
+[[item]]
+id = "F08-E6b"
+ref = "Esercizio 6 (seconda parte)"
+topic = "gram_schmidt"
+page = 2
+task = "gram_schmidt"
+text = """
+Span{(−1, 0, 1), (1, 1, 0), (1, 2, 1)} ◁ R³ con Gram matrix (1 1 0; 1 2 0; 0 0 3).
+Note: (1,2,1) = (−1,0,1) + 2·(1,1,0), so W = Span of the first two (Gram-Schmidt would give c3 = 0):
+apply Gram-Schmidt to the first two vectors."""
+data = { vectors = [[-1, 0, 1], [1, 1, 0]], S = [[1, 1, 0], [1, 2, 0], [0, 0, 3]] }
+
+[[item]]
+id = "F08-E6c"
+ref = "Esercizio 6 (terza parte)"
+topic = "gram_schmidt"
+page = 2
+task = "open"
+text = "Span{(0, 1, 1, 0), (1, 2, 1, 0), (1, −1, 0, √2)} ◁ R⁴ con la struttura euclidea standard: base ortonormale con Gram-Schmidt."
+[item.data]
+solution = """
+c1 = (0, 1, 1, 0), ||c1||² = 2.
+c2 = (1,2,1,0) − (3/2)c1 = (1, 1/2, −1/2, 0), ||c2||² = 3/2.
+c3 = (1,−1,0,√2) − (−1/2)c1 − (1/(3/2))·... : ⟨b3,c1⟩ = −1, ⟨b3,c2⟩ = 1 − 1/2 = 1/2,
+   c3 = b3 + (1/2)c1 − (1/3)c2 = (2/3, −2/3, 2/3, √2), ||c3||² = 4/9·3 + 2 = 10/3.
+Orthonormal: d1 = (0, √2/2, √2/2, 0), d2 = (√6/3, √6/6, −√6/6, 0), d3 = (√30/15, −√30/15, √30/15, √15/5)."""
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F08-E7ai"
+ref = "Esercizio 7 a) i)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "l = {x + y − z = 1, 2x − y = 2}: si trovi una retta parallela a l passante per P1 = (1, 1, 1)."
+data = { point = [1, 1, 1], dirs = [[1, 2, 3]] }
+
+[[item]]
+id = "F08-E7aii"
+ref = "Esercizio 7 a) ii)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "l = {x + y − z = 1, 2x − y = 2}: si trovi un piano perpendicolare a l passante per P2 = (1, 2, 3)."
+data = { point = [1, 2, 3], dirs = [[2, -1, 0], [3, 0, -1]] }
+
+[[item]]
+id = "F08-E7bi"
+ref = "Esercizio 7 b) i)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "π = {x + 2y + 3z = 4}: si trovi una retta perpendicolare a π passante per P2 = (1, 2, 3)."
+data = { point = [1, 2, 3], dirs = [[1, 2, 3]] }
+
+[[item]]
+id = "F08-E7bii"
+ref = "Esercizio 7 b) ii)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "π = {x + 2y + 3z = 4}: si trovi un piano parallelo a π passante per P3 = (3, 4, 5)."
+data = { point = [3, 4, 5], dirs = [[2, -1, 0], [3, 0, -1]] }
+
+# ---------------------------------------------------------------- Esercizio 8
+[[item]]
+id = "F08-E8a"
+ref = "Esercizio 8 a)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "Il piano perpendicolare alla retta (2, 2, 2) + (1, 2, 3)R e passante per (1, 0, 0)."
+data = { point = [1, 0, 0], dirs = [[2, -1, 0], [3, 0, -1]] }
+
+[[item]]
+id = "F08-E8b"
+ref = "Esercizio 8 b)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "Il piano perpendicolare alla retta y + z − 2 = 2x − y + z = 0 e passante per (1, 2, 4)."
+data = { point = [1, 2, 4], dirs = [[1, -1, 0], [1, 0, 1]] }
+
+[[item]]
+id = "F08-E8c"
+ref = "Esercizio 8 c)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "La retta perpendicolare al piano x + y − z = 3 e passante per (1, 2, 3)."
+data = { point = [1, 2, 3], dirs = [[1, 1, -1]] }
+
+[[item]]
+id = "F08-E8d"
+ref = "Esercizio 8 d)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "La retta perpendicolare alle rette x + y + z − 1 = x + y = 0 e (1, −1, −1)R, e passante per (0, 0, 2)."
+data = { point = [0, 0, 2], dirs = [[1, 1, 0]] }
+
+[[item]]
+id = "F08-E8e"
+ref = "Esercizio 8 e)"
+topic = "projections"
+page = 2
+task = "affine_forms"
+text = "La retta perpendicolare alle rette (1, 4, 8) + (1, −1, −2)R e (1, 2, 1) + (3, 1, 1)R, e passante per (1, −1, 0)."
+data = { point = [1, -1, 0], dirs = [[1, -7, 4]] }
+
+[[item]]
+id = "F08-E8f"
+ref = "Esercizio 8 f)"
+topic = "affine"
+page = 2
+task = "affine_forms"
+text = "La retta passante per (1, 0, 0) e incidente alle rette x − y + z − 2 = x + z = 0 e x + 2y − z − 2 = x − z = 0."
+data = { point = [1, 0, 0], dirs = [[1, -4, -3]] }

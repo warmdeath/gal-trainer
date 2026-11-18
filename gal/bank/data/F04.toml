@@ -1,0 +1,462 @@
+[source]
+id = "F04"
+title = "Foglio di esercizi 4"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_04.pdf", sha256 = "4d762a3c10432996394b459f9862669610b1afc87bcc607c0e6fd8db797d04c7", pages = 3 }]
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F04-E1a"
+ref = "Esercizio 1 a)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "Si trovi una base e la dimensione di {(a, b) | a + b = 0} ◁ R²."
+data = { A = [[1, 1]], names = ["a", "b"], hide = true }
+
+[[item]]
+id = "F04-E1b"
+ref = "Esercizio 1 b)"
+topic = "bases"
+page = 1
+task = "basis_span"
+text = "Si trovi una base e la dimensione di {(x, y, 0) | x, y ∈ R} ◁ R³."
+data = { vectors = [[1, 0, 0], [0, 1, 0]], hide = true }
+
+[[item]]
+id = "F04-E1c"
+ref = "Esercizio 1 c)"
+topic = "bases"
+page = 1
+task = "basis_span"
+text = "Si trovi una base e la dimensione di {(a, a − b + 1, b − 1) | a, b ∈ R} ◁ R³."
+data = { vectors = [[1, 1, 0], [0, -1, 1]], hide = true }
+
+[[item]]
+id = "F04-E1d"
+ref = "Esercizio 1 d)"
+topic = "bases"
+page = 1
+task = "basis_span"
+text = "Si trovi una base e la dimensione di {(3a, a + 2b, a − b) | a, b ∈ R} ◁ R³."
+data = { vectors = [[3, 1, 1], [0, 2, -1]], hide = true }
+
+[[item]]
+id = "F04-E1e"
+ref = "Esercizio 1 e)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "Si trovi una base e la dimensione di {(x, y, z, w) | x − y = 0, y + z = 0} ◁ R⁴."
+data = { A = [[1, -1, 0, 0], [0, 1, 1, 0]], hide = true }
+
+[[item]]
+id = "F04-E1f"
+ref = "Esercizio 1 f)"
+topic = "bases"
+page = 1
+task = "basis_span"
+text = "Si trovi una base e la dimensione di {(a − b + c, a + 2b − 2c, c − b, a) | a, b, c ∈ R} ◁ R⁴."
+data = { vectors = [[1, 1, 0, 1], [-1, 2, -1, 0], [1, -2, 1, 0]], hide = true }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F04-E2"
+ref = "Esercizio 2"
+topic = "bases"
+page = 1
+task = "values"
+text = """
+Per ciascuno dei seguenti sottospazi di M_K(4) si trovi una base e la dimensione:
+matrici diagonali, triangolari superiori, triangolari inferiori, simmetriche, anti-simmetriche (A = −Aᵀ)."""
+[item.data]
+answers = [["dim diagonal", 4], ["dim upper triangular", 10], ["dim lower triangular", 10], ["dim symmetric", 10], ["dim antisymmetric", 6]]
+why = """Bases (E_ij = matrix with a single 1 in position (i,j)):
+diagonal: E11, E22, E33, E44 (4).  Upper: E_ij with i ≤ j (4 + 3 + 2 + 1 = 10).  Lower: E_ij with i ≥ j (10).
+Symmetric: E_ii (4) and E_ij + E_ji for i < j (6): 10.  Antisymmetric: the diagonal is 0, basis E_ij − E_ji for i < j: 6."""
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F04-E3a"
+ref = "Esercizio 3 a)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "In V = R[t]≤3 si trovi una base e la dimensione di {p(t) ∈ V | p(1) = p′(−3) = 0}."
+data = { A = [[1, 1, 1, 1], [0, 1, -6, 27]], names = ["a0", "a1", "a2", "a3"], hide = true, coords_note = "p = a0 + a1 t + a2 t² + a3 t³: answer with coordinates (a0, a1, a2, a3). p(1) = a0 + a1 + a2 + a3, p′(−3) = a1 − 6a2 + 27a3" }
+
+[[item]]
+id = "F04-E3b"
+ref = "Esercizio 3 b)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "In V = R[t]≤3 si trovi una base e la dimensione di {p(t) ∈ V | p′(1) = p′(10)}."
+data = { A = [[0, 0, 18, 297]], names = ["a0", "a1", "a2", "a3"], hide = true, coords_note = "coordinates (a0, a1, a2, a3); p′(1) − p′(10) = −18a2 − 297a3" }
+
+[[item]]
+id = "F04-E3c"
+ref = "Esercizio 3 c)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "In V = R[t]≤3 si trovi una base e la dimensione di {p(t) ∈ V | p′(2) = p(−1)}."
+data = { A = [[-1, 2, 3, 13]], names = ["a0", "a1", "a2", "a3"], hide = true, coords_note = "coordinates (a0, a1, a2, a3); p′(2) − p(−1) = −a0 + 2a1 + 3a2 + 13a3" }
+
+[[item]]
+id = "F04-E3d"
+ref = "Esercizio 3 d)"
+topic = "bases"
+page = 1
+task = "basis_eqs"
+text = "In V = R[t]≤3 si trovi una base e la dimensione di {p(t) ∈ V | p(0) = p′(0) = p″(0) = 0}."
+data = { A = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 2, 0]], names = ["a0", "a1", "a2", "a3"], hide = true, coords_note = "coordinates (a0, a1, a2, a3); p(0) = a0, p′(0) = a1, p″(0) = 2a2" }
+
+# ---------------------------------------------------------------- Esercizio 4
+[[item]]
+id = "F04-E4a"
+ref = "Esercizio 4 a)"
+topic = "bases"
+page = 1
+task = "complete_basis"
+text = "Si mostri che v1 = (3, 0, −1)ᵀ e v2 = (1, 4, 2)ᵀ sono linearmente indipendenti in Q³ e si completi {v1, v2} ad una base di Q³."
+data = { vectors = [[3, 0, -1], [1, 4, 2]] }
+
+[[item]]
+id = "F04-E4b"
+ref = "Esercizio 4 b) (indipendenza)"
+topic = "bases"
+page = 1
+task = "param_indep"
+text = "Dati u1 = (1, −1, 1, −1)ᵀ, u2 = (k, 1, −1, 1)ᵀ ∈ R⁴, si determini per quali k ∈ R sono linearmente indipendenti."
+data = { param = "k", vectors = [[1, -1, 1, -1], ["k", 1, -1, 1]], ask_generators = false }
+
+[[item]]
+id = "F04-E4b0"
+ref = "Esercizio 4 b) (k = 0)"
+topic = "bases"
+page = 1
+task = "complete_basis"
+text = "Si completi {u1, u2} ad una base di R⁴ per k = 0."
+data = { vectors = [[1, -1, 1, -1], [0, 1, -1, 1]] }
+
+[[item]]
+id = "F04-E4b1"
+ref = "Esercizio 4 b) (k = 1)"
+topic = "bases"
+page = 1
+task = "complete_basis"
+text = "Si completi {u1, u2} ad una base di R⁴ per k = 1."
+data = { vectors = [[1, -1, 1, -1], [1, 1, -1, 1]] }
+
+[[item]]
+id = "F04-E4bm1"
+ref = "Esercizio 4 b) (k = −1)"
+topic = "bases"
+page = 1
+task = "complete_basis"
+text = """
+Per k = −1: u2 = −u1, quindi {u1, u2} non è indipendente. Si completi Span(u1, u2) = Span(u1)
+ad una base di R⁴ (servono 3 vettori: {u1, w1, w2, w3} è una base)."""
+data = { vectors = [[1, -1, 1, -1], [-1, 1, -1, 1]] }
+
+[[item]]
+id = "F04-E4c"
+ref = "Esercizio 4 c)"
+topic = "bases"
+page = 1
+task = "param_rank"
+text = """
+W = Span(w1, w2, w3) ◁ R⁵ con w1 = (0,1,1,0,1), w2 = (k,1,2,0,2), w3 = (0,0,0,k,1).
+Per ogni k si determini dim W (rango della matrice (w1|w2|w3)); poi si completi a base di R⁵."""
+data = { param = "k", A = [[0, "k", 0], [1, 1, 0], [1, 2, 0], [0, 0, "k"], [1, 2, 1]], name = "(w1|w2|w3)" }
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F04-E5ai"
+ref = "Esercizio 5 a) i)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = """
+Per quali a ∈ R {v1 = (1, 2, −2), v2 = (1, a, −3), v3 = (3, 7, a − 6)} sono linearmente indipendenti
+e/o generatori di R³? (Se possibile si esprima v = (2, 1, 2) come combinazione lineare: fallo per esercizio.)"""
+data = { param = "a", vectors = [[1, 2, -2], [1, "a", -3], [3, 7, "a - 6"]] }
+
+[[item]]
+id = "F04-E5aii"
+ref = "Esercizio 5 a) ii)"
+topic = "span_independence"
+page = 2
+task = "param_indep"
+text = "Per quali a ∈ R {v1 = (0, 1, 1), v2 = (−1, a, 0), v3 = (1, 1, a)} sono linearmente indipendenti e/o generatori di R³?"
+data = { param = "a", vectors = [[0, 1, 1], [-1, "a", 0], [1, 1, "a"]] }
+
+[[item]]
+id = "F04-E5bi"
+ref = "Esercizio 5 b) i)"
+topic = "bases"
+page = 2
+task = "coords"
+text = """
+V reale di dimensione 3 con base B = {b1, b2, b3}. È C = {b2, −b3, 2b1} una base di V?
+In caso affermativo, si trovino le coordinate di v = b1 + b2 + b3 rispetto a C."""
+data = { basis = [[0, 1, 0], [0, 0, -1], [2, 0, 0]], v = [1, 1, 1], labels = ["b2", "−b3", "2b1"], vlabel = "b1 + b2 + b3", coords_note = "everything in coordinates w.r.t. B" }
+
+[[item]]
+id = "F04-E5bii"
+ref = "Esercizio 5 b) ii)"
+topic = "bases"
+page = 2
+task = "coords"
+text = "È C = {b2, 2b3 + b2, −b1 + b2 + 2b3} una base di V? In caso affermativo, coordinate di v = b1 + b2 + b3 rispetto a C."
+data = { basis = [[0, 1, 0], [0, 1, 2], [-1, 1, 2]], v = [1, 1, 1], labels = ["b2", "2b3 + b2", "−b1 + b2 + 2b3"], vlabel = "b1 + b2 + b3", coords_note = "everything in coordinates w.r.t. B" }
+
+[[item]]
+id = "F04-E5biii"
+ref = "Esercizio 5 b) iii)"
+topic = "bases"
+page = 2
+task = "coords"
+text = "È C = {−b1 + b2 − b3, b2 − b3, b1 − b2 + b3} una base di V? In caso affermativo, coordinate di v = b1 + b2 + b3 rispetto a C."
+data = { basis = [[-1, 1, -1], [0, 1, -1], [1, -1, 1]], v = [1, 1, 1], labels = ["−b1 + b2 − b3", "b2 − b3", "b1 − b2 + b3"], vlabel = "b1 + b2 + b3", coords_note = "everything in coordinates w.r.t. B" }
+
+[[item]]
+id = "F04-E5biv"
+ref = "Esercizio 5 b) iv)"
+topic = "bases"
+page = 2
+task = "coords"
+text = "È C = {2b1, 2b1 + b2, b1 + b3} una base di V? In caso affermativo, coordinate di v = b1 + b2 + b3 rispetto a C."
+data = { basis = [[2, 0, 0], [2, 1, 0], [1, 0, 1]], v = [1, 1, 1], labels = ["2b1", "2b1 + b2", "b1 + b3"], vlabel = "b1 + b2 + b3", coords_note = "everything in coordinates w.r.t. B" }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F04-E6a"
+ref = "Esercizio 6 a)"
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "Basi di U e W, dim(U + W), dim(U ∩ W); la somma è diretta?"
+data = { U = { A = [[1, 1, -1]] }, W = { A = [[2, -1, 1]] } }
+
+[[item]]
+id = "F04-E6b"
+ref = "Esercizio 6 b)"
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "Basi di U e W, dim(U + W), dim(U ∩ W); la somma è diretta?"
+data = { U = { span = [[1, 1, 2], [2, -1, 3]] }, W = { span = [[1, 1, 1], [-1, 0, 1]] } }
+
+[[item]]
+id = "F04-E6c"
+ref = "Esercizio 6 c)"
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "Basi di U e W, dim(U + W), dim(U ∩ W); la somma è diretta?"
+data = { U = { span = [[1, 0, 1, -1], [0, 1, 0, 2], [0, 0, 1, -1]] }, W = { span = [[1, 0, 1, 1], [0, 1, 0, -2], [0, 0, 1, 1]] } }
+
+[[item]]
+id = "F04-E6d"
+ref = "Esercizio 6 d)"
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "Basi di U e W, dim(U + W), dim(U ∩ W); la somma è diretta?"
+data = { U = { span = [[1, -1, 1, 1], [7, 3, 1, 0], [4, 6, -2, -3]] }, W = { A = [[1, -2, 1, 0], [1, -1, -3, 1]] } }
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F04-E7a"
+ref = "Esercizio 7 a)"
+topic = "cart_param"
+page = 2
+task = "cartesian"
+text = "Trovare una forma cartesiana di W1 := Span((1, 2, 1), (0, 1, 0), (1, 1, 1)) ⊆ R³."
+data = { dirs = [[1, 2, 1], [0, 1, 0], [1, 1, 1]] }
+
+[[item]]
+id = "F04-E7b"
+ref = "Esercizio 7 b)"
+topic = "cart_param"
+page = 2
+task = "cartesian"
+text = "Trovare una forma cartesiana di W2 := Col(1 0 0; 0 1 1; −1 0 1; 1 2 0) ⊆ R⁴."
+data = { dirs = [[1, 0, -1, 1], [0, 1, 0, 2], [0, 1, 1, 0]] }
+
+[[item]]
+id = "F04-E7c"
+ref = "Esercizio 7 c)"
+topic = "cart_param"
+page = 2
+task = "cartesian"
+text = "Trovare una forma cartesiana di W3 := Col(1 1 0 0; −1 0 1 0; 0 1 1 0; −2 −1 1 0) ⊆ R⁴."
+data = { dirs = [[1, -1, 0, -2], [1, 0, 1, -1], [0, 1, 1, 1], [0, 0, 0, 0]] }
+
+[[item]]
+id = "F04-E7d"
+ref = "Esercizio 7 d)"
+topic = "cart_param"
+page = 2
+task = "cartesian"
+text = "Trovare una forma cartesiana di Rig(1 1 0 0; −1 0 1 0; 0 1 1 0; −2 −1 1 0) ⊆ R⁴."
+data = { dirs = [[1, 1, 0, 0], [-1, 0, 1, 0], [0, 1, 1, 0], [-2, -1, 1, 0]] }
+
+# ---------------------------------------------------------------- Esercizio 8
+[[item]]
+id = "F04-E8a"
+ref = "Esercizio 8 a)"
+topic = "affine"
+page = 3
+task = "open"
+text = "Date due rette in R³, quando esiste un piano che le contiene entrambe?"
+[item.data]
+solution = """
+Exactly when they are NOT skew: if they are incident (one plane: point of intersection + both directions),
+parallel and distinct (one plane: a point, the common direction and P2 − P1), or coincident (infinitely many
+planes: the whole fascio through the line). Skew lines lie in no common plane."""
+
+[[item]]
+id = "F04-E8b12"
+ref = "Esercizio 8 b) (l1, l2)"
+topic = "affine"
+page = 3
+task = "position"
+text = "l1 = (1, 0, −1) + R(1, 2, 1),  l2 = R(−2, −4, −2): posizione reciproca."
+data = { S1 = { point = [1, 0, -1], dirs = [[1, 2, 1]] }, S2 = { dirs = [[-2, -4, -2]] }, name1 = "l1", name2 = "l2" }
+
+[[item]]
+id = "F04-E8b12p"
+ref = "Esercizio 8 b) (piano per l1, l2)"
+topic = "affine"
+page = 3
+task = "affine_forms"
+text = "l1 e l2 sono parallele: si trovi il piano che le contiene entrambe."
+data = { point = [1, 0, -1], dirs = [[1, 2, 1], [-1, 0, 1]] }
+
+[[item]]
+id = "F04-E8b23"
+ref = "Esercizio 8 b) (l2, l3)"
+topic = "affine"
+page = 3
+task = "position"
+text = "l2 = R(−2, −4, −2),  l3 = {2x − y = 2, y − z = 1}: posizione reciproca (esiste un piano che le contiene?)."
+data = { S1 = { dirs = [[-2, -4, -2]] }, S2 = { A = [[2, -1, 0], [0, 1, -1]], b = [2, 1] }, name1 = "l2", name2 = "l3" }
+
+[[item]]
+id = "F04-E8b13"
+ref = "Esercizio 8 b) (l1, l3)"
+topic = "affine"
+page = 3
+task = "position"
+text = "l1 = (1, 0, −1) + R(1, 2, 1),  l3 = {2x − y = 2, y − z = 1}: posizione reciproca."
+data = { S1 = { point = [1, 0, -1], dirs = [[1, 2, 1]] }, S2 = { A = [[2, -1, 0], [0, 1, -1]], b = [2, 1] }, name1 = "l1", name2 = "l3" }
+
+[[item]]
+id = "F04-E8b13p"
+ref = "Esercizio 8 b) (piano per l1, l3)"
+topic = "affine"
+page = 3
+task = "affine_forms"
+text = "l1 e l3 sono incidenti in (1, 0, −1): si trovi il piano che le contiene entrambe (l3 ha direzione (1, 2, 2))."
+data = { point = [1, 0, -1], dirs = [[1, 2, 1], [1, 2, 2]] }
+
+# ---------------------------------------------------------------- Esercizio 9
+[[item]]
+id = "F04-E9a"
+ref = "Esercizio 9 a)"
+topic = "affine"
+page = 3
+task = "position"
+text = "Posizione reciproca retta-piano."
+data = { S1 = { A = [[1, 1, 0], [0, 1, 1]], b = [1, 9] }, S2 = { A = [[3, 0, -1]], b = [3] }, name1 = "l1", name2 = "π1" }
+
+[[item]]
+id = "F04-E9b"
+ref = "Esercizio 9 b)"
+topic = "affine"
+page = 3
+task = "position"
+text = "Posizione reciproca retta-piano."
+data = { S1 = { A = [[1, 1, 0], [0, 1, 1]], b = [1, 9] }, S2 = { point = [3, 4, 4], dirs = [[1, 0, -1], [0, 1, 0]] }, name1 = "l2", name2 = "π2" }
+
+[[item]]
+id = "F04-E9c"
+ref = "Esercizio 9 c)"
+topic = "affine"
+page = 3
+task = "position"
+text = "Posizione reciproca retta-piano."
+data = { S1 = { point = [2, 4, 6], dirs = [[-1, -2, -3]] }, S2 = { A = [[1, 2, 3]], b = [4] }, name1 = "l3", name2 = "π3" }
+
+[[item]]
+id = "F04-E9d"
+ref = "Esercizio 9 d)"
+topic = "affine"
+page = 3
+task = "position"
+text = "Posizione reciproca retta-piano."
+data = { S1 = { point = [1, 0, 1], dirs = [[1, 1, -1]] }, S2 = { point = [3, 4, 4], dirs = [[1, 0, -1], [0, 1, 0]] }, name1 = "l4", name2 = "π4" }
+
+# ---------------------------------------------------------------- Esercizio 10
+[[item]]
+id = "F04-E10a"
+ref = "Esercizio 10 a)"
+topic = "affine"
+page = 3
+task = "open"
+text = "In R³ sia r: 2(y − 1) = z, 4(x − 2) = 3z. Si scriva l'equazione del fascio di piani per r."
+[item.data]
+solution = """
+Write r as 2y − z − 2 = 0 and 4x − 3z − 8 = 0. The fascio (Def. 2.32):
+   λ(2y − z − 2) + μ(4x − 3z − 8) = 0,   (λ, μ) ≠ (0, 0)."""
+
+[[item]]
+id = "F04-E10b"
+ref = "Esercizio 10 b)"
+topic = "affine"
+page = 3
+task = "affine_forms"
+text = "Si determini il piano π contenente r (2(y − 1) = z, 4(x − 2) = 3z) e il punto P = (3, 2, 4)."
+data = { point = [3, 2, 4], dirs = [[3, 2, 4], [5, 4, 12]] }
+
+[[item]]
+id = "F04-E10c"
+ref = "Esercizio 10 c)"
+topic = "affine"
+page = 3
+task = "affine_forms"
+text = """
+Esiste un piano η contenente r (2(y − 1) = z, 4(x − 2) = 3z) e parallelo a l = R(3, 1, 1)? Se esiste, lo si determini.
+(It exists and is unique: the direction (3, 2, 4) of r and (3, 1, 1) are independent.)"""
+data = { point = ["1/2", 0, -2], dirs = [[3, 2, 4], [3, 1, 1]] }
+
+# ---------------------------------------------------------------- Esercizio 11
+[[item]]
+id = "F04-E11a"
+ref = "Esercizio 11 a)"
+topic = "affine"
+page = 3
+task = "cartesian"
+text = "π1 = {(2 + t + s, 3 − s, 4 + t)}: giacitura e forma cartesiana di π1."
+data = { point = [2, 3, 4], dirs = [[1, 0, 1], [1, -1, 0]] }
+
+[[item]]
+id = "F04-E11b"
+ref = "Esercizio 11 b)"
+topic = "affine"
+page = 3
+task = "solve"
+text = "Determinare una forma parametrica della retta r = π1 ∩ π2, con π1: x + y − z = 1 (punto a)) e π2: 2x − y − z + 3 = 0."
+data = { A = [[1, 1, -1], [2, -1, -1]], b = [1, -3] }
+
+[[item]]
+id = "F04-E11c"
+ref = "Esercizio 11 c)"
+topic = "affine"
+page = 3
+task = "position"
+text = "Data la retta l: x = 1 − t, y = 1 − t, z = 10 + t, si studi la posizione reciproca di r = π1 ∩ π2 e l."
+data = { S1 = { A = [[1, 1, -1], [2, -1, -1]], b = [1, -3] }, S2 = { point = [1, 1, 10], dirs = [[-1, -1, 1]] }, name1 = "r", name2 = "l" }

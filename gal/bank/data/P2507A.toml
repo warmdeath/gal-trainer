@@ -1,0 +1,320 @@
+[source]
+id = "P2507A"
+title = "Appello 07/2025 (Parte A + B)"
+kind = "exam"
+date = "2025-07-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-07 Appello - Parte A.pdf", sha256 = "28ac089fb15155670cc664c3adcfbdd7c9dce2f04b72ae2caf317bac000840df", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-07 Appello - Parte B.pdf", sha256 = "edc2d4801dfc869f314e8125e2e471ea329b1b99ce3472cfb6acd926008c2779", pages = 4 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2507A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "cross_distances"
+page = 1
+task = "mcq"
+text = "In R³, l'angolo tra le due rette r1: x + y − 1 = z = 0 e r2: x − 1 = y − z = 0 è"
+[item.data]
+options = ["π/6", "π/3", "π/4", "π/2"]
+correct = "b"
+why = "Directions: r1 ∥ (1, −1, 0), r2 ∥ (0, 1, 1). cos θ = |⟨(1,−1,0), (0,1,1)⟩| / (√2·√2) = 1/2, θ = π/3."
+
+
+[[item]]
+id = "P2507A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti funzioni L: Mat_R(2, 2) → Mat_R(2, 2) è un'applicazione lineare?"
+[item.data]
+options = ["f(a b; c d) = (a  a − b; c + d  c)", "f(a b; c d) = (a² + bc  ab + bd; ca + dc  cb + d²)", "f(a b; c d) = (a + 1  b; c  d − 1)", "f(a b; c d) = (1 0; 0 1)"]
+correct = "a"
+why = "Every entry of A is a linear combination of a, b, c, d. B is X ↦ X² (quadratic), C and D do not send O to O."
+
+
+[[item]]
+id = "P2507A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "vector_spaces"
+page = 1
+task = "mcq"
+text = "L'insieme dei vettori v = (v1, v2, v3) ∈ R³ tali che v1² − v2² = 0"
+[item.data]
+options = ["è chiuso rispetto alla somma", "è contenuto in un sottospazio di R³ avente dimensione 2", "è un sottospazio di R³", "è chiuso rispetto al prodotto per uno scalare"]
+correct = "d"
+why = "It is the union of the planes v1 = v2 and v1 = −v2: closed under scalars (λ²(v1² − v2²) = 0) but not under sums ((1,1,0) + (1,−1,0)), and it spans R³."
+
+
+[[item]]
+id = "P2507A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "In uno spazio vettoriale euclideo siano v, w due vettori tali ‖v‖ = ‖w‖ = 1. Allora sicuramente vale:"
+[item.data]
+options = ["‖v − w‖ = 0", "‖v + w‖ ≥ 1", "‖v + w‖ ≤ 2", "‖v − w‖ ≤ 1"]
+correct = "c"
+why = "Triangle inequality: ‖v + w‖ ≤ ‖v‖ + ‖w‖ = 2. For w = −v: ‖v + w‖ = 0 and ‖v − w‖ = 2, so B and D fail."
+
+
+[[item]]
+id = "P2507A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Un'applicazione lineare da R[x]_≤10 in Mat_R(2, 5)"
+[item.data]
+options = ["non può essere iniettiva", "può essere invertibile", "è sicuramente suriettiva", "nessuna delle altre risposte è corretta"]
+correct = "a"
+why = "dim R[x]_≤10 = 11 > 10 = dim Mat_R(2, 5): by nullità + rango dim ker ≥ 1."
+
+
+[[item]]
+id = "P2507A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Le matrici A = (1 1; 0 0), B = (1 0; 1 0)"
+[item.data]
+options = ["soddisfano B = A⁻¹", "sono simili", "soddisfano r(AB) = 2", "commutano rispetto al prodotto"]
+correct = "b"
+why = "Both have eigenvalues 1 and 0 (distinct), so both are similar to diag(1, 0). A is singular; AB = (2 0; 0 0) has rank 1 and BA = (1 1; 1 1) ≠ AB."
+
+
+[[item]]
+id = "P2507A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Date A, B ∈ Mat_R(4, 4) e t ∈ R, vale"
+[item.data]
+options = ["Tr(−A) = Tr(A)", "Tr(AB) = Tr(A)Tr(B)", "Tr(A⁻¹) = Tr(A)⁻¹", "Tr(tA) = tTr(A)"]
+correct = "d"
+why = "The trace is linear. Tr(AB) = Tr(BA) but ≠ Tr(A)Tr(B) in general (A = B = I: 4 ≠ 16)."
+
+
+[[item]]
+id = "P2507A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "In R², una forma cartesiana del sottospazio affine S = {(3, 0) + t(−2, 1) : t ∈ R}"
+[item.data]
+options = ["è data da −2x + y + 3 = 0", "è data da x + 2y + 3 = 0", "è data da −x + 2y + 3 = 0", "nessuna delle altre risposte è corretta"]
+correct = "d"
+why = "x = 3 − 2t, y = t ⇒ x + 2y = 3, i.e. x + 2y − 3 = 0. A and C pass through (3, 0) but have the wrong direction; B has the right direction but misses (3, 0)."
+
+
+[[item]]
+id = "P2507A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia A ∈ Mat_R(2, 2) una matrice ortogonale e simmetrica. Allora A³"
+[item.data]
+options = ["è la matrice identità", "è uguale ad A", "è antisimmetrica", "non è invertibile"]
+correct = "b"
+why = "A² = AAᵀ = I, so A³ = A²A = A. (A = −I shows A³ need not be I.)"
+
+
+[[item]]
+id = "P2507A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "In V = Mat_R(2, 2) considerare le basi B = {(1 0; 0 0), (0 1; 0 0), (0 0; 1 0), (1 0; 0 1)} e C = {(2 0; 0 0), (1 1; 0 0), (−1 0; 1 0), (−1 0; 0 1)}. La matrice di cambio base M^{B,C}_id è"
+[item.data]
+options = ["(1/2 −1/2 1/2 1; 0 1 0 0; 0 0 1 0; 0 0 0 1)", "(1 −1 1 1; 0 1/2 0 0; 0 0 1/2 0; 0 0 0 1)", "(1 0 0 1; 0 1/2 0 0; 0 0 1/2 0; 0 0 0 3)", "(2 0 0 1; 0 1/2 0 0; 0 0 1 0; 0 0 0 3)"]
+correct = "a"
+why = "Columns = C-coordinates of the vectors of B: E11 = ½C1, E12 = C2 − ½C1, E21 = C3 + ½C1, E11 + E22 = C1 + C4."
+
+
+[[item]]
+id = "P2507A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "bases"
+page = 1
+task = "mcq"
+text = "Il vettore delle coordinate di 5 + x + 5x² + 4x³ ∈ R[x]_≤3, rispetto alla base {1 + 2x² + x³, x + x², 3 − x³, x³}, "
+[item.data]
+options = ["è (1, 2, −3, 1)ᵀ", "è (1, −2, 3, 0)ᵀ", "è (−1, 2, −3, 0)ᵀ", "è (2, 1, 1, 3)ᵀ"]
+correct = "d"
+why = "a(1 + 2x² + x³) + b(x + x²) + c(3 − x³) + dx³: x: b = 1; x²: 2a + b = 5 ⇒ a = 2; 1: a + 3c = 5 ⇒ c = 1; x³: a − c + d = 4 ⇒ d = 3."
+
+
+[[item]]
+id = "P2507A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "In R³ considerare i sottospazi U = {(x, y, z) ∈ R³ | x + y + z = 0} e W = Span{e1 − e2, e1 − e3, e2 − e3}. Allora"
+[item.data]
+options = ["dim(U + W) = 3", "dim(U + W) = 2", "dim(U + W) = 1", "dim(U + W) = 0"]
+correct = "b"
+why = "The generators of W have coordinate sum 0, so W ⊆ U; e2 − e3 = (e1 − e3) − (e1 − e2), dim W = 2 = dim U: W = U = U + W."
+
+
+[[item]]
+id = "P2507A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+setup = "Si considerino i sottospazi vettoriali di R⁴  U = Span{(1, 2, 0, −1), (0, −1, 1, 2)}  e  W = {(x, y, z, w) ∈ R⁴ : x − y + w = 0, 2x + z = 0, y − z − w = 0}."
+text = "a) Determinare dimensioni e basi di U e W."
+data = { U = { span = [[1, 2, 0, -1], [0, -1, 1, 2]] }, W = { A = [[1, -1, 0, 1], [2, 0, 1, 0], [0, 1, -1, -1]] }, names = ["x", "y", "z", "w"], parts = ["U", "W"] }
+
+
+[[item]]
+id = "P2507A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 1
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "b) Calcolare le dimensioni di U + W e U ∩ W."
+data = { U = { span = [[1, 2, 0, -1], [0, -1, 1, 2]] }, W = { A = [[1, -1, 0, 1], [2, 0, 1, 0], [0, 1, -1, -1]] }, names = ["x", "y", "z", "w"], parts = ["dim_sum", "dim_int"] }
+
+
+[[item]]
+id = "P2507A-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 1
+topic = "orthogonality"
+page = 2
+task = "perp"
+text = "c) Scrivere una base di W⊥."
+data = { A = [[1, -1, 0, 1], [2, 0, 1, 0], [0, 1, -1, -1]], only_basis = true }
+
+
+[[item]]
+id = "P2507A-E1d"
+ref = "Esercizio 1 d)"
+section = "II"
+points = 2
+topic = "projections"
+page = 2
+task = "matexpr"
+text = "d) Calcolare la matrice rappresentativa della proiezione ortogonale π_W⊥ sul sottospazio W⊥ (w.r.t. the canonical basis)."
+data = { matrices = { P = [[1, 0, 0, 0], [0, "1/2", 0, "-1/2"], [0, 0, 1, 0], [0, "-1/2", 0, "1/2"]] }, exprs = ["P"], labels = ["matrix of π_W⊥"], show = false }
+
+
+[[item]]
+id = "P2507A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 3
+task = "open"
+setup = "Sia L: R³ → R³ l'endomorfismo con le proprietà L(1, 0, 0) = (0, 0, 0), L(0, 1, 1) = (0, −1, 1), L(0, −1, 1) = (0, 1, 1)."
+text = "a) Dimostrare che L esiste ed è unico."
+[item.data]
+solution = """
+(1, 0, 0), (0, 1, 1), (0, −1, 1) are independent (det = 2 ≠ 0), hence a basis of R³. A linear map is determined by arbitrary images of a basis, so L exists and is unique."""
+
+
+[[item]]
+id = "P2507A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 3
+task = "interp_matrix"
+text = "b) Trovare la matrice rappresentativa di L rispetto alla base canonica di R³."
+data = { basis = [[1, 0, 0], [0, 1, 1], [0, -1, 1]], images = [[0, 0, 0], [0, -1, 1], [0, 1, 1]], ask = ["E_E"] }
+
+
+[[item]]
+id = "P2507A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 3
+task = "open"
+text = "c) Stabilire se L è ortogonalmente diagonalizzabile ed in tal caso trovare una base ortonormale di R³ composta da autovettori di L."
+[item.data]
+solution = """
+L(e2) = (L(0,1,1) − L(0,−1,1))/2 = (0, −1, 0), L(e3) = (L(0,1,1) + L(0,−1,1))/2 = (0, 0, 1): M^E_E(L) = diag(0, −1, 1), symmetric, so L is orthogonally diagonalisable and the canonical basis {e1, e2, e3} is already an orthonormal basis of eigenvectors (eigenvalues 0, −1, 1)."""
+
+
+[[item]]
+id = "P2507A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "matexpr"
+setup = "Si consideri la forma quadratica Q: R³ → R definita da Q(x1, x2, x3) = x1² + x2² + 4x3² − 2x1x2."
+text = "a) Scrivere la matrice simmetrica associata a Q."
+data = { matrices = { A = [[1, -1, 0], [-1, 1, 0], [0, 0, 4]] }, exprs = ["A"], labels = ["A"], show = false }
+
+
+[[item]]
+id = "P2507A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "values"
+text = "b) Determinare la segnatura della forma quadratica. (n+, n−, n0)"
+data = { answers = [["n+", 2], ["n−", 0], ["n0", 1]], why = "Eigenvalues of A: 0 (eigenvector (1,1,0)), 2 ((1,−1,0)) and 4 ((0,0,1)): signature (2, 0, 1), Q is positive semidefinite." }
+
+
+[[item]]
+id = "P2507A-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 3
+topic = "isometries"
+page = 4
+task = "open"
+text = "c) Dopo aver classificato metricamente la quadrica Q(x1, x2, x3) = 1 trovare l'isometria che la porta nella forma canonica."
+[item.data]
+solution = """
+Orthonormal eigenvectors: u1 = (1, −1, 0)/√2 (λ = 2), u2 = (0, 0, 1) (λ = 4), u3 = (1, 1, 0)/√2 (λ = 0). With x = Py, P = (u1 | u2 | u3) orthogonal: 2y1² + 4y2² = 1, i.e. y1²/(1/2) + y2²/(1/4) = 1: an elliptic cylinder (axis along u3 = Span((1, 1, 0)))."""

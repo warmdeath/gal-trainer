@@ -1,0 +1,360 @@
+[source]
+id = "F02"
+title = "Foglio di esercizi 2"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_02.pdf", sha256 = "47cdeed5ba76ced7e3f6082e728044bb06d380b4ac1f4dfe2aa0079f099419dd", pages = 3 }]
+note = "Negli esercizi con parametro λ si discuta come cambia la risposta al variare di λ."
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F02-E1a"
+ref = "Esercizio 1 (a)"
+topic = "systems"
+page = 1
+task = "solve"
+text = "Si usi il MEG (o Gauss-Jordan) per determinare l'insieme delle soluzioni del sistema."
+data = { A = [[2, 1], [2, -5], [1, -2]], b = [3, 5, 4] }
+
+[[item]]
+id = "F02-E1b"
+ref = "Esercizio 1 (b)"
+topic = "systems"
+page = 1
+task = "solve"
+text = "Si usi il MEG (o Gauss-Jordan) per determinare l'insieme delle soluzioni del sistema."
+data = { A = [[1, 1], [1, -3], [1, -1]], b = [1, 5, 3], names = ["x1", "x2"] }
+
+[[item]]
+id = "F02-E1c"
+ref = "Esercizio 1 (c)"
+topic = "systems"
+page = 1
+task = "solve"
+text = "Si usi il MEG (o Gauss-Jordan) per determinare l'insieme delle soluzioni del sistema."
+data = { A = [[6, -9], [-4, 6], [10, -15]], b = [3, -2, 5] }
+
+[[item]]
+id = "F02-E1d"
+ref = "Esercizio 1 (d)"
+topic = "systems"
+page = 1
+task = "solve"
+text = "Si usi il MEG (o Gauss-Jordan) per determinare l'insieme delle soluzioni del sistema."
+data = { A = [[1, -1, 2], [2, 5, 1]], b = [4, 9], names = ["x1", "x2", "x3"] }
+
+[[item]]
+id = "F02-E1e"
+ref = "Esercizio 1 (e)"
+topic = "systems"
+page = 1
+task = "solve"
+text = "Si usi il MEG (o Gauss-Jordan) per determinare l'insieme delle soluzioni del sistema."
+data = { A = [[3, -3, 6], [-2, 2, -4]], b = [10, 8] }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F02-E2a"
+ref = "Esercizio 2 a)"
+topic = "systems"
+page = 1
+task = "nsol"
+text = "La matrice rappresenta la matrice completa di un sistema lineare reale. Usando il MEG, si decida quante soluzioni ammette."
+data = { Ab = [[1, -1, 1, 2], [3, -1, 1, 0], [0, 2, -1, 1]] }
+
+[[item]]
+id = "F02-E2b"
+ref = "Esercizio 2 b)"
+topic = "systems"
+page = 1
+task = "nsol"
+text = "La matrice rappresenta la matrice completa di un sistema lineare reale. Usando il MEG, si decida quante soluzioni ammette."
+data = { Ab = [[1, -1, -1, 1, 0], [2, 0, 2, 0, 8], [0, -1, -2, 0, -8], [3, -3, -2, 4, 7]] }
+
+[[item]]
+id = "F02-E2c"
+ref = "Esercizio 2 c)"
+topic = "rank"
+page = 1
+task = "param_system"
+text = "Matrice completa (1 1 1 1 | 2; 0 1 −3 0 | 1; 2 1 5 2 | λ² − 2λ): quante soluzioni al variare di λ?"
+data = { param = "λ", A = [[1, 1, 1, 1], [0, 1, -3, 0], [2, 1, 5, 2]], b = [2, 1, "λ^2 - 2λ"], names = ["x1", "x2", "x3", "x4"] }
+
+[[item]]
+id = "F02-E2d"
+ref = "Esercizio 2 d)"
+topic = "rank"
+page = 1
+task = "param_system"
+text = "Matrice completa (1 1 1 | λ; λ 1 2 | 2; 1 λ 1 | 0): quante soluzioni al variare di λ?"
+data = { param = "λ", A = [[1, 1, 1], ["λ", 1, 2], [1, "λ", 1]], b = ["λ", 2, 0] }
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F02-E3A"
+ref = "Esercizio 3 (A)"
+topic = "rank"
+page = 1
+task = "homog"
+text = "Si determini il rango e lo spazio delle soluzioni del sistema lineare omogeneo associato."
+data = { A = [[3, 4, 3], [2, 5, 2]] }
+
+[[item]]
+id = "F02-E3B"
+ref = "Esercizio 3 (B = Aᵀ)"
+topic = "rank"
+page = 1
+task = "homog"
+text = "Stessa domanda per B = Aᵀ."
+data = { A = [[3, 2], [4, 5], [3, 2]], name = "B" }
+
+[[item]]
+id = "F02-E3C"
+ref = "Esercizio 3 (C)"
+topic = "rank"
+page = 1
+task = "param_rank"
+text = "Si determini il rango di C al variare di λ (lo spazio delle soluzioni di Cx = 0 ha dimensione 5 − rg(C))."
+data = { param = "λ", A = [[1, 2, 0, 0, 1], [2, 4, 1, 1, 2], [1, 2, 1, 1, "λ"]], name = "C" }
+
+# ---------------------------------------------------------------- Esercizio 4
+[[item]]
+id = "F02-E4a"
+ref = "Esercizio 4 a)"
+topic = "rank"
+page = 1
+task = "param_system"
+text = "Usando Rouché-Capelli si determini se il sistema ammette una soluzione, nessuna o infinite (e da quanti parametri dipende) al variare di λ."
+data = { param = "λ", A = [[1, 0, "λ", 0], [0, 1, 0, "λ"], [1, 0, 1, 0]], b = [0, 0, "λ + 1"], names = ["x1", "x2", "x3", "x4"] }
+
+[[item]]
+id = "F02-E4b"
+ref = "Esercizio 4 b)"
+topic = "rank"
+page = 1
+task = "param_system"
+text = "Usando Rouché-Capelli si determini se il sistema ammette una soluzione, nessuna o infinite al variare di λ."
+data = { param = "λ", A = [[1, 1, 0], [1, 0, -1], [0, -1, "λ^2 - 2"], [0, 1, 1]], b = [0, 0, "λ", -1], names = ["x1", "x2", "x3"] }
+
+[[item]]
+id = "F02-E4c"
+ref = "Esercizio 4 c)"
+topic = "rank"
+page = 2
+task = "param_system"
+text = "Usando Rouché-Capelli si determini se il sistema ammette una soluzione, nessuna o infinite al variare di λ."
+data = { param = "λ", A = [[1, 0, 0, 2], [0, 3, 6, 9], [2, 1, 4, 4], [1, 3, 8, 8]], b = ["λ", 0, "λ", "λ(λ + 1)"], names = ["x1", "x2", "x3", "x4"] }
+
+[[item]]
+id = "F02-E4d"
+ref = "Esercizio 4 d)"
+topic = "rank"
+page = 2
+task = "param_system"
+text = "Usando Rouché-Capelli si determini se il sistema ammette una soluzione, nessuna o infinite al variare di λ."
+data = { param = "λ", A = [[0, "2λ", 1, -1], [1, 0, -2, "λ"], [1, 0, "-2λ", 1]], b = [1, 0, 1], names = ["x1", "x2", "x3", "x4"] }
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F02-E5A"
+ref = "Esercizio 5 (A)"
+topic = "rank"
+page = 2
+task = "rank"
+text = "Si determini il rango della matrice reale."
+data = { A = [[1, 2, 1], [2, 2, 2], [1, 0, 1]] }
+
+[[item]]
+id = "F02-E5B"
+ref = "Esercizio 5 (B)"
+topic = "rank"
+page = 2
+task = "rank"
+text = "Si determini il rango della matrice reale."
+data = { A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]], name = "B" }
+
+[[item]]
+id = "F02-E5C"
+ref = "Esercizio 5 (C)"
+topic = "rank"
+page = 2
+task = "param_rank"
+text = "Si determini il rango al variare di λ."
+data = { param = "λ", A = [[1, 2, 2], [2, "3λ", 4]], name = "C" }
+
+[[item]]
+id = "F02-E5D"
+ref = "Esercizio 5 (D)"
+topic = "rank"
+page = 2
+task = "param_rank"
+text = "Si determini il rango al variare di λ."
+data = { param = "λ", A = [[1, 2, 3], [0, 1, 2], [-1, 4, "λ"]], name = "D" }
+
+[[item]]
+id = "F02-E5E"
+ref = "Esercizio 5 (E)"
+topic = "rank"
+page = 2
+task = "param_rank"
+text = "Si determini il rango al variare di λ."
+data = { param = "λ", A = [[1, "λ", 1], ["λ", 4, 2]], name = "E" }
+
+[[item]]
+id = "F02-E5F"
+ref = "Esercizio 5 (F)"
+topic = "rank"
+page = 2
+task = "param_rank"
+text = "Si determini il rango al variare di λ."
+data = { param = "λ", A = [[1, -3, 1, 2], ["λ", 0, 0, 0], [1, -1, 0, 0], [0, 0, 0, "λ"]], name = "F" }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F02-E6i"
+ref = "Esercizio 6 i)"
+topic = "systems"
+page = 2
+task = "solve"
+text = "Si risolva Ax = b e si confronti Sol(A|b) con Sol(A|0) (Teorema di struttura: Sol(A|b) = v_P + Sol(A|0))."
+data = { A = [[1, -1, 1, 2], [3, -1, 1, 0]], b = [1, -1], names = ["x1", "x2", "x3", "x4"] }
+
+[[item]]
+id = "F02-E6ii"
+ref = "Esercizio 6 ii)"
+topic = "systems"
+page = 2
+task = "solve"
+text = "Si risolva Ax = b e si confronti Sol(A|b) con Sol(A|0)."
+data = { A = [[1, -2, 3], [0, 3, -1], [3, 0, 7]], b = [1, 0, 2] }
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F02-E7A"
+ref = "Esercizio 7 (A)"
+topic = "inverse"
+page = 2
+task = "inverse"
+text = "Si determini se la matrice è invertibile ed in tal caso si calcoli la matrice inversa."
+data = { A = [[3, 4], [-1, 2]] }
+
+[[item]]
+id = "F02-E7B"
+ref = "Esercizio 7 (B)"
+topic = "inverse"
+page = 2
+task = "inverse"
+text = "Si determini se la matrice è invertibile ed in tal caso si calcoli la matrice inversa."
+data = { A = [[1, 2, 3], [0, -1, 4], [0, 0, 1]], name = "B" }
+
+[[item]]
+id = "F02-E7C"
+ref = "Esercizio 7 (C)"
+topic = "inverse"
+page = 2
+task = "inverse"
+text = "Si determini se la matrice è invertibile ed in tal caso si calcoli la matrice inversa."
+data = { A = [[1, 2, 3], [4, 5, 6], [7, 8, 9]], name = "C" }
+
+[[item]]
+id = "F02-E7D"
+ref = "Esercizio 7 (D)"
+topic = "inverse"
+page = 2
+task = "inverse"
+text = "Si determini se la matrice è invertibile ed in tal caso si calcoli la matrice inversa."
+data = { A = [[0, 3, 8], [0, 0, 1], [2, -6, 5]], name = "D" }
+
+[[item]]
+id = "F02-E7E"
+ref = "Esercizio 7 (E)"
+topic = "inverse"
+page = 2
+task = "param_invertible"
+text = "Per quali λ la matrice è invertibile?"
+data = { param = "λ", A = [["λ", 1], [1, 3]], name = "E" }
+
+[[item]]
+id = "F02-E7F"
+ref = "Esercizio 7 (F)"
+topic = "inverse"
+page = 2
+task = "param_invertible"
+text = "Per quali λ la matrice è invertibile?"
+data = { param = "λ", A = [[2, "λ"], ["λ + 1", 1]], name = "F" }
+
+[[item]]
+id = "F02-E7G"
+ref = "Esercizio 7 (G)"
+topic = "inverse"
+page = 2
+task = "param_invertible"
+text = "Per quali λ la matrice è invertibile?"
+data = { param = "λ", A = [["λ", 1, 1], [1, "λ", 1], [0, 1, 1]], name = "G" }
+
+# ---------------------------------------------------------------- Esercizio 8
+[[item]]
+id = "F02-E8a"
+ref = "Esercizio 8 a)"
+topic = "rank"
+page = 2
+task = "homog"
+text = "Data la matrice A ∈ M_R(3,4), si determini l'insieme delle soluzioni del sistema lineare omogeneo Ax = 0."
+data = { A = [[1, 1, 1, 1], [1, 1, 2, 2], [2, 2, 3, 3]] }
+
+[[item]]
+id = "F02-E8b"
+ref = "Esercizio 8 b)"
+topic = "rank"
+page = 2
+task = "yesno"
+text = "Con A = (1 1 1 1; 1 1 2 2; 2 2 3 3), si decida se il sistema lineare Ax = b ha un'unica soluzione per ogni b ∈ R³."
+data = { answer = false, why = "No: A has 4 columns but rg(A) = 2 < 4, so when the system is solvable it has ∞² solutions (and since rg(A) = 2 < 3 it is not even solvable for every b). Lemma 1.15: m < n never gives a unique solution." }
+
+# ---------------------------------------------------------------- Esercizio 9
+[[item]]
+id = "F02-E9a"
+ref = "Esercizio 9 (a)"
+topic = "systems"
+page = 2
+task = "nsol"
+text = "Usando il MEG si determini se il sistema ammette infinite soluzioni, una soluzione o nessuna soluzione."
+data = { Ab = [[1, 0, 1, 1], [0, 1, 1, 2], [1, 1, 2, 0]] }
+
+[[item]]
+id = "F02-E9b"
+ref = "Esercizio 9 (b)"
+topic = "systems"
+page = 2
+task = "nsol"
+text = "Usando il MEG si determini se il sistema ammette infinite soluzioni, una soluzione o nessuna soluzione."
+data = { Ab = [[1, 2, -3, -1], [2, -1, 1, 14], [3, 8, -10, -4]] }
+
+[[item]]
+id = "F02-E9c"
+ref = "Esercizio 9 (c)"
+topic = "systems"
+page = 3
+task = "nsol"
+text = "Usando il MEG si determini se il sistema ammette infinite soluzioni, una soluzione o nessuna soluzione."
+data = { Ab = [[2, -6, 1, 4], [1, -3, 1, 3], [-1, 3, 0, -1]] }
+
+[[item]]
+id = "F02-E9d"
+ref = "Esercizio 9 (d)"
+topic = "systems"
+page = 3
+task = "nsol"
+text = "Usando il MEG si determini se il sistema ammette infinite soluzioni, una soluzione o nessuna soluzione."
+data = { Ab = [[1, 1, 1, 4, 2], [2, 2, 0, 4, -2], [0, 0, -1, -2, -3], [1, 1, -1, 0, -4]] }
+
+# ---------------------------------------------------------------- Esercizio 10
+[[item]]
+id = "F02-E10"
+ref = "Esercizio 10"
+topic = "systems"
+page = 3
+task = "solve"
+text = """
+Si trovino tutte le matrici X ∈ M_R(2) che soddisfano simultaneamente X·(1, 1)ᵀ = (0, 2)ᵀ e Xᵀ·(1, 2)ᵀ = (3, 1)ᵀ.
+Write X = (a b; c d): the conditions are a linear system in a, b, c, d; answer with (a, b, c, d)."""
+data = { A = [[1, 1, 0, 0], [0, 0, 1, 1], [1, 0, 2, 0], [0, 1, 0, 2]], b = [0, 2, 3, 1], names = ["a", "b", "c", "d"] }

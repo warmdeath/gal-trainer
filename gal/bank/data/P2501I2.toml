@@ -1,0 +1,336 @@
+[source]
+id = "P2501I2"
+title = "Prova in itinere 2, 01/2025 (Parte A + B)"
+kind = "exam"
+date = "2025-01-15"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-01 Itinere 2 - Parte A.pdf", sha256 = "2f33ac498d0d8c6d1d92b398e79f22cdd77bc38c68fef56d7d18c5ab68c1d9d1", pages = 4 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2024-2025 (altro docente)/2025-01 Itinere 2 - Parte B.pdf", sha256 = "3a2dca01b076267d13fcd0889628f8f91727477687aa658dfbf45a385d6da52f", pages = 4 },
+]
+note = "Previous lecturer's second itinere: 12 questions + exercises worth 20 points, the size of a full written exam (on the second half of the course), so it is timed like an appello. No official solutions: keys worked out and checked by the trainer."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2501I2-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "systems"
+page = 1
+task = "mcq"
+text = "Il sistema lineare Ax = b, con A = (1 k 0; k 0 0; 1 0 −1; 0 1 0) e b = (1, −1, 0, 2k)ᵀ,"
+[item.data]
+options = ["ammette unica soluzione per k = 1", "ammette infinite soluzioni per k = 1", "ammette unica soluzione per k ≠ 1", "ammette soluzione per ogni k ∈ R"]
+correct = "a"
+why = "rg(A) = 3 for every k; rg(A|b) = 3 only for k = 1 (otherwise 4). So: one solution for k = 1, none for k ≠ 1."
+
+
+[[item]]
+id = "P2501I2-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "In V = Mat_R(3, 1) consideriamo il prodotto scalare ⟨A, B⟩ = AᵀGB dove G = (1 0 −1; 0 1 0; −1 0 2). Allora:"
+[item.data]
+options = ["la base canonica (E11, E21, E31) di V è ortogonale", "non esiste una base ortonormale", "E11 è un versore", "l'angolo tra E11 ed E31 è π/4"]
+correct = "c"
+why = "‖E11‖² = g11 = 1: a unit vector. ⟨E11, E31⟩ = g13 = −1 ≠ 0 (not orthogonal); cos θ = −1/(1·√2): θ = 3π/4. Gram-Schmidt always gives an orthonormal basis."
+
+
+[[item]]
+id = "P2501I2-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "cross_distances"
+page = 1
+task = "mcq"
+text = "In R³ la distanza tra i sottospazi affini T = {(x, y, z) ∈ R³ : x + y = y + z = 0} e S = {(1, 1, 1) + t(1, −1, 1) : t ∈ R}"
+[item.data]
+options = ["è 2√6/3", "è 0", "è 8/3", "è √3"]
+correct = "a"
+why = "T = Span((1, −1, 1)) is parallel to S. The distance is that of P = (1, 1, 1) from T: P − π_T(P) = (1, 1, 1) − (1/3)(1, −1, 1) = (2/3, 4/3, 2/3), of norm √24/3 = 2√6/3."
+
+
+[[item]]
+id = "P2501I2-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "In uno spazio Euclideo V si considerino due vettori tali che ‖v‖ = 1, ‖w‖ = 2 e v ⊥ w. Allora"
+[item.data]
+options = ["‖2v − 3w‖ = √2", "‖2v − 3w‖ = √3", "‖2v − 3w‖ = √20", "‖2v − 3w‖ = √40"]
+correct = "d"
+why = "Pythagoras: ‖2v − 3w‖² = 4‖v‖² + 9‖w‖² = 4 + 36 = 40."
+
+
+[[item]]
+id = "P2501I2-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Si consideri la matrice A = (C1, C2, C3) dove C1, C2, C3 sono vettori colonna. Allora"
+[item.data]
+options = ["det(C1 + C2, C2, C3 + C1) = −det(A)", "det(C1 + C2, C2, C3 + C1) = det(A)", "det(C1 + C2, C2, C3 + C1) = det(A)²", "det(C1 + C2, C2, C3 + C1) = 2det(A)"]
+correct = "b"
+why = "Subtract C2 from column 1: (C1, C2, C3 + C1); then subtract column 1 from column 3: (C1, C2, C3). Neither step changes det."
+
+
+[[item]]
+id = "P2501I2-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "matrices"
+page = 1
+task = "mcq"
+text = "Siano A ∈ Mat(3, 3) e B ∈ Mat(3, 1), allora"
+[item.data]
+options = ["AB ∈ Mat(1, 3)", "AB ∈ Mat(3, 1)", "A + B ∈ Mat(3, 3)", "nessuna delle precedenti."]
+correct = "b"
+why = "(3 × 3)(3 × 1) = 3 × 1. A + B is not defined (different sizes)."
+
+
+[[item]]
+id = "P2501I2-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Siano V = R[t]_≤3 e W = Mat(2, 2); l'applicazione lineare L: V → W definita da L(a0 + a1t + a2t² + a3t³) = (a0 a1; a2 a3)"
+[item.data]
+options = ["è un isomorfismo", "è iniettiva, ma non suriettiva", "è suriettiva, ma non iniettiva", "nessuna delle precedenti"]
+correct = "a"
+why = "It sends the basis {1, t, t², t³} to the canonical basis {E11, E12, E21, E22}: bijective."
+
+
+[[item]]
+id = "P2501I2-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia q: R³ → R la forma quadratica q(x, y, z) = 2x² + 4y² + z² + 2xz − 2yz."
+[item.data]
+options = ["La segnatura di q è (2, 1, 0)", "la segnatura di q è (1, 1, 1)", "la segnatura di q è (3, 0, 0)", "la segnatura di q è (0, 2, 1)"]
+correct = "c"
+why = "Matrix (2 0 1; 0 4 −1; 1 −1 1): leading minors 2, 8, det = 2(4 − 1) + 1(0 − 4) = 2 > 0, all positive (Sylvester): positive definite, (3, 0, 0)."
+
+
+[[item]]
+id = "P2501I2-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Sia h ∈ R un parametro per la matrice A = (2 0 1; 0 2 0; h² 0 0). Possiamo affermare con certezza che:"
+[item.data]
+options = ["se h = ±1, allora autovettori relativi ad autovalori distinti sono ortogonali", "se A è diagonalizzabile, allora h = ±1", "se h = 0, allora autovettori relativi ad autovalori distinti sono ortogonali", "se h = 0, allora autovettori linearmente indipendenti sono relativi ad autovalori distinti"]
+correct = "a"
+why = "For h = ±1 A is symmetric (spectral theorem). A is diagonalisable for every h (p = (2 − t)(t² − 2t − h²)), so B fails; for h = 0, V_0 = Span((1, 0, −2)) is not orthogonal to V_2 ∋ e1, and V_2 has dim 2."
+
+
+[[item]]
+id = "P2501I2-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "conics"
+page = 1
+task = "mcq"
+text = "In R² si consideri il luogo geometrico γ di equazione x² + 2y² + 4xy + 2x − 1 = 0. Possiamo affermare che:"
+[item.data]
+options = ["la conica γ è una coppia di rette incidenti", "la conica γ non ha un centro", "la conica γ è una circonferenza", "γ non è una conica"]
+correct = "a"
+why = "Quadratic part (1 2; 2 2) has det −2 < 0 (hyperbolic type) and the complete matrix (1 2 1; 2 2 0; 1 0 −1) has det 0: a degenerate hyperbola, two incident lines."
+
+
+[[item]]
+id = "P2501I2-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Sia L: R² → R² un'applicazione lineare tale che L(0, 1) = (1, 0) e L(1, 2) = (3, 4). Risulta:"
+[item.data]
+options = ["L(1, 0) = (0, 1)", "L(1, 0) = (4, 1)", "L(1, 0) = (1, 4)", "non abbiamo abbastanza informazioni per calcolare L(1, 0)."]
+correct = "c"
+why = "(1, 0) = (1, 2) − 2(0, 1), so L(1, 0) = (3, 4) − 2(1, 0) = (1, 4)."
+
+
+[[item]]
+id = "P2501I2-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Date le matrici A = (1 1 0; 0 1 0; 0 0 2) e B = (1 0 0; 0 1 1; 0 0 2), risulta che:"
+[item.data]
+options = ["A e B sono una l'inversa dell'altra", "A e B sono entrambe diagonalizzabile", "A e B hanno lo stesso polinomio caratteristico e sono simili", "A e B hanno lo stesso polinomio caratteristico, ma non sono simili"]
+correct = "d"
+why = "Both have p(t) = (t − 1)²(t − 2). mg_A(1) = 3 − rg(A − I) = 1 (A not diagonalisable), mg_B(1) = 2 (B diagonalisable): not similar."
+
+
+[[item]]
+id = "P2501I2-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 1
+topic = "linear_maps"
+page = 2
+task = "open"
+setup = "Siano v = (1, 1)ᵀ ∈ R², la funzione L: Mat(2, 2) → R², L(A) = Av, e il sottospazio H = {A ∈ Mat(2, 2) : Aᵀ = A}. (Coordinates w.r.t. {E11, E12, E21, E22}: L(a b; c d) = (a + b, c + d).)"
+text = "a) Dimostrare che L è un'applicazione lineare."
+[item.data]
+solution = """
+L(αA + βB) = (αA + βB)v = αAv + βBv = αL(A) + βL(B), by distributivity of the matrix product."""
+
+
+[[item]]
+id = "P2501I2-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "b) Determinare Im(L) e ker(L)."
+data = { A = [[1, 1, 0, 0], [0, 0, 1, 1]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2501I2-E1c"
+ref = "Esercizio 1 c)"
+section = "II"
+points = 2
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "c) Determinare L(H). (H = Span(E11, E12 + E21, E22); the matrix below has columns L(E11), L(E12 + E21), L(E22).)"
+data = { A = [[1, 1, 0], [0, 1, 1]], keep = ["basis of Im"] }
+
+
+[[item]]
+id = "P2501I2-E1d"
+ref = "Esercizio 1 d)"
+section = "II"
+points = 2
+topic = "sum_intersection"
+page = 2
+task = "grassmann"
+text = "d) Determinare dim(H + ker(L)) e dim(H ∩ ker(L)). (U = H: b − c = 0; W = ker L: a + b = 0, c + d = 0.)"
+data = { U = { A = [[0, 1, -1, 0]] }, W = { A = [[1, 1, 0, 0], [0, 0, 1, 1]] }, parts = ["dim_sum", "dim_int"] }
+
+
+[[item]]
+id = "P2501I2-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 1
+topic = "rep_matrix"
+page = 3
+task = "matexpr"
+setup = "Sia V = R[t]_≤2 e L: V → V l'endomorfismo L(p(t)) = (t + 1)p′(t) + (t² + 1)p″(t)."
+text = "a) Trovare la matrice rappresentativa A = M_L^{B,B} rispetto alla base B = {1, t, t²} di V."
+data = { matrices = { A = [[0, 1, 2], [0, 1, 2], [0, 0, 4]] }, exprs = ["A"], labels = ["A"], show = false }
+
+
+[[item]]
+id = "P2501I2-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "eigen"
+text = "b) Determinare autovalori e autovettori di A."
+data = { A = [[0, 1, 2], [0, 1, 2], [0, 0, 4]], keep = ["spectrum", "basis of V"] }
+
+
+[[item]]
+id = "P2501I2-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 3
+task = "open"
+text = "c) Determinare autovalori e autovettori di L."
+[item.data]
+solution = """
+Same eigenvalues 0, 1, 4; the eigenvectors are the polynomials with those coordinates: V_0 = Span(1), V_1 = Span(1 + t), V_4 = Span(2 + 2t + 3t²) (check: L(2 + 2t + 3t²) = (t + 1)(2 + 6t) + 6(t² + 1) = 8 + 8t + 12t²)."""
+
+
+[[item]]
+id = "P2501I2-E2d"
+ref = "Esercizio 2 d)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 3
+task = "matexpr"
+text = "d) Calcolare L¹⁰(3 + 3t + 3t²) (suggerimento: scrivere 3 + 3t + 3t² come combinazione di autovettori di L). (Coordinates w.r.t. {1, t, t²}, as a column.)"
+data = { matrices = { A = [[0, 1, 2], [0, 1, 2], [0, 0, 4]], v = [[3], [3], [3]] }, exprs = ["A^10*v"], labels = ["coordinates of L¹⁰(3 + 3t + 3t²)"], show = false }
+
+
+[[item]]
+id = "P2501I2-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+setup = "Si consideri la quadrica Q ⊆ R³ di equazione 3x² + 2y² + z² + 2√3 xz − 2x + 2√3 z + 2 = 0."
+text = "a) Trovare una forma canonica metrica di Q."
+[item.data]
+solution = """
+Quadratic part (3 0 √3; 0 2 0; √3 0 1): eigenvalues 4 (u = (√3/2, 0, 1/2)), 2 (e2), 0 (w = (1/2, 0, −√3/2)). The linear part (−2, 0, 2√3) has components 0 along u and −4 along w. In the coordinates (X, Y, Z) of {u, e2, w} and after translating the vertex to the origin: 4X² + 2Y² − 4Z = 0, i.e. Z = X² + Y²/2: an elliptic paraboloid."""
+
+
+[[item]]
+id = "P2501I2-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+text = "b) Trovare le equazioni cartesiane dei piani di simmetria di Q."
+[item.data]
+solution = """
+The planes X = 0 and Y = 0 through the vertex (1/4, 0, −√3/4): √3x + z = 0 and y = 0."""
+
+
+[[item]]
+id = "P2501I2-E3c"
+ref = "Esercizio 3 c)"
+section = "II"
+points = 2
+topic = "isometries"
+page = 4
+task = "open"
+text = "c) Scrivere il cambio di coordinate che porta l'equazione di Q nella forma canonica metrica."
+[item.data]
+solution = """
+x = (√3X + Z)/2 + 1/4,  y = Y,  z = (X − √3Z)/2 − √3/4 (a rotation by the orthogonal matrix with columns u, e2, w, then the translation to the vertex). Substituting gives 4X² + 2Y² − 4Z = 0."""

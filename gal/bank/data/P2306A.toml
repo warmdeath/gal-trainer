@@ -1,0 +1,282 @@
+[source]
+id = "P2306A"
+title = "Appello 06/2023 (Parte A + B)"
+kind = "exam"
+date = "2023-06-01"
+files = [
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-06 Appello - Parte A.pdf", sha256 = "aa43c426ffffcb449c649b8418287407cde5f75e26caa87782e3ee2848e60253", pages = 5 },
+  { path = "Esami_anni_precedenti-20261117/Anno accademico 2022-2023 (altro docente)/2023-06 Appello - Parte B.pdf", sha256 = "53c3c9beb7013712cfc9251cc6e9d297e72c98f178fb8bb51980939ccb474d1a", pages = 6 },
+]
+note = "Paper by a previous lecturer (no official solutions): keys and model answers worked out and checked by the trainer. Parte A (test): 1 point per question; Parte B: the printed points."
+paper = { format = "appello", minutes = 105, points = 32, lecturer = "altro docente", half = 2 }
+
+
+[[item]]
+id = "P2306A-D1"
+ref = "Parte A, domanda 1"
+section = "I"
+points = 1
+topic = "rep_matrix"
+page = 1
+task = "mcq"
+text = "Considerare L: R² → R[t]_≤1, L(a, b) = at + a + b. Determinare M_L^{B,C} rispetto alle basi B = {(1, 1), (1, −1)} e C = {1, t}."
+[item.data]
+options = ["(2 0; 1 1)", "(1 1; 1 1)", "(1 1; 1 0)", "(1 2; 1 1)"]
+correct = "a"
+why = "L(1, 1) = 2 + t → (2, 1); L(1, −1) = 0 + t → (0, 1). Columns (2, 1) and (0, 1)."
+
+
+[[item]]
+id = "P2306A-D2"
+ref = "Parte A, domanda 2"
+section = "I"
+points = 1
+topic = "diagonalization"
+page = 1
+task = "mcq"
+text = "Quale delle seguenti matrici è diagonalizzabile?"
+[item.data]
+options = ["(0 1 1; 0 0 1; 0 0 0)", "(1 1 1; 0 1 1; 0 0 1)", "(1 1 1; 0 2 2; 0 0 3)", "(1 2 3; 0 1 2; 0 0 1)"]
+correct = "c"
+why = "C is triangular with distinct eigenvalues 1, 2, 3. A, B, D have a single eigenvalue but are not scalar matrices, so they are not diagonalisable."
+
+
+[[item]]
+id = "P2306A-D3"
+ref = "Parte A, domanda 3"
+section = "I"
+points = 1
+topic = "affine"
+page = 1
+task = "mcq"
+text = "Le rette r1 = {x − 2y + 3z = 1, x + y + 2z = −2} e r2 = (−1, −1, 0) + Span((−7, 1, 3)) in R³"
+[item.data]
+options = ["sono sghembe", "sono parallele non coincidenti", "sono perpendicolari", "sono coincidenti"]
+correct = "d"
+why = "r1 has direction (1, −2, 3) × (1, 1, 2) = (−7, 1, 3), the same as r2, and (−1, −1, 0) satisfies both equations of r1."
+
+
+[[item]]
+id = "P2306A-D4"
+ref = "Parte A, domanda 4"
+section = "I"
+points = 1
+topic = "determinant"
+page = 1
+task = "mcq"
+text = "Siano A, B ∈ Mat_R(3, 3) con det(A) = 2 e det(B) = 5. Allora"
+[item.data]
+options = ["det(3B) = 15", "det(A³ − B²) = −17", "det(AB) = 25", "det(2A) = 16"]
+correct = "d"
+why = "det(2A) = 2³·2 = 16. det(3B) = 135, det(AB) = 10; det(A³ − B²) is not determined by det A, det B."
+
+
+[[item]]
+id = "P2306A-D5"
+ref = "Parte A, domanda 5"
+section = "I"
+points = 1
+topic = "span_independence"
+page = 1
+task = "mcq"
+text = "Dato H = Span{(1, 2, 1), (1, −1, 2)} ⊆ R³, allora"
+[item.data]
+options = ["(1, 4, −7) ∈ H", "(1, −7, 4) ∈ H", "(4, 1, −7) ∈ H", "(4, −7, 1) ∈ H"]
+correct = "b"
+why = "H = {5x − y − 3z = 0} (normal (1,2,1) × (1,−1,2) = (5, −1, −3)); 5 + 7 − 12 = 0 only for (1, −7, 4) (= −2(1,2,1) + 3(1,−1,2))."
+
+
+[[item]]
+id = "P2306A-D6"
+ref = "Parte A, domanda 6"
+section = "I"
+points = 1
+topic = "scalar_products"
+page = 1
+task = "mcq"
+text = "Sia B = {v1, v2, v3} una base di versori con v1 ⊥ v2, v1 ⊥ v3 e ⟨v2, v3⟩ = 1/√2. Posto w = 2v1 + v2 − 3v3, allora"
+[item.data]
+options = ["‖w‖ = √(14 − 6/√2)", "‖w‖ = √14", "‖w‖ = √(14 + 6/√2)", "‖w‖ = √(14 − 3/√2)"]
+correct = "a"
+why = "‖w‖² = 4 + 1 + 9 + 2·(1)(−3)⟨v2, v3⟩ = 14 − 6/√2."
+
+
+[[item]]
+id = "P2306A-D7"
+ref = "Parte A, domanda 7"
+section = "I"
+points = 1
+topic = "linear_maps"
+page = 1
+task = "mcq"
+text = "Considerare L: R³ → R⁴, L(x, y, z) = (x + y, y − z, 2x + 2z, −y + z), e H = Span{(1, 0, 0), (0, 1, 1)}. Allora"
+[item.data]
+options = ["dim L(H) = 4", "dim L(H) = 3", "dim L(H) = 2", "dim L(H) = 1"]
+correct = "d"
+why = "L(1, 0, 0) = (1, 0, 2, 0) = L(0, 1, 1): L(H) = Span((1, 0, 2, 0)), dimension 1."
+
+
+[[item]]
+id = "P2306A-D8"
+ref = "Parte A, domanda 8"
+section = "I"
+points = 1
+topic = "rank"
+page = 1
+task = "mcq"
+text = "Sia Ax = b un sistema lineare, con A ∈ Mat_R(m, n) e b ∈ Rᵐ."
+[item.data]
+options = ["Il sistema ammette soluzioni se e solo se b ∈ col(A)", "Il sistema ammette soluzioni se e solo se b ∈ row(A)", "Il sistema ammette un'unica soluzione se rk(A) = m", "Il sistema ammette un'unica soluzione se rk(A) = rk(A|b)"]
+correct = "a"
+why = "Ax is a combination of the columns. Uniqueness needs rk A = rk(A|b) = n (the number of unknowns)."
+
+
+[[item]]
+id = "P2306A-D9"
+ref = "Parte A, domanda 9"
+section = "I"
+points = 1
+topic = "inverse"
+page = 1
+task = "mcq"
+text = "Supponendo che la matrice M = (a b; c d) sia invertibile, qual è la sua inversa?"
+[item.data]
+options = ["M⁻¹ = (1/(ad − bc))(a b; c d)", "M⁻¹ = (1/(ad − bc))(d −b; −c a)", "M⁻¹ = (a c; b d)", "M⁻¹ = (−a −b; −c −d)"]
+correct = "b"
+why = "The 2 × 2 formula: swap the diagonal, change the sign of the off-diagonal entries, divide by det M."
+
+
+[[item]]
+id = "P2306A-D10"
+ref = "Parte A, domanda 10"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "Una matrice simmetrica A ∈ Mat_R(3, 3) ha due autospazi distinti. Se uno è Span{(1, 1, 0), (0, 1, 1)}, qual è l'altro?"
+[item.data]
+options = ["Span{(1, −1, 0), (0, 1, −1)}", "Span{(1, 0, 1)}", "Span{(1, 1, 1)}", "Span{(1, −1, 1)}"]
+correct = "d"
+why = "Spectral theorem: the other eigenspace is the orthogonal complement: (1, 1, 0) × (0, 1, 1) = (1, −1, 1)."
+
+
+[[item]]
+id = "P2306A-D11"
+ref = "Parte A, domanda 11"
+section = "I"
+points = 1
+topic = "isometries"
+page = 1
+task = "mcq"
+text = "La forma quadratica p(x1, x2) = x1² + 2x1x2 − 3x2²"
+[item.data]
+options = ["è definita negativa nel sottospazio Span{(1, 3)}", "è definita positiva nel sottospazio Span{(1, 1)}", "ha segnatura (1, 0, 1)", "ha forma canonica di Sylvester x1² + x2²"]
+correct = "a"
+why = "p(t, 3t) = t²(1 + 6 − 27) = −20t² < 0 for t ≠ 0. p(1, 1) = 0; det(1 1; 1 −3) = −4 < 0: signature (1, 1, 0)."
+
+
+[[item]]
+id = "P2306A-D12"
+ref = "Parte A, domanda 12"
+section = "I"
+points = 1
+topic = "sum_intersection"
+page = 1
+task = "mcq"
+text = "Sia dim V = 7 e H, K ⊆ V con dim H = dim K = 4. Allora sicuramente"
+[item.data]
+options = ["dim(H + K) ≥ 6", "H + K = V", "dim(H ∩ K) = 1", "H ∩ K ≠ {0}"]
+correct = "d"
+why = "dim(H + K) ≤ 7 ⇒ dim(H ∩ K) = 8 − dim(H + K) ≥ 1."
+
+
+[[item]]
+id = "P2306A-E1a"
+ref = "Esercizio 1 a)"
+section = "II"
+points = 3
+topic = "linear_maps"
+page = 2
+task = "kerim"
+setup = "L: R³ → R³ ha matrice A = M_L^{B,C} = (2 2 −2; 2 3 1; 1 0 −4) rispetto alle basi B = {e1 + e2, e2 + e3, e3} e C = {e2, e1 + e2, e2 + e3}."
+text = "a) Calcolare una base di ker(A) e Im(A)."
+data = { A = [[2, 2, -2], [2, 3, 1], [1, 0, -4]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2306A-E1b"
+ref = "Esercizio 1 b)"
+section = "II"
+points = 3
+topic = "rep_matrix"
+page = 2
+task = "kerim"
+text = "b) Calcolare una base di ker(L) e Im(L) (canonical coordinates). (The matrix of L w.r.t. the canonical bases is C·A·B⁻¹, shown below.)"
+data = { A = [[0, 2, 1], [-5, 10, -5], [-3, 4, -4]], keep = ["basis of ker", "basis of Im"] }
+
+
+[[item]]
+id = "P2306A-E2a"
+ref = "Esercizio 2 a)"
+section = "II"
+points = 2
+topic = "diagonalization"
+page = 4
+task = "param_diag"
+setup = "Sia A_k = (4 0 3 k + 1; 0 −1 0 k − 1; −2 k −1 −2; 0 0 0 −1), k ∈ R."
+text = "a) Determinare i valori di k per cui A_k è diagonalizzabile."
+data = { param = "k", A = [[4, 0, 3, "k + 1"], [0, -1, 0, "k - 1"], [-2, "k", -1, -2], [0, 0, 0, -1]], name = "A_k", candidates = [1] }
+
+
+[[item]]
+id = "P2306A-E2b"
+ref = "Esercizio 2 b)"
+section = "II"
+points = 3
+topic = "eigen"
+page = 4
+task = "eigen"
+text = "b) Sia M = A_0. Determinare gli autospazi di M."
+data = { A = [[4, 0, 3, 1], [0, -1, 0, -1], [-2, 0, -1, -2], [0, 0, 0, -1]], name = "M", keep = ["basis of V"] }
+
+
+[[item]]
+id = "P2306A-E2c"
+ref = "Esercizio 2 c)"
+section = "II"
+points = 2
+topic = "eigen"
+page = 4
+task = "matexpr"
+text = "c) Sia v = (1, 2, −1, 0)ᵀ. Calcolare M²⁰²³v."
+data = { matrices = { M = [[4, 0, 3, 1], [0, -1, 0, -1], [-2, 0, -1, -2], [0, 0, 0, -1]], v = [[1], [2], [-1], [0]] }, exprs = ["M^2023*v"], labels = ["M²⁰²³v"], show = false }
+
+
+[[item]]
+id = "P2306A-E3a"
+ref = "Esercizio 3 a)"
+section = "II"
+points = 4
+topic = "isometries"
+page = 6
+task = "open"
+setup = "Data la quadrica Q ⊂ R³: x² − 2y² + z² + 2xy − 4xz + 2yz − 2x − 2y + 4z + 2 = 0."
+text = "a) Classificare metricamente ed affinemente la quadrica Q."
+[item.data]
+solution = """
+A = (1 1 −2; 1 −2 1; −2 1 1): eigenvalues 3 ((−1, 0, 1)), −3 ((1, −2, 1)), 0 ((1, 1, 1)); rank A = 2, rank of the 4 × 4 matrix = 3. Centres: the line (1, 0, 0) + t(1, 1, 1), where the constant becomes 1. Metric form 3X² − 3Y² + 1 = 0, i.e. Y²/(1/3) − X²/(1/3) = 1: a hyperbolic cylinder (equilateral section), also affinely."""
+
+
+[[item]]
+id = "P2306A-E3b"
+ref = "Esercizio 3 b)"
+section = "II"
+points = 3
+topic = "conics"
+page = 6
+task = "open"
+text = "b) Classificare affinemente la conica data dall'intersezione di Q con il piano π: x − z = 0."
+[item.data]
+solution = """
+On z = x: −2x² + 4xy − 2y² + 2x − 2y + 2 = 0 ⇔ (x − y)² − (x − y) − 1 = 0 ⇔ x − y = (1 ± √5)/2: two distinct parallel lines (in the plane π)."""

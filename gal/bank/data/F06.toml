@@ -1,0 +1,280 @@
+[source]
+id = "F06"
+title = "Foglio di esercizi 6"
+kind = "sheet"
+files = [{ path = "Esercizi-20261117/Foglio_esercizi_06.pdf", sha256 = "55861177eda83a3c90f9ffa6259e568c8bc8a4c7400e8e752718f29a65cd7332", pages = 2 }]
+
+# ---------------------------------------------------------------- Esercizio 1
+[[item]]
+id = "F06-E1a"
+ref = "Esercizio 1 a)"
+topic = "rep_matrix"
+page = 1
+task = "yesno"
+text = "Esiste una mappa lineare f: R³ → R³ con f(4,1,0) = (1,0,1), f(0,0,1) = (1,1,2), f(4,1,1) = (1,−1,0)?"
+data = { answer = false, why = "(4,1,1) = (4,1,0) + (0,0,1), so linearity forces f(4,1,1) = (1,0,1) + (1,1,2) = (2,1,3) ≠ (1,−1,0)." }
+
+[[item]]
+id = "F06-E1b"
+ref = "Esercizio 1 b)"
+topic = "rep_matrix"
+page = 1
+task = "yesno"
+text = "Esiste un'unica mappa lineare L: R³ → R³ con L(4,1,0) = (1,0,1), L(0,0,1) = (1,1,2), L(3,1,0) = (1,−1,0)?"
+data = { answer = true, why = "(4,1,0), (0,0,1), (3,1,0) are a basis of R³ (det = −1 ≠ 0): by the Teorema di interpolazione there is exactly one such L." }
+
+[[item]]
+id = "F06-E1c"
+ref = "Esercizio 1 c)"
+topic = "rep_matrix"
+page = 1
+task = "interp_matrix"
+text = "Scrivere la matrice di trasformazione M^E_E(L) della mappa del punto b)."
+data = { basis = [[4, 1, 0], [0, 0, 1], [3, 1, 0]], images = [[1, 0, 1], [1, 1, 2], [1, -1, 0]], ask = ["E_E"] }
+
+# ---------------------------------------------------------------- Esercizio 2
+[[item]]
+id = "F06-E2a"
+ref = "Esercizio 2 a)"
+topic = "rep_matrix"
+page = 1
+task = "repmat"
+text = "T: R⁴ → R³, T(x, y, z, w) = (2x + z − w, 2x + 2y − z, x − 3z + w). Scrivere M^E_E′(T) rispetto alle basi canoniche."
+data = { A = [[2, 0, 1, -1], [2, 2, -1, 0], [1, 0, -3, 1]], hide = true, label = "M^E_E'(T)" }
+
+[[item]]
+id = "F06-E2b"
+ref = "Esercizio 2 b)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "T come sopra: determinare immagine e nucleo di T; T è iniettiva e/o suriettiva?"
+data = { A = [[2, 0, 1, -1], [2, 2, -1, 0], [1, 0, -3, 1]] }
+
+[[item]]
+id = "F06-E2cd"
+ref = "Esercizio 2 c) d)"
+topic = "rep_matrix"
+page = 1
+task = "repmat"
+text = """
+T come sopra. c) Scrivere M^B_C(T) rispetto alle basi
+B = {(1,1,0,0), (1,0,1,0), (1,1,1,0), (0,0,0,1)},  C = {(1,0,0), (1,1,0), (1,1,1)}.
+d) Determinare (T(v))_C per v = (1,0,1,0) e v = (0,2,3,4)."""
+data = { A = [[2, 0, 1, -1], [2, 2, -1, 0], [1, 0, -3, 1]], B = [[1, 1, 0, 0], [1, 0, 1, 0], [1, 1, 1, 0], [0, 0, 0, 1]], C = [[1, 0, 0], [1, 1, 0], [1, 1, 1]], images = [[1, 0, 1, 0], [0, 2, 3, 4]], name = "M^E_E'(T)" }
+
+# ---------------------------------------------------------------- Esercizio 3
+[[item]]
+id = "F06-E3a"
+ref = "Esercizio 3 a)"
+topic = "linear_maps"
+page = 1
+task = "open"
+text = "L: R[t]≤3 → R[t]≤2, L(p(t)) = t·p″(t) − p′(t). Verificare che L sia una mappa lineare."
+[item.data]
+solution = """
+Derivatives are linear and multiplication by t is linear: for p, q and scalars λ, μ
+L(λp + μq) = t(λp + μq)″ − (λp + μq)′ = λ(tp″ − p′) + μ(tq″ − q′) = λL(p) + μL(q).
+(Explicitly L(a0 + a1t + a2t² + a3t³) = −a1 + 3a3t².)"""
+
+[[item]]
+id = "F06-E3b"
+ref = "Esercizio 3 b)"
+topic = "rep_matrix"
+page = 1
+task = "repmat"
+text = "Scrivere M^B_C(L) con B = {1, 1 + t, 1 + t², 1 + t³} e C = {1, 1 + t, 1 + t + t²}."
+data = { A = [[0, -1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 3]], B = [[1, 0, 0, 0], [1, 1, 0, 0], [1, 0, 1, 0], [1, 0, 0, 1]], C = [[1, 0, 0], [1, 1, 0], [1, 1, 1]], name = "M^E_E(L)", coords_note = "coordinates w.r.t. {1, t, t², t³} and {1, t, t²}; L(a0 + a1t + a2t² + a3t³) = −a1 + 3a3t²" }
+
+[[item]]
+id = "F06-E3c"
+ref = "Esercizio 3 c)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "Determinare una base del nucleo e una base dell'immagine della matrice A := M^B_C(L) (punto b))."
+data = { A = [[0, -1, 0, 0], [0, 0, 0, -3], [0, 0, 0, 3]] }
+
+[[item]]
+id = "F06-E3de"
+ref = "Esercizio 3 d) e)"
+topic = "linear_maps"
+page = 1
+task = "kerim"
+text = "Determinare una base del nucleo e dell'immagine di L (come polinomi: rispondi con le coordinate canoniche). L è iniettiva? suriettiva? un isomorfismo?"
+data = { A = [[0, -1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 3]], coords_note = "coordinates w.r.t. {1, t, t², t³} and {1, t, t²}: ker L = Span(1, t²), Im L = Span(1, t²)" }
+
+# ---------------------------------------------------------------- Esercizio 4 (tema d'esame)
+[[item]]
+id = "F06-E4a"
+exam = "08/02/2026"
+ref = "Esercizio 4 a)"
+topic = "bases"
+page = 2
+task = "coords"
+text = """
+[Dal tema d'esame del 08/02/2026] V = M_R(2) con base canonica B = {B1, B2, B3, B4}, W = Span(B1, B2, B3).
+a) Si verifichi che C := {B1 + B2, B2 + B3, B3 − B2} è una base di W.
+(Coordinates w.r.t. {B1, B2, B3}; as v take B1 + B2 + B3 and also give its C-coordinates.)"""
+data = { basis = [[1, 1, 0], [0, 1, 1], [0, -1, 1]], v = [1, 1, 1], labels = ["B1 + B2", "B2 + B3", "B3 − B2"], vlabel = "B1 + B2 + B3", coords_note = "coordinates w.r.t. {B1, B2, B3} of W" }
+
+[[item]]
+id = "F06-E4b"
+exam = "08/02/2026"
+ref = "Esercizio 4 b)"
+topic = "linear_maps"
+page = 2
+task = "open"
+text = "Si verifichi che f: W → V, f(X) = AX + XᵀA con A := (1 2; −2 3) è un'applicazione lineare."
+[item.data]
+solution = """
+f(λX + μY) = A(λX + μY) + (λX + μY)ᵀA = λ(AX + XᵀA) + μ(AY + YᵀA) = λf(X) + μf(Y),
+using distributivity of the product and linearity of the transpose ((λX + μY)ᵀ = λXᵀ + μYᵀ)."""
+
+[[item]]
+id = "F06-E4c"
+exam = "08/02/2026"
+ref = "Esercizio 4 c)"
+topic = "rep_matrix"
+page = 2
+task = "repmat"
+text = """
+Si scriva la matrice rappresentativa M^C_B(f) di f(X) = AX + XᵀA, A = (1 2; −2 3), rispetto alla base C di W
+e alla base canonica B di V. (Matrix of f from {B1, B2, B3} to B: columns f(B1) = (2 2; −2 0), f(B2) = (0 1; 1 0), f(B3) = (0 3; 3 0).)"""
+data = { A = [[2, 0, 0], [2, 1, 3], [-2, 1, 3], [0, 0, 0]], B = [[1, 1, 0], [0, 1, 1], [0, -1, 1]], name = "matrix of f w.r.t. {B1,B2,B3} and B", label = "M^C_B(f)" }
+
+[[item]]
+id = "F06-E4d"
+exam = "08/02/2026"
+ref = "Esercizio 4 d)"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Si determinino una base dell'immagine di f e la dimensione di ker(f) (coordinates: {B1,B2,B3} for W, canonical for V)."
+data = { A = [[2, 0, 0], [2, 1, 3], [-2, 1, 3], [0, 0, 0]] }
+
+# ---------------------------------------------------------------- Esercizio 5
+[[item]]
+id = "F06-E5a"
+ref = "Esercizio 5 a)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R³, B = {e1, e2, e3}, C = {e1 + e2, e2 − e3, e1}: matrici M^B_C(id) e M^C_B(id); (v)_C per (v)_B = (1,1,1)."
+data = { B = [[1, 0, 0], [0, 1, 0], [0, 0, 1]], C = [[1, 1, 0], [0, 1, -1], [1, 0, 0]], vB = [1, 1, 1] }
+
+[[item]]
+id = "F06-E5b"
+ref = "Esercizio 5 b)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R⁴, B = {e1, e2, e3, e4}, C = {e1 + e2, e1 − e2, e3 + e4, e3 − e4}: matrici M^B_C(id) e M^C_B(id)."
+data = { B = [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]], C = [[1, 1, 0, 0], [1, -1, 0, 0], [0, 0, 1, 1], [0, 0, 1, -1]] }
+
+[[item]]
+id = "F06-E5c"
+ref = "Esercizio 5 c)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R[t]≤2, B = {1, t, t²}, C = {1 + t + t², 1 − t + t², 1 + t − t²}: M^B_C(id), M^C_B(id); (v)_B per (v)_C = (1, 2, −3)."
+data = { B = [[1, 0, 0], [0, 1, 0], [0, 0, 1]], C = [[1, 1, 1], [1, -1, 1], [1, 1, -1]], vC = [1, 2, -3], coords_note = "coordinates w.r.t. {1, t, t²}" }
+
+[[item]]
+id = "F06-E5d"
+ref = "Esercizio 5 d)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R[t]≤2, B = {1 + t + t², 1 − t + t², 1 + t − t²}, C = {1, 1 + t, 1 + t + t²}: M^B_C(id), M^C_B(id); (v)_B per (v)_C = (1, 2, −3)."
+data = { B = [[1, 1, 1], [1, -1, 1], [1, 1, -1]], C = [[1, 0, 0], [1, 1, 0], [1, 1, 1]], vC = [1, 2, -3], coords_note = "coordinates w.r.t. {1, t, t²}" }
+
+[[item]]
+id = "F06-E5e"
+ref = "Esercizio 5 e)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R³, B = {(1,1,1), (1,2,3), (1,3,6)}, C = {(0,1,0), (1,0,0), (1,1,1)}: M^B_C(id), M^C_B(id); (v)_C per (v)_B = (1,1,1)."
+data = { B = [[1, 1, 1], [1, 2, 3], [1, 3, 6]], C = [[0, 1, 0], [1, 0, 0], [1, 1, 1]], vB = [1, 1, 1] }
+
+[[item]]
+id = "F06-E5f"
+ref = "Esercizio 5 f)"
+topic = "rep_matrix"
+page = 2
+task = "change_basis"
+text = "V = R[t]≤1, B = {2t + 1, t − 1}, C = {−t − 1, t}: M^B_C(id) e M^C_B(id)."
+data = { B = [[1, 2], [-1, 1]], C = [[-1, -1], [0, 1]], coords_note = "coordinates w.r.t. {1, t}" }
+
+# ---------------------------------------------------------------- Esercizio 6
+[[item]]
+id = "F06-E6a"
+ref = "Esercizio 6 a)"
+topic = "bases"
+page = 2
+task = "indep"
+text = "Si verifichi che C = {1 + t², t³, t³ + t + 1, t − 1} è una base di R[t]≤3."
+data = { vectors = [[1, 0, 1, 0], [0, 0, 0, 1], [1, 1, 0, 1], [-1, 1, 0, 0]], labels = ["1 + t²", "t³", "t³ + t + 1", "t − 1"], coords_note = "coordinates w.r.t. {1, t, t², t³}; a basis = independent AND generators" }
+
+[[item]]
+id = "F06-E6b"
+ref = "Esercizio 6 b)"
+topic = "rep_matrix"
+page = 2
+task = "open"
+text = """
+Per k ∈ R, L: R[t]≤3 → R⁴ con L(1 + t²) = (1,0,k,1), L(t³) = (k,0,0,1), L(t³ + t + 1) = (0,0,1,0), L(t − 1) = (1,1,0,0).
+Siano B = {1, t, t², t³} ed E la base canonica di R⁴. Si scrivano le matrici M^C_E(L) e M^B_E(L)."""
+[item.data]
+solution = """
+M^C_E(L) has the given images as columns:  (1 k 0 1; 0 0 0 1; k 0 1 0; 1 1 0 0).
+For M^B_E(L) find L(1), L(t), L(t²), L(t³): L(t + 1) = L(t³ + t + 1) − L(t³) = (−k, 0, 1, −1), L(t − 1) = (1, 1, 0, 0),
+so L(t) = ½[L(t+1) + L(t−1)] = ((1 − k)/2, 1/2, 1/2, −1/2), L(1) = ½[L(t+1) − L(t−1)] = (−(k+1)/2, −1/2, 1/2, −1/2),
+L(t²) = L(1 + t²) − L(1) = ((k + 3)/2, 1/2, k − 1/2, 3/2), L(t³) = (k, 0, 0, 1):
+M^B_E(L) = ( −(k+1)/2  (1−k)/2  (k+3)/2  k ;  −1/2  1/2  1/2  0 ;  1/2  1/2  k−1/2  0 ;  −1/2  −1/2  3/2  1 ).
+(Equivalently M^B_E(L) = M^C_E(L)·M^B_C(id).)"""
+
+[[item]]
+id = "F06-E6c"
+ref = "Esercizio 6 c)"
+topic = "linear_maps"
+page = 2
+task = "param_invertible"
+text = """
+Per quali k ∈ R la mappa L dell'esercizio 6 è iniettiva? suriettiva? un isomorfismo?
+(dim R[t]≤3 = dim R⁴ = 4, so injective ⇔ surjective ⇔ isomorphism ⇔ det M^C_E(L) ≠ 0.)"""
+data = { param = "k", A = [[1, "k", 0, 1], [0, 0, 0, 1], ["k", 0, 1, 0], [1, 1, 0, 0]], name = "M^C_E(L)" }
+
+# ---------------------------------------------------------------- Esercizio 7
+[[item]]
+id = "F06-E7a"
+ref = "Esercizio 7 a)"
+topic = "rep_matrix"
+page = 2
+task = "interp_matrix"
+text = """
+B = {b1 = (1,0,1), b2 = (0,1,0), b3 = (2,0,0)}, f: R³ → R³ con f(b1) = (3,1,2), f(b2) = (0,1,1), f(b3) = (6,4,6).
+Scrivere M^B_E(f), M^B_B(f), M^E_E(f) e M^E_B(f)."""
+data = { basis = [[1, 0, 1], [0, 1, 0], [2, 0, 0]], images = [[3, 1, 2], [0, 1, 1], [6, 4, 6]], ask = ["B_E", "B_B", "E_E", "E_B"] }
+
+[[item]]
+id = "F06-E7b"
+ref = "Esercizio 7 b)"
+topic = "linear_maps"
+page = 2
+task = "kerim"
+text = "Determinare immagine e nucleo di f (esercizio 7) e dedurre se f è iniettiva e/o suriettiva. (M^E_E(f) qui sotto.)"
+data = { A = [[3, 0, 0], [2, 1, -1], [3, 1, -1]], name = "M^E_E(f)" }
+
+[[item]]
+id = "F06-E7c"
+ref = "Esercizio 7 c)"
+topic = "linear_maps"
+page = 2
+task = "param_rank"
+text = """
+Determinare per quali k ∈ R il vettore w = (k, 0, k − 1) è in Im(f).
+(Columns: M^E_E(f) and then w. rg M^E_E(f) = 2, so w ∈ Im(f) exactly when the rank drops to 2.)"""
+data = { param = "k", A = [[3, 0, 0, "k"], [2, 1, -1, 0], [3, 1, -1, "k - 1"]], name = "(M^E_E(f) | w)" }
